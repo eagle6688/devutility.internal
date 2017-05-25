@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="main/java/|main/java/io/|main/java/security/|test/java/" kind="src" path="src"/>
+	<classpathentry excluding="io/|security/" kind="src" path="src/main/java"/>
+	<classpathentry kind="src" path="src/main/java/io"/>
+	<classpathentry kind="src" path="src/main/java/security"/>
+	<classpathentry kind="src" path="src/test/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
