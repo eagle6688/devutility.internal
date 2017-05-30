@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="main/java/|main/java/io/|main/java/security/|test/java/|main/java/data/" kind="src" path="src"/>
+	<classpathentry excluding="main/java/|main/java/io/|main/java/security/|test/java/|main/java/data/|test/java/io/" kind="src" path="src"/>
 	<classpathentry excluding="io/|security/|data/" kind="src" path="src/main/java"/>
 	<classpathentry kind="src" path="src/main/java/io"/>
 	<classpathentry kind="src" path="src/main/java/security"/>
-	<classpathentry kind="src" path="src/test/java"/>
+	<classpathentry excluding="io/" kind="src" path="src/test/java"/>
 	<classpathentry kind="src" path="src/main/java/data"/>
+	<classpathentry kind="src" path="src/test/java/io"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
