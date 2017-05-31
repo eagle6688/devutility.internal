@@ -19,6 +19,9 @@ public class TextHelper {
 		insert(fileName, FileHelper.getBytesLength(fileName), content);
 	}
 
+	/**
+	 * Append a new line content in a file.
+	 */
 	public static void appendLine(String fileName, String content) throws Exception {
 		StringBuffer stringBuffer = new StringBuffer(System.getProperty("line.separator"));
 		stringBuffer.append(content);
