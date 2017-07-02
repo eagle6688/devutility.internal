@@ -11,27 +11,30 @@ public class InstantTest {
 		Instant now = Instant.now();
 		System.out.println(now.toString());
 
-		//Add hours, method 1.
+		// Add hours, method 1.
 		Instant beijingNow = now.plus(Duration.ofHours(8));
 		System.out.println(beijingNow.toString());
 
-		//Add hours, method 2.
+		// Add hours, method 2.
 		Instant beijingTime = now.plus(8, ChronoUnit.HOURS);
 		System.out.println(beijingTime.toString());
 
-		//Compare two instants.
+		// Compare two instants.
 		System.out.println(now.compareTo(beijingNow));
 		System.out.println(beijingTime.compareTo(beijingNow));
 		System.out.println(beijingTime.compareTo(now));
 
-		//Get second number.
+		// Get second number.
 		System.out.println(beijingNow.getEpochSecond());
-		
-		//Get nano number.
+
+		// Get nano number.
 		System.out.println(beijingNow.getNano());
 
-		//Restore tiem by second and nano.
+		// Restore tiem by second and nano.
 		Instant time = Instant.ofEpochSecond(beijingNow.getEpochSecond(), beijingNow.getNano());
 		System.out.println(time.toString());
+
+		//TimeStamp
+		System.out.println(now.getEpochSecond());
 	}
 }
