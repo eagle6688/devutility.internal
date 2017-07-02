@@ -11,6 +11,6 @@ public class ZonedDateTimeTest {
 		System.out.println(zonedDateTime.toString());
 
 		ZonedDateTime now = ZonedDateTime.now();
-		System.out.println(zonedDateTime.toString());
+		System.out.println(now.toString());
 	}
 }
