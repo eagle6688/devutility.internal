@@ -1,8 +1,8 @@
-package devutility.internal;
+package devutility.internal.lang;
 
 import devutility.internal.lang.StringHelper;
 
-public class TestStringHelper {
+public class StringHelperTest {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

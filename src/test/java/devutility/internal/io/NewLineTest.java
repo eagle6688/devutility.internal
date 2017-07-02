@@ -1,6 +1,6 @@
-package devutility.internal.test.io;
+package devutility.internal.io;
 
-public class TestNewLine {
+public class NewLineTest {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

@@ -1,7 +1,6 @@
 package devutility.internal.security;
 
 import java.io.File;
-import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
 import java.nio.file.StandardOpenOption;
 

@@ -2,13 +2,7 @@
 <classpath>
 	<classpathentry excluding="main/java/|main/java/io/|main/java/security/|test/java/|main/java/data/|test/java/io/|main/java/extension/|main/java/lang/|test/java/lang/" kind="src" path="src"/>
 	<classpathentry excluding="io/|security/|data/|extension/|lang/" kind="src" path="src/main/java"/>
-	<classpathentry kind="src" path="src/main/java/io"/>
-	<classpathentry kind="src" path="src/main/java/security"/>
 	<classpathentry excluding="io/|lang/" kind="src" path="src/test/java"/>
-	<classpathentry kind="src" path="src/main/java/data"/>
-	<classpathentry kind="src" path="src/test/java/io"/>
-	<classpathentry kind="src" path="src/main/java/lang"/>
-	<classpathentry kind="src" path="src/test/java/lang"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

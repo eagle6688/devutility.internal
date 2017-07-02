@@ -1,6 +1,6 @@
-package devutility.internal.test.io;
+package devutility.internal.io;
 
-public class TestBytes {
+public class BytesTest {
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 		String str1 = "asd!";

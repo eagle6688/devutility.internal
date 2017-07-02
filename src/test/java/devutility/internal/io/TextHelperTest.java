@@ -1,8 +1,8 @@
-package devutility.internal.test.io;
+package devutility.internal.io;
 
 import devutility.internal.io.TextHelper;
 
-public class TestTextHelper {
+public class TextHelperTest {
 
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
