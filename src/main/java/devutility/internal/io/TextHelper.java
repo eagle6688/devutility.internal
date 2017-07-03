@@ -1,5 +1,10 @@
 package devutility.internal.io;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+
 public class TextHelper {
 	/**
 	 * Insert content in a file.
@@ -30,8 +35,21 @@ public class TextHelper {
 
 	/**
 	 * Read text
+	 * @throws IOException 
 	 */
-	public static String read(String fileName) {
-		return null;
+	public static String read(String fileName, Charset charset) throws IOException {
+		File file = new File(fileName);
+
+		if (!file.exists()) {
+			return null;
+		}
+
+		byte[] bytes = Files.readAllBytes(file.toPath());
+
+		if (bytes == null) {
+			return null;
+		}
+		
+		return new String(bytes, charset);
 	}
 }
