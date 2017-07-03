@@ -27,4 +27,11 @@ public class TextHelper {
 		stringBuffer.append(content);
 		append(fileName, stringBuffer.toString());
 	}
+
+	/**
+	 * Read text
+	 */
+	public static String read(String fileName) {
+		return null;
+	}
 }
