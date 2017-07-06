@@ -15,6 +15,7 @@ public class MD5Helper {
 
 		try {
 			FileChannel fileChannel = FileChannel.open(file.toPath(), StandardOpenOption.READ);
+			fileChannel.close();
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
