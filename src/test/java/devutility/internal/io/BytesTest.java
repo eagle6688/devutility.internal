@@ -2,7 +2,6 @@ package devutility.internal.io;
 
 public class BytesTest {
 	public static void main(String[] args) throws Exception {
-		// TODO Auto-generated method stub
 		String str1 = "asd!";
 		StringBuffer stringBuffer = new StringBuffer();
 		stringBuffer.append("length of string is: ");
