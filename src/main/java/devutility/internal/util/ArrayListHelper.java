@@ -1,9 +1,8 @@
-package devutility.internal.ext.util;
+package devutility.internal.util;
 
 import java.util.ArrayList;
 
 public class ArrayListHelper {
-
 	// region Convert array list to array
 
 	public static <T> int[] toIntArray(ArrayList<T> list) throws InstantiationException, IllegalAccessException {

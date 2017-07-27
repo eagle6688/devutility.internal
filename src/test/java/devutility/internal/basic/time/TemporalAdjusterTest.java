@@ -1,4 +1,4 @@
-package devutility.internal.time;
+package devutility.internal.basic.time;
 
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjuster;

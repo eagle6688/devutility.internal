@@ -1,4 +1,4 @@
-package devutility.internal.math;
+package devutility.internal.basic.math;
 
 import java.math.BigDecimal;
 

@@ -1,4 +1,4 @@
-package devutility.internal.ext.lang;
+package devutility.internal.lang;
 
 public class IntegerHelper {
 	// region Is numeric
@@ -15,8 +15,8 @@ public class IntegerHelper {
 
 	// endregion
 
-	//region Try parse to int
-	
+	// region Try parse to int
+
 	public static IntegerConvertResult TryParse(String value) {
 		IntegerConvertResult result = new IntegerConvertResult();
 
@@ -29,8 +29,8 @@ public class IntegerHelper {
 		result.setSucceeded(true);
 		return result;
 	}
-	
-	//endregion
+
+	// endregion
 }
 
 class IntegerConvertResult {

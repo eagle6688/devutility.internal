@@ -1,7 +1,9 @@
-package devutility.internal.ext.util;
+package devutility.internal.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import devutility.internal.util.ArrayListHelper;
 
 public class ArrayListHelperTest {
 	public static void main(String[] args) throws Exception {

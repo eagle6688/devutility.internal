@@ -1,4 +1,4 @@
-package devutility.internal.io;
+package devutility.internal.basic.lang;
 
 public class NewLineTest {
 

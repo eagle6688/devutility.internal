@@ -1,4 +1,4 @@
-package devutility.internal.io;
+package devutility.internal.basic.nio.charset;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;

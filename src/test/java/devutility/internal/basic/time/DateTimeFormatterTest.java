@@ -1,4 +1,4 @@
-package devutility.internal.time;
+package devutility.internal.basic.time;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;

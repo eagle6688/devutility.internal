@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 
+import devutility.internal.io.FileHelper;
+import devutility.internal.io.RandomAccessFileHelper;
+
 public class TextHelper {
 	/**
 	 * Insert content in a file.
