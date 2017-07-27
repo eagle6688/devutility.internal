@@ -25,6 +25,10 @@ public class ArrayListTest {
 		System.out.println(array);
 		System.out.println(Arrays.toString(array));
 
+		if (array[0] instanceof Integer) {
+			System.out.println("is Integer type.");
+		}
+
 		Integer[] integers = numbers.toArray(new Integer[0]);
 		System.out.println(integers);
 		System.out.println(Arrays.toString(integers));
