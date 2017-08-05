@@ -62,7 +62,7 @@ public class ClassTest {
 			System.out.println(method.getName());
 		}
 
-		Method[] declaredMethods = class1.getDeclaredMethods();
+		Method[] declaredMethods = Student.class.getDeclaredMethods();
 		System.out.println(declaredMethods.length);
 
 		for (Method declaredMethod : declaredMethods) {
