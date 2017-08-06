@@ -2,28 +2,18 @@ package devutility.internal.models;
 
 import java.time.LocalDateTime;
 
-public class Student {
-	private String name;
-	private int age;
+public class Student extends Person {
+	private String number;
 	private LocalDateTime entryTime;
-	public String Number = null;
 
-	public String getName() {
-		return name;
+	public String getNumber() {
+		return number;
 	}
-
-	public void setName(String name) {
-		this.name = name;
+	
+	public void setNumber(String number) {
+		this.number = number;
 	}
-
-	public int getAge() {
-		return age;
-	}
-
-	public void setAge(int age) {
-		this.age = age;
-	}
-
+	
 	public LocalDateTime getEntryTime() {
 		return entryTime;
 	}

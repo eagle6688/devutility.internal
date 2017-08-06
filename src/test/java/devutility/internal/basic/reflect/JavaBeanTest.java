@@ -13,7 +13,7 @@ public class JavaBeanTest {
 		BeanInfo beanInfo = Introspector.getBeanInfo(cl);
 		PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
 		Student student = new Student();
-		student.Number = "123";
+		student.setNumber("123");
 		student.setAge(29);
 		student.setEntryTime(LocalDateTime.now());
 		student.setName("Aldwin");

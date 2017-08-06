@@ -1,16 +1,6 @@
 package devutility.internal.basic.lang;
 
-class Person {
-
-}
-
-class Student extends Person {
-
-}
-
-class Postgraduate extends Student {
-
-}
+import devutility.internal.models.*;
 
 public class InstanceofTest {
 	public static void main(String[] args) {
