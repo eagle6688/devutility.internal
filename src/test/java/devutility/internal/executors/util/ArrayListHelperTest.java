@@ -1,9 +1,9 @@
-package devutility.internal.util;
+package devutility.internal.executors.util;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
-import devutility.internal.util.ArrayListHelper;
+import devutility.internal.service.util.ArrayListHelper.ConvertToIntArrayService;
+import devutility.internal.test.ServiceExecutor;
 
 public class ArrayListHelperTest {
 	public static void main(String[] args) throws Exception {
@@ -15,7 +15,6 @@ public class ArrayListHelperTest {
 		numbers.add(4);
 		numbers.add(1);
 
-		int[] array = ArrayListHelper.toIntArray(numbers);
-		System.out.println(Arrays.toString(array));
+		ServiceExecutor.run(new ConvertToIntArrayService(numbers));
 	}
 }
