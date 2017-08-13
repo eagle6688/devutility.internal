@@ -7,8 +7,10 @@ public class ServiceExecutor {
 		if (service == null) {
 			return;
 		}
-		
+
+		printStartMessage(service.getClass());
 		service.run();
+		printEndMessage(service.getClass());
 	}
 
 	public static <T extends BaseService> void run(Class<T> cl) throws Exception {
@@ -22,7 +24,9 @@ public class ServiceExecutor {
 			return;
 		}
 
+		printStartMessage(cl);
 		instance.run();
+		printEndMessage(cl);
 	}
 
 	public static <T extends BaseService> void concurrentRun(Class<T> cl) throws Exception {
@@ -33,10 +37,20 @@ public class ServiceExecutor {
 		T instance = cl.newInstance();
 
 		Runnable task = () -> {
+			printStartMessage(cl);
 			instance.run();
+			printEndMessage(cl);
 		};
 
 		Thread thread = new Thread(task);
 		thread.run();
+	}
+
+	private static void printStartMessage(Class<?> cl) {
+		System.out.println(String.format("Start %s:", cl.getSimpleName()));
+	}
+
+	private static void printEndMessage(Class<?> cl) {
+		System.out.println(String.format("%s end.", cl.getSimpleName()));
 	}
 }

@@ -1,4 +1,4 @@
-package devutility.internal.basic.io.stream;
+package devutility.internal.executors.basic.io.stream;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

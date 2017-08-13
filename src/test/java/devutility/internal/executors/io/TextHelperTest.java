@@ -7,5 +7,6 @@ public class TextHelperTest {
 	public static void main(String[] args) throws Exception {
 		ServiceExecutor.run(AppendService.class);
 		ServiceExecutor.run(AppendLineService.class);
+		ServiceExecutor.run(new ReadService("E:\\Downloads\\Test.txt"));
 	}
 }
