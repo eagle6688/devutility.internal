@@ -10,8 +10,8 @@ public class DirectoryHelper {
 
 	public static Path getResourcesDirectoryPath() {
 		String projectDir = getProjectDirectory();
-		Path resourcesDirectory = Paths.get("src", "main", "resources");
-		return Paths.get(projectDir, resourcesDirectory.toString());
+		String resourcesDirectory = Paths.get("src", "main", "resources").toString();
+		return Paths.get(projectDir, resourcesDirectory);
 	}
 
 	public static String getResourcesDirectory() {
