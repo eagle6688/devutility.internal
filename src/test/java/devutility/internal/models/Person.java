@@ -1,11 +1,11 @@
 package devutility.internal.models;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 public class Person implements Comparable<Person> {
 	private String name;
 	private int age;
-	private LocalDateTime birthday;
+	private Date birthday;
 
 	public Person() {}
 	
@@ -30,11 +30,11 @@ public class Person implements Comparable<Person> {
 		this.age = age;
 	}
     
-    public LocalDateTime getBirthday() {
+    public Date getBirthday() {
 		return birthday;
 	}
     
-    public void setBirthday(LocalDateTime birthday) {
+    public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
 	
