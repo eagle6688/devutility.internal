@@ -21,13 +21,15 @@ public class ServerSocketServerService extends BaseService {
 			while (true) {
 				Socket socket = serverSocket.accept();
 				SocketAddress clientAddress = socket.getRemoteSocketAddress();
-				System.out.println("Handling client at " + clientAddress);
+				String clientName = clientAddress.toString();
+				System.out.println("Handling client at " + clientName);
 
 				try (InputStream inputStream = socket.getInputStream()) {
 					while ((readBytesCount = inputStream.read(bytesBuffer)) != -1) {
 						byte[] temp = new byte[readBytesCount];
 						System.arraycopy(bytesBuffer, 0, temp, 0, readBytesCount);
-						System.out.println(new String(temp));
+						String message = String.format("%s message: %s", clientName, new String(temp));
+						println(message);
 					}
 				} catch (Exception e) {
 					e.printStackTrace();

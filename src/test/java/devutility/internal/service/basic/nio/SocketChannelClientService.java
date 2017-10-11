@@ -25,7 +25,7 @@ public class SocketChannelClientService extends BaseService {
 
 				while (true) {
 					TimeUnit.SECONDS.sleep(1);
-					String message = String.format("I'm %d-th message from client.", i);
+					String message = String.format("I'm %d-th message.", i++);
 
 					byteBuffer.clear();
 					byteBuffer.put(message.getBytes());
