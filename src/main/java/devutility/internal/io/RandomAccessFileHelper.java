@@ -2,6 +2,13 @@ package devutility.internal.io;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.nio.ByteBuffer;
+import java.nio.channels.AsynchronousFileChannel;
+import java.nio.channels.CompletionHandler;
+import java.nio.channels.FileChannel;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 
 public class RandomAccessFileHelper {
 	public static final int BUFFERSIZE = 1024;
@@ -30,8 +37,39 @@ public class RandomAccessFileHelper {
 			throw e;
 		}
 	}
+
+	public static void append(String fileName, byte[] bytes) throws Exception {
+		append(fileName, ByteBuffer.wrap(bytes));
+	}
+
+	public static void append(String fileName, ByteBuffer byteBuffer) throws Exception {
+		try (RandomAccessFile randomAccessFile = new RandomAccessFile(fileName, "rw"); FileChannel fileChannel = randomAccessFile.getChannel()) {
+			fileChannel.position(randomAccessFile.length());
+			fileChannel.write(byteBuffer);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	public static void asyncAppend(String fileName, ByteBuffer byteBuffer) throws Exception {
+		Path path = Paths.get(fileName);
+		long fileLength = FileHelper.getBytesLength(fileName);
+
+		try (AsynchronousFileChannel asynchronousFileChannel = AsynchronousFileChannel.open(path, StandardOpenOption.WRITE)) {
+			asynchronousFileChannel.write(byteBuffer, fileLength);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
 	
-	public static void append(String fileName, byte[] bytes) throws Exception{
-		insert(fileName, FileHelper.getBytesLength(fileName), bytes);
+	public static void asyncAppend(String fileName, ByteBuffer byteBuffer, CompletionHandler<Integer, ByteBuffer> handler) throws Exception {
+		Path path = Paths.get(fileName);
+		long fileLength = FileHelper.getBytesLength(fileName);
+
+		try (AsynchronousFileChannel asynchronousFileChannel = AsynchronousFileChannel.open(path, StandardOpenOption.WRITE)) {
+			asynchronousFileChannel.write(byteBuffer, fileLength, byteBuffer, handler);
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 }
