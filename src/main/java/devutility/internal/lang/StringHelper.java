@@ -14,4 +14,8 @@ public class StringHelper {
 
 		return stringBuffer.toString();
 	}
+
+	public static boolean isNullOrEmpty(String value) {
+		return value == null || value.length() == 0 || value.trim().length() == 0;
+	}
 }

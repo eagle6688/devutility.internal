@@ -38,6 +38,8 @@ public class RandomAccessFileHelper {
 		}
 	}
 
+	//region append
+	
 	public static void append(String fileName, byte[] bytes) throws Exception {
 		append(fileName, ByteBuffer.wrap(bytes));
 	}
@@ -50,18 +52,36 @@ public class RandomAccessFileHelper {
 			throw e;
 		}
 	}
+	
+	// endregion
 
-	public static void asyncAppend(String fileName, ByteBuffer byteBuffer) throws Exception {
-		Path path = Paths.get(fileName);
-		long fileLength = FileHelper.getBytesLength(fileName);
+	// region asyncAppend
 
-		try (AsynchronousFileChannel asynchronousFileChannel = AsynchronousFileChannel.open(path, StandardOpenOption.WRITE)) {
+	public static void asyncAppend(Path path, ByteBuffer byteBuffer) throws Exception {
+		long fileLength = FileHelper.getBytesLength(path);
+
+		try (AsynchronousFileChannel asynchronousFileChannel = AsynchronousFileChannel.open(path, StandardOpenOption.WRITE, StandardOpenOption.CREATE)) {
 			asynchronousFileChannel.write(byteBuffer, fileLength);
 		} catch (Exception e) {
 			throw e;
 		}
 	}
-	
+
+	public static void asyncAppend(String fileName, ByteBuffer byteBuffer) throws Exception {
+		Path path = Paths.get(fileName);
+		asyncAppend(path, byteBuffer);
+	}
+
+	public static void asyncAppend(Path path, String content) throws Exception {
+		ByteBuffer byteBuffer = ByteBuffer.wrap(content.getBytes());
+		asyncAppend(path, byteBuffer);
+	}
+
+	public static void asyncAppend(String fileName, String content) throws Exception {
+		ByteBuffer byteBuffer = ByteBuffer.wrap(content.getBytes());
+		asyncAppend(fileName, byteBuffer);
+	}
+
 	public static void asyncAppend(String fileName, ByteBuffer byteBuffer, CompletionHandler<Integer, ByteBuffer> handler) throws Exception {
 		Path path = Paths.get(fileName);
 		long fileLength = FileHelper.getBytesLength(fileName);
@@ -72,4 +92,6 @@ public class RandomAccessFileHelper {
 			throw e;
 		}
 	}
+
+	// endregion
 }

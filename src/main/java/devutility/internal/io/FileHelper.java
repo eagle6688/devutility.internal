@@ -1,6 +1,7 @@
 package devutility.internal.io;
 
 import java.io.File;
+import java.nio.file.Path;
 
 public class FileHelper {
 	public static boolean exists(String fileName) {
@@ -8,13 +9,25 @@ public class FileHelper {
 		return file.exists();
 	}
 
-	public static long getBytesLength(String fileName) {
-		File file = new File(fileName);
-
+	public static long getBytesLength(File file) {
 		if (!file.exists()) {
 			return 0;
 		}
 
 		return file.length();
+	}
+	
+	public static long getBytesLength(Path path) {
+		File file = path.toFile();
+		return getBytesLength(file);
+	}
+	
+	public static long getBytesLength(String fileName) {
+		File file = new File(fileName);
+		return getBytesLength(file);
+	}
+
+	public static String getHourLogFileName(int hour) {
+		return String.format("%d.log", hour);
 	}
 }
