@@ -7,6 +7,10 @@ public abstract class BaseService {
 		System.out.println(message);
 	}
 
+	protected void println(int value) {
+		println(String.valueOf(value));
+	}
+
 	protected void println(String format, String... args) {
 		if (args == null || args.length == 0) {
 			return;

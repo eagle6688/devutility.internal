@@ -28,11 +28,13 @@ public class VerificationCodeHelper {
 		graphics2d.fillRect(0, 0, width, height);
 		graphics2d.setColor(reverseColor);
 		graphics2d.drawString(code, 18, 20);
+		setObstacle(graphics2d, RANDOM.nextInt(100), width, height);
+		return bufferedImage;
+	}
 
-		for (int i = 0, n = RANDOM.nextInt(100); i < n; i++) {
+	public static void setObstacle(Graphics2D graphics2d, int count, int width, int height) {
+		for (int i = 0; i < count; i++) {
 			graphics2d.drawRect(RANDOM.nextInt(width), RANDOM.nextInt(height), 1, 1);
 		}
-
-		return bufferedImage;
 	}
 }
