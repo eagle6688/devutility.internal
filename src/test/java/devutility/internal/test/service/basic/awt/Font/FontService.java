@@ -9,18 +9,28 @@ import devutility.internal.test.BaseService;
 import devutility.internal.test.ServiceExecutor;
 
 public class FontService extends BaseService {
-	public static void main(String[] args) {
-		ServiceExecutor.run(FontService.class);
-	}
-	
 	@Override
 	public void run() {
 		BufferedImage bufferedImage = new BufferedImage(100, 30, BufferedImage.TYPE_INT_RGB);
 		Graphics2D graphics2d = bufferedImage.createGraphics();
-		Font font = new Font(Font.SANS_SERIF, Font.BOLD, 16);
+		displayFontMetrics(graphics2d, new Font(Font.SANS_SERIF, Font.BOLD, 14));
+		displayFontMetrics(graphics2d, new Font(Font.SANS_SERIF, Font.BOLD, 15));
+		displayFontMetrics(graphics2d, new Font(Font.SANS_SERIF, Font.BOLD, 16));
+		displayFontMetrics(graphics2d, new Font(Font.SANS_SERIF, Font.BOLD, 17));
+		displayFontMetrics(graphics2d, new Font(Font.SANS_SERIF, Font.BOLD, 18));
+		displayFontMetrics(graphics2d, new Font(Font.SANS_SERIF, Font.BOLD, 19));
+	}
+
+	private void displayFontMetrics(Graphics2D graphics2d, Font font) {
+		println("Font size: %d", font.getSize());
 		FontMetrics fontMetrics = graphics2d.getFontMetrics(font);
 		println(fontMetrics.charWidth('A'));
 		println(fontMetrics.stringWidth("ABC"));
 		println(fontMetrics.getHeight());
+		println(fontMetrics.getAscent());
+	}
+
+	public static void main(String[] args) {
+		ServiceExecutor.run(FontService.class);
 	}
 }
