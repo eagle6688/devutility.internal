@@ -13,12 +13,22 @@ public class ServiceExecutor {
 		printEndMessage(service.getClass());
 	}
 
-	public static <T extends BaseService> void run(Class<T> cl) throws Exception {
+	public static <T extends BaseService> void run(Class<T> cl) {
 		if (cl == null) {
 			return;
 		}
 
-		T instance = cl.newInstance();
+		T instance;
+
+		try {
+			instance = cl.newInstance();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+			return;
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+			return;
+		}
 
 		if (InstanceHelper.notInstanceof(instance, BaseService.class)) {
 			return;
@@ -29,12 +39,22 @@ public class ServiceExecutor {
 		printEndMessage(cl);
 	}
 
-	public static <T extends BaseService> void concurrentRun(Class<T> cl) throws Exception {
+	public static <T extends BaseService> void concurrentRun(Class<T> cl) {
 		if (cl == null) {
 			return;
 		}
 
-		T instance = cl.newInstance();
+		T instance;
+
+		try {
+			instance = cl.newInstance();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+			return;
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+			return;
+		}
 
 		Runnable task = () -> {
 			printStartMessage(cl);

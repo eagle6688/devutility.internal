@@ -19,14 +19,22 @@ public class VerificationCodeHelper {
 	}
 
 	public static BufferedImage create(String code, int width, int height) {
-		Color color = ColorHelper.getColor();
-		Color reverseColor = ColorHelper.getReverseColor(color);
+		
+		
 		BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		Graphics2D graphics2d = bufferedImage.createGraphics();
+		
 		graphics2d.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 16));
-		graphics2d.setColor(color);
 		graphics2d.fillRect(0, 0, width, height);
+		
+		Color color = ColorHelper.getColor();
+		graphics2d.setColor(color);
+		
+		
+		Color reverseColor = ColorHelper.getReverseColor(color);
 		graphics2d.setColor(reverseColor);
+		
+		
 		graphics2d.drawString(code, 18, 20);
 		setObstacle(graphics2d, RANDOM.nextInt(100), width, height);
 		return bufferedImage;

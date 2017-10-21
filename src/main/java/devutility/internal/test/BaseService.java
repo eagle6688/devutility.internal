@@ -19,6 +19,15 @@ public abstract class BaseService {
 		String value = String.format(format, Arrays.asList(args));
 		println(value);
 	}
+	
+	protected void println(String format, Object... args) {
+		if (args == null || args.length == 0) {
+			return;
+		}
+
+		String value = String.format(format, args);
+		println(value);
+	}
 
 	public abstract void run();
 }
