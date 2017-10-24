@@ -1,0 +1,91 @@
+package devutility.internal.dao;
+
+public class DBInstance {
+	private String host = "";
+	private int port = 0;
+	private String loginName = "";
+	private String password = "";
+	private String database = "";
+	private String url = "";
+
+	// region Constructor
+
+	public DBInstance() {
+
+	}
+
+	public DBInstance(String host) {
+		this();
+		this.host = host;
+	}
+
+	public DBInstance(String host, int port) {
+		this(host);
+		this.port = port;
+	}
+
+	public DBInstance(String host, int port, String database) {
+		this(host, port);
+		this.database = database;
+	}
+
+	public DBInstance(String host, int port, String database, String loginName) {
+		this(host, port, database);
+		this.loginName = loginName;
+	}
+
+	public DBInstance(String host, int port, String database, String loginName, String password) {
+		this(host, port, database, loginName);
+		this.password = password;
+	}
+
+	// endregion
+
+	public String getHost() {
+		return host;
+	}
+
+	public void setHost(String host) {
+		this.host = host;
+	}
+
+	public int getPort() {
+		return port;
+	}
+
+	public void setPort(int port) {
+		this.port = port;
+	}
+
+	public String getLoginName() {
+		return loginName;
+	}
+
+	public void setLoginName(String loginName) {
+		this.loginName = loginName;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getDatabase() {
+		return database;
+	}
+
+	public void setDatabase(String database) {
+		this.database = database;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+}
