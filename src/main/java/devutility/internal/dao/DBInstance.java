@@ -6,6 +6,7 @@ public class DBInstance {
 	private String loginName = "";
 	private String password = "";
 	private String database = "";
+	private int timeout = 3000;
 	private String url = "";
 
 	// region Constructor
@@ -79,6 +80,14 @@ public class DBInstance {
 
 	public void setDatabase(String database) {
 		this.database = database;
+	}
+	
+	public int getTimeout() {
+		return timeout;
+	}
+
+	public void setTimeout(int timeout) {
+		this.timeout = timeout;
 	}
 
 	public String getUrl() {
