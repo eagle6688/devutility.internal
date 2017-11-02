@@ -2,6 +2,7 @@ package devutility.internal.io;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
@@ -9,7 +10,17 @@ import java.time.LocalDateTime;
 
 public class DirectoryHelper {
 	public static String getProjectDirectory() {
-		return System.getProperty("user.dir");
+		String directory = "";
+
+		try {
+			URI uri = Thread.currentThread().getContextClassLoader().getResource("").toURI();
+			File file = new File(uri);
+			directory = file.getParentFile().getParentFile().getAbsolutePath();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return directory;
 	}
 
 	public static Path getResourcesDirectoryPath() {
@@ -55,7 +66,7 @@ public class DirectoryHelper {
 
 		return directory.mkdirs();
 	}
-	
+
 	public static boolean createIfNon(String directory) {
 		return createIfNon(new File(directory));
 	}
