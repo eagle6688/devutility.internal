@@ -42,7 +42,7 @@ public class TextHelper {
 	 */
 	public static String read(String fileName, Charset charset) throws IOException {
 		File file = new File(fileName);
-
+		
 		if (!file.exists()) {
 			return null;
 		}
