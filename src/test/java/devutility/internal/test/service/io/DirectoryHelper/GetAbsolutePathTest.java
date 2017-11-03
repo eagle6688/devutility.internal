@@ -10,7 +10,7 @@ public class GetAbsolutePathTest extends BaseService {
 	@Override
 	public void run() {
 		try {
-			println(DirectoryHelper.getAbsolutePath("src/main/webapp/view/crossdomain/header.html"));
+			println(DirectoryHelper.toAbsolutePath("src/main/webapp/view/crossdomain/header.html"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -9,6 +9,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class DirectoryHelper {
+
+	// region get project directory
+
 	public static String getProjectDirectory() {
 		String directory = "";
 
@@ -23,6 +26,10 @@ public class DirectoryHelper {
 		return directory;
 	}
 
+	// endregion
+
+	// region get resource directory path
+
 	public static Path getResourcesDirectoryPath() {
 		String projectDir = getProjectDirectory();
 		String resourcesDirectory = Paths.get("src", "main", "resources").toString();
@@ -33,13 +40,22 @@ public class DirectoryHelper {
 		return getResourcesDirectoryPath().toString();
 	}
 
-	public static String getAbsolutePath(String relativePath) throws IOException {
+	// endregion
+
+	// region to absolute path
+
+	public static String toAbsolutePath(String relativePath) throws IOException {
 		if (relativePath.indexOf("./") == 0 || relativePath.indexOf("../") == 0) {
 			return new File(relativePath).getCanonicalPath();
 		}
 
-		return new File(relativePath).getAbsolutePath();
+		String projectDirectory = getProjectDirectory();
+		return Paths.get(projectDirectory, relativePath).toString();
 	}
+
+	// endregion
+
+	// region get date directory
 
 	public static String getDateDirectory() {
 		return getDateDirectory("");
@@ -56,6 +72,8 @@ public class DirectoryHelper {
 	public static String getDateDirectory(LocalDateTime dateTime, String rootDir) {
 		return Paths.get(rootDir, String.valueOf(dateTime.getYear()), String.valueOf(dateTime.getMonthValue()), String.valueOf(dateTime.getDayOfMonth())).toString();
 	}
+
+	// endregion
 
 	// region create
 
