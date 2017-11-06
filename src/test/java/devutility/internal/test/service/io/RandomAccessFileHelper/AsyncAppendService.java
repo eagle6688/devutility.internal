@@ -12,7 +12,7 @@ public class AsyncAppendService extends BaseService {
 
 	@Override
 	public void run() {
-		ByteBuffer byteBuffer = ByteBuffer.wrap("Hello Alibaba!".getBytes());
+		ByteBuffer byteBuffer = ByteBuffer.wrap("Hello Lenovo!".getBytes());
 		
 		try {
 			RandomAccessFileHelper.asyncAppend(fileName, byteBuffer);
