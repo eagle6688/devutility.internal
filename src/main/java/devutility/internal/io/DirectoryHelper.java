@@ -9,7 +9,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class DirectoryHelper {
-
 	// region get project directory
 
 	public static String getProjectDirectory() {
@@ -38,6 +37,20 @@ public class DirectoryHelper {
 
 	public static String getResourcesDirectory() {
 		return getResourcesDirectoryPath().toString();
+	}
+
+	// endregion
+
+	// region get web directory
+
+	public static Path getWebDirectoryPath() {
+		String projectDir = getProjectDirectory();
+		String webDirectory = Paths.get("src", "main", "webapp").toString();
+		return Paths.get(projectDir, webDirectory);
+	}
+
+	public static String getWebDirectory() {
+		return getWebDirectoryPath().toString();
 	}
 
 	// endregion
