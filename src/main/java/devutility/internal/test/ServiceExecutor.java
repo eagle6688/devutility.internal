@@ -14,6 +14,8 @@ public class ServiceExecutor {
 	}
 
 	public static <T extends BaseService> void run(Class<T> cl) {
+		long startTime = System.currentTimeMillis();
+
 		if (cl == null) {
 			return;
 		}
@@ -36,7 +38,7 @@ public class ServiceExecutor {
 
 		printStartMessage(cl);
 		instance.run();
-		printEndMessage(cl);
+		handleEnd(startTime, cl);
 	}
 
 	public static <T extends BaseService> void concurrentRun(Class<T> cl) {
@@ -72,5 +74,11 @@ public class ServiceExecutor {
 
 	private static void printEndMessage(Class<?> cl) {
 		System.out.println(String.format("%s end.", cl.getSimpleName()));
+	}
+
+	private static void handleEnd(long startTime, Class<?> clazz) {
+		long endTime = System.currentTimeMillis();
+		String message = String.format("%s end, cost %d millisecond.", clazz.getSimpleName(), (endTime - startTime));
+		System.out.println(message);
 	}
 }
