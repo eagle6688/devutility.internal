@@ -2,11 +2,12 @@ package devutility.internal.data.codec;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
 public class GZipHelper {
-	public static byte[] compress(byte[] bytes) throws Exception {
+	public static byte[] compress(byte[] bytes) throws IOException {
 		if (bytes == null || bytes.length == 0) {
 			return null;
 		}
@@ -16,19 +17,19 @@ public class GZipHelper {
 		try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
 			try (GZIPOutputStream gZIPOutputStream = new GZIPOutputStream(byteArrayOutputStream)) {
 				gZIPOutputStream.write(bytes);
-			} catch (Exception e) {
+			} catch (IOException e) {
 				throw e;
 			}
 
 			compressedBytes = byteArrayOutputStream.toByteArray();
-		} catch (Exception e) {
+		} catch (IOException e) {
 			throw e;
 		}
 
 		return compressedBytes;
 	}
 
-	public static byte[] deCompress(byte[] bytes) throws Exception {
+	public static byte[] deCompress(byte[] bytes) throws IOException {
 		if (bytes == null || bytes.length == 0) {
 			return null;
 		}
@@ -44,15 +45,15 @@ public class GZipHelper {
 					while ((readCount = gZIPInputStream.read(buffer)) >= 0) {
 						byteArrayOutputStream.write(buffer, 0, readCount);
 					}
-				} catch (Exception e) {
+				} catch (IOException e) {
 					throw e;
 				}
-			} catch (Exception e) {
+			} catch (IOException e) {
 				throw e;
 			}
 
 			deCompressedBytes = byteArrayOutputStream.toByteArray();
-		} catch (Exception e) {
+		} catch (IOException e) {
 			throw e;
 		}
 
