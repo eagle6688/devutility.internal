@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.devutility</groupId>
 	<artifactId>devutility.internal</artifactId>
@@ -23,4 +22,23 @@
 			</plugin>
 		</plugins>
 	</build>
+	<developers>
+		<developer>
+			<name>Aldwin Su</name>
+			<email>fangyansu@163.com</email>
+			<organization>PKU</organization>
+			<organizationUrl></organizationUrl>
+		</developer>
+	</developers>
+	<scm>
+		<connection>scm:git:https://github.com/eagle6688/devutility.internal.git</connection>
+		<developerConnection>scm:git:https://github.com/eagle6688/devutility.internal.git</developerConnection>
+		<url>https://github.com/eagle6688/devutility.internal</url>
+	</scm>
+	<licenses>
+		<license>
+			<name>The Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
 </project>
