@@ -1,4 +1,4 @@
-package devutility.internal.test.service.text.format;
+package devutility.internal.test.service.text.format.DateFormatHelper;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -8,21 +8,22 @@ import devutility.internal.test.BaseService;
 import devutility.internal.test.ServiceExecutor;
 import devutility.internal.text.format.DateFormatHelper;
 
-public class SimpleDateFormatTest extends BaseService {
+public class Test extends BaseService {
 	@Override
 	public void run() {
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DateFormatHelper.StandardDateTimeFormat);
-		simpleDateFormat.setLenient(true);
-		
+		SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat(DateFormatHelper.StandardDateTimeFormat);
+
 		try {
-			Date date = simpleDateFormat.parse("2017-1-10");
+			Date date = simpleDateFormat1.parse("2017-1-10");
 			System.out.println(date);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		
+
+		SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat(DateFormatHelper.StandardDateFormat);
+
 		try {
-			Date date = DateFormatHelper.StandardDateTime_SimpleDateFormat.parse("2017-1-10");
+			Date date = simpleDateFormat2.parse("2017-1-10");
 			System.out.println(date);
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -30,6 +31,6 @@ public class SimpleDateFormatTest extends BaseService {
 	}
 
 	public static void main(String[] args) {
-		ServiceExecutor.run(SimpleDateFormatTest.class);
+		ServiceExecutor.run(Test.class);
 	}
 }
