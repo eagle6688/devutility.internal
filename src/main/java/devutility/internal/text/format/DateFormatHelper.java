@@ -23,13 +23,15 @@ public class DateFormatHelper {
 	public static SimpleDateFormat getSimpleDateFormat(final String pattern) {
 		ThreadLocal<SimpleDateFormat> threadLocal = dateFormatMap.get(pattern);
 
-		if (threadLocal == null) {
-			synchronized (locker) {
-				if (threadLocal == null) {
-					threadLocal = new ThreadLocal<SimpleDateFormat>();
-					threadLocal.set(new SimpleDateFormat(pattern));
-					dateFormatMap.put(pattern, threadLocal);
-				}
+		if (threadLocal != null) {
+			return threadLocal.get();
+		}
+
+		synchronized (locker) {
+			if (threadLocal == null) {
+				threadLocal = new ThreadLocal<SimpleDateFormat>();
+				threadLocal.set(new SimpleDateFormat(pattern));
+				dateFormatMap.put(pattern, threadLocal);
 			}
 		}
 
