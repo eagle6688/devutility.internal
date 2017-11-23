@@ -4,8 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SingletonFactory {
-	private static volatile Object locker = new Object();
-	private static Map<String, ThreadLocal<Object>> container = new HashMap<>();
+	private static volatile Map<String, ThreadLocal<Object>> container = new HashMap<>();
 
 	public static <T> T create(Class<T> clazz) throws ReflectiveOperationException {
 		T instance = null;
@@ -16,12 +15,11 @@ public class SingletonFactory {
 			return clazz.cast(threadLocal.get());
 		}
 
-		synchronized (locker) {
+		synchronized (SingletonFactory.class) {
 			if (threadLocal == null) {
-				threadLocal = new ThreadLocal<Object>();
-
 				try {
 					instance = clazz.newInstance();
+					threadLocal = new ThreadLocal<Object>();
 					threadLocal.set(instance);
 					container.put(key, threadLocal);
 				} catch (InstantiationException | IllegalAccessException e) {

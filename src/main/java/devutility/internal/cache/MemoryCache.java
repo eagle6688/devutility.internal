@@ -6,8 +6,7 @@ import java.util.Map;
 import devutility.internal.lang.StringHelper;
 
 public class MemoryCache {
-	private static volatile Object locker = new Object();
-	private static Map<String, CacheEntry> container = new HashMap<>();
+	private static volatile Map<String, CacheEntry> container = new HashMap<>();
 
 	public static Object get(String key) {
 		CacheEntry entry = container.get(key);
@@ -43,7 +42,7 @@ public class MemoryCache {
 			return false;
 		}
 
-		synchronized (locker) {
+		synchronized (MemoryCache.class) {
 			if (!container.containsKey(entry.getKey())) {
 				container.put(entry.getKey(), entry);
 				return true;
@@ -59,7 +58,7 @@ public class MemoryCache {
 	}
 
 	public static void del(String key) {
-		synchronized (locker) {
+		synchronized (MemoryCache.class) {
 			if (container.containsKey(key)) {
 				container.remove(key);
 			}

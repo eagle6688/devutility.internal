@@ -9,8 +9,7 @@ import java.util.Map;
 import devutility.internal.lang.StringHelper;
 
 public class DateFormatHelper {
-	private static volatile Object locker = new Object();
-	private static Map<String, ThreadLocal<SimpleDateFormat>> dateFormatMap = new HashMap<>();
+	private static volatile Map<String, ThreadLocal<SimpleDateFormat>> dateFormatMap = new HashMap<>();
 
 	// region format
 
@@ -29,7 +28,7 @@ public class DateFormatHelper {
 			return threadLocal.get();
 		}
 
-		synchronized (locker) {
+		synchronized (DateFormatHelper.class) {
 			if (threadLocal == null) {
 				threadLocal = new ThreadLocal<SimpleDateFormat>();
 				threadLocal.set(new SimpleDateFormat(pattern));
@@ -51,7 +50,8 @@ public class DateFormatHelper {
 			return null;
 		}
 
-		return getSimpleDateFormat(pattern).parse(value);
+		SimpleDateFormat simpleDateFormat = getSimpleDateFormat(pattern);
+		return simpleDateFormat.parse(value);
 	}
 
 	public static String toString(Date date, String pattern) {
