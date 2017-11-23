@@ -22,21 +22,27 @@ public class DateFormatHelper {
 	// region get SimpleDateFormat
 
 	public static SimpleDateFormat getSimpleDateFormat(final String pattern) {
+		SimpleDateFormat simpleDateFormat = null;
 		ThreadLocal<SimpleDateFormat> threadLocal = dateFormatMap.get(pattern);
 
 		if (threadLocal != null) {
-			return threadLocal.get();
+			simpleDateFormat = threadLocal.get();
+
+			if (simpleDateFormat != null) {
+				return simpleDateFormat;
+			}
 		}
 
 		synchronized (DateFormatHelper.class) {
-			if (threadLocal == null) {
+			if (threadLocal == null || simpleDateFormat == null) {
 				threadLocal = new ThreadLocal<SimpleDateFormat>();
-				threadLocal.set(new SimpleDateFormat(pattern));
+				simpleDateFormat = new SimpleDateFormat(pattern);
+				threadLocal.set(simpleDateFormat);
 				dateFormatMap.put(pattern, threadLocal);
 			}
 		}
 
-		return threadLocal.get();
+		return simpleDateFormat;
 	}
 
 	// endregion

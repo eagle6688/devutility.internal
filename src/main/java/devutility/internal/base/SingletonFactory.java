@@ -12,11 +12,16 @@ public class SingletonFactory {
 		ThreadLocal<Object> threadLocal = container.get(key);
 
 		if (threadLocal != null) {
-			return clazz.cast(threadLocal.get());
+			Object value = threadLocal.get();
+
+			if (value != null) {
+				instance = clazz.cast(value);
+				return instance;
+			}
 		}
 
 		synchronized (SingletonFactory.class) {
-			if (threadLocal == null) {
+			if (threadLocal == null || instance == null) {
 				try {
 					instance = clazz.newInstance();
 					threadLocal = new ThreadLocal<Object>();
