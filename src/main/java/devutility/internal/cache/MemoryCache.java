@@ -1,12 +1,48 @@
 package devutility.internal.cache;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import devutility.internal.lang.StringHelper;
 
 public class MemoryCache {
 	private static volatile Map<String, CacheEntry> container = new HashMap<>();
+
+	// region set
+
+	public static boolean set(CacheEntry entry) {
+		if (entry == null || StringHelper.isNullOrEmpty(entry.getKey()) || entry.getValue() == null) {
+			return false;
+		}
+
+		if (container.containsKey(entry.getKey())) {
+			return false;
+		}
+
+		synchronized (MemoryCache.class) {
+			if (!container.containsKey(entry.getKey())) {
+				container.put(entry.getKey(), entry);
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public static boolean set(String key, Object value, int expireSeconds) {
+		CacheEntry entry = new CacheEntry(key, value, expireSeconds);
+		return set(entry);
+	}
+
+	public static boolean set(String key, Object value) {
+		return set(key, value, 0);
+	}
+
+	// endregion
+
+	// region get
 
 	public static Object get(String key) {
 		CacheEntry entry = container.get(key);
@@ -33,29 +69,25 @@ public class MemoryCache {
 		return clazz.cast(value);
 	}
 
-	public static boolean set(CacheEntry entry) {
-		if (entry == null || StringHelper.isNullOrEmpty(entry.getKey()) || entry.getValue() == null) {
-			return false;
+	// endregion
+
+	// region get list
+
+	public static <T> List<T> getList(String key) {
+		Object value = get(key);
+
+		if (value == null || !(value instanceof ArrayList)) {
+			return new ArrayList<>();
 		}
 
-		if (container.containsKey(entry.getKey())) {
-			return false;
-		}
-
-		synchronized (MemoryCache.class) {
-			if (!container.containsKey(entry.getKey())) {
-				container.put(entry.getKey(), entry);
-				return true;
-			}
-		}
-
-		return false;
+		@SuppressWarnings("unchecked")
+		List<T> list = (ArrayList<T>) value;
+		return list;
 	}
 
-	public static boolean set(String key, Object value, int expireSeconds) {
-		CacheEntry entry = new CacheEntry(key, value, expireSeconds);
-		return set(entry);
-	}
+	// endregion
+
+	// region del
 
 	public static void del(String key) {
 		synchronized (MemoryCache.class) {
@@ -64,4 +96,6 @@ public class MemoryCache {
 			}
 		}
 	}
+
+	// endregion
 }
