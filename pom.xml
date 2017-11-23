@@ -3,6 +3,9 @@
 	<groupId>com.github.eagle6688</groupId>
 	<artifactId>devutility.internal</artifactId>
 	<version>1.0</version>
+	<name>${project.groupId}:${project.artifactId}</name>
+	<url>https://github.com/eagle6688/devutility.internal</url>
+	<description></description>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
@@ -20,6 +23,17 @@
 					<skipTests>true</skipTests>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.6.8</version>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>ossrh</serverId>
+					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>true</autoReleaseAfterClose>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 	<developers>
@@ -27,13 +41,14 @@
 			<name>Aldwin Su</name>
 			<email>fangyansu@163.com</email>
 			<organization>PKU</organization>
-			<organizationUrl></organizationUrl>
+			<timezone>+8</timezone>
 		</developer>
 	</developers>
 	<scm>
 		<connection>scm:git:https://github.com/eagle6688/devutility.internal.git</connection>
 		<developerConnection>scm:git:https://github.com/eagle6688/devutility.internal.git</developerConnection>
 		<url>https://github.com/eagle6688/devutility.internal</url>
+		<tag>v${project.version}</tag>
 	</scm>
 	<licenses>
 		<license>
@@ -41,4 +56,15 @@
 			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
 		</license>
 	</licenses>
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<name>Maven Central Staging Repository</name>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
 </project>
