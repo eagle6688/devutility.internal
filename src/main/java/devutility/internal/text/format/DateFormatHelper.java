@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import devutility.internal.lang.StringHelper;
+
 public class DateFormatHelper {
 	private static volatile Object locker = new Object();
 	private static Map<String, ThreadLocal<SimpleDateFormat>> dateFormatMap = new HashMap<>();
@@ -45,6 +47,10 @@ public class DateFormatHelper {
 	}
 
 	public static Date toDate(String value, String pattern) throws ParseException {
+		if (StringHelper.isNullOrEmpty(value)) {
+			return null;
+		}
+
 		return getSimpleDateFormat(pattern).parse(value);
 	}
 
