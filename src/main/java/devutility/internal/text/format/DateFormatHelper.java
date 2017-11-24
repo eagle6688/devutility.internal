@@ -9,7 +9,7 @@ import java.util.Map;
 import devutility.internal.lang.StringHelper;
 
 public class DateFormatHelper {
-	private static volatile Map<String, ThreadLocal<SimpleDateFormat>> dateFormatMap = new HashMap<>();
+	private static volatile Map<String, ThreadLocal<SimpleDateFormat>> container = new HashMap<>();
 
 	// region format
 
@@ -22,27 +22,23 @@ public class DateFormatHelper {
 	// region get SimpleDateFormat
 
 	public static SimpleDateFormat getSimpleDateFormat(final String pattern) {
-		SimpleDateFormat simpleDateFormat = null;
-		ThreadLocal<SimpleDateFormat> threadLocal = dateFormatMap.get(pattern);
+		ThreadLocal<SimpleDateFormat> threadLocal = container.get(pattern);
 
-		if (threadLocal != null) {
-			simpleDateFormat = threadLocal.get();
-
-			if (simpleDateFormat != null) {
-				return simpleDateFormat;
-			}
+		if (threadLocal != null && threadLocal.get() != null) {
+			return threadLocal.get();
 		}
 
 		synchronized (DateFormatHelper.class) {
-			if (threadLocal == null || simpleDateFormat == null) {
-				threadLocal = new ThreadLocal<SimpleDateFormat>();
-				simpleDateFormat = new SimpleDateFormat(pattern);
-				threadLocal.set(simpleDateFormat);
-				dateFormatMap.put(pattern, threadLocal);
+			if (threadLocal == null || threadLocal.get() == null) {
+				SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+				ThreadLocal<SimpleDateFormat> newThreadLocal = new ThreadLocal<SimpleDateFormat>();
+				newThreadLocal.set(simpleDateFormat);
+				container.put(pattern, newThreadLocal);
+				threadLocal = newThreadLocal;
 			}
 		}
 
-		return simpleDateFormat;
+		return threadLocal.get();
 	}
 
 	// endregion
