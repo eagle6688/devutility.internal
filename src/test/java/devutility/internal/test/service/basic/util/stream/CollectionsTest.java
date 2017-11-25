@@ -35,7 +35,8 @@ public class CollectionsTest extends BaseService {
 		sortAge2(persons);
 		sortBirthday1(persons);
 		sortBirthday2(persons);
-		sortMultiple(persons);
+		sortMultiple1(persons);
+		sortMultiple2(persons);
 	}
 
 	// asc
@@ -117,8 +118,17 @@ public class CollectionsTest extends BaseService {
 		System.out.println(persons);
 	}
 
-	private void sortMultiple(List<Person> persons) {
+	private void sortMultiple1(List<Person> persons) {
 		persons.sort(Comparator.comparing(Person::getName).thenComparing(Person::getAge));
+		println("multiple sort recommended:");
+		System.out.println(persons);
+	}
+
+	private void sortMultiple2(List<Person> persons) {
+		persons.sort(Comparator.comparing(Person::getName).thenComparing(Person::getAge, (a1, a2) -> {
+			return a2 - a1;
+		}));
+
 		println("multiple sort recommended:");
 		System.out.println(persons);
 	}
