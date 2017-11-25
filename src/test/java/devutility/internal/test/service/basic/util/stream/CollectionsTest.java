@@ -21,6 +21,7 @@ public class CollectionsTest extends BaseService {
 		try {
 			persons.add(new Person("Aldwin", 29, simpleDateFormat.parse("1979-1-2")));
 			persons.add(new Person("James", 49, simpleDateFormat.parse("1989-1-2")));
+			persons.add(new Person("Sandeep", 39, simpleDateFormat.parse("1990-1-2")));
 			persons.add(new Person("Sandeep", 19, simpleDateFormat.parse("1990-1-2")));
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -34,6 +35,7 @@ public class CollectionsTest extends BaseService {
 		sortAge2(persons);
 		sortBirthday1(persons);
 		sortBirthday2(persons);
+		sortMultiple(persons);
 	}
 
 	// asc
@@ -112,6 +114,12 @@ public class CollectionsTest extends BaseService {
 		}).reversed());
 
 		println("birthday reversed recommended:");
+		System.out.println(persons);
+	}
+
+	private void sortMultiple(List<Person> persons) {
+		persons.sort(Comparator.comparing(Person::getName).thenComparing(Person::getAge));
+		println("multiple sort recommended:");
 		System.out.println(persons);
 	}
 
