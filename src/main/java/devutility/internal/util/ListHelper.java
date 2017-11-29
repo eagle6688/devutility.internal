@@ -57,25 +57,25 @@ public class ListHelper {
 
 	// endregion
 
-	// region select
+	// region map
 
-	public static <T, R> List<R> select(List<T> list, Predicate<T> predicate, Function<? super T, ? extends R> mapper) {
+	public static <T, R> List<R> map(List<T> list, Predicate<T> predicate, Function<? super T, ? extends R> mapper) {
 		return query(list, predicate).map(mapper).collect(Collectors.toList());
 	}
 
-	public static <T, R> List<R> select(List<T> list, Function<? super T, ? extends R> mapper) {
+	public static <T, R> List<R> map(List<T> list, Function<? super T, ? extends R> mapper) {
 		return list.stream().map(mapper).collect(Collectors.toList());
 	}
 
-	public static <T, R> List<R> selectDistinct(List<T> list, Predicate<T> predicate, Function<? super T, ? extends R> mapper) {
+	public static <T, R> List<R> mapAndDistinct(List<T> list, Predicate<T> predicate, Function<? super T, ? extends R> mapper) {
 		return query(list, predicate).map(mapper).distinct().collect(Collectors.toList());
 	}
-	
-	public static <T, R> List<R> selectDistinct(List<T> list, Function<? super T, ? extends R> mapper) {
+
+	public static <T, R> List<R> mapAndDistinct(List<T> list, Function<? super T, ? extends R> mapper) {
 		return list.stream().map(mapper).distinct().collect(Collectors.toList());
 	}
 
-	public static <T, R> List<R> selectMany(List<T> list, Function<? super T, ? extends Stream<? extends R>> mapper) {
+	public static <T, R> List<R> mapMany(List<T> list, Function<? super T, ? extends Stream<? extends R>> mapper) {
 		List<R> result = new ArrayList<R>();
 
 		list.stream().map(mapper).forEach(i -> {
@@ -149,12 +149,16 @@ public class ListHelper {
 
 	// endregion
 
-	public static <T, K> Map<K, List<T>> groupMap(List<T> list, Function<? super T, ? extends K> classifier) {
+	// region group
+
+	public static <T, K> Map<K, List<T>> groupToMap(List<T> list, Function<? super T, ? extends K> classifier) {
 		return list.stream().collect(Collectors.groupingBy(classifier));
 	}
 
 	public static <T, K> List<K> group(List<T> list, Function<? super T, ? extends K> classifier) {
-		Map<K, List<T>> map = groupMap(list, classifier);
+		Map<K, List<T>> map = groupToMap(list, classifier);
 		return map.keySet().stream().collect(Collectors.toList());
 	}
+
+	// endregion
 }
