@@ -1,5 +1,7 @@
 package devutility.internal.util;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -64,5 +66,73 @@ public class ListHelper {
 		return list.stream().map(mapper).collect(Collectors.toList());
 	}
 
+	public static <T, R> List<R> selectMany(List<T> list, Function<? super T, ? extends Stream<? extends R>> mapper) {
+		List<R> result = new ArrayList<R>();
+
+		list.stream().map(mapper).forEach(i -> {
+			result.addAll(i.collect(Collectors.toList()));
+		});
+
+		return result;
+	}
+
 	// endregion
+
+	// region min
+
+	public static <T> T min(List<T> list, Comparator<? super T> comparator) {
+		Optional<T> optional = list.stream().min(comparator);
+
+		if (optional.isPresent()) {
+			return optional.get();
+		}
+
+		return null;
+	}
+
+	public static int minInt(List<Integer> list) {
+		Integer value = min(list, Comparator.comparingInt(i -> i));
+
+		if (value == null) {
+			return 0;
+		}
+
+		return value;
+	}
+
+	// endregion
+
+	// region max
+
+	public static <T> T max(List<T> list, Comparator<? super T> comparator) {
+		Optional<T> optional = list.stream().max(comparator);
+
+		if (optional.isPresent()) {
+			return optional.get();
+		}
+
+		return null;
+	}
+
+	public static int maxInt(List<Integer> list) {
+		Integer value = max(list, Comparator.comparingInt(i -> i));
+
+		if (value == null) {
+			return 0;
+		}
+
+		return value;
+	}
+
+	// endregion
+
+	public static <T> List<T> paging(List<T> list, int pageIndex, int pageSize) {
+		int skip = (pageIndex - 1) * pageSize;
+
+		if (list == null || skip < 0 || skip >= list.size()) {
+			return new ArrayList<T>();
+		}
+
+		return list.stream().skip(skip).limit(pageSize).collect(Collectors.toList());
+	}
 }

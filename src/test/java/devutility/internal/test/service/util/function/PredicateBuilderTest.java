@@ -24,6 +24,13 @@ public class PredicateBuilderTest extends BaseService {
 		predicateBuilder.or(i -> i == 2);
 		List<Integer> result = ListHelper.list(list, predicateBuilder.getPredicate());
 		System.out.println(result);
+
+		int minValue = ListHelper.minInt(list);
+		println(minValue);
+
+		int maxValue = ListHelper.maxInt(list);
+		println("maxValue");
+		println(maxValue);
 	}
 
 	public static void main(String[] args) {
