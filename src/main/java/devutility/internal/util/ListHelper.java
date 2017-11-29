@@ -3,6 +3,7 @@ package devutility.internal.util;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -143,4 +144,13 @@ public class ListHelper {
 	}
 
 	// endregion
+
+	public static <T, K> Map<K, List<T>> groupMap(List<T> list, Function<? super T, ? extends K> classifier) {
+		return list.stream().collect(Collectors.groupingBy(classifier));
+	}
+
+	public static <T, K> List<K> group(List<T> list, Function<? super T, ? extends K> classifier) {
+		Map<K, List<T>> map = groupMap(list, classifier);
+		return map.keySet().stream().collect(Collectors.toList());
+	}
 }
