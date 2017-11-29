@@ -67,6 +67,10 @@ public class ListHelper {
 		return list.stream().map(mapper).collect(Collectors.toList());
 	}
 
+	public static <T, R> List<R> selectDistinct(List<T> list, Predicate<T> predicate, Function<? super T, ? extends R> mapper) {
+		return query(list, predicate).map(mapper).distinct().collect(Collectors.toList());
+	}
+	
 	public static <T, R> List<R> selectDistinct(List<T> list, Function<? super T, ? extends R> mapper) {
 		return list.stream().map(mapper).distinct().collect(Collectors.toList());
 	}
