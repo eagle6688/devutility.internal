@@ -66,6 +66,10 @@ public class ListHelper {
 		return list.stream().map(mapper).collect(Collectors.toList());
 	}
 
+	public static <T, R> List<R> selectDistinct(List<T> list, Function<? super T, ? extends R> mapper) {
+		return list.stream().map(mapper).distinct().collect(Collectors.toList());
+	}
+
 	public static <T, R> List<R> selectMany(List<T> list, Function<? super T, ? extends Stream<? extends R>> mapper) {
 		List<R> result = new ArrayList<R>();
 
@@ -126,6 +130,8 @@ public class ListHelper {
 
 	// endregion
 
+	// region paging
+
 	public static <T> List<T> paging(List<T> list, int pageIndex, int pageSize) {
 		int skip = (pageIndex - 1) * pageSize;
 
@@ -135,4 +141,6 @@ public class ListHelper {
 
 		return list.stream().skip(skip).limit(pageSize).collect(Collectors.toList());
 	}
+
+	// endregion
 }
