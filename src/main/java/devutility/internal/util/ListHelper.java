@@ -85,6 +85,18 @@ public class ListHelper {
 		return result;
 	}
 
+	public static <T, R> Stream<R> parallelMapToStream(List<T> list, Function<? super T, ? extends R> mapper) {
+		return list.stream().parallel().map(mapper);
+	}
+
+	public static <T, R> List<R> parallelMap(List<T> list, Function<? super T, ? extends R> mapper) {
+		return parallelMapToStream(list, mapper).collect(Collectors.toList());
+	}
+
+	public static <T, R> List<R> parallelMapAndDistinct(List<T> list, Function<? super T, ? extends R> mapper) {
+		return parallelMapToStream(list, mapper).distinct().collect(Collectors.toList());
+	}
+
 	// endregion
 
 	// region min
@@ -158,6 +170,10 @@ public class ListHelper {
 	public static <T, K> List<K> group(List<T> list, Function<? super T, ? extends K> classifier) {
 		Map<K, List<T>> map = groupToMap(list, classifier);
 		return map.keySet().stream().collect(Collectors.toList());
+	}
+
+	public static <T, K> Map<K, List<T>> parallelGroupToMap(List<T> list, Function<? super T, ? extends K> classifier) {
+		return list.stream().parallel().collect(Collectors.groupingBy(classifier));
 	}
 
 	// endregion
