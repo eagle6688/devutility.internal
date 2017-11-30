@@ -119,6 +119,10 @@ public class ListHelper {
 		return parallelMapToStream(list, mapper).distinct().collect(Collectors.toList());
 	}
 
+	public static <T, R> List<R> parallelMapAndDistinct(List<T> list, Predicate<T> predicate, Function<? super T, ? extends R> mapper) {
+		return parallelQuery(list, predicate).map(mapper).distinct().collect(Collectors.toList());
+	}
+
 	// endregion
 
 	// region min
