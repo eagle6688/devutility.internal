@@ -194,7 +194,7 @@ public class ListHelper {
 		return map.keySet().stream().collect(Collectors.toList());
 	}
 
-	public static <T, K> Map<K, List<T>> parallelGroupToMap(List<T> list, Function<? super T, ? extends K> classifier) {
+	public static <K, T> Map<K, List<T>> parallelGroupToMap(List<T> list, Function<? super T, ? extends K> classifier) {
 		return list.stream().parallel().collect(Collectors.groupingBy(classifier));
 	}
 
