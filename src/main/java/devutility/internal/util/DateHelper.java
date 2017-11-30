@@ -26,4 +26,8 @@ public class DateHelper {
 			return null;
 		}
 	}
+
+	public static String format(Date date, String pattern) {
+		return DateFormatHelper.toString(date, pattern);
+	}
 }

@@ -3,7 +3,7 @@ package devutility.internal.util.function;
 import java.util.function.Predicate;
 
 public class PredicateBuilder<T> {
-	private boolean isDefault = true;
+	private boolean hasPredicate = false;
 	private Predicate<T> predicate;
 
 	public PredicateBuilder() {
@@ -11,8 +11,8 @@ public class PredicateBuilder<T> {
 	}
 
 	public void and(Predicate<T> expression) {
-		if (isDefault) {
-			isDefault = false;
+		if (!hasPredicate) {
+			hasPredicate = true;
 			predicate = expression;
 			return;
 		}
@@ -21,8 +21,8 @@ public class PredicateBuilder<T> {
 	}
 
 	public void or(Predicate<T> expression) {
-		if (isDefault) {
-			isDefault = false;
+		if (!hasPredicate) {
+			hasPredicate = true;
 			predicate = (expression);
 			return;
 		}
@@ -36,5 +36,13 @@ public class PredicateBuilder<T> {
 
 	private void setPredicate(Predicate<T> predicate) {
 		this.predicate = predicate;
+	}
+
+	public boolean isHasPredicate() {
+		return hasPredicate;
+	}
+
+	public void setHasPredicate(boolean hasPredicate) {
+		this.hasPredicate = hasPredicate;
 	}
 }
