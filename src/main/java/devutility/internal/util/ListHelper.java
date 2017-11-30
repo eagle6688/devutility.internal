@@ -31,6 +31,20 @@ public class ListHelper {
 		return null;
 	}
 
+	public static <T> Optional<T> parallelFindOptional(List<T> list, Predicate<T> predicate) {
+		return list.stream().parallel().filter(predicate).findAny();
+	}
+
+	public static <T> T parallelFind(List<T> list, Predicate<T> predicate) {
+		Optional<T> optional = parallelFindOptional(list, predicate);
+
+		if (optional.isPresent()) {
+			return optional.get();
+		}
+
+		return null;
+	}
+
 	// endregion
 
 	// region query
@@ -39,12 +53,20 @@ public class ListHelper {
 		return list.stream().filter(predicate);
 	}
 
+	public static <T> Stream<T> parallelQuery(List<T> list, Predicate<T> predicate) {
+		return list.stream().parallel().filter(predicate);
+	}
+
 	// endregion
 
 	// region list
 
 	public static <T> List<T> list(List<T> list, Predicate<T> predicate) {
 		return query(list, predicate).collect(Collectors.toList());
+	}
+
+	public static <T> List<T> parallelList(List<T> list, Predicate<T> predicate) {
+		return parallelQuery(list, predicate).collect(Collectors.toList());
 	}
 
 	// endregion
