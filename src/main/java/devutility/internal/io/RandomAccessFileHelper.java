@@ -38,8 +38,8 @@ public class RandomAccessFileHelper {
 		}
 	}
 
-	//region append
-	
+	// region append
+
 	public static void append(String fileName, byte[] bytes) throws Exception {
 		append(fileName, ByteBuffer.wrap(bytes));
 	}
@@ -52,7 +52,7 @@ public class RandomAccessFileHelper {
 			throw e;
 		}
 	}
-	
+
 	// endregion
 
 	// region asyncAppend
