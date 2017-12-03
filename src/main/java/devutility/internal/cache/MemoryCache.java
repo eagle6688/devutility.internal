@@ -85,6 +85,24 @@ public class MemoryCache {
 		return list;
 	}
 
+	public static <T> List<T> getList(String key, Class<T> clazz) {
+		Object value = get(key);
+
+		if (value == null || !(value instanceof ArrayList)) {
+			return new ArrayList<>();
+		}
+
+		@SuppressWarnings("unchecked")
+		List<Object> objs = ArrayList.class.cast(value);
+		List<T> list = new ArrayList<>();
+
+		for (Object obj : objs) {
+			list.add(clazz.cast(obj));
+		}
+
+		return list;
+	}
+
 	// endregion
 
 	// region del
