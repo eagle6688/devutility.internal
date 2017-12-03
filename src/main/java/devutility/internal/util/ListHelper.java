@@ -11,6 +11,18 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class ListHelper {
+	// region empty or not
+
+	public static <T> boolean isEmpty(List<T> list) {
+		return list == null || list.size() == 0;
+	}
+
+	public static <T> boolean isNotEmpty(List<T> list) {
+		return list != null && list.size() > 0;
+	}
+
+	// endregion
+
 	// region exist
 
 	public static <T> boolean exist(List<T> list, Predicate<T> predicate) {
