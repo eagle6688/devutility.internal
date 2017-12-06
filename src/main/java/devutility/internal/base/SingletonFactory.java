@@ -4,36 +4,37 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SingletonFactory {
-	private static volatile Map<String, ThreadLocal<Object>> container = new HashMap<>();
+	// region variables
 
-	public static <T> T create(Class<T> clazz) throws ReflectiveOperationException {
-		T instance = null;
+	private static volatile Object value = null;
+
+	private static volatile Map<String, Object> container = new HashMap<>();
+
+	// endregion
+
+	// region create
+
+	public static <T> T create(Class<T> clazz) {
 		String key = clazz.getName();
-		ThreadLocal<Object> threadLocal = container.get(key);
 
-		if (threadLocal != null) {
-			Object value = threadLocal.get();
-
-			if (value != null) {
-				instance = clazz.cast(value);
-				return instance;
-			}
+		if (container.get(key) != null) {
+			return clazz.cast(container.get(key));
 		}
 
 		synchronized (SingletonFactory.class) {
-			if (threadLocal == null || instance == null) {
+			if (container.get(key) == null) {
 				try {
-					instance = clazz.newInstance();
-					threadLocal = new ThreadLocal<Object>();
-					threadLocal.set(instance);
-					container.put(key, threadLocal);
+					value = clazz.newInstance();
+					container.put(key, value);
+					value = null;
 				} catch (InstantiationException | IllegalAccessException e) {
 					e.printStackTrace();
-					throw e;
 				}
 			}
 		}
 
-		return instance;
+		return clazz.cast(container.get(key));
 	}
+
+	// endregion
 }
