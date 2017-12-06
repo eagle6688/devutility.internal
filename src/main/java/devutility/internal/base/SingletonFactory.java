@@ -16,7 +16,10 @@ public class SingletonFactory {
 
 	public static <T> T create(Class<T> clazz) {
 		String key = clazz.getName();
+		return create(key, clazz);
+	}
 
+	public static <T> T create(String key, Class<T> clazz) {
 		if (container.get(key) != null) {
 			return clazz.cast(container.get(key));
 		}
