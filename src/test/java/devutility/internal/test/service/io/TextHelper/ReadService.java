@@ -22,6 +22,11 @@ public class ReadService extends BaseService {
 			String content = TextHelper.read(path, StandardCharsets.UTF_8);
 			println(content);
 
+			if (content == null) {
+				println(String.format("Cannot found %s.", path));
+				return;
+			}
+
 			String[] array = content.split("\\PL+");
 			List<String> words = Arrays.asList(array);
 			System.out.println(words);
