@@ -17,9 +17,9 @@ public class ArrayListTest extends BaseService {
 		numbers.add(2);
 		numbers.add(4);
 		numbers.add(1);
-		
+
 		System.out.println(numbers);
-		
+
 		println(numbers.getClass().getName());
 		println(numbers instanceof ArrayList ? "yes" : "no");
 
