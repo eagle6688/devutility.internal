@@ -11,6 +11,10 @@ public abstract class BaseService {
 		println(String.valueOf(value));
 	}
 
+	protected static void println(long value) {
+		System.out.println(value);
+	}
+
 	protected static void println(String format, String... args) {
 		if (args == null || args.length == 0) {
 			return;
@@ -19,7 +23,7 @@ public abstract class BaseService {
 		String value = String.format(format, Arrays.asList(args));
 		println(value);
 	}
-	
+
 	protected static void println(String format, Object... args) {
 		if (args == null || args.length == 0) {
 			return;

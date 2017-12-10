@@ -1,24 +1,56 @@
 package devutility.internal.security;
 
-import java.io.File;
-import java.nio.channels.FileChannel;
-import java.nio.file.StandardOpenOption;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+import devutility.internal.base.Convertor;
+import devutility.internal.data.codec.Base64Helper;
+import devutility.internal.data.codec.UTF8Helper;
 
 public class MD5Helper {
+	// region encipher
 
-	public static String encipherFile(String path) {
-		File file = new File(path);
-
-		if (!file.exists() || file.isDirectory()) {
-			return "";
+	public static byte[] encipher(byte[] bytes) {
+		if (bytes == null) {
+			return null;
 		}
 
 		try {
-			FileChannel fileChannel = FileChannel.open(file.toPath(), StandardOpenOption.READ);
-			fileChannel.close();
-		} catch (Exception e) {
+			MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+			return messageDigest.digest(bytes);
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
 		}
 
-		return "";
+		return null;
 	}
+
+	public static String encipherToBase64(String value) {
+		byte[] bytes = null;
+
+		try {
+			bytes = UTF8Helper.encode(value);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+
+		byte[] encipheredBytes = encipher(bytes);
+		return Base64Helper.encodeToString(encipheredBytes);
+	}
+
+	public static String encipherToHex(String value) {
+		byte[] bytes = null;
+
+		try {
+			bytes = UTF8Helper.encode(value);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+
+		byte[] encipheredBytes = encipher(bytes);
+		return Convertor.toHex(encipheredBytes);
+	}
+
+	// endregion
 }
