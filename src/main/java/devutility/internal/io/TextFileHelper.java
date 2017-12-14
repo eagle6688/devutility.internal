@@ -2,13 +2,19 @@ package devutility.internal.io;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import devutility.internal.io.FileHelper;
 import devutility.internal.io.RandomAccessFileHelper;
+import devutility.internal.system.SystemHelper;
 
-public class TextHelper {
+public class TextFileHelper {
+	// region insert
+
 	/**
 	 * Insert content in a file.
 	 * 
@@ -19,6 +25,10 @@ public class TextHelper {
 		byte[] bytes = content.getBytes();
 		RandomAccessFileHelper.insert(fileName, startIndex, bytes);
 	}
+
+	// endregion
+
+	// region append
 
 	/**
 	 * Append content in a file.
@@ -31,18 +41,37 @@ public class TextHelper {
 	 * Append a new line content in a file.
 	 */
 	public static void appendLine(String fileName, String content) throws Exception {
-		StringBuffer stringBuffer = new StringBuffer(System.getProperty("line.separator"));
+		StringBuffer stringBuffer = new StringBuffer(SystemHelper.getNewLineChar());
 		stringBuffer.append(content);
 		append(fileName, stringBuffer.toString());
 	}
 
+	// endregion
+
+	// region async append
+
+	public static void asyncAppend(String fileName, ByteBuffer byteBuffer) throws Exception {
+		Path path = Paths.get(fileName);
+		RandomAccessFileHelper.asyncAppend(path, byteBuffer);
+	}
+
+	public static void asyncAppend(Path path, String content) throws Exception {
+		ByteBuffer byteBuffer = ByteBuffer.wrap(content.getBytes());
+		RandomAccessFileHelper.asyncAppend(path, byteBuffer);
+	}
+
+	// endregion
+
+	// region read
+
 	/**
 	 * Read text
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 */
 	public static String read(String fileName, Charset charset) throws IOException {
 		File file = new File(fileName);
-		
+
 		if (!file.exists()) {
 			return null;
 		}
@@ -52,7 +81,9 @@ public class TextHelper {
 		if (bytes == null) {
 			return null;
 		}
-		
+
 		return new String(bytes, charset);
 	}
+
+	// endregion
 }

@@ -28,14 +28,11 @@ public class ThreadLocalSingletonFactory {
 		}
 
 		synchronized (ThreadLocalSingletonFactory.class) {
-			System.out.println("synchronized body");
-			
 			if (container.get(key) == null) {
 				instance = clazz.newInstance();
 				ThreadLocal<Object> threadLocal = new ThreadLocal<Object>();
 				threadLocal.set(instance);
 				container.put(key, threadLocal);
-				System.out.println("create");
 			}
 		}
 

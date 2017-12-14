@@ -6,39 +6,39 @@ import java.util.List;
 import devutility.internal.system.SystemHelper;
 
 public class ExceptionHelper {
+	// region to string
+
 	public static String toString(Exception exception) {
 		return toString(exception, SystemHelper.getNewLineChar());
 	}
 
 	public static String toString(Exception exception, String separator) {
-		List<String> list = toStringList(exception);
+		List<String> list = toList(exception);
+		StringBuilder result = new StringBuilder();
 
-		if (list == null || list.size() == 0) {
-			return null;
+		for (int i = 0; i < list.size(); i++) {
+			result.append(list.get(i));
+
+			if (i < list.size() - 1) {
+				result.append(separator);
+			}
 		}
 
-		int index = 0;
-		StringBuilder stringBuilder = new StringBuilder();
-
-		list.forEach(i -> {
-			stringBuilder.append(i);
-
-			if (index < list.size() - 1) {
-				stringBuilder.append(separator);
-			}
-		});
-
-		return stringBuilder.toString();
+		return result.toString();
 	}
 
-	public static List<String> toStringList(Exception exception) {
+	// endregion
+
+	// region to list
+
+	public static List<String> toList(Exception exception) {
+		List<String> list = new ArrayList<>();
+
 		if (exception == null) {
-			return null;
+			return list;
 		}
 
-		List<String> list = new ArrayList<>();
 		list.add(exception.getMessage());
-
 		StackTraceElement[] stackTraceElements = exception.getStackTrace();
 
 		if (stackTraceElements == null || stackTraceElements.length == 0) {
@@ -51,4 +51,6 @@ public class ExceptionHelper {
 
 		return list;
 	}
+
+	// endregion
 }

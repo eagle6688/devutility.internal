@@ -24,7 +24,7 @@ public class MD5HelperTest extends BaseTest {
 		}
 
 		byte[] encipheredBytes = MD5Helper.encipher(bytes);
-		println(Convertor.toHex(encipheredBytes));
+		println(Convertor.bytesToHex(encipheredBytes));
 		println(Convertor.bytesToLong(encipheredBytes));
 	}
 

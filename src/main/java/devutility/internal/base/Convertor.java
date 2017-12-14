@@ -2,6 +2,7 @@ package devutility.internal.base;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.util.ArrayList;
 
 public class Convertor {
 	// region string to int
@@ -52,9 +53,9 @@ public class Convertor {
 
 	// endregion
 
-	// region to Hex
+	// region bytes to Hex
 
-	public static String toHex(byte[] bytes) {
+	public static String bytesToHex(byte[] bytes) {
 		if (bytes == null) {
 			return null;
 		}
@@ -67,6 +68,44 @@ public class Convertor {
 		}
 
 		return stringBuffer.toString();
+	}
+
+	// endregion
+
+	// region int Array to Integer ArrayList
+
+	public static ArrayList<Integer> intArrayToIntegerList(int[] array) {
+		if (array == null || array.length == 0) {
+			return null;
+		}
+
+		ArrayList<Integer> list = new ArrayList<>(array.length);
+
+		for (int i : array) {
+			list.add(i);
+		}
+
+		return list;
+	}
+
+	// endregion
+
+	// region list to int Array
+
+	public static <T> int[] listToIntArray(ArrayList<T> list) throws InstantiationException, IllegalAccessException {
+		if (list == null || list.size() == 0 || !(list.get(0) instanceof Integer)) {
+			return new int[0];
+		}
+
+		Integer[] integers = list.toArray(new Integer[0]);
+		int[] array = new int[list.size()];
+		int index = 0;
+
+		for (index = 0; index < list.size(); index++) {
+			array[index] = integers[index];
+		}
+
+		return array;
 	}
 
 	// endregion

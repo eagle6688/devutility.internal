@@ -3,6 +3,8 @@ package devutility.internal.test;
 import java.util.Arrays;
 
 public abstract class BaseTest {
+	// region println
+
 	protected static void println(String message) {
 		System.out.println(message);
 	}
@@ -33,5 +35,11 @@ public abstract class BaseTest {
 		println(value);
 	}
 
+	// endregion
+
+	// region run
+
 	public abstract void run();
+
+	// endregion
 }

@@ -5,10 +5,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import devutility.internal.base.Convertor;
-import devutility.internal.data.codec.Base64Helper;
 import devutility.internal.data.codec.UTF8Helper;
 
-public class MD5Helper {
+public class SHA256Helper {
 	// region encipher
 
 	public static byte[] encipher(byte[] bytes) {
@@ -17,27 +16,14 @@ public class MD5Helper {
 		}
 
 		try {
-			MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+			MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
 			return messageDigest.digest(bytes);
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
-
-	public static String encipherToBase64(String value) {
-		byte[] bytes = null;
-
-		try {
-			bytes = UTF8Helper.encode(value);
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-
-		byte[] encipheredBytes = encipher(bytes);
-		return Base64Helper.encodeToString(encipheredBytes);
-	}
-
+	
 	public static String encipherToHex(String value) {
 		byte[] bytes = null;
 

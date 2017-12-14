@@ -5,6 +5,8 @@ import java.util.Random;
 public class RandomHelper {
 	private static final Random RANDOM = new Random();
 
+	// region get String
+
 	public static String getString(char[] chars, int digit) {
 		StringBuffer buffer = new StringBuffer();
 
@@ -14,4 +16,6 @@ public class RandomHelper {
 
 		return buffer.toString();
 	}
+
+	// endregion
 }

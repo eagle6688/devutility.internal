@@ -9,9 +9,9 @@ import java.util.Map;
 import devutility.internal.lang.StringHelper;
 
 public class DateFormatHelper {
-	private static volatile Map<String, ThreadLocal<SimpleDateFormat>> container = new HashMap<>();
+	// region variables
 
-	// region format
+	private static volatile Map<String, ThreadLocal<SimpleDateFormat>> container = new HashMap<>();
 
 	public final static String StandardDateFormat = "yyyy-MM-dd";
 
@@ -24,31 +24,36 @@ public class DateFormatHelper {
 	public static SimpleDateFormat getSimpleDateFormat(final String pattern) {
 		ThreadLocal<SimpleDateFormat> threadLocal = container.get(pattern);
 
-		if (threadLocal != null && threadLocal.get() != null) {
-			return threadLocal.get();
+		if (threadLocal != null) {
+			if (threadLocal.get() != null) {
+				return threadLocal.get();
+			}
+
+			container.put(pattern, null);
 		}
 
 		synchronized (DateFormatHelper.class) {
-			if (threadLocal == null || threadLocal.get() == null) {
+			if (container.get(pattern) == null) {
 				SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-				ThreadLocal<SimpleDateFormat> newThreadLocal = new ThreadLocal<SimpleDateFormat>();
-				newThreadLocal.set(simpleDateFormat);
-				container.put(pattern, newThreadLocal);
-				threadLocal = newThreadLocal;
+				threadLocal = new ThreadLocal<SimpleDateFormat>();
+				threadLocal.set(simpleDateFormat);
+				container.put(pattern, threadLocal);
 			}
 		}
 
 		return threadLocal.get();
 	}
 
-	// endregion
-
 	public static SimpleDateFormat getSimpleDateFormatWithStandardDateFormat() {
 		return getSimpleDateFormat(StandardDateFormat);
 	}
 
+	// endregion
+
+	// region to Date
+
 	public static Date toDate(String value, String pattern) throws ParseException {
-		if (StringHelper.isNullOrEmpty(value)) {
+		if (StringHelper.isNullOrEmpty(value) || StringHelper.isNullOrEmpty(pattern)) {
 			return null;
 		}
 
@@ -56,7 +61,13 @@ public class DateFormatHelper {
 		return simpleDateFormat.parse(value);
 	}
 
+	// endregion
+
+	// region to String
+
 	public static String toString(Date date, String pattern) {
 		return getSimpleDateFormat(pattern).format(date);
 	}
+
+	// endregion
 }

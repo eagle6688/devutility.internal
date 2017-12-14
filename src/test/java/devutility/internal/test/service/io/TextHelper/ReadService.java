@@ -5,7 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 
-import devutility.internal.io.TextHelper;
+import devutility.internal.io.TextFileHelper;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
@@ -19,7 +19,7 @@ public class ReadService extends BaseTest {
 	@Override
 	public void run() {
 		try {
-			String content = TextHelper.read(path, StandardCharsets.UTF_8);
+			String content = TextFileHelper.read(path, StandardCharsets.UTF_8);
 			println(content);
 
 			if (content == null) {

@@ -13,6 +13,8 @@ import java.nio.file.StandardOpenOption;
 public class RandomAccessFileHelper {
 	public static final int BUFFERSIZE = 1024;
 
+	// region insert
+
 	public static void insert(String fileName, long startIndex, byte[] bytes) throws Exception {
 		try (RandomAccessFile randomAccessFile = new RandomAccessFile(fileName, "rw")) {
 			long fileLength = randomAccessFile.length();
@@ -38,24 +40,26 @@ public class RandomAccessFileHelper {
 		}
 	}
 
+	// endregion
+
 	// region append
 
-	public static void append(String fileName, byte[] bytes) throws Exception {
+	public static void append(String fileName, byte[] bytes) throws IOException {
 		append(fileName, ByteBuffer.wrap(bytes));
 	}
 
-	public static void append(String fileName, ByteBuffer byteBuffer) throws Exception {
+	public static void append(String fileName, ByteBuffer byteBuffer) throws IOException {
 		try (RandomAccessFile randomAccessFile = new RandomAccessFile(fileName, "rw"); FileChannel fileChannel = randomAccessFile.getChannel()) {
 			fileChannel.position(randomAccessFile.length());
 			fileChannel.write(byteBuffer);
-		} catch (Exception e) {
+		} catch (IOException e) {
 			throw e;
 		}
 	}
 
 	// endregion
 
-	// region asyncAppend
+	// region async append
 
 	public static void asyncAppend(Path path, ByteBuffer byteBuffer) throws Exception {
 		long fileLength = FileHelper.getBytesLength(path);
@@ -70,16 +74,6 @@ public class RandomAccessFileHelper {
 	public static void asyncAppend(String fileName, ByteBuffer byteBuffer) throws Exception {
 		Path path = Paths.get(fileName);
 		asyncAppend(path, byteBuffer);
-	}
-
-	public static void asyncAppend(Path path, String content) throws Exception {
-		ByteBuffer byteBuffer = ByteBuffer.wrap(content.getBytes());
-		asyncAppend(path, byteBuffer);
-	}
-
-	public static void asyncAppend(String fileName, String content) throws Exception {
-		ByteBuffer byteBuffer = ByteBuffer.wrap(content.getBytes());
-		asyncAppend(fileName, byteBuffer);
 	}
 
 	public static void asyncAppend(String fileName, ByteBuffer byteBuffer, CompletionHandler<Integer, ByteBuffer> handler) throws Exception {
