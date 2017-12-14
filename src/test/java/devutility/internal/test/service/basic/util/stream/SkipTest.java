@@ -4,10 +4,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 
-public class SkipTest extends BaseService {
+public class SkipTest extends BaseTest {
 	@Override
 	public void run() {
 		List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7);
@@ -16,6 +16,6 @@ public class SkipTest extends BaseService {
 	}
 
 	public static void main(String[] args) {
-		ServiceExecutor.run(SkipTest.class);
+		TestExecutor.run(SkipTest.class);
 	}
 }

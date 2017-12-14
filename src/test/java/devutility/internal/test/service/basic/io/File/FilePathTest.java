@@ -2,10 +2,10 @@ package devutility.internal.test.service.basic.io.File;
 
 import java.io.File;
 
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 
-public class FilePathTest extends BaseService {
+public class FilePathTest extends BaseTest {
 	@Override
 	public void run() {
 		println(String.format("File(\"\").getAbsolutePath(): %s", new File("").getAbsolutePath()));
@@ -17,6 +17,6 @@ public class FilePathTest extends BaseService {
 	}
 
 	public static void main(String[] args) {
-		ServiceExecutor.run(FilePathTest.class);
+		TestExecutor.run(FilePathTest.class);
 	}
 }

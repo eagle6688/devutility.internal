@@ -1,9 +1,9 @@
 package devutility.internal.test.service.operators;
 
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 
-public class ShiftTest extends BaseService {
+public class ShiftTest extends BaseTest {
 	@Override
 	public void run() {
 		int value = 3;
@@ -23,6 +23,6 @@ public class ShiftTest extends BaseService {
 	}
 
 	public static void main(String[] args) {
-		ServiceExecutor.run(ShiftTest.class);
+		TestExecutor.run(ShiftTest.class);
 	}
 }

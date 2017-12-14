@@ -1,16 +1,16 @@
 package devutility.internal.test.service.io.DirectoryHelper;
 
 import devutility.internal.io.DirectoryHelper;
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 
-public class GetProjectDirectoryService extends BaseService {
+public class GetProjectDirectoryService extends BaseTest {
 	@Override
 	public void run() {
 		println(DirectoryHelper.getProjectDirectory());
 	}
 	
 	public static void main(String[] args) {
-		ServiceExecutor.run(new GetProjectDirectoryService());
+		TestExecutor.run(new GetProjectDirectoryService());
 	}
 }

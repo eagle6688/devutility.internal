@@ -2,10 +2,10 @@ package devutility.internal.test.service.basic.util.concurrent;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 
-public class ConcurrentHashMapTest extends BaseService {
+public class ConcurrentHashMapTest extends BaseTest {
 	@Override
 	public void run() {
 		ConcurrentHashMap<String, String> hashMap = new ConcurrentHashMap<>();
@@ -13,6 +13,6 @@ public class ConcurrentHashMapTest extends BaseService {
 	}
 
 	public static void main(String[] args) {
-		ServiceExecutor.run(ConcurrentHashMapTest.class);
+		TestExecutor.run(ConcurrentHashMapTest.class);
 	}
 }

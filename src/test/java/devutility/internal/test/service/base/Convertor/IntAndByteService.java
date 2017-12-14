@@ -1,12 +1,12 @@
 package devutility.internal.test.service.base.Convertor;
 
 import devutility.internal.base.Convertor;
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 
-public class IntAndByteService extends BaseService {
+public class IntAndByteService extends BaseTest {
 	public static void main(String[] args) {
-		ServiceExecutor.run(IntAndByteService.class);
+		TestExecutor.run(IntAndByteService.class);
 	}
 	
 	@Override

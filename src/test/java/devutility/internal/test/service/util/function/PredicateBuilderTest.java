@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 import devutility.internal.test.models.Person;
 import devutility.internal.util.ListHelper;
 import devutility.internal.util.function.PredicateBuilder;
 
-public class PredicateBuilderTest extends BaseService {
+public class PredicateBuilderTest extends BaseTest {
 	@Override
 	public void run() {
 		testOrAnd();
@@ -57,6 +57,6 @@ public class PredicateBuilderTest extends BaseService {
 	}
 
 	public static void main(String[] args) {
-		ServiceExecutor.run(PredicateBuilderTest.class);
+		TestExecutor.run(PredicateBuilderTest.class);
 	}
 }

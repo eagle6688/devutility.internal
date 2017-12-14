@@ -3,11 +3,11 @@ package devutility.internal.test.service.util.ArrayListHelper;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 import devutility.internal.util.ArrayListHelper;
 
-public class ConvertToIntArrayService extends BaseService {
+public class ConvertToIntArrayService extends BaseTest {
 	private ArrayList<Integer> list = new ArrayList<>();
 
 	public ConvertToIntArrayService(ArrayList<Integer> list) {
@@ -33,6 +33,6 @@ public class ConvertToIntArrayService extends BaseService {
 		numbers.add(4);
 		numbers.add(1);
 
-		ServiceExecutor.run(new ConvertToIntArrayService(numbers));
+		TestExecutor.run(new ConvertToIntArrayService(numbers));
 	}
 }

@@ -5,10 +5,10 @@ import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 import java.util.concurrent.TimeUnit;
 
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 
-public class SocketChannelClientService extends BaseService {
+public class SocketChannelClientService extends BaseTest {
 	@Override
 	public void run() {
 		client();
@@ -44,6 +44,6 @@ public class SocketChannelClientService extends BaseService {
 	}
 	
 	public static void main(String[] args) {
-		ServiceExecutor.run(new SocketChannelClientService());
+		TestExecutor.run(new SocketChannelClientService());
 	}
 }

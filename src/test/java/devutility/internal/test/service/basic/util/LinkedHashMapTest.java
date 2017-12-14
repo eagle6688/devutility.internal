@@ -3,10 +3,10 @@ package devutility.internal.test.service.basic.util;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 
-public class LinkedHashMapTest extends BaseService {
+public class LinkedHashMapTest extends BaseTest {
 	@Override
 	public void run() {
 		LinkedHashMap<String, String> linkedHashMap = new LinkedHashMap<>();
@@ -21,6 +21,6 @@ public class LinkedHashMapTest extends BaseService {
 	}
 
 	public static void main(String[] args) {
-		ServiceExecutor.run(LinkedHashMapTest.class);
+		TestExecutor.run(LinkedHashMapTest.class);
 	}
 }

@@ -1,10 +1,10 @@
 package devutility.internal.test.service.io.TextHelper;
 
 import devutility.internal.io.TextHelper;
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 
-public class AppendService extends BaseService {
+public class AppendService extends BaseTest {
 	@Override
 	public void run() {
 		try {
@@ -17,6 +17,6 @@ public class AppendService extends BaseService {
 	}
 	
 	public static void main(String[] args) throws Exception {
-		ServiceExecutor.run(AppendService.class);
+		TestExecutor.run(AppendService.class);
 	}
 }

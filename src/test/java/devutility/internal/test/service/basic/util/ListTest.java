@@ -3,10 +3,10 @@ package devutility.internal.test.service.basic.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 
-public class ListTest extends BaseService {
+public class ListTest extends BaseTest {
 	@Override
 	public void run() {
 		List<Integer> list = new ArrayList<>();
@@ -18,6 +18,6 @@ public class ListTest extends BaseService {
 	}
 
 	public static void main(String[] args) {
-		ServiceExecutor.run(ListTest.class);
+		TestExecutor.run(ListTest.class);
 	}
 }

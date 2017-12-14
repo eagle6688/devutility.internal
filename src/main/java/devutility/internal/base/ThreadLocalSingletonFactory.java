@@ -12,31 +12,30 @@ public class ThreadLocalSingletonFactory {
 
 	// region create
 
-	public static <T> T create(Class<T> clazz) throws ReflectiveOperationException {
+	public static <T> T create(Class<T> clazz) throws InstantiationException, IllegalAccessException {
 		T instance = null;
 		String key = clazz.getName();
-		ThreadLocal<Object> threadLocal = container.get(key);
+		ThreadLocal<Object> tl = container.get(key);
+		
+		if (tl != null) {
+			Object value = tl.get();
 
-		if (threadLocal != null) {
-			Object value = threadLocal.get();
-
-			if (value != null) {
-				instance = clazz.cast(value);
-				return instance;
+			if (value != null && value.getClass().isAssignableFrom(clazz)) {
+				return clazz.cast(value);
 			}
+
+			container.put(key, null);
 		}
 
 		synchronized (ThreadLocalSingletonFactory.class) {
-			if (threadLocal == null || instance == null) {
-				try {
-					instance = clazz.newInstance();
-					threadLocal = new ThreadLocal<Object>();
-					threadLocal.set(instance);
-					container.put(key, threadLocal);
-				} catch (InstantiationException | IllegalAccessException e) {
-					e.printStackTrace();
-					throw e;
-				}
+			System.out.println("synchronized body");
+			
+			if (container.get(key) == null) {
+				instance = clazz.newInstance();
+				ThreadLocal<Object> threadLocal = new ThreadLocal<Object>();
+				threadLocal.set(instance);
+				container.put(key, threadLocal);
+				System.out.println("create");
 			}
 		}
 

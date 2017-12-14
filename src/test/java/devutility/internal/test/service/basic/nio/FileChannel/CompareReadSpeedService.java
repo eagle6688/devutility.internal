@@ -4,10 +4,10 @@ import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 
-public class CompareReadSpeedService extends BaseService {
+public class CompareReadSpeedService extends BaseTest {
 	@Override
 	public void run() {
 		String filename = "D:\\Softwares\\Java\\eclipse-jee-oxygen-R-win32-x86_64.zip";
@@ -44,6 +44,6 @@ public class CompareReadSpeedService extends BaseService {
 	}
 	
 	public static void main(String[] args) {
-		ServiceExecutor.run(CompareReadSpeedService.class);
+		TestExecutor.run(CompareReadSpeedService.class);
 	}
 }

@@ -3,10 +3,10 @@ package devutility.internal.test.service.basic.util;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 
-public class TreeMapTest extends BaseService {
+public class TreeMapTest extends BaseTest {
 	@Override
 	public void run() {
 		TreeMap<String, String> treeMap = new TreeMap<String, String>();
@@ -20,6 +20,6 @@ public class TreeMapTest extends BaseService {
 	}
 
 	public static void main(String[] args) {
-		ServiceExecutor.run(TreeMapTest.class);
+		TestExecutor.run(TreeMapTest.class);
 	}
 }

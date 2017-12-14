@@ -3,15 +3,15 @@ package devutility.internal.test.service.basic.lang.StackTraceElement;
 import java.util.Arrays;
 import java.util.List;
 
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 import devutility.internal.test.service.basic.lang.Objects.RequireNonNullService;
 
-public class GetStackTraceService extends BaseService {
+public class GetStackTraceService extends BaseTest {
 	@Override
 	public void run() {
 		try {
-			ServiceExecutor.run(new RequireNonNullService(null));
+			TestExecutor.run(new RequireNonNullService(null));
 		} catch (Exception e) {
 			StackTraceElement[] stackTraceElements = e.getStackTrace();
 			List<StackTraceElement> stackTraceElementList = Arrays.asList(stackTraceElements);
@@ -33,6 +33,6 @@ public class GetStackTraceService extends BaseService {
 	}
 	
 	public static void main(String[] args) {
-		ServiceExecutor.run(GetStackTraceService.class);
+		TestExecutor.run(GetStackTraceService.class);
 	}
 }

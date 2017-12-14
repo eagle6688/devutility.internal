@@ -32,6 +32,7 @@ public class SingletonFactory {
 					value = null;
 				} catch (InstantiationException | IllegalAccessException e) {
 					e.printStackTrace();
+					return null;
 				}
 			}
 		}

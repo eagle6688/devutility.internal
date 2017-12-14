@@ -5,10 +5,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import devutility.internal.io.TextHelper;
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 
-public class CountService extends BaseService {
+public class CountService extends BaseTest {
 	private List<String> list;
 
 	public CountService(List<String> list) {
@@ -25,6 +25,6 @@ public class CountService extends BaseService {
 		String content = TextHelper.read("E:\\Downloads\\Test.txt", StandardCharsets.UTF_8);
 		String[] array = content.split("\\PL+");
 		List<String> list = Arrays.asList(array);
-		ServiceExecutor.run(new CountService(list));
+		TestExecutor.run(new CountService(list));
 	}
 }

@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import devutility.internal.cache.MemoryCache;
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 
-public class GetTest extends BaseService {
+public class GetTest extends BaseTest {
 	@Override
 	public void run() {
 		String key = GetTest.class.getName();
@@ -29,6 +29,6 @@ public class GetTest extends BaseService {
 	}
 
 	public static void main(String[] args) {
-		ServiceExecutor.run(GetTest.class);
+		TestExecutor.run(GetTest.class);
 	}
 }

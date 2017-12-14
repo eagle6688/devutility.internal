@@ -1,10 +1,10 @@
 package devutility.internal.test.service.data.codec.GZipHelper;
 
 import devutility.internal.data.codec.GZipHelper;
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 
-public class DeCompressTest extends BaseService {
+public class DeCompressTest extends BaseTest {
 	@Override
 	public void run() {
 		String value = "Hello World!Hello World!Hello World!Hello World!";
@@ -20,6 +20,6 @@ public class DeCompressTest extends BaseService {
 	}
 
 	public static void main(String[] args) {
-		ServiceExecutor.run(DeCompressTest.class);
+		TestExecutor.run(DeCompressTest.class);
 	}
 }

@@ -11,6 +11,7 @@ public class Convertor {
 			int result = Integer.parseInt(value);
 			return result;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return 0;
 		}
 	}

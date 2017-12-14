@@ -2,10 +2,10 @@ package devutility.internal.test.service.basic.nio;
 
 import java.nio.ByteBuffer;
 
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 
-public class ByteBufferService extends BaseService {
+public class ByteBufferService extends BaseTest {
 	@Override
 	public void run() {
 		ByteBuffer byteBuffer = ByteBuffer.allocate(100);
@@ -49,6 +49,6 @@ public class ByteBufferService extends BaseService {
 	}
 	
 	public static void main(String[] args) {
-		ServiceExecutor.run(ByteBufferService.class);
+		TestExecutor.run(ByteBufferService.class);
 	}
 }

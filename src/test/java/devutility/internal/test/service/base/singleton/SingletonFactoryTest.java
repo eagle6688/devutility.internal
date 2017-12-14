@@ -1,11 +1,11 @@
 package devutility.internal.test.service.base.singleton;
 
 import devutility.internal.base.SingletonFactory;
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 import devutility.internal.test.models.Person;
 
-public class SingletonFactoryTest extends BaseService {
+public class SingletonFactoryTest extends BaseTest {
 	@Override
 	public void run() {
 		Person person = SingletonFactory.create(Person.class);
@@ -19,7 +19,7 @@ public class SingletonFactoryTest extends BaseService {
 
 	public static void main(String[] args) {
 		for (int i = 0; i < 100; i++) {
-			ServiceExecutor.concurrentRun(SingletonFactoryTest.class);
+			TestExecutor.concurrentRun(SingletonFactoryTest.class);
 		}
 	}
 }

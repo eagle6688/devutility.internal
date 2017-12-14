@@ -3,11 +3,11 @@ package devutility.internal.test.service.base.InstanceHelper;
 import java.util.ArrayList;
 
 import devutility.internal.base.InstanceHelper;
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 import devutility.internal.test.models.Person;
 
-public class IsJaveClassService extends BaseService {
+public class IsJaveClassService extends BaseTest {
 	@Override
 	public void run() {
 		ArrayList<Person> list = new ArrayList<>();
@@ -17,6 +17,6 @@ public class IsJaveClassService extends BaseService {
 	}
 
 	public static void main(String[] args) {
-		ServiceExecutor.run(IsJaveClassService.class);
+		TestExecutor.run(IsJaveClassService.class);
 	}
 }

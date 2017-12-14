@@ -4,10 +4,10 @@ import java.io.FileOutputStream;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 
-public class GatherService extends BaseService {
+public class GatherService extends BaseTest {
 	@Override
 	public void run() {
 		String filename = "E:\\Downloads\\Test.txt";
@@ -23,6 +23,6 @@ public class GatherService extends BaseService {
 	}
 	
 	public static void main(String[] args) {
-		ServiceExecutor.run(GatherService.class);
+		TestExecutor.run(GatherService.class);
 	}
 }

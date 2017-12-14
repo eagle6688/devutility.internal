@@ -7,12 +7,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 import devutility.internal.test.models.Person;
 import devutility.internal.text.format.DateFormatHelper;
 
-public class CollectionsTest extends BaseService {
+public class CollectionsTest extends BaseTest {
 	@Override
 	public void run() {
 		SimpleDateFormat simpleDateFormat = DateFormatHelper.getSimpleDateFormat("yyyy-MM-dd");
@@ -134,6 +134,6 @@ public class CollectionsTest extends BaseService {
 	}
 
 	public static void main(String[] args) {
-		ServiceExecutor.run(CollectionsTest.class);
+		TestExecutor.run(CollectionsTest.class);
 	}
 }

@@ -3,10 +3,10 @@ package devutility.internal.test.service.io.DirectoryHelper;
 import java.io.IOException;
 
 import devutility.internal.io.DirectoryHelper;
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 
-public class GetAbsolutePathTest extends BaseService {
+public class GetAbsolutePathTest extends BaseTest {
 	@Override
 	public void run() {
 		try {
@@ -17,6 +17,6 @@ public class GetAbsolutePathTest extends BaseService {
 	}
 
 	public static void main(String[] args) {
-		ServiceExecutor.run(GetAbsolutePathTest.class);
+		TestExecutor.run(GetAbsolutePathTest.class);
 	}
 }

@@ -1,9 +1,9 @@
 package devutility.internal.test.service.basic.reflect.generic;
 
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 
-public class ArrayTypeTest extends BaseService {
+public class ArrayTypeTest extends BaseTest {
 	@Override
 	public void run() {
 		println(String[].class.getName());
@@ -11,6 +11,6 @@ public class ArrayTypeTest extends BaseService {
 	}
 
 	public static void main(String[] args) {
-		ServiceExecutor.run(ArrayTypeTest.class);
+		TestExecutor.run(ArrayTypeTest.class);
 	}
 }

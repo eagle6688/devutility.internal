@@ -1,9 +1,9 @@
 package devutility.internal.test.service.system;
 
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 
-public class CPUTest extends BaseService {
+public class CPUTest extends BaseTest {
 	@Override
 	public void run() {
 		int coreCount = Runtime.getRuntime().availableProcessors();
@@ -11,6 +11,6 @@ public class CPUTest extends BaseService {
 	}
 
 	public static void main(String[] args) {
-		ServiceExecutor.run(CPUTest.class);
+		TestExecutor.run(CPUTest.class);
 	}
 }

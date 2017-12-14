@@ -1,9 +1,9 @@
 package devutility.internal.test.service.base.path;
 
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 
-public class PathTest extends BaseService {
+public class PathTest extends BaseTest {
 	@Override
 	public void run() {
 		println(String.format("System.getProperty(\"user.dir\"): %s", System.getProperty("user.dir")));
@@ -15,6 +15,6 @@ public class PathTest extends BaseService {
 	}
 	
 	public static void main(String[] args) {
-		ServiceExecutor.run(PathTest.class);
+		TestExecutor.run(PathTest.class);
 	}
 }

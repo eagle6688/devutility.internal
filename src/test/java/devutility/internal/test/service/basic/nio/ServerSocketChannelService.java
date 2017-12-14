@@ -9,9 +9,9 @@ import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 
-import devutility.internal.test.BaseService;
+import devutility.internal.test.BaseTest;
 
-public class ServerSocketChannelService extends BaseService {
+public class ServerSocketChannelService extends BaseTest {
 	private static final int BUF_SIZE = 1024;
 	private static final int PORT = 8091;
 	private static final int TIMEOUT = 3000;

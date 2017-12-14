@@ -6,10 +6,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import devutility.internal.io.TextHelper;
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 
-public class ReadService extends BaseService {
+public class ReadService extends BaseTest {
 	private String path;
 
 	public ReadService(String path) {
@@ -36,6 +36,6 @@ public class ReadService extends BaseService {
 	}
 
 	public static void main(String[] args) {
-		ServiceExecutor.run(new ReadService("E:\\Downloads\\Test.txt"));
+		TestExecutor.run(new ReadService("E:\\Downloads\\Test.txt"));
 	}
 }

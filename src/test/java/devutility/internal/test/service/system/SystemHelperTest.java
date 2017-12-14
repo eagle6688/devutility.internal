@@ -1,10 +1,10 @@
 package devutility.internal.test.service.system;
 
 import devutility.internal.system.SystemHelper;
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 
-public class SystemHelperTest extends BaseService {
+public class SystemHelperTest extends BaseTest {
 	@Override
 	public void run() {
 		int count = SystemHelper.getProcessorsCount();
@@ -15,6 +15,6 @@ public class SystemHelperTest extends BaseService {
 	}
 
 	public static void main(String[] args) {
-		ServiceExecutor.run(SystemHelperTest.class);
+		TestExecutor.run(SystemHelperTest.class);
 	}
 }

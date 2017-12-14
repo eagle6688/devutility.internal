@@ -1,10 +1,10 @@
 package devutility.internal.test.service.net;
 
 import devutility.internal.net.HttpHelper;
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 
-public class HttpHelperTest extends BaseService {
+public class HttpHelperTest extends BaseTest {
 	@Override
 	public void run() {
 		println(HttpHelper.get("http://www.baidu.com"));
@@ -12,6 +12,6 @@ public class HttpHelperTest extends BaseService {
 	}
 
 	public static void main(String[] args) {
-		ServiceExecutor.run(HttpHelperTest.class);
+		TestExecutor.run(HttpHelperTest.class);
 	}
 }

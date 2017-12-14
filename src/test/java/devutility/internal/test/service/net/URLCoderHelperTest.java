@@ -1,10 +1,10 @@
 package devutility.internal.test.service.net;
 
 import devutility.internal.net.URLCoderHelper;
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 
-public class URLCoderHelperTest extends BaseService {
+public class URLCoderHelperTest extends BaseTest {
 	@Override
 	public void run() {
 		println(URLCoderHelper.encode("asd"));
@@ -13,6 +13,6 @@ public class URLCoderHelperTest extends BaseService {
 	}
 
 	public static void main(String[] args) {
-		ServiceExecutor.run(URLCoderHelperTest.class);
+		TestExecutor.run(URLCoderHelperTest.class);
 	}
 }

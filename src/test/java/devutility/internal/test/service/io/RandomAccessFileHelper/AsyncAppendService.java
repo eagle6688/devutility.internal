@@ -4,10 +4,10 @@ import java.nio.ByteBuffer;
 import java.nio.channels.CompletionHandler;
 
 import devutility.internal.io.RandomAccessFileHelper;
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 
-public class AsyncAppendService extends BaseService {
+public class AsyncAppendService extends BaseTest {
 	String fileName = "E:\\Downloads\\Test.txt";
 
 	@Override
@@ -39,6 +39,6 @@ public class AsyncAppendService extends BaseService {
 	}
 	
 	public static void main(String[] args) {
-		ServiceExecutor.run(new AsyncAppendService());
+		TestExecutor.run(new AsyncAppendService());
 	}
 }

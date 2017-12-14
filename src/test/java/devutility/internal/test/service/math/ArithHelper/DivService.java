@@ -4,10 +4,10 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 import devutility.internal.math.ArithHelper;
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 
-public class DivService extends BaseService {
+public class DivService extends BaseTest {
 	@Override
 	public void run() {
 		try {
@@ -22,6 +22,6 @@ public class DivService extends BaseService {
 	}
 	
 	public static void main(String[] args) {
-		ServiceExecutor.run(DivService.class);
+		TestExecutor.run(DivService.class);
 	}
 }

@@ -5,10 +5,10 @@ import java.io.UnsupportedEncodingException;
 import devutility.internal.base.Convertor;
 import devutility.internal.data.codec.UTF8Helper;
 import devutility.internal.security.MD5Helper;
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 
-public class MD5HelperTest extends BaseService {
+public class MD5HelperTest extends BaseTest {
 	@Override
 	public void run() {
 		String value = "Hello World!";
@@ -29,6 +29,6 @@ public class MD5HelperTest extends BaseService {
 	}
 
 	public static void main(String[] args) {
-		ServiceExecutor.run(MD5HelperTest.class);
+		TestExecutor.run(MD5HelperTest.class);
 	}
 }

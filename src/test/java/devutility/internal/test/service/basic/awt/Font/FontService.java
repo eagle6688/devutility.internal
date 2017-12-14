@@ -5,10 +5,10 @@ import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 
-public class FontService extends BaseService {
+public class FontService extends BaseTest {
 	@Override
 	public void run() {
 		BufferedImage bufferedImage = new BufferedImage(100, 30, BufferedImage.TYPE_INT_RGB);
@@ -31,6 +31,6 @@ public class FontService extends BaseService {
 	}
 
 	public static void main(String[] args) {
-		ServiceExecutor.run(FontService.class);
+		TestExecutor.run(FontService.class);
 	}
 }

@@ -5,10 +5,10 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketAddress;
 
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 
-public class ServerSocketServerService extends BaseService {
+public class ServerSocketServerService extends BaseTest {
 	@Override
 	public void run() {
 		server();
@@ -43,6 +43,6 @@ public class ServerSocketServerService extends BaseService {
 	}
 	
 	public static void main(String[] args) {
-		ServiceExecutor.run(new ServerSocketServerService());
+		TestExecutor.run(new ServerSocketServerService());
 	}
 }

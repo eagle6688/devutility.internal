@@ -1,12 +1,12 @@
 package devutility.internal.test.service.basic.reflect.generic;
 
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
-public class GetGenericType extends BaseService {
+public class GetGenericType extends BaseTest {
 	static class ParameterizedTypeReference<T> {
 		private final Type type;
 
@@ -28,6 +28,6 @@ public class GetGenericType extends BaseService {
 	}
 
 	public static void main(String[] args) {
-		ServiceExecutor.run(GetGenericType.class);
+		TestExecutor.run(GetGenericType.class);
 	}
 }

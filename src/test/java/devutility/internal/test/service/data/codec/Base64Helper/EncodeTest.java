@@ -1,10 +1,10 @@
 package devutility.internal.test.service.data.codec.Base64Helper;
 
 import devutility.internal.data.codec.Base64Helper;
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 
-public class EncodeTest extends BaseService {
+public class EncodeTest extends BaseTest {
 	@Override
 	public void run() {
 		String value = "Hellp World!Hello World!";
@@ -15,6 +15,6 @@ public class EncodeTest extends BaseService {
 	}
 
 	public static void main(String[] args) {
-		ServiceExecutor.run(EncodeTest.class);
+		TestExecutor.run(EncodeTest.class);
 	}
 }

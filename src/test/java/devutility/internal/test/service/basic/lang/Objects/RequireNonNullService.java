@@ -2,10 +2,10 @@ package devutility.internal.test.service.basic.lang.Objects;
 
 import java.util.Objects;
 
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 
-public class RequireNonNullService extends BaseService {
+public class RequireNonNullService extends BaseTest {
 	String value;
 
 	public RequireNonNullService(String value) {
@@ -19,6 +19,6 @@ public class RequireNonNullService extends BaseService {
 	}
 	
 	public static void main(String[] args) {
-		ServiceExecutor.run(new RequireNonNullService(null));
+		TestExecutor.run(new RequireNonNullService(null));
 	}
 }

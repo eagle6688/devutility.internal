@@ -1,15 +1,15 @@
 package devutility.internal.test.service.lang.ExceptionHelper;
 
 import devutility.internal.lang.ExceptionHelper;
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 import devutility.internal.test.service.basic.lang.Objects.RequireNonNullService;
 
-public class ToStringService extends BaseService {
+public class ToStringService extends BaseTest {
 	@Override
 	public void run() {
 		try {
-			ServiceExecutor.run(new RequireNonNullService(null));
+			TestExecutor.run(new RequireNonNullService(null));
 		} catch (Exception e) {
 			String content = ExceptionHelper.toString(e);
 			println(content);
@@ -17,6 +17,6 @@ public class ToStringService extends BaseService {
 	}
 	
 	public static void main(String[] args) {
-		ServiceExecutor.run(ToStringService.class);
+		TestExecutor.run(ToStringService.class);
 	}
 }

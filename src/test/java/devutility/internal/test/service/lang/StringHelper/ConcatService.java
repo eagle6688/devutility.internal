@@ -1,10 +1,10 @@
 package devutility.internal.test.service.lang.StringHelper;
 
 import devutility.internal.lang.StringHelper;
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 
-public class ConcatService extends BaseService {
+public class ConcatService extends BaseTest {
 	@Override
 	public void run() {
 		println(StringHelper.concat(""));
@@ -13,6 +13,6 @@ public class ConcatService extends BaseService {
 	}
 
 	public static void main(String[] args) {
-		ServiceExecutor.run(ConcatService.class);
+		TestExecutor.run(ConcatService.class);
 	}
 }

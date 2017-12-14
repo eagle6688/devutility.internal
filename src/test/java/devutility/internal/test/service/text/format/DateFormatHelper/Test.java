@@ -4,11 +4,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 import devutility.internal.text.format.DateFormatHelper;
 
-public class Test extends BaseService {
+public class Test extends BaseTest {
 	@Override
 	public void run() {
 		SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat(DateFormatHelper.StandardDateTimeFormat);
@@ -31,6 +31,6 @@ public class Test extends BaseService {
 	}
 
 	public static void main(String[] args) {
-		ServiceExecutor.run(Test.class);
+		TestExecutor.run(Test.class);
 	}
 }

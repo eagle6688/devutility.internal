@@ -4,10 +4,10 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 
-public class CallableFutureTest extends BaseService {
+public class CallableFutureTest extends BaseTest {
 	@Override
 	public void run() {
 		Callable<Integer> callable = new Callable<Integer>() {
@@ -40,6 +40,6 @@ public class CallableFutureTest extends BaseService {
 	}
 
 	public static void main(String[] args) {
-		ServiceExecutor.run(CallableFutureTest.class);
+		TestExecutor.run(CallableFutureTest.class);
 	}
 }

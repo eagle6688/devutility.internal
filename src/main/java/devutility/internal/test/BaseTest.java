@@ -2,13 +2,13 @@ package devutility.internal.test;
 
 import java.util.Arrays;
 
-public abstract class BaseService {
+public abstract class BaseTest {
 	protected static void println(String message) {
 		System.out.println(message);
 	}
 
 	protected static void println(int value) {
-		println(String.valueOf(value));
+		System.out.println(value);
 	}
 
 	protected static void println(long value) {

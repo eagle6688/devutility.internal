@@ -2,18 +2,18 @@ package devutility.internal.test;
 
 import devutility.internal.base.InstanceHelper;
 
-public class ServiceExecutor {
-	public static void run(BaseService service) {
-		if (service == null) {
+public class TestExecutor {
+	public static void run(BaseTest test) {
+		if (test == null) {
 			return;
 		}
 
-		printStartMessage(service.getClass());
-		service.run();
-		printEndMessage(service.getClass());
+		printStartMessage(test.getClass());
+		test.run();
+		printEndMessage(test.getClass());
 	}
 
-	public static <T extends BaseService> void run(Class<T> cl) {
+	public static <T extends BaseTest> void run(Class<T> cl) {
 		long startTime = System.currentTimeMillis();
 
 		if (cl == null) {
@@ -32,7 +32,7 @@ public class ServiceExecutor {
 			return;
 		}
 
-		if (InstanceHelper.notInstanceof(instance, BaseService.class)) {
+		if (InstanceHelper.notInstanceof(instance, BaseTest.class)) {
 			return;
 		}
 
@@ -41,7 +41,7 @@ public class ServiceExecutor {
 		handleEnd(startTime, cl);
 	}
 
-	public static <T extends BaseService> void concurrentRun(Class<T> cl) {
+	public static <T extends BaseTest> void concurrentRun(Class<T> cl) {
 		if (cl == null) {
 			return;
 		}

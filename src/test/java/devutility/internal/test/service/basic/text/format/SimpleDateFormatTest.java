@@ -3,10 +3,10 @@ package devutility.internal.test.service.basic.text.format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 
-public class SimpleDateFormatTest extends BaseService {
+public class SimpleDateFormatTest extends BaseTest {
 	@Override
 	public void run() {
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
@@ -20,6 +20,6 @@ public class SimpleDateFormatTest extends BaseService {
 	}
 
 	public static void main(String[] args) {
-		ServiceExecutor.run(SimpleDateFormatTest.class);
+		TestExecutor.run(SimpleDateFormatTest.class);
 	}
 }

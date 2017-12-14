@@ -4,10 +4,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import devutility.internal.test.BaseService;
-import devutility.internal.test.ServiceExecutor;
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
 
-public class DateTest extends BaseService {
+public class DateTest extends BaseTest {
 
 	@Override
 	public void run() {
@@ -23,6 +23,6 @@ public class DateTest extends BaseService {
 	}
 
 	public static void main(String[] args) {
-		ServiceExecutor.run(DateTest.class);
+		TestExecutor.run(DateTest.class);
 	}
 }
