@@ -1,11 +1,13 @@
-package devutility.internal.dao.helper;
+package devutility.internal.dao;
 
 import java.util.Properties;
 
-import devutility.internal.dao.DBInstance;
+import devutility.internal.dao.models.DBInstance;
 import devutility.internal.util.PropertiesHelper;
 
 public class DBInstanceHelper {
+	// region get instance
+
 	public static DBInstance getInstance(String resourceName, String prefix) {
 		Properties properties = PropertiesHelper.getProperties(resourceName);
 
@@ -18,6 +20,10 @@ public class DBInstanceHelper {
 		return instance;
 	}
 
+	// endregion
+
+	// region set instance
+
 	protected static void setInstance(DBInstance instance, Properties properties, String prefix) {
 		instance.setHost(PropertiesHelper.getProperty(properties, getPropertyKey_Host(prefix)));
 		instance.setPort(PropertiesHelper.getIntProperty(properties, getPropertyKey_Port(prefix)));
@@ -26,6 +32,10 @@ public class DBInstanceHelper {
 		instance.setDatabase(PropertiesHelper.getProperty(properties, getPropertyKey_Database(prefix)));
 		instance.setTimeout(PropertiesHelper.getIntProperty(properties, getPropertyKey_Timeout(prefix)));
 	}
+
+	// endregion
+
+	// region get property
 
 	public static String getPropertyKey_Host(String prefix) {
 		return String.format("%s.host", prefix);
@@ -50,4 +60,6 @@ public class DBInstanceHelper {
 	public static String getPropertyKey_Timeout(String prefix) {
 		return String.format("%s.timeout", prefix);
 	}
+
+	// endregion
 }

@@ -1,11 +1,13 @@
-package devutility.internal.dao.helper;
+package devutility.internal.dao;
 
 import java.util.Properties;
 
-import devutility.internal.dao.RedisInstance;
+import devutility.internal.dao.models.RedisInstance;
 import devutility.internal.util.PropertiesHelper;
 
 public final class RedisInstanceHelper extends DBInstanceHelper {
+	// region get instance
+
 	public static RedisInstance getInstance(String resourceName, String prefix) {
 		Properties properties = PropertiesHelper.getProperties(resourceName);
 
@@ -19,7 +21,13 @@ public final class RedisInstanceHelper extends DBInstanceHelper {
 		return instance;
 	}
 
+	// endregion
+
+	// region get property key DBIndex
+
 	public static String getPropertyKey_DBIndex(String prefix) {
 		return String.format("%s.dbindex", prefix);
 	}
+
+	// endregion
 }

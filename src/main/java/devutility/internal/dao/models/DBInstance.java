@@ -1,4 +1,4 @@
-package devutility.internal.dao;
+package devutility.internal.dao.models;
 
 public class DBInstance {
 	private String host = "";

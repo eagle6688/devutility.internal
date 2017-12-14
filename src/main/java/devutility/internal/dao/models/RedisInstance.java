@@ -1,4 +1,4 @@
-package devutility.internal.dao;
+package devutility.internal.dao.models;
 
 public class RedisInstance extends DBInstance {
 	private int dbIndex = 0;
