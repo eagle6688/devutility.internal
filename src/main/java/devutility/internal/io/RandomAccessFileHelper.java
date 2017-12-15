@@ -61,28 +61,28 @@ public class RandomAccessFileHelper {
 
 	// region async append
 
-	public static void asyncAppend(Path path, ByteBuffer byteBuffer) throws Exception {
+	public static void asyncAppend(Path path, ByteBuffer byteBuffer) throws IOException {
 		long fileLength = FileHelper.getBytesLength(path);
 
 		try (AsynchronousFileChannel asynchronousFileChannel = AsynchronousFileChannel.open(path, StandardOpenOption.WRITE, StandardOpenOption.CREATE)) {
 			asynchronousFileChannel.write(byteBuffer, fileLength);
-		} catch (Exception e) {
+		} catch (IOException e) {
 			throw e;
 		}
 	}
 
-	public static void asyncAppend(String fileName, ByteBuffer byteBuffer) throws Exception {
+	public static void asyncAppend(String fileName, ByteBuffer byteBuffer) throws IOException {
 		Path path = Paths.get(fileName);
 		asyncAppend(path, byteBuffer);
 	}
 
-	public static void asyncAppend(String fileName, ByteBuffer byteBuffer, CompletionHandler<Integer, ByteBuffer> handler) throws Exception {
+	public static void asyncAppend(String fileName, ByteBuffer byteBuffer, CompletionHandler<Integer, ByteBuffer> handler) throws IOException {
 		Path path = Paths.get(fileName);
 		long fileLength = FileHelper.getBytesLength(fileName);
 
 		try (AsynchronousFileChannel asynchronousFileChannel = AsynchronousFileChannel.open(path, StandardOpenOption.WRITE)) {
 			asynchronousFileChannel.write(byteBuffer, fileLength, byteBuffer, handler);
-		} catch (Exception e) {
+		} catch (IOException e) {
 			throw e;
 		}
 	}

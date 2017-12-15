@@ -50,12 +50,12 @@ public class TextFileHelper {
 
 	// region async append
 
-	public static void asyncAppend(String fileName, ByteBuffer byteBuffer) throws Exception {
+	public static void asyncAppend(String fileName, ByteBuffer byteBuffer) throws IOException {
 		Path path = Paths.get(fileName);
 		RandomAccessFileHelper.asyncAppend(path, byteBuffer);
 	}
 
-	public static void asyncAppend(Path path, String content) throws Exception {
+	public static void asyncAppend(Path path, String content) throws IOException {
 		ByteBuffer byteBuffer = ByteBuffer.wrap(content.getBytes());
 		RandomAccessFileHelper.asyncAppend(path, byteBuffer);
 	}

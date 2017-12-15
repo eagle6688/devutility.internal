@@ -13,8 +13,8 @@ public class ExceptionHelper {
 	}
 
 	public static String toString(Exception exception, String separator) {
-		List<String> list = toList(exception);
 		StringBuilder result = new StringBuilder();
+		List<String> list = toList(exception);
 
 		for (int i = 0; i < list.size(); i++) {
 			result.append(list.get(i));
@@ -38,7 +38,7 @@ public class ExceptionHelper {
 			return list;
 		}
 
-		list.add(exception.getMessage());
+		list.add(String.format("%s: %s", exception.getClass().getName(), exception.getMessage()));
 		StackTraceElement[] stackTraceElements = exception.getStackTrace();
 
 		if (stackTraceElements == null || stackTraceElements.length == 0) {
@@ -46,7 +46,7 @@ public class ExceptionHelper {
 		}
 
 		for (StackTraceElement stackTraceElement : stackTraceElements) {
-			list.add(stackTraceElement.toString());
+			list.add(String.format("	at %s", stackTraceElement.toString()));
 		}
 
 		return list;

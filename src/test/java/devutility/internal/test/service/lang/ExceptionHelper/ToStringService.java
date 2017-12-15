@@ -1,21 +1,24 @@
 package devutility.internal.test.service.lang.ExceptionHelper;
 
+import java.util.Objects;
+
 import devutility.internal.lang.ExceptionHelper;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
-import devutility.internal.test.service.basic.lang.Objects.RequireNonNullService;
 
 public class ToStringService extends BaseTest {
+	private Object value = null;
+
 	@Override
 	public void run() {
 		try {
-			TestExecutor.run(new RequireNonNullService(null));
+			Objects.requireNonNull(value, "value can not null in ToStringService!");
 		} catch (Exception e) {
-			String content = ExceptionHelper.toString(e);
-			println(content);
+			e.printStackTrace();
+			println(ExceptionHelper.toString(e));
 		}
 	}
-	
+
 	public static void main(String[] args) {
 		TestExecutor.run(ToStringService.class);
 	}

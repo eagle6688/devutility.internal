@@ -12,7 +12,7 @@ public class DirectoryHelper {
 	// region get project directory
 
 	public static String getProjectDirectory() {
-		String directory = "";
+		String directory = null;
 
 		try {
 			URI uri = Thread.currentThread().getContextClassLoader().getResource("").toURI();
@@ -75,14 +75,14 @@ public class DirectoryHelper {
 	}
 
 	public static String getDateDirectory(String rootDir) {
-		return getDateDirectory(LocalDate.now(), rootDir);
+		return getDateDirectory(rootDir, LocalDate.now());
 	}
 
-	public static String getDateDirectory(LocalDate date, String rootDir) {
+	public static String getDateDirectory(String rootDir, LocalDate date) {
 		return Paths.get(rootDir, String.valueOf(date.getYear()), String.valueOf(date.getMonthValue()), String.valueOf(date.getDayOfMonth())).toString();
 	}
 
-	public static String getDateDirectory(LocalDateTime dateTime, String rootDir) {
+	public static String getDateDirectory(String rootDir, LocalDateTime dateTime) {
 		return Paths.get(rootDir, String.valueOf(dateTime.getYear()), String.valueOf(dateTime.getMonthValue()), String.valueOf(dateTime.getDayOfMonth())).toString();
 	}
 
