@@ -3,6 +3,8 @@ package devutility.internal.base;
 import java.util.HashMap;
 import java.util.Map;
 
+import devutility.internal.lang.ClassHelper;
+
 public class SingletonFactory {
 	// region variables
 
@@ -26,14 +28,9 @@ public class SingletonFactory {
 
 		synchronized (SingletonFactory.class) {
 			if (container.get(key) == null) {
-				try {
-					value = clazz.newInstance();
-					container.put(key, value);
-					value = null;
-				} catch (InstantiationException | IllegalAccessException e) {
-					e.printStackTrace();
-					return null;
-				}
+				value = ClassHelper.newInstance(clazz);
+				container.put(key, value);
+				value = null;
 			}
 		}
 

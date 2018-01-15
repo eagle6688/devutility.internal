@@ -3,6 +3,8 @@ package devutility.internal.base;
 import java.util.HashMap;
 import java.util.Map;
 
+import devutility.internal.lang.ClassHelper;
+
 public class ThreadLocalSingletonFactory {
 	// region variables
 
@@ -16,7 +18,7 @@ public class ThreadLocalSingletonFactory {
 		T instance = null;
 		String key = clazz.getName();
 		ThreadLocal<Object> tl = container.get(key);
-		
+
 		if (tl != null) {
 			Object value = tl.get();
 
@@ -29,7 +31,7 @@ public class ThreadLocalSingletonFactory {
 
 		synchronized (ThreadLocalSingletonFactory.class) {
 			if (container.get(key) == null) {
-				instance = clazz.newInstance();
+				instance = ClassHelper.newInstance(clazz);
 				ThreadLocal<Object> threadLocal = new ThreadLocal<Object>();
 				threadLocal.set(instance);
 				container.put(key, threadLocal);

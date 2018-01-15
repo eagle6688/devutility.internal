@@ -1,6 +1,9 @@
 package devutility.internal.test;
 
+import java.lang.reflect.InvocationTargetException;
+
 import devutility.internal.base.InstanceHelper;
+import devutility.internal.lang.ClassHelper;
 
 public class TestExecutor {
 	// region run
@@ -22,16 +25,12 @@ public class TestExecutor {
 			return;
 		}
 
-		T instance;
+		T instance = null;
 
 		try {
-			instance = cl.newInstance();
-		} catch (InstantiationException e) {
+			instance = cl.getDeclaredConstructor().newInstance();
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
 			e.printStackTrace();
-			return;
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			return;
 		}
 
 		if (InstanceHelper.notInstanceof(instance, BaseTest.class)) {
@@ -52,15 +51,9 @@ public class TestExecutor {
 			return;
 		}
 
-		T instance;
+		T instance = ClassHelper.newInstance(cl);
 
-		try {
-			instance = cl.newInstance();
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			return;
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+		if (instance == null) {
 			return;
 		}
 

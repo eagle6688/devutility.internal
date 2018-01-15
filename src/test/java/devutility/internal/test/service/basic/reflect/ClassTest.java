@@ -3,6 +3,7 @@ package devutility.internal.test.service.basic.reflect;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
+import devutility.internal.lang.ClassHelper;
 import devutility.internal.test.models.Student;
 
 public class ClassTest {
@@ -19,14 +20,14 @@ public class ClassTest {
 		System.out.println(int.class.isPrimitive() ? "int is Primitive" : "int is not Primitive");
 
 		Class<?> class2 = Class.forName(class1.getCanonicalName());
-		Object peteObj = class2.newInstance();
+		Object peteObj = ClassHelper.newInstance(class2);
 		System.out.println(String.format("peteObj getCanonicalName: %s", peteObj.getClass().getCanonicalName()));
 
 		if (peteObj instanceof Student) {
 			System.out.println("peteObj is instance of Student!");
 		}
 
-		Student pete2 = (Student) class2.newInstance();
+		Student pete2 = (Student) ClassHelper.newInstance(class2);
 		System.out.println(String.format("pete2 getCanonicalName: %s", pete2.getClass().getCanonicalName()));
 
 		Class<?> class3 = Student.class;
