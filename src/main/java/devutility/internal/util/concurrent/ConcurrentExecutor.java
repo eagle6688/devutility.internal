@@ -4,11 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
-import java.util.concurrent.SynchronousQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -21,14 +17,9 @@ import devutility.internal.system.SystemHelper;
 public class ConcurrentExecutor {
 	private static volatile ConcurrentExecutor instance;
 	private int processorsCount = 1;
-	private ExecutorService executorService = null;
 
 	public ConcurrentExecutor() {
 		processorsCount = SystemHelper.getProcessorsCount();
-		
-		executorService = new ThreadPoolExecutor(processorsCount, processorsCount * 2, 5, TimeUnit.SECONDS, new SynchronousQueue<Runnable>(), (thread) -> {
-			return new Thread(thread);
-		});
 	}
 
 	public static ConcurrentExecutor instance() {
@@ -60,7 +51,7 @@ public class ConcurrentExecutor {
 			});
 		}
 
-		List<Future<List<R>>> results = executorService.invokeAll(tasks);
+		List<Future<List<R>>> results = ConcurrentHelper.instance().getExecutorService().invokeAll(tasks);
 
 		for (Future<List<R>> result : results) {
 			resultList.addAll(result.get());

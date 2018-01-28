@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * @Description: IteratorTest
+ * @author: Aldwin
+ */
 public class IteratorTest {
 	public static void main(String[] args) {
 		List<String> list = new ArrayList<>();
@@ -17,7 +21,7 @@ public class IteratorTest {
 		while (iterator.hasNext()) {
 			String element = iterator.next();
 
-			if (element.equals("Hello")) {
+			if ("Hello".equals(element)) {
 				iterator.remove();
 			}
 		}

@@ -6,7 +6,12 @@ import java.util.concurrent.FutureTask;
 
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
+import devutility.internal.util.concurrent.ConcurrentHelper;
 
+/**
+ * @Description: CallableFutureTest
+ * @author: Aldwin
+ */
 public class CallableFutureTest extends BaseTest {
 	@Override
 	public void run() {
@@ -27,7 +32,7 @@ public class CallableFutureTest extends BaseTest {
 		};
 
 		FutureTask<Integer> future = new FutureTask<>(callable);
-		new Thread(future).start();
+		ConcurrentHelper.instance().getExecutorService().execute(future);
 
 		try {
 			println("Before task execute...");

@@ -1,8 +1,9 @@
 package devutility.internal.test.service.basic.util;
 
-import java.util.Arrays;
-import java.util.List;
-
+/**
+ * @Description: ArrayTest
+ * @author: Aldwin
+ */
 public class ArrayTest {
 	public static void main(String[] args) {
 		// Pascal triangle
@@ -28,10 +29,9 @@ public class ArrayTest {
 		}
 
 		// Array asList
-		String[] array = { "1", "a", "s", "d" };
-		List<String> list = Arrays.asList(array);
-
+		// String[] array = { "1", "a", "s", "d" };
+		// List<String> list = Arrays.asList(array);
 		// Does not support add one string into an array.
-		list.add("hello");
+		// list.add("hello");
 	}
 }
