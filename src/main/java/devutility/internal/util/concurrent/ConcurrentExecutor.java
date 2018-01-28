@@ -5,13 +5,19 @@ import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import devutility.internal.system.SystemHelper;
 
+/**
+ * @Description: ConcurrentExecutor
+ * @author: Aldwin
+ */
 public class ConcurrentExecutor {
 	private static volatile ConcurrentExecutor instance;
 	private int processorsCount = 1;
@@ -19,7 +25,10 @@ public class ConcurrentExecutor {
 
 	public ConcurrentExecutor() {
 		processorsCount = SystemHelper.getProcessorsCount();
-		executorService = Executors.newFixedThreadPool(processorsCount);
+		
+		executorService = new ThreadPoolExecutor(processorsCount, processorsCount * 2, 5, TimeUnit.SECONDS, new SynchronousQueue<Runnable>(), (thread) -> {
+			return new Thread(thread);
+		});
 	}
 
 	public static ConcurrentExecutor instance() {
