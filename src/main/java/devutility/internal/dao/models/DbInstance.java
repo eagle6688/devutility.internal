@@ -4,7 +4,7 @@ package devutility.internal.dao.models;
  * @Description: DBInstance
  * @author: Aldwin
  */
-public class DBInstance {
+public class DbInstance {
 	private String host = "";
 	private int port = 0;
 	private String loginName = "";
@@ -15,31 +15,31 @@ public class DBInstance {
 
 	// region Constructor
 
-	public DBInstance() {
+	public DbInstance() {
 
 	}
 
-	public DBInstance(String host) {
+	public DbInstance(String host) {
 		this();
 		this.host = host;
 	}
 
-	public DBInstance(String host, int port) {
+	public DbInstance(String host, int port) {
 		this(host);
 		this.port = port;
 	}
 
-	public DBInstance(String host, int port, String database) {
+	public DbInstance(String host, int port, String database) {
 		this(host, port);
 		this.database = database;
 	}
 
-	public DBInstance(String host, int port, String database, String loginName) {
+	public DbInstance(String host, int port, String database, String loginName) {
 		this(host, port, database);
 		this.loginName = loginName;
 	}
 
-	public DBInstance(String host, int port, String database, String loginName, String password) {
+	public DbInstance(String host, int port, String database, String loginName, String password) {
 		this(host, port, database, loginName);
 		this.password = password;
 	}

@@ -2,7 +2,7 @@ package devutility.internal.dao;
 
 import java.util.Properties;
 
-import devutility.internal.dao.models.DBInstance;
+import devutility.internal.dao.models.DbInstance;
 import devutility.internal.util.PropertiesHelper;
 
 /**
@@ -12,14 +12,14 @@ import devutility.internal.util.PropertiesHelper;
 public class DbInstanceHelper {
 	// region get instance
 
-	public static DBInstance getInstance(String resourceName, String prefix) {
+	public static DbInstance getInstance(String resourceName, String prefix) {
 		Properties properties = PropertiesHelper.getProperties(resourceName);
 
 		if (properties == null) {
 			return null;
 		}
 
-		DBInstance instance = new DBInstance();
+		DbInstance instance = new DbInstance();
 		setInstance(instance, properties, prefix);
 		return instance;
 	}
@@ -28,7 +28,7 @@ public class DbInstanceHelper {
 
 	// region set instance
 
-	protected static void setInstance(DBInstance instance, Properties properties, String prefix) {
+	protected static void setInstance(DbInstance instance, Properties properties, String prefix) {
 		instance.setHost(PropertiesHelper.getProperty(properties, getPropertyKeyHost(prefix)));
 		instance.setPort(PropertiesHelper.getIntProperty(properties, getPropertyKeyPort(prefix)));
 		instance.setLoginName(PropertiesHelper.getProperty(properties, getPropertyKeyLoginname(prefix)));
