@@ -1,5 +1,9 @@
 package devutility.internal.lang;
 
+/**
+ * @Description: IntegerHelper
+ * @author: Aldwin
+ */
 public class IntegerHelper {
 	// region Is numeric
 
@@ -17,7 +21,7 @@ public class IntegerHelper {
 
 	// region Try parse to int
 
-	public static IntegerConvertResult TryParse(String value) {
+	public static IntegerConvertResult tryParse(String value) {
 		IntegerConvertResult result = new IntegerConvertResult();
 
 		if (!isNumberic(value)) {

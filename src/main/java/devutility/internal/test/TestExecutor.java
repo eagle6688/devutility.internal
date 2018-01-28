@@ -4,7 +4,12 @@ import java.lang.reflect.InvocationTargetException;
 
 import devutility.internal.base.InstanceHelper;
 import devutility.internal.lang.ClassHelper;
+import devutility.internal.util.concurrent.ConcurrentHelper;
 
+/**
+ * @Description: TestExecutor
+ * @author: Aldwin
+ */
 public class TestExecutor {
 	// region run
 
@@ -63,8 +68,7 @@ public class TestExecutor {
 			printEndMessage(cl);
 		};
 
-		Thread thread = new Thread(task);
-		thread.run();
+		ConcurrentHelper.instance().getExecutorService().execute(task);
 	}
 
 	// endregion

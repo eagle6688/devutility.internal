@@ -8,10 +8,14 @@ import java.time.LocalDateTime;
 import devutility.internal.lang.ExceptionHelper;
 import devutility.internal.lang.StringHelper;
 
+/**
+ * @Description: LogHelper
+ * @author: Aldwin
+ */
 public class LogHelper {
 	// region variables
 
-	private static final String fileNameFormat_Exception = "exception_%s";
+	private static final String FILENAMEFORMAT_EXCEPTION = "exception_%s";
 
 	// endregion
 
@@ -75,7 +79,7 @@ public class LogHelper {
 	}
 
 	public static void save(String rootDirectory, LocalDateTime dateTime, Exception exception) throws Exception {
-		save(rootDirectory, dateTime, fileNameFormat_Exception, ExceptionHelper.toString(exception));
+		save(rootDirectory, dateTime, FILENAMEFORMAT_EXCEPTION, ExceptionHelper.toString(exception));
 	}
 
 	// endregion

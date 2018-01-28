@@ -8,14 +8,18 @@ import java.util.Map;
 
 import devutility.internal.lang.StringHelper;
 
+/**
+ * @Description: DateFormatHelper
+ * @author: Aldwin
+ */
 public class DateFormatHelper {
 	// region variables
 
 	private static volatile Map<String, ThreadLocal<SimpleDateFormat>> container = new HashMap<>();
 
-	public final static String StandardDateFormat = "yyyy-MM-dd";
+	public final static String STANDARDATEFORMAT = "yyyy-MM-dd";
 
-	public final static String StandardDateTimeFormat = "yyyy-MM-dd HH:mm:ss";
+	public final static String STANDARDATETIMEFORMAT = "yyyy-MM-dd HH:mm:ss";
 
 	// endregion
 
@@ -45,7 +49,7 @@ public class DateFormatHelper {
 	}
 
 	public static SimpleDateFormat getSimpleDateFormatWithStandardDateFormat() {
-		return getSimpleDateFormat(StandardDateFormat);
+		return getSimpleDateFormat(STANDARDATEFORMAT);
 	}
 
 	// endregion
