@@ -1,10 +1,14 @@
-package devutility.internal.test.service.basic.lang.Objects;
+package devutility.internal.test.service.basic.lang.objects;
 
 import java.util.Objects;
 
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
+/**
+ * @Description: RequireNonNullService
+ * @author: Aldwin
+ */
 public class RequireNonNullService extends BaseTest {
 	String value;
 

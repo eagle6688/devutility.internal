@@ -1,12 +1,21 @@
-package devutility.internal.test.service.basic.lang.Objects;
+package devutility.internal.test.service.basic.lang.objects;
 
+/**
+ * @Description: EnumTest
+ * @author: Aldwin
+ */
 public class EnumTest {
 	public enum Size {
+		/**
+		 * SMALL
+		 */
 		SMALL, MEDIUM, LARGE, EXTRA_LARGE
 	}
 
-	// enum with constructor
 	public enum Size2 {
+		/**
+		 * SMALL
+		 */
 		SMALL("S"), MEDIUM("M"), LARGE("L");
 
 		private String abbreviation;
@@ -21,6 +30,9 @@ public class EnumTest {
 	}
 
 	public enum ResultCode {
+		/**
+		 * SMALL
+		 */
 		Error(-1), OK(0), Warning(1), Unknow(100);
 
 		private int value;
@@ -88,8 +100,8 @@ public class EnumTest {
 		System.out.println(rc1);
 		System.out.println(rc1.toString());
 		System.out.println(rc1.getValue());
-		
-		ResultCode rc2=ResultCode.toResultCode(rc1.getValue());
+
+		ResultCode rc2 = ResultCode.toResultCode(rc1.getValue());
 		System.out.println(rc2);
 	}
 }

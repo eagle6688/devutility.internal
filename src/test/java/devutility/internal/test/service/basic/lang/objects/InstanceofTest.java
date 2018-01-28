@@ -1,7 +1,11 @@
-package devutility.internal.test.service.basic.lang.Objects;
+package devutility.internal.test.service.basic.lang.objects;
 
 import devutility.internal.test.models.*;
 
+/**
+ * @Description: InstanceofTest
+ * @author: Aldwin
+ */
 public class InstanceofTest {
 	public static void main(String[] args) {
 		Person person = new Person();

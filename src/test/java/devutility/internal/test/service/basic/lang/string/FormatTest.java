@@ -1,8 +1,12 @@
-package devutility.internal.test.service.basic.lang.String;
+package devutility.internal.test.service.basic.lang.string;
 
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
+/**
+ * @Description: FormatTest
+ * @author: Aldwin
+ */
 public class FormatTest extends BaseTest {
 	@Override
 	public void run() {
