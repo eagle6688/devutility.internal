@@ -2,7 +2,7 @@ package devutility.internal.models;
 
 import java.util.List;
 
-public class SearchResult<T> {
+public class BaseSearchResult<T> {
 	private int count;
 	private List<T> data;
 
