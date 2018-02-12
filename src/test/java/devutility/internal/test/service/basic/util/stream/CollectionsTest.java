@@ -12,6 +12,13 @@ import devutility.internal.test.TestExecutor;
 import devutility.internal.test.models.Person;
 import devutility.internal.text.format.DateFormatHelper;
 
+/**
+ * This is also a Comparator example
+ * CollectionsTest
+ * @author: Lenovo 
+ * @date:   2018-02-12 15:24:25  
+ * @Copyright: 2018 www.lenovo.com Inc. All rights reserved.
+ */
 public class CollectionsTest extends BaseTest {
 	@Override
 	public void run() {

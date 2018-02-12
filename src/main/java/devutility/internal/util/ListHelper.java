@@ -199,6 +199,18 @@ public class ListHelper {
 
 	// endregion
 
+	// region top
+
+	public static <T> List<T> top(List<T> list, int count) {
+		if (list == null || count < 1) {
+			return new ArrayList<T>();
+		}
+
+		return list.stream().limit(count).collect(Collectors.toList());
+	}
+
+	// endregion
+
 	// region group
 
 	public static <T, K> Map<K, List<T>> groupToMap(List<T> list, Function<? super T, ? extends K> classifier) {
