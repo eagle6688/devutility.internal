@@ -9,7 +9,7 @@ public class GetProjectDirectoryService extends BaseTest {
 	public void run() {
 		println(DirectoryHelper.getProjectDirectory());
 	}
-	
+
 	public static void main(String[] args) {
 		TestExecutor.run(new GetProjectDirectoryService());
 	}

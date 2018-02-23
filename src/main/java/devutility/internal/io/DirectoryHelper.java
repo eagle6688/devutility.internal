@@ -2,7 +2,6 @@ package devutility.internal.io;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
@@ -12,17 +11,14 @@ public class DirectoryHelper {
 	// region get project directory
 
 	public static String getProjectDirectory() {
-		String directory = null;
+		File file = new File("");
 
 		try {
-			URI uri = Thread.currentThread().getContextClassLoader().getResource("").toURI();
-			File file = new File(uri);
-			directory = file.getParentFile().getParentFile().getAbsolutePath();
-		} catch (Exception e) {
+			return file.getCanonicalPath();
+		} catch (IOException e) {
 			e.printStackTrace();
+			return null;
 		}
-
-		return directory;
 	}
 
 	// endregion
