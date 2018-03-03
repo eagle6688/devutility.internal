@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import devutility.internal.lang.StringHelper;
@@ -25,7 +26,7 @@ public class DateFormatHelper {
 
 	// region get SimpleDateFormat
 
-	public static SimpleDateFormat getSimpleDateFormat(final String pattern) {
+	public static SimpleDateFormat getSimpleDateFormat(String pattern) {
 		ThreadLocal<SimpleDateFormat> threadLocal = container.get(pattern);
 
 		if (threadLocal != null) {
@@ -48,6 +49,30 @@ public class DateFormatHelper {
 		return threadLocal.get();
 	}
 
+	public static SimpleDateFormat getSimpleDateFormat(String pattern, Locale locale) {
+		String key = String.format("%s-%s", pattern, locale.toString());
+		ThreadLocal<SimpleDateFormat> threadLocal = container.get(key);
+
+		if (threadLocal != null) {
+			if (threadLocal.get() != null) {
+				return threadLocal.get();
+			}
+
+			container.put(key, null);
+		}
+
+		synchronized (DateFormatHelper.class) {
+			if (container.get(key) == null) {
+				SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, locale);
+				threadLocal = new ThreadLocal<SimpleDateFormat>();
+				threadLocal.set(simpleDateFormat);
+				container.put(key, threadLocal);
+			}
+		}
+
+		return threadLocal.get();
+	}
+
 	public static SimpleDateFormat getSimpleDateFormatWithStandardDateFormat() {
 		return getSimpleDateFormat(STANDARDATEFORMAT);
 	}
@@ -62,6 +87,15 @@ public class DateFormatHelper {
 		}
 
 		SimpleDateFormat simpleDateFormat = getSimpleDateFormat(pattern);
+		return simpleDateFormat.parse(value);
+	}
+
+	public static Date toDate(String value, String pattern, Locale locale) throws ParseException {
+		if (StringHelper.isNullOrEmpty(value) || StringHelper.isNullOrEmpty(pattern)) {
+			return null;
+		}
+
+		SimpleDateFormat simpleDateFormat = getSimpleDateFormat(pattern, locale);
 		return simpleDateFormat.parse(value);
 	}
 

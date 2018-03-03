@@ -2,6 +2,7 @@ package devutility.internal.util;
 
 import java.text.ParseException;
 import java.util.Date;
+import java.util.Locale;
 
 import devutility.internal.text.format.DateFormatHelper;
 
@@ -35,6 +36,15 @@ public class DateHelper {
 	public static Date toDate(String value, String pattern) {
 		try {
 			return DateFormatHelper.toDate(value, pattern);
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public static Date toDate(String value, String pattern, Locale locale) {
+		try {
+			return DateFormatHelper.toDate(value, pattern, locale);
 		} catch (ParseException e) {
 			e.printStackTrace();
 			return null;
