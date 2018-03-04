@@ -14,7 +14,7 @@ import devutility.internal.system.SystemHelper;
 
 public class TextFileHelper {
 	// region insert
-	
+
 	public static void insert(String fileName, long startIndex, String content) throws Exception {
 		byte[] bytes = content.getBytes();
 		RandomAccessFileHelper.insert(fileName, startIndex, bytes);
@@ -25,14 +25,20 @@ public class TextFileHelper {
 	// region append
 
 	/**
-	 * Append content in a file.
+	 * append
+	 * @param fileName
+	 * @param content
+	 * @throws Exception void
 	 */
 	public static void append(String fileName, String content) throws Exception {
 		insert(fileName, FileHelper.getBytesLength(fileName), content);
 	}
 
 	/**
-	 * Append a new line content in a file.
+	 * appendLine 
+	 * @param fileName
+	 * @param content
+	 * @throws Exception void
 	 */
 	public static void appendLine(String fileName, String content) throws Exception {
 		StringBuffer stringBuffer = new StringBuffer(SystemHelper.getNewLineChar());
@@ -57,7 +63,7 @@ public class TextFileHelper {
 	// endregion
 
 	// region read
-	
+
 	public static String read(String fileName, Charset charset) throws IOException {
 		File file = new File(fileName);
 
