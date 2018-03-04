@@ -5,7 +5,7 @@
 	<version>1.0</version>
 	<name>${project.groupId}:${project.artifactId}</name>
 	<url>https://github.com/eagle6688/devutility.internal</url>
-	<description></description>
+	<description>Some utilities for Java development</description>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>9</maven.compiler.source>
