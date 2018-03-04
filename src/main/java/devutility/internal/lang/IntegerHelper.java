@@ -1,9 +1,5 @@
 package devutility.internal.lang;
 
-/**
- * @Description: IntegerHelper
- * @author: Aldwin
- */
 public class IntegerHelper {
 	// region Is numeric
 

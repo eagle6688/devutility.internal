@@ -5,10 +5,6 @@ import java.util.Properties;
 import devutility.internal.dao.models.RedisInstance;
 import devutility.internal.util.PropertiesHelper;
 
-/**
- * @Description: RedisInstanceHelper
- * @author: Aldwin
- */
 public final class RedisInstanceHelper extends DbInstanceHelper {
 	// region get instance
 

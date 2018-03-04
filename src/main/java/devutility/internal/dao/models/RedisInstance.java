@@ -1,9 +1,5 @@
 package devutility.internal.dao.models;
 
-/**
- * @Description: RedisInstance
- * @author: Aldwin
- */
 public class RedisInstance extends DbInstance {
 	private int dbIndex = 0;
 	private int maxConnections = 1000;

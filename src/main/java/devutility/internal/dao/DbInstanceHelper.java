@@ -5,10 +5,6 @@ import java.util.Properties;
 import devutility.internal.dao.models.DbInstance;
 import devutility.internal.util.PropertiesHelper;
 
-/**
- * @Description: DBInstanceHelper
- * @author: Aldwin
- */
 public class DbInstanceHelper {
 	// region get instance
 

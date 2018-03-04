@@ -6,10 +6,6 @@ import devutility.internal.base.InstanceHelper;
 import devutility.internal.lang.ClassHelper;
 import devutility.internal.util.concurrent.ConcurrentHelper;
 
-/**
- * @Description: TestExecutor
- * @author: Aldwin
- */
 public class TestExecutor {
 	// region run
 

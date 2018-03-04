@@ -8,10 +8,6 @@ import java.time.LocalDateTime;
 import devutility.internal.lang.ExceptionHelper;
 import devutility.internal.lang.StringHelper;
 
-/**
- * @Description: LogHelper
- * @author: Aldwin
- */
 public class LogHelper {
 	// region variables
 

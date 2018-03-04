@@ -1,9 +1,5 @@
 package devutility.internal.dao.models;
 
-/**
- * @Description: DBInstance
- * @author: Aldwin
- */
 public class DbInstance {
 	private String host = "";
 	private int port = 0;

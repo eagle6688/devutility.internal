@@ -7,10 +7,6 @@ import java.util.concurrent.TimeUnit;
 
 import devutility.internal.system.SystemHelper;
 
-/**
- * @Description: ConcurrentHelper
- * @author: Aldwin
- */
 public class ConcurrentHelper {
 	private static volatile ConcurrentHelper instance;
 

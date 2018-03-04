@@ -14,13 +14,7 @@ import devutility.internal.system.SystemHelper;
 
 public class TextFileHelper {
 	// region insert
-
-	/**
-	 * Insert content in a file.
-	 * 
-	 * @param startIndex
-	 *            startIndex of file content bytes.
-	 */
+	
 	public static void insert(String fileName, long startIndex, String content) throws Exception {
 		byte[] bytes = content.getBytes();
 		RandomAccessFileHelper.insert(fileName, startIndex, bytes);
@@ -63,12 +57,7 @@ public class TextFileHelper {
 	// endregion
 
 	// region read
-
-	/**
-	 * Read text
-	 * 
-	 * @throws IOException
-	 */
+	
 	public static String read(String fileName, Charset charset) throws IOException {
 		File file = new File(fileName);
 

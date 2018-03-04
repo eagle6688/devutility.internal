@@ -9,10 +9,6 @@ import java.util.Map;
 
 import devutility.internal.lang.StringHelper;
 
-/**
- * @Description: DateFormatHelper
- * @author: Aldwin
- */
 public class DateFormatHelper {
 	// region variables
 

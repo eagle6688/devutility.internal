@@ -10,10 +10,6 @@ import java.util.stream.Collectors;
 
 import devutility.internal.system.SystemHelper;
 
-/**
- * @Description: ConcurrentExecutor
- * @author: Aldwin
- */
 public class ConcurrentExecutor {
 	private static volatile ConcurrentExecutor instance;
 	private int processorsCount = 1;
