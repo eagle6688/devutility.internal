@@ -1,7 +1,6 @@
 package devutility.internal.test.service.basic.lang;
 
 public class NewLineTest {
-
 	public static void main(String[] args) {
 		String str = System.getProperty("line.separator");
 		System.out.println("\\");
