@@ -1,6 +1,8 @@
 package devutility.internal.util;
 
 import java.io.InputStream;
+import java.util.Collections;
+import java.util.List;
 import java.util.Properties;
 
 public class PropertiesHelper {
@@ -22,6 +24,48 @@ public class PropertiesHelper {
 	}
 
 	// endregion
+
+	/**
+	 * containsPrefix
+	 * @return boolean
+	 */
+	public static boolean containsPrefix(Properties properties, String prefix) {
+		List<Object> keys = Collections.list(properties.keys());
+
+		for (Object key : keys) {
+			if (key.toString().indexOf(prefix) == 0) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * containsPrefix
+	 * @return boolean
+	 */
+	public static boolean containsPrefix(String resourceName, String prefix) {
+		Properties properties = getProperties(resourceName);
+		return containsPrefix(properties, prefix);
+	}
+
+	/**
+	 * contains
+	 * @return boolean
+	 */
+	public static boolean containsKey(Properties properties, String key) {
+		return properties.containsKey(key);
+	}
+
+	/**
+	 * contains
+	 * @return boolean
+	 */
+	public static boolean containsKey(String resourceName, String key) {
+		Properties properties = getProperties(resourceName);
+		return containsKey(properties, key);
+	}
 
 	// region get property
 
