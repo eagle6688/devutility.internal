@@ -11,7 +11,7 @@ public class DbInstanceHelper {
 	public static DbInstance getInstance(String resourceName, String prefix) {
 		Properties properties = PropertiesHelper.getProperties(resourceName);
 
-		if (properties == null) {
+		if (properties == null || !PropertiesHelper.containsPrefix(properties, prefix)) {
 			return null;
 		}
 
