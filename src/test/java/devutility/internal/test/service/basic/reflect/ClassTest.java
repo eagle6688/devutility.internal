@@ -1,15 +1,12 @@
 package devutility.internal.test.service.basic.reflect;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-
 import devutility.internal.lang.ClassHelper;
 import devutility.internal.test.models.Student;
 
 public class ClassTest {
 	public static void main(String[] args) throws Exception {
-		Student pete = new Student();
-		Class<?> class1 = pete.getClass();
+		Student student = new Student();
+		Class<?> class1 = student.getClass();
 		System.out.println(String.format("class1 getCanonicalName: %s", class1.getCanonicalName()));
 		System.out.println(String.format("class1 getSimpleName: %s", class1.getSimpleName()));
 		System.out.println(String.format("class1 getTypeName: %s", class1.getTypeName()));
@@ -20,15 +17,15 @@ public class ClassTest {
 		System.out.println(int.class.isPrimitive() ? "int is Primitive" : "int is not Primitive");
 
 		Class<?> class2 = Class.forName(class1.getCanonicalName());
-		Object peteObj = ClassHelper.newInstance(class2);
-		System.out.println(String.format("peteObj getCanonicalName: %s", peteObj.getClass().getCanonicalName()));
+		Object object = ClassHelper.newInstance(class2);
+		System.out.println(String.format("object getCanonicalName: %s", object.getClass().getCanonicalName()));
 
-		if (peteObj instanceof Student) {
-			System.out.println("peteObj is instance of Student!");
+		if (object instanceof Student) {
+			System.out.println("object is instance of Student!");
 		}
 
-		Student pete2 = (Student) ClassHelper.newInstance(class2);
-		System.out.println(String.format("pete2 getCanonicalName: %s", pete2.getClass().getCanonicalName()));
+		Student student2 = (Student) ClassHelper.newInstance(class2);
+		System.out.println(String.format("student2 getCanonicalName: %s", student2.getClass().getCanonicalName()));
 
 		Class<?> class3 = Student.class;
 		System.out.println(String.format("class3 getCanonicalName: %s", class3.getCanonicalName()));
@@ -41,33 +38,5 @@ public class ClassTest {
 		System.out.println(String.format("class4 getName: %s", class4.getName()));
 		System.out.println(String.format("class4 toString: %s", class4.toString()));
 		System.out.println(String.format("class4 toGenericString: %s", class4.toGenericString()));
-
-		Field[] fields = class1.getFields();
-		System.out.println(fields.length);
-
-		for (Field field : fields) {
-			System.out.println(field.getName());
-		}
-
-		Field[] declaredFields = class1.getDeclaredFields();
-		System.out.println(declaredFields.length);
-
-		for (Field declaredField : declaredFields) {
-			System.out.println(declaredField.getName());
-		}
-
-		Method[] methods = class1.getMethods();
-		System.out.println(methods.length);
-
-		for (Method method : methods) {
-			System.out.println(method.getName());
-		}
-
-		Method[] declaredMethods = Student.class.getDeclaredMethods();
-		System.out.println(declaredMethods.length);
-
-		for (Method declaredMethod : declaredMethods) {
-			System.out.println(declaredMethod.getName());
-		}
 	}
 }
