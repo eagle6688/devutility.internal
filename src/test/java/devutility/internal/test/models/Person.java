@@ -6,6 +6,7 @@ public class Person implements Comparable<Person> {
 	private String name;
 	private int age;
 	private Date birthday;
+	private boolean local;
 
 	public Person() {
 	}
@@ -56,5 +57,13 @@ public class Person implements Comparable<Person> {
 
 	public static int compareByAge(Person person1, Person person2) {
 		return Integer.compare(person1.getAge(), person2.getAge());
+	}
+
+	public boolean isLocal() {
+		return local;
+	}
+
+	public void setLocal(boolean local) {
+		this.local = local;
 	}
 }

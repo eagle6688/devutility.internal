@@ -1,6 +1,14 @@
 package devutility.internal.lang;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import devutility.internal.lang.models.EntityField;
+import devutility.internal.util.ListHelper;
 
 public class ClassHelper {
 	public static <T> T newInstanceEx(Class<T> clazz) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
@@ -23,5 +31,116 @@ public class ClassHelper {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	public static <T> List<Class<?>> getAllClasses(Class<T> clazz) {
+		List<Class<?>> list = new ArrayList<>();
+
+		if (clazz == null) {
+			return list;
+		}
+
+		Class<?> temp = clazz;
+
+		while (temp != null && !"java.lang.Object".equals(temp.getCanonicalName())) {
+			list.add(temp);
+			temp = temp.getSuperclass();
+		}
+
+		return list;
+	}
+
+	public static List<Field> getAllDeclaredFields(Class<?> clazz) {
+		List<Field> list = new ArrayList<>();
+		List<Class<?>> classes = getAllClasses(clazz);
+
+		if (classes.size() == 0) {
+			return list;
+		}
+
+		for (Class<?> cl : classes) {
+			list.addAll(Arrays.asList(cl.getDeclaredFields()));
+		}
+
+		return list;
+	}
+
+	public static List<Method> getAllDeclaredMethods(Class<?> clazz) {
+		List<Method> list = new ArrayList<>();
+		List<Class<?>> classes = getAllClasses(clazz);
+
+		if (classes.size() == 0) {
+			return list;
+		}
+
+		for (Class<?> cl : classes) {
+			list.addAll(Arrays.asList(cl.getDeclaredMethods()));
+		}
+
+		return list;
+	}
+
+	/**
+	 * getEntityFields 
+	 * @return List<EntityField>
+	 */
+	public static List<EntityField> getEntityFields(Class<?> clazz) {
+		List<Field> declaredFields = getAllDeclaredFields(clazz);
+		List<Method> declaredMethods = getAllDeclaredMethods(clazz);
+		List<String> declaredMethidNames = ListHelper.map(declaredMethods, i -> i.getName());
+		List<EntityField> list = new ArrayList<>(declaredFields.size());
+
+		for (Field declaredField : declaredFields) {
+			Method setter = getSetter(declaredField.getName(), declaredMethods);
+
+			if (setter == null) {
+				continue;
+			}
+
+			if (isGetterField(declaredField, declaredMethidNames)) {
+				EntityField entityField = new EntityField();
+				entityField.setField(declaredField);
+				entityField.setSetter(setter);
+				list.add(entityField);
+			}
+		}
+
+		return list;
+	}
+
+	public static boolean isGetterField(Field field, List<String> methods) {
+		String name = String.format("get%s", StringHelper.uppercase(field.getName()));
+
+		if (methods.contains(name)) {
+			return true;
+		}
+
+		return isBoolField(field, methods);
+	}
+
+	private static boolean isBoolField(Field field, List<String> methods) {
+		if (field.getType() != Boolean.class) {
+			return false;
+		}
+
+		String name = String.format("is%s", StringHelper.uppercase(field.getName()));
+		return methods.contains(name);
+	}
+
+	public static boolean isSetterField(String field, List<String> methods) {
+		String name = String.format("set%s", StringHelper.uppercase(field));
+		return methods.contains(name);
+	}
+
+	public static Method getSetter(String field, List<Method> methods) {
+		String name = String.format("set%s", StringHelper.uppercase(field));
+
+		for (Method method : methods) {
+			if (name.equals(method.getName())) {
+				return method;
+			}
+		}
+
+		return null;
 	}
 }

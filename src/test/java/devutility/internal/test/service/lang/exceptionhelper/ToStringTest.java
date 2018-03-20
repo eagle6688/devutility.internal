@@ -1,4 +1,4 @@
-package devutility.internal.test.service.lang.ExceptionHelper;
+package devutility.internal.test.service.lang.exceptionhelper;
 
 import java.util.Objects;
 
@@ -6,7 +6,7 @@ import devutility.internal.lang.ExceptionHelper;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
-public class ToStringService extends BaseTest {
+public class ToStringTest extends BaseTest {
 	private Object value = null;
 
 	@Override
@@ -20,6 +20,6 @@ public class ToStringService extends BaseTest {
 	}
 
 	public static void main(String[] args) {
-		TestExecutor.run(ToStringService.class);
+		TestExecutor.run(ToStringTest.class);
 	}
 }

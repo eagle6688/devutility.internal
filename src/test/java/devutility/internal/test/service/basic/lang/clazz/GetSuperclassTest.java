@@ -9,6 +9,15 @@ public class GetSuperclassTest extends BaseTest {
 	public void run() {
 		Class<?> superClass = Student.class.getSuperclass();
 		println(String.format("superClass.getCanonicalName(): %s", superClass.getCanonicalName()));
+
+		Class<?> superSuperClass = superClass.getSuperclass();
+		println(String.format("superSuperClass.getCanonicalName(): %s", superSuperClass.getCanonicalName()));
+
+		Class<?> superSuperSuperClass = superSuperClass.getSuperclass();
+
+		if (superSuperSuperClass == null) {
+			println("superSuperSuperClass == null");
+		}
 	}
 
 	public static void main(String[] args) {

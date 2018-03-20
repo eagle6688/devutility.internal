@@ -6,12 +6,18 @@ import java.util.List;
 import java.util.Properties;
 
 public class PropertiesHelper {
-	// region get properties
-
+	/**
+	 * getProperties 
+	 * @return Properties
+	 */
 	public static Properties getProperties(String resourceName) {
 		return getProperties(PropertiesHelper.class.getClassLoader().getResourceAsStream(resourceName));
 	}
 
+	/**
+	 * getProperties 
+	 * @return Properties
+	 */
 	public static Properties getProperties(InputStream inputStream) {
 		try (InputStream inStream = inputStream) {
 			Properties properties = new Properties();
@@ -22,8 +28,6 @@ public class PropertiesHelper {
 			return null;
 		}
 	}
-
-	// endregion
 
 	/**
 	 * containsPrefix
@@ -67,8 +71,10 @@ public class PropertiesHelper {
 		return containsKey(properties, key);
 	}
 
-	// region get property
-
+	/**
+	 * getProperty 
+	 * @return String
+	 */
 	public static String getProperty(Properties properties, String key) {
 		if (properties == null) {
 			return null;
@@ -77,15 +83,19 @@ public class PropertiesHelper {
 		return properties.getProperty(key);
 	}
 
+	/**
+	 * getProperty 
+	 * @return String
+	 */
 	public static String getProperty(String resourceName, String key) {
 		Properties properties = getProperties(resourceName);
 		return getProperty(properties, key);
 	}
 
-	// endregion
-
-	// region get int property
-
+	/**
+	 * getIntProperty 
+	 * @return int
+	 */
 	public static int getIntProperty(Properties properties, String key) {
 		String value = getProperty(properties, key);
 
@@ -96,6 +106,10 @@ public class PropertiesHelper {
 		return Integer.parseInt(value);
 	}
 
+	/**
+	 * getIntProperty 
+	 * @return int
+	 */
 	public static int getIntProperty(String resourceName, String key) {
 		String value = getProperty(resourceName, key);
 
@@ -105,6 +119,4 @@ public class PropertiesHelper {
 
 		return Integer.parseInt(value);
 	}
-
-	// endregion
 }
