@@ -1,4 +1,4 @@
-package devutility.internal.test.service.basic.reflect.clazz;
+package devutility.internal.test.service.basic.lang.clazz;
 
 import java.lang.reflect.Method;
 
