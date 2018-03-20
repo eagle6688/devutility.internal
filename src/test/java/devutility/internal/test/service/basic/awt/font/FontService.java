@@ -1,4 +1,4 @@
-package devutility.internal.test.service.basic.awt.Font;
+package devutility.internal.test.service.basic.awt.font;
 
 import java.awt.Font;
 import java.awt.FontMetrics;

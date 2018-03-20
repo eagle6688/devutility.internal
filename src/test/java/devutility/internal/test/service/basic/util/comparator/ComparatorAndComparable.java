@@ -1,4 +1,4 @@
-package devutility.internal.test.service.basic.util.Comparator;
+package devutility.internal.test.service.basic.util.comparator;
 
 import java.util.ArrayList;
 import java.util.Collections;

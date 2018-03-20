@@ -1,4 +1,4 @@
-package devutility.internal.test.service.basic.nio.FileChannel;
+package devutility.internal.test.service.basic.nio.filechannel;
 
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;

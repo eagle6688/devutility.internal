@@ -1,4 +1,4 @@
-package devutility.internal.test.service.basic.io.File;
+package devutility.internal.test.service.basic.io.file;
 
 import java.io.File;
 

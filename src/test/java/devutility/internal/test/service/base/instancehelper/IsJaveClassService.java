@@ -1,4 +1,4 @@
-package devutility.internal.test.service.base.InstanceHelper;
+package devutility.internal.test.service.base.instancehelper;
 
 import java.util.ArrayList;
 

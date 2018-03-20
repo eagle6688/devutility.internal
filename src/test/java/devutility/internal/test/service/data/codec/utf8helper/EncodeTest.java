@@ -1,4 +1,4 @@
-package devutility.internal.test.service.data.codec.UTF8Helper;
+package devutility.internal.test.service.data.codec.utf8helper;
 
 import java.io.UnsupportedEncodingException;
 

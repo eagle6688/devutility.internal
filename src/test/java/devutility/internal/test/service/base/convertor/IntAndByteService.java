@@ -1,4 +1,4 @@
-package devutility.internal.test.service.base.Convertor;
+package devutility.internal.test.service.base.convertor;
 
 import devutility.internal.base.Convertor;
 import devutility.internal.test.BaseTest;
