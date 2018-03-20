@@ -1,4 +1,4 @@
-package devutility.internal.test.service.cache.MemoryCache;
+package devutility.internal.test.service.cache.memory;
 
 import java.util.ArrayList;
 import java.util.List;
