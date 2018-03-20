@@ -1,4 +1,4 @@
-package devutility.internal.test.service.util.PropertiesHelper;
+package devutility.internal.test.service.util.propertieshelper;
 
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;

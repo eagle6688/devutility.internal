@@ -1,9 +1,8 @@
-package devutility.internal.test.service.models;
+package devutility.internal.test.models;
 
 import java.util.Arrays;
 
 import devutility.internal.models.BaseSearchParam;
-import devutility.internal.test.models.Student;
 
 public class StudentSearchParam extends BaseSearchParam<Student> {
 	private String[] numbers;
