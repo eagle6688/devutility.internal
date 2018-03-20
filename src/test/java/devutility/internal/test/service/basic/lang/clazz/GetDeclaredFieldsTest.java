@@ -15,6 +15,19 @@ public class GetDeclaredFieldsTest extends BaseTest {
 		for (Field declaredField : declaredFields) {
 			System.out.println(declaredField.getName());
 		}
+
+		Class<?> superClass = clazz.getSuperclass();
+		Field[] superDeclaredFields = superClass.getDeclaredFields();
+
+		for (Field declaredField : superDeclaredFields) {
+			System.out.println(declaredField.getName());
+		}
+
+		Class<?> superSuperClass = superClass.getSuperclass();
+
+		if (superSuperClass == Object.class) {
+			println("superSuperClass = Object.class");
+		}
 	}
 
 	public static void main(String[] args) {
