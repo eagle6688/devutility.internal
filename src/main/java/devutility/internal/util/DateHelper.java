@@ -1,63 +1,89 @@
 package devutility.internal.util;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import devutility.internal.lang.StringHelper;
 import devutility.internal.text.format.DateFormatHelper;
 
 public class DateHelper {
-	// region millis to days
-
+	/**
+	 * millisToDays 
+	 * @return int
+	 */
 	public static int millisToDays(long millis) {
 		return (int) (millis / (1000 * 60 * 60 * 24));
 	}
 
-	// endregion
-
-	// region get day substract
-
+	/**
+	 * getDaySubtract 
+	 * @return int
+	 */
 	public static int getDaySubtract(Date d1, Date d2) {
 		return (int) ((d1.getTime() - d2.getTime()) / (24 * 60 * 60 * 1000));
 	}
 
-	// endregion
-
-	// region get hours substract
-
+	/**
+	 * getHoursSubtract 
+	 * @return int
+	 */
 	public static int getHoursSubtract(Date d1, Date d2) {
 		return (int) ((d1.getTime() - d2.getTime()) / (60 * 60 * 1000));
 	}
 
-	// endregion
-
-	// region to Date
-
-	public static Date toDate(String value, String pattern) {
-		try {
-			return DateFormatHelper.toDate(value, pattern);
-		} catch (ParseException e) {
-			e.printStackTrace();
+	/**
+	 * toDate 
+	 * @return Date
+	 * @throws ParseException Date
+	 */
+	public static Date toDate(String value, String pattern) throws ParseException {
+		if (StringHelper.isNullOrEmpty(value) || StringHelper.isNullOrEmpty(pattern)) {
 			return null;
 		}
+
+		SimpleDateFormat simpleDateFormat = DateFormatHelper.getSimpleDateFormat(pattern);
+		return simpleDateFormat.parse(value);
 	}
 
-	public static Date toDate(String value, String pattern, Locale locale) {
-		try {
-			return DateFormatHelper.toDate(value, pattern, locale);
-		} catch (ParseException e) {
-			e.printStackTrace();
+	/**
+	 * toDate 
+	 * @return Date
+	 * @throws ParseException Date
+	 */
+	public static Date toDate(String value, String pattern, Locale locale) throws ParseException {
+		if (StringHelper.isNullOrEmpty(value) || StringHelper.isNullOrEmpty(pattern)) {
 			return null;
 		}
+
+		SimpleDateFormat simpleDateFormat = DateFormatHelper.getSimpleDateFormat(pattern, locale);
+		return simpleDateFormat.parse(value);
 	}
 
-	// endregion
+	/**
+	 * standardToDate 
+	 * @return Date
+	 * @throws ParseException Date
+	 */
+	public static Date standardToDate(String value) throws ParseException {
+		return toDate(value, DateFormatHelper.STANDARDDATETIMEFORMAT);
+	}
 
-	// region format
-
+	/**
+	 * format 
+	 * @return String
+	 */
 	public static String format(Date date, String pattern) {
-		return DateFormatHelper.toString(date, pattern);
+		SimpleDateFormat simpleDateFormat = DateFormatHelper.getSimpleDateFormat(pattern);
+		return simpleDateFormat.format(date);
 	}
 
-	// endregion
+	/**
+	 * formatToStandard 
+	 * @return String
+	 */
+	public static String formatToStandard(Date date) {
+		return format(date, DateFormatHelper.STANDARDDATETIMEFORMAT);
+	}
 }

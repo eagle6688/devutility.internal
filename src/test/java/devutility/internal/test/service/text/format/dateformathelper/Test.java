@@ -11,7 +11,7 @@ import devutility.internal.text.format.DateFormatHelper;
 public class Test extends BaseTest {
 	@Override
 	public void run() {
-		SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat(DateFormatHelper.STANDARDATETIMEFORMAT);
+		SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat(DateFormatHelper.STANDARDDATETIMEFORMAT);
 
 		try {
 			Date date = simpleDateFormat1.parse("2017-1-10");
@@ -20,7 +20,7 @@ public class Test extends BaseTest {
 			e.printStackTrace();
 		}
 
-		SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat(DateFormatHelper.STANDARDATEFORMAT);
+		SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat(DateFormatHelper.STANDARDDATEFORMAT);
 
 		try {
 			Date date = simpleDateFormat2.parse("2017-1-10");

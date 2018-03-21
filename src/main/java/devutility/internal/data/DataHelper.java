@@ -1,9 +1,17 @@
 package devutility.internal.data;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import devutility.internal.base.Convertor;
+import devutility.internal.util.DateHelper;
+
 public class DataHelper {
+	/**
+	 * toString 
+	 * @return String
+	 */
 	public static String toString(Object value) {
 		if (value == null) {
 			return null;
@@ -15,9 +23,17 @@ public class DataHelper {
 			return arrayToString((Object[]) value, clazz.getComponentType());
 		}
 
+		if (clazz == Date.class) {
+			return DateHelper.formatToStandard((Date) value);
+		}
+
 		return value.toString();
 	}
 
+	/**
+	 * arrayToString 
+	 * @return String
+	 */
 	private static String arrayToString(Object[] array, Class<?> componentType) {
 		if (componentType == String.class) {
 			return String.join(",", (String[]) array);
@@ -33,12 +49,16 @@ public class DataHelper {
 		return stringBuilder.substring(0, stringBuilder.length() - 2);
 	}
 
-	public static <T> List<T> toList(String value, Class<T> componentType) {
+	/**
+	 * stringToList 
+	 * @return List<T>
+	 */
+	public static <T> List<T> stringToList(String value, Class<T> clazz) {
 		List<T> list = new ArrayList<>();
 		String[] array = value.split(",");
 
 		for (String item : array) {
-			list.add(componentType.cast(item));
+			list.add(Convertor.stringToType(item, clazz));
 		}
 
 		return list;
