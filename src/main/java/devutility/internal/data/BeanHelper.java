@@ -11,6 +11,10 @@ import devutility.internal.lang.StringHelper;
 public class BeanHelper {
 	/**
 	 * setField 
+	 * @param setter
+	 * @param model
+	 * @param value
+	 * @param clazz
 	 * @throws NumberFormatException
 	 * @throws IllegalAccessException
 	 * @throws IllegalArgumentException
@@ -35,6 +39,10 @@ public class BeanHelper {
 
 	/**
 	 * setArrayField 
+	 * @param setter
+	 * @param model
+	 * @param list
+	 * @param fieldClazz
 	 * @throws IllegalAccessException
 	 * @throws IllegalArgumentException
 	 * @throws InvocationTargetException void

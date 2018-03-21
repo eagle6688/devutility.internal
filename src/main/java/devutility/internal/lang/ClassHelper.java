@@ -79,10 +79,6 @@ public class ClassHelper {
 		return list;
 	}
 
-	/**
-	 * getEntityFields 
-	 * @return List<EntityField>
-	 */
 	public static List<EntityField> getEntityFields(Class<?> clazz) {
 		List<Field> declaredFields = getAllDeclaredFields(clazz);
 		List<Method> declaredMethods = getAllDeclaredMethods(clazz);

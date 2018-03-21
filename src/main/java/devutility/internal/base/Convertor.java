@@ -12,6 +12,7 @@ import devutility.internal.util.DateHelper;
 public class Convertor {
 	/**
 	 * stringToInt 
+	 * @param value
 	 * @return int
 	 */
 	public static int stringToInt(String value) {
@@ -25,6 +26,7 @@ public class Convertor {
 
 	/**
 	 * byteToInt 
+	 * @param b
 	 * @return int
 	 */
 	public static int byteToInt(byte b) {
@@ -33,6 +35,7 @@ public class Convertor {
 
 	/**
 	 * intToByte 
+	 * @param number
 	 * @return byte
 	 */
 	public static byte intToByte(int number) {
@@ -55,6 +58,8 @@ public class Convertor {
 
 	/**
 	 * bytesToLong 
+	 * @param bytes
+	 * @return long
 	 */
 	public static long bytesToLong(byte[] bytes) {
 		return bytesToLong(bytes, false);
@@ -62,6 +67,7 @@ public class Convertor {
 
 	/**
 	 * bytesToHex 
+	 * @param bytes
 	 * @return String
 	 */
 	public static String bytesToHex(byte[] bytes) {
@@ -80,8 +86,9 @@ public class Convertor {
 	}
 
 	/**
-	 * int Array to Integer ArrayList
-	 * @return ArrayList<Integer>
+	 * intArrayToIntegerList 
+	 * @param array
+	 * @return ArrayList
 	 */
 	public static ArrayList<Integer> intArrayToIntegerList(int[] array) {
 		if (array == null || array.length == 0) {
@@ -98,7 +105,8 @@ public class Convertor {
 	}
 
 	/**
-	 * list to int Array
+	 * listToIntArray 
+	 * @param list
 	 * @return int[]
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException int[]
@@ -121,6 +129,8 @@ public class Convertor {
 
 	/**
 	 * stringToType 
+	 * @param value
+	 * @param clazz
 	 * @return T
 	 */
 	@SuppressWarnings("unchecked")
