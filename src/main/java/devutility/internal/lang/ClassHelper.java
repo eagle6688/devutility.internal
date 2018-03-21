@@ -8,7 +8,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import devutility.internal.lang.models.EntityField;
-import devutility.internal.util.ListHelper;
 
 public class ClassHelper {
 	public static <T> T newInstanceEx(Class<T> clazz) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
@@ -87,24 +86,24 @@ public class ClassHelper {
 	public static List<EntityField> getEntityFields(Class<?> clazz) {
 		List<Field> declaredFields = getAllDeclaredFields(clazz);
 		List<Method> declaredMethods = getAllDeclaredMethods(clazz);
-		List<String> declaredMethidNames = ListHelper.map(declaredMethods, i -> i.getName());
 		List<EntityField> list = new ArrayList<>(declaredFields.size());
 
 		for (Field declaredField : declaredFields) {
 			Method setter = getSetter(declaredField.getName(), declaredMethods);
+			Method getter = getGetter(declaredField, declaredMethods);
 
-			if (setter == null) {
+			if (setter == null || getter == null) {
 				continue;
 			}
 
-			if (isGetterField(declaredField, declaredMethidNames)) {
-				EntityField entityField = new EntityField();
-				entityField.setField(declaredField);
-				entityField.setSetter(setter);
-				list.add(entityField);
-			}
+			EntityField entityField = new EntityField();
+			entityField.setField(declaredField);
+			entityField.setSetter(setter);
+			entityField.setGetter(getter);
+			list.add(entityField);
 		}
 
+		list.sort((ef1, ef2) -> ef1.getField().getName().compareTo(ef2.getField().getName()));
 		return list;
 	}
 
@@ -134,6 +133,23 @@ public class ClassHelper {
 
 	public static Method getSetter(String field, List<Method> methods) {
 		String name = String.format("set%s", StringHelper.uppercase(field));
+
+		for (Method method : methods) {
+			if (name.equals(method.getName())) {
+				return method;
+			}
+		}
+
+		return null;
+	}
+
+	public static Method getGetter(Field field, List<Method> methods) {
+		Class<?> fieldType = field.getType();
+		String name = String.format("get%s", StringHelper.uppercase(field.getName()));
+
+		if (fieldType == Boolean.class) {
+			name = String.format("is%s", StringHelper.uppercase(field.getName()));
+		}
 
 		for (Method method : methods) {
 			if (name.equals(method.getName())) {

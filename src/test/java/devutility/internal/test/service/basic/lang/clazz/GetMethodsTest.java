@@ -14,6 +14,12 @@ public class GetMethodsTest extends BaseTest {
 
 		for (Method method : methods) {
 			System.out.println(method.getName());
+
+			Class<?>[] parameterTypes = method.getParameterTypes();
+
+			for (Class<?> parameterType : parameterTypes) {
+				println(parameterType.getCanonicalName());
+			}
 		}
 	}
 

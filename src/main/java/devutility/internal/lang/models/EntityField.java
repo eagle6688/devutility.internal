@@ -1,12 +1,12 @@
 package devutility.internal.lang.models;
 
-import java.lang.reflect.Method;
-
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 public class EntityField {
 	private Field field;
 	private Method setter;
+	private Method getter;
 
 	public Field getField() {
 		return field;
@@ -22,5 +22,13 @@ public class EntityField {
 
 	public void setSetter(Method setter) {
 		this.setter = setter;
+	}
+
+	public Method getGetter() {
+		return getter;
+	}
+
+	public void setGetter(Method getter) {
+		this.getter = getter;
 	}
 }

@@ -14,6 +14,7 @@ public class GetFieldsTest extends BaseTest {
 
 		for (Field field : fields) {
 			System.out.println(field.getName());
+			println(field.getDeclaringClass().getName());
 		}
 	}
 

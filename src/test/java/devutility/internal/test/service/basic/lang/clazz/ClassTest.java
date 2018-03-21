@@ -24,12 +24,21 @@ public class ClassTest extends BaseTest {
 		println(intClass == Integer.class ? "intClass==Integer.class" : "intClass!=Integer.class");
 
 		Class<String[]> arrayClass = String[].class;
+		println(String.format("arrayClass.isArray(): %s", arrayClass.isArray()));
 		println(String.format("arrayClass.getCanonicalName(): %s", arrayClass.getCanonicalName()));
 		println(String.format("arrayClass.getSimpleName(): %s", arrayClass.getSimpleName()));
 		println(String.format("arrayClass.getTypeName(): %s", arrayClass.getTypeName()));
 		println(String.format("arrayClass.getName(): %s", arrayClass.getName()));
 		println(String.format("arrayClass.toString(): %s", arrayClass.toString()));
 		println(String.format("arrayClass.toGenericString(): %s", arrayClass.toGenericString()));
+
+		Class<?> componentType = arrayClass.getComponentType();
+		println(String.format("componentType.getCanonicalName(): %s", componentType.getCanonicalName()));
+
+		String str = "asd";
+		Object object = str;
+		Class<?> objectClass = object.getClass();
+		println(String.format("objectClass.getCanonicalName(): %s", objectClass.getCanonicalName()));
 	}
 
 	public static void main(String[] args) {
