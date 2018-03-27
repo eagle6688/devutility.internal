@@ -1,6 +1,7 @@
 package devutility.internal.lang.models;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class EntityField {
@@ -30,5 +31,9 @@ public class EntityField {
 
 	public void setGetter(Method getter) {
 		this.getter = getter;
+	}
+
+	public Object getValue(Object model) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		return getter.invoke(model);
 	}
 }
