@@ -3,10 +3,17 @@ package devutility.internal.util;
 import java.util.Random;
 
 public class RandomHelper {
+	/**
+	 * Random instance
+	 */
 	private static final Random RANDOM = new Random();
 
-	// region get String
-
+	/**
+	 * getString
+	 * @param chars
+	 * @param digit
+	 * @return String
+	 */
 	public static String getString(char[] chars, int digit) {
 		StringBuffer buffer = new StringBuffer();
 
@@ -17,5 +24,12 @@ public class RandomHelper {
 		return buffer.toString();
 	}
 
-	// endregion
+	/**
+	 * getNumber
+	 * @param bound
+	 * @return int
+	 */
+	public static int getNumber(int bound) {
+		return RANDOM.nextInt(bound);
+	}
 }
