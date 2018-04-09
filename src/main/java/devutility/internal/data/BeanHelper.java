@@ -32,7 +32,7 @@ public class BeanHelper {
 		}
 
 		if (List.class.isAssignableFrom(clazz)) {
-			List<?> list = Convertor.stringToList(value, ",", clazz.getComponentType());
+			List<?> list = Convertor.stringToList(value, ",", String.class);
 			setter.invoke(model, list);
 		}
 

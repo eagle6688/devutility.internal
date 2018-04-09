@@ -13,8 +13,9 @@ public class GetDeclaredFieldsTest extends BaseTest {
 		Field[] declaredFields = clazz.getDeclaredFields();
 
 		for (Field declaredField : declaredFields) {
-			System.out.println(declaredField.getName());
-			println(declaredField.getType().getName());
+			println(String.format("declaredField.getName(): %s", declaredField.getName()));
+			println(String.format("declaredField.getClass().getName(): %s", declaredField.getClass().getName()));
+			println(String.format("declaredField.getType().getName(): %s", declaredField.getType().getName()));
 		}
 
 		Class<?> superClass = clazz.getSuperclass();

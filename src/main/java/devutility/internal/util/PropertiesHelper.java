@@ -1,13 +1,19 @@
 package devutility.internal.util;
 
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
+import devutility.internal.data.BeanHelper;
+import devutility.internal.lang.ClassHelper;
+import devutility.internal.lang.StringHelper;
+import devutility.internal.lang.models.EntityField;
+
 public class PropertiesHelper {
 	/**
-	 * getProperties 
+	 * getProperties
 	 * @return Properties
 	 */
 	public static Properties getProperties(String resourceName) {
@@ -15,7 +21,7 @@ public class PropertiesHelper {
 	}
 
 	/**
-	 * getProperties 
+	 * getProperties
 	 * @return Properties
 	 */
 	public static Properties getProperties(InputStream inputStream) {
@@ -72,7 +78,7 @@ public class PropertiesHelper {
 	}
 
 	/**
-	 * getProperty 
+	 * getProperty
 	 * @return String
 	 */
 	public static String getProperty(Properties properties, String key) {
@@ -84,7 +90,7 @@ public class PropertiesHelper {
 	}
 
 	/**
-	 * getProperty 
+	 * getProperty
 	 * @return String
 	 */
 	public static String getProperty(String resourceName, String key) {
@@ -93,7 +99,7 @@ public class PropertiesHelper {
 	}
 
 	/**
-	 * getIntProperty 
+	 * getIntProperty
 	 * @return int
 	 */
 	public static int getIntProperty(Properties properties, String key) {
@@ -107,7 +113,7 @@ public class PropertiesHelper {
 	}
 
 	/**
-	 * getIntProperty 
+	 * getIntProperty
 	 * @return int
 	 */
 	public static int getIntProperty(String resourceName, String key) {
@@ -118,5 +124,72 @@ public class PropertiesHelper {
 		}
 
 		return Integer.parseInt(value);
+	}
+
+	/**
+	 * toModel
+	 * @param resourceName
+	 * @param prefix
+	 * @param clazz
+	 * @return model
+	 * @throws NumberFormatException
+	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
+	 * @throws InvocationTargetException
+	 */
+	public static <T> T toModel(String resourceName, String prefix, Class<T> clazz) throws NumberFormatException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		Properties properties = getProperties(resourceName);
+		return toModel(properties, prefix, clazz);
+	}
+
+	/**
+	 * Properties to model
+	 * @param properties
+	 * @param prefix
+	 * @param clazz
+	 * @return model
+	 * @throws NumberFormatException
+	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
+	 * @throws InvocationTargetException
+	 */
+	public static <T> T toModel(Properties properties, String prefix, Class<T> clazz) throws NumberFormatException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		if (properties == null) {
+			return null;
+		}
+
+		boolean hasProperty = false;
+		T model = ClassHelper.newInstance(clazz);
+		List<EntityField> entityFields = ClassHelper.getEntityFields(clazz);
+
+		for (EntityField entityField : entityFields) {
+			String propertyKey = getPropertyKey(prefix, entityField.getField().getName());
+			String propertyValue = PropertiesHelper.getProperty(properties, propertyKey);
+
+			if (!StringHelper.isNullOrEmpty(propertyValue)) {
+				BeanHelper.setField(entityField.getSetter(), model, propertyValue, entityField.getField().getType());
+				hasProperty = true;
+			}
+		}
+
+		if (!hasProperty) {
+			return null;
+		}
+
+		return model;
+	}
+
+	/**
+	 * getPropertyKey
+	 * @param prefix
+	 * @param field
+	 * @return String
+	 */
+	private static String getPropertyKey(String prefix, String field) {
+		if (StringHelper.isNullOrEmpty(prefix)) {
+			return field;
+		}
+
+		return String.format("%s.%s", prefix, field);
 	}
 }

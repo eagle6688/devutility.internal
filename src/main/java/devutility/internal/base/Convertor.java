@@ -147,35 +147,35 @@ public class Convertor {
 			return null;
 		}
 
-		if (clazz == Byte.class) {
+		if (clazz == Byte.class || clazz == byte.class) {
 			return (T) Byte.valueOf(value);
 		}
 
-		if (clazz == Short.class) {
+		if (clazz == Short.class || clazz == short.class) {
 			return (T) Short.valueOf(value);
 		}
 
-		if (clazz == Integer.class) {
+		if (clazz == Integer.class || clazz == int.class) {
 			return (T) Integer.valueOf(value);
 		}
 
-		if (clazz == Long.class) {
+		if (clazz == Long.class || clazz == long.class) {
 			return (T) Long.valueOf(value);
 		}
 
-		if (clazz == Float.class) {
+		if (clazz == Float.class || clazz == float.class) {
 			return (T) Float.valueOf(value);
 		}
 
-		if (clazz == Double.class) {
+		if (clazz == Double.class || clazz == double.class) {
 			return (T) Double.valueOf(value);
 		}
 
-		if (clazz == Character.class) {
+		if (clazz == Character.class || clazz == char.class) {
 			return (T) Character.valueOf(value.toCharArray()[0]);
 		}
 
-		if (clazz == Boolean.class) {
+		if (clazz == Boolean.class || clazz == boolean.class) {
 			return (T) Boolean.valueOf(value);
 		}
 
@@ -201,8 +201,8 @@ public class Convertor {
 	 * @return List
 	 */
 	public static <T> List<T> stringToList(String value, String separator, Class<T> clazz) {
-		List<T> list = new ArrayList<>();
 		String[] array = value.split(separator);
+		List<T> list = new ArrayList<>(array.length);
 
 		for (String item : array) {
 			list.add(Convertor.stringToType(item, clazz));
