@@ -5,36 +5,14 @@ import java.nio.ByteOrder;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import devutility.internal.lang.StringHelper;
 import devutility.internal.util.DateHelper;
 
 public class Convertor {
 	/**
-	 * stringToInt 
-	 * @param value
-	 * @return int
-	 */
-	public static int stringToInt(String value) {
-		try {
-			return Integer.parseInt(value);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return 0;
-		}
-	}
-
-	/**
-	 * byteToInt 
-	 * @param b
-	 * @return int
-	 */
-	public static int byteToInt(byte b) {
-		return b & 0xFF;
-	}
-
-	/**
-	 * intToByte 
+	 * intToByte
 	 * @param number
 	 * @return byte
 	 */
@@ -43,7 +21,16 @@ public class Convertor {
 	}
 
 	/**
-	 * bytesToLong 
+	 * byteToInt
+	 * @param b
+	 * @return int
+	 */
+	public static int byteToInt(byte b) {
+		return b & 0xFF;
+	}
+
+	/**
+	 * bytesToLong
 	 * @return long
 	 */
 	public static long bytesToLong(byte[] bytes, boolean littleEndian) {
@@ -57,7 +44,7 @@ public class Convertor {
 	}
 
 	/**
-	 * bytesToLong 
+	 * bytesToLong
 	 * @param bytes
 	 * @return long
 	 */
@@ -66,7 +53,7 @@ public class Convertor {
 	}
 
 	/**
-	 * bytesToHex 
+	 * bytesToHex
 	 * @param bytes
 	 * @return String
 	 */
@@ -86,7 +73,28 @@ public class Convertor {
 	}
 
 	/**
-	 * intArrayToIntegerList 
+	 * array to string
+	 * @param array
+	 * @param componentType
+	 * @return String
+	 */
+	public static String arrayToString(Object[] array, Class<?> componentType) {
+		if (componentType == String.class) {
+			return String.join(",", (String[]) array);
+		}
+
+		StringBuilder stringBuilder = new StringBuilder();
+
+		for (Object object : array) {
+			stringBuilder.append(object.toString());
+			stringBuilder.append(",");
+		}
+
+		return stringBuilder.substring(0, stringBuilder.length() - 2);
+	}
+
+	/**
+	 * int array to integer list
 	 * @param array
 	 * @return ArrayList
 	 */
@@ -105,7 +113,7 @@ public class Convertor {
 	}
 
 	/**
-	 * listToIntArray 
+	 * list to int array
 	 * @param list
 	 * @return int[]
 	 * @throws InstantiationException
@@ -128,7 +136,7 @@ public class Convertor {
 	}
 
 	/**
-	 * stringToType 
+	 * string to type
 	 * @param value
 	 * @param clazz
 	 * @return T
@@ -184,5 +192,59 @@ public class Convertor {
 		}
 
 		return null;
+	}
+
+	/**
+	 * string to list
+	 * @param value
+	 * @param clazz
+	 * @return List
+	 */
+	public static <T> List<T> stringToList(String value, String separator, Class<T> clazz) {
+		List<T> list = new ArrayList<>();
+		String[] array = value.split(separator);
+
+		for (String item : array) {
+			list.add(Convertor.stringToType(item, clazz));
+		}
+
+		return list;
+	}
+
+	/**
+	 * string to int
+	 * @param value
+	 * @return int
+	 */
+	public static int stringToInt(String value) {
+		try {
+			return Integer.parseInt(value);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+
+	/**
+	 * object to string
+	 * @param value
+	 * @return String
+	 */
+	public static String objectToString(Object value) {
+		if (value == null) {
+			return null;
+		}
+
+		Class<?> clazz = value.getClass();
+
+		if (clazz.isArray()) {
+			return arrayToString((Object[]) value, clazz.getComponentType());
+		}
+
+		if (clazz == Date.class) {
+			return DateHelper.formatToStandard((Date) value);
+		}
+
+		return value.toString();
 	}
 }

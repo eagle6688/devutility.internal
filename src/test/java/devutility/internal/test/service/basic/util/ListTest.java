@@ -15,6 +15,12 @@ public class ListTest extends BaseTest {
 		list.add(3);
 		list.remove(0);
 		System.out.println(list);
+
+		System.out.println(List.class.isAssignableFrom(ArrayList.class));
+		System.out.println(ArrayList.class.isAssignableFrom(List.class));
+
+		println(list.getClass().getName());
+		println(List.class.getName());
 	}
 
 	public static void main(String[] args) {

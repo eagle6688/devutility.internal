@@ -10,7 +10,8 @@ import devutility.internal.lang.StringHelper;
 
 public class BeanHelper {
 	/**
-	 * setField 
+	 * set field value, support Array, List, Byte, Short, Integer, Long, Float,
+	 * Double, Character, Boolean, Date and String
 	 * @param setter
 	 * @param model
 	 * @param value
@@ -26,8 +27,13 @@ public class BeanHelper {
 		}
 
 		if (clazz.isArray()) {
-			List<?> list = DataHelper.stringToList(value, clazz.getComponentType());
+			List<?> list = Convertor.stringToList(value, ",", clazz.getComponentType());
 			setArrayField(setter, model, list, clazz);
+		}
+
+		if (List.class.isAssignableFrom(clazz)) {
+			List<?> list = Convertor.stringToList(value, ",", clazz.getComponentType());
+			setter.invoke(model, list);
 		}
 
 		Object obj = Convertor.stringToType(value, clazz);
@@ -38,7 +44,7 @@ public class BeanHelper {
 	}
 
 	/**
-	 * setArrayField 
+	 * setArrayField
 	 * @param setter
 	 * @param model
 	 * @param list
