@@ -204,7 +204,7 @@ public class Convertor {
 	 * @param value: String value
 	 * @param separator: separator for String value
 	 * @param clazz: List generic class
-	 * @return List<T>
+	 * @return List
 	 */
 	public static <T> List<T> stringToList(String value, String separator, Class<T> clazz) {
 		String[] array = value.split(separator);
