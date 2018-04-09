@@ -12,25 +12,27 @@ import devutility.internal.util.DateHelper;
 
 public class Convertor {
 	/**
-	 * intToByte
-	 * @param number
+	 * int to byte
+	 * @param value: int value
 	 * @return byte
 	 */
-	public static byte intToByte(int number) {
-		return (byte) number;
+	public static byte intToByte(int value) {
+		return (byte) value;
 	}
 
 	/**
-	 * byteToInt
-	 * @param b
+	 * byte to int
+	 * @param value: byte value
 	 * @return int
 	 */
-	public static int byteToInt(byte b) {
-		return b & 0xFF;
+	public static int byteToInt(byte value) {
+		return value & 0xFF;
 	}
 
 	/**
-	 * bytesToLong
+	 * bytes to long
+	 * @param bytes: bytes array
+	 * @param littleEndian: whether need little endian or not?
 	 * @return long
 	 */
 	public static long bytesToLong(byte[] bytes, boolean littleEndian) {
@@ -44,8 +46,8 @@ public class Convertor {
 	}
 
 	/**
-	 * bytesToLong
-	 * @param bytes
+	 * bytes to long
+	 * @param bytes: bytes array
 	 * @return long
 	 */
 	public static long bytesToLong(byte[] bytes) {
@@ -53,8 +55,8 @@ public class Convertor {
 	}
 
 	/**
-	 * bytesToHex
-	 * @param bytes
+	 * bytes to hex
+	 * @param bytes: bytes array
 	 * @return String
 	 */
 	public static String bytesToHex(byte[] bytes) {
@@ -74,8 +76,8 @@ public class Convertor {
 
 	/**
 	 * array to string
-	 * @param array
-	 * @param componentType
+	 * @param array: Object array
+	 * @param componentType: array component type
 	 * @return String
 	 */
 	public static String arrayToString(Object[] array, Class<?> componentType) {
@@ -95,7 +97,7 @@ public class Convertor {
 
 	/**
 	 * int array to integer list
-	 * @param array
+	 * @param array: int array
 	 * @return ArrayList
 	 */
 	public static ArrayList<Integer> intArrayToIntegerList(int[] array) {
@@ -114,7 +116,8 @@ public class Convertor {
 
 	/**
 	 * list to int array
-	 * @param list
+	 * @param <T>: Generic type
+	 * @param list: Integer list
 	 * @return int[]
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException int[]
@@ -137,8 +140,9 @@ public class Convertor {
 
 	/**
 	 * string to type
-	 * @param value
-	 * @param clazz
+	 * @param <T>: Generic type
+	 * @param value: string value
+	 * @param clazz: target class
 	 * @return T
 	 */
 	@SuppressWarnings("unchecked")
@@ -196,9 +200,11 @@ public class Convertor {
 
 	/**
 	 * string to list
-	 * @param value
-	 * @param clazz
-	 * @return List
+	 * @param <T>: Generic type
+	 * @param value: String value
+	 * @param separator: separator for String value
+	 * @param clazz: List generic class
+	 * @return List<T>
 	 */
 	public static <T> List<T> stringToList(String value, String separator, Class<T> clazz) {
 		String[] array = value.split(separator);
@@ -213,7 +219,7 @@ public class Convertor {
 
 	/**
 	 * string to int
-	 * @param value
+	 * @param value: String value
 	 * @return int
 	 */
 	public static int stringToInt(String value) {
@@ -227,7 +233,7 @@ public class Convertor {
 
 	/**
 	 * object to string
-	 * @param value
+	 * @param value: Object value
 	 * @return String
 	 */
 	public static String objectToString(Object value) {

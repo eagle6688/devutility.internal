@@ -1,30 +1,33 @@
 package devutility.internal.data;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.List;
 
 import devutility.internal.base.Convertor;
+import devutility.internal.lang.ClassHelper;
 import devutility.internal.lang.StringHelper;
 
 public class BeanHelper {
 	/**
-	 * set field value, support Array, List, Byte, Short, Integer, Long, Float,
-	 * Double, Character, Boolean, Date and String
-	 * @param setter
-	 * @param model
-	 * @param value
-	 * @param clazz
+	 * set value for field
+	 * @param setter: Setter method for field
+	 * @param model: Model that need set
+	 * @param value: String value
+	 * @param field: Field that need set
 	 * @throws NumberFormatException
 	 * @throws IllegalAccessException
 	 * @throws IllegalArgumentException
-	 * @throws InvocationTargetException void
+	 * @throws InvocationTargetException
 	 */
-	public static void setField(Method setter, Object model, String value, Class<?> clazz) throws NumberFormatException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	public static void setField(Method setter, Object model, String value, Field field) throws NumberFormatException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		if (StringHelper.isNullOrEmpty(value)) {
 			return;
 		}
+
+		Class<?> clazz = field.getType();
 
 		if (clazz.isArray()) {
 			List<?> list = Convertor.stringToList(value, ",", clazz.getComponentType());
@@ -32,7 +35,13 @@ public class BeanHelper {
 		}
 
 		if (List.class.isAssignableFrom(clazz)) {
-			List<?> list = Convertor.stringToList(value, ",", String.class);
+			Class<?> genericClass = ClassHelper.getGenericClass(field.getGenericType());
+
+			if (genericClass == null) {
+				return;
+			}
+
+			List<?> list = Convertor.stringToList(value, ",", genericClass);
 			setter.invoke(model, list);
 		}
 
@@ -44,11 +53,11 @@ public class BeanHelper {
 	}
 
 	/**
-	 * setArrayField
-	 * @param setter
-	 * @param model
-	 * @param list
-	 * @param fieldClazz
+	 * set array field
+	 * @param setter: Setter method for field
+	 * @param model: Model object
+	 * @param list: List value for field
+	 * @param fieldClazz: Field class
 	 * @throws IllegalAccessException
 	 * @throws IllegalArgumentException
 	 * @throws InvocationTargetException void

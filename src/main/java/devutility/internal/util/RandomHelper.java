@@ -9,15 +9,15 @@ public class RandomHelper {
 	private static final Random RANDOM = new Random();
 
 	/**
-	 * getString
-	 * @param chars
-	 * @param digit
+	 * Get random string
+	 * @param chars: Chars pool which will generate random string.
+	 * @param length: Chars length
 	 * @return String
 	 */
-	public static String getString(char[] chars, int digit) {
+	public static String getString(char[] chars, int length) {
 		StringBuffer buffer = new StringBuffer();
 
-		for (int i = 0; i < digit; i++) {
+		for (int i = 0; i < length; i++) {
 			buffer.append(chars[RANDOM.nextInt(chars.length)]);
 		}
 
@@ -25,8 +25,8 @@ public class RandomHelper {
 	}
 
 	/**
-	 * getNumber
-	 * @param bound
+	 * Get random number
+	 * @param bound: Scope for random number.
 	 * @return int
 	 */
 	public static int getNumber(int bound) {

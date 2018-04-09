@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class DateFormatHelper {
 	/**
-	 * container for SimpleDateFormat
+	 * Container for SimpleDateFormat
 	 */
 	private static volatile Map<String, ThreadLocal<SimpleDateFormat>> container = new HashMap<>();
 
@@ -22,7 +22,7 @@ public class DateFormatHelper {
 	public final static String STANDARDDATETIMEFORMAT = "yyyy-MM-dd HH:mm:ss";
 
 	/**
-	 * getStandardDateFormat 
+	 * Get standard date format
 	 * @return SimpleDateFormat
 	 */
 	public static SimpleDateFormat getStandardDateFormat() {
@@ -30,7 +30,8 @@ public class DateFormatHelper {
 	}
 
 	/**
-	 * getSimpleDateFormat 
+	 * Get simple date format
+	 * @param pattern: Date pattern.
 	 * @return SimpleDateFormat
 	 */
 	public static SimpleDateFormat getSimpleDateFormat(String pattern) {
@@ -57,7 +58,9 @@ public class DateFormatHelper {
 	}
 
 	/**
-	 * getSimpleDateFormat 
+	 * Get simple date format
+	 * @param pattern: Date pattern.
+	 * @param locale: Locale for date
 	 * @return SimpleDateFormat
 	 */
 	public static SimpleDateFormat getSimpleDateFormat(String pattern, Locale locale) {

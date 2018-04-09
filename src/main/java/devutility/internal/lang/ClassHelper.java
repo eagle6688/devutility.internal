@@ -3,6 +3,8 @@ package devutility.internal.lang;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -151,6 +153,15 @@ public class ClassHelper {
 			if (name.equals(method.getName())) {
 				return method;
 			}
+		}
+
+		return null;
+	}
+
+	public static Class<?> getGenericClass(Type genericType) {
+		if (genericType != null && genericType instanceof ParameterizedType) {
+			ParameterizedType parameterizedType = (ParameterizedType) genericType;
+			return (Class<?>) parameterizedType.getActualTypeArguments()[0];
 		}
 
 		return null;

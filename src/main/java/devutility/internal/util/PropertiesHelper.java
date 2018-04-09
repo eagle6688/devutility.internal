@@ -13,7 +13,8 @@ import devutility.internal.lang.models.EntityField;
 
 public class PropertiesHelper {
 	/**
-	 * getProperties
+	 * Get properties
+	 * @param resourceName: Properties file name
 	 * @return Properties
 	 */
 	public static Properties getProperties(String resourceName) {
@@ -21,7 +22,8 @@ public class PropertiesHelper {
 	}
 
 	/**
-	 * getProperties
+	 * Get properties
+	 * @param inputStream: InputStream of properties file
 	 * @return Properties
 	 */
 	public static Properties getProperties(InputStream inputStream) {
@@ -36,7 +38,9 @@ public class PropertiesHelper {
 	}
 
 	/**
-	 * containsPrefix
+	 * Check one properties object whether contains prefix.
+	 * @param properties: Properties object
+	 * @param prefix: Prefix of property key
 	 * @return boolean
 	 */
 	public static boolean containsPrefix(Properties properties, String prefix) {
@@ -52,7 +56,9 @@ public class PropertiesHelper {
 	}
 
 	/**
-	 * containsPrefix
+	 * Check one properties file whether contains prefix.
+	 * @param resourceName: Properties file
+	 * @param prefix: Prefix of property key
 	 * @return boolean
 	 */
 	public static boolean containsPrefix(String resourceName, String prefix) {
@@ -61,7 +67,9 @@ public class PropertiesHelper {
 	}
 
 	/**
-	 * contains
+	 * Check one properties object whether contains key.
+	 * @param properties: Properties object
+	 * @param key: Key name for you query
 	 * @return boolean
 	 */
 	public static boolean containsKey(Properties properties, String key) {
@@ -69,7 +77,9 @@ public class PropertiesHelper {
 	}
 
 	/**
-	 * contains
+	 * Check one properties file whether contains key.
+	 * @param resourceName: Properties file
+	 * @param key: Key name for you query
 	 * @return boolean
 	 */
 	public static boolean containsKey(String resourceName, String key) {
@@ -78,7 +88,9 @@ public class PropertiesHelper {
 	}
 
 	/**
-	 * getProperty
+	 * Get property value.
+	 * @param properties: Properties object
+	 * @param key: Key name for you query
 	 * @return String
 	 */
 	public static String getProperty(Properties properties, String key) {
@@ -90,7 +102,9 @@ public class PropertiesHelper {
 	}
 
 	/**
-	 * getProperty
+	 * Get property value.
+	 * @param resourceName: Properties file
+	 * @param key: Key name for you query
 	 * @return String
 	 */
 	public static String getProperty(String resourceName, String key) {
@@ -99,7 +113,9 @@ public class PropertiesHelper {
 	}
 
 	/**
-	 * getIntProperty
+	 * Get property int value.
+	 * @param properties: Properties object
+	 * @param key: Key name for you query
 	 * @return int
 	 */
 	public static int getIntProperty(Properties properties, String key) {
@@ -113,7 +129,9 @@ public class PropertiesHelper {
 	}
 
 	/**
-	 * getIntProperty
+	 * Get property int value.
+	 * @param resourceName: Properties file
+	 * @param key: Key name for you query
 	 * @return int
 	 */
 	public static int getIntProperty(String resourceName, String key) {
@@ -127,10 +145,10 @@ public class PropertiesHelper {
 	}
 
 	/**
-	 * toModel
-	 * @param resourceName
-	 * @param prefix
-	 * @param clazz
+	 * Properties to model
+	 * @param resourceName: Properties file
+	 * @param prefix: Prefix of property key
+	 * @param clazz: Class of model
 	 * @return model
 	 * @throws NumberFormatException
 	 * @throws IllegalAccessException
@@ -144,9 +162,9 @@ public class PropertiesHelper {
 
 	/**
 	 * Properties to model
-	 * @param properties
-	 * @param prefix
-	 * @param clazz
+	 * @param properties: Properties object
+	 * @param prefix: Prefix of property key
+	 * @param clazz: Class of model
 	 * @return model
 	 * @throws NumberFormatException
 	 * @throws IllegalAccessException
@@ -167,7 +185,7 @@ public class PropertiesHelper {
 			String propertyValue = PropertiesHelper.getProperty(properties, propertyKey);
 
 			if (!StringHelper.isNullOrEmpty(propertyValue)) {
-				BeanHelper.setField(entityField.getSetter(), model, propertyValue, entityField.getField().getType());
+				BeanHelper.setField(entityField.getSetter(), model, propertyValue, entityField.getField());
 				hasProperty = true;
 			}
 		}
@@ -180,9 +198,9 @@ public class PropertiesHelper {
 	}
 
 	/**
-	 * getPropertyKey
-	 * @param prefix
-	 * @param field
+	 * Get property key
+	 * @param prefix: Prefix of property key
+	 * @param field: field of model
 	 * @return String
 	 */
 	private static String getPropertyKey(String prefix, String field) {

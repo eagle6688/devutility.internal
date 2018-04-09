@@ -10,7 +10,8 @@ import devutility.internal.text.format.DateFormatHelper;
 
 public class DateHelper {
 	/**
-	 * millisToDays 
+	 * Milliseconds to days
+	 * @param millis: Milliseconds
 	 * @return int
 	 */
 	public static int millisToDays(long millis) {
@@ -18,7 +19,9 @@ public class DateHelper {
 	}
 
 	/**
-	 * getDaySubtract 
+	 * Subtract two dates in days
+	 * @param d1: First date
+	 * @param d2: Second date
 	 * @return int
 	 */
 	public static int getDaySubtract(Date d1, Date d2) {
@@ -26,7 +29,9 @@ public class DateHelper {
 	}
 
 	/**
-	 * getHoursSubtract 
+	 * Subtract two dates in hours
+	 * @param d1: First date
+	 * @param d2: Second date
 	 * @return int
 	 */
 	public static int getHoursSubtract(Date d1, Date d2) {
@@ -34,9 +39,11 @@ public class DateHelper {
 	}
 
 	/**
-	 * toDate 
+	 * String to Date object
+	 * @param value: Date string value
+	 * @param pattern: Date string pattern
 	 * @return Date
-	 * @throws ParseException Date
+	 * @throws ParseException
 	 */
 	public static Date toDate(String value, String pattern) throws ParseException {
 		if (StringHelper.isNullOrEmpty(value) || StringHelper.isNullOrEmpty(pattern)) {
@@ -48,9 +55,12 @@ public class DateHelper {
 	}
 
 	/**
-	 * toDate 
+	 * String to Date object
+	 * @param value: Date string value
+	 * @param pattern: Date string pattern
+	 * @param locale: Date locale
 	 * @return Date
-	 * @throws ParseException Date
+	 * @throws ParseException
 	 */
 	public static Date toDate(String value, String pattern, Locale locale) throws ParseException {
 		if (StringHelper.isNullOrEmpty(value) || StringHelper.isNullOrEmpty(pattern)) {
@@ -62,16 +72,19 @@ public class DateHelper {
 	}
 
 	/**
-	 * standardToDate 
+	 * Date string with standard to Date object
+	 * @param value
 	 * @return Date
-	 * @throws ParseException Date
+	 * @throws ParseException
 	 */
 	public static Date standardToDate(String value) throws ParseException {
 		return toDate(value, DateFormatHelper.STANDARDDATETIMEFORMAT);
 	}
 
 	/**
-	 * format 
+	 * Format Date to string
+	 * @param date: Date object
+	 * @param pattern: Date pattern
 	 * @return String
 	 */
 	public static String format(Date date, String pattern) {
@@ -80,7 +93,8 @@ public class DateHelper {
 	}
 
 	/**
-	 * formatToStandard 
+	 * Format Date to standard string
+	 * @param date: Date object
 	 * @return String
 	 */
 	public static String formatToStandard(Date date) {
