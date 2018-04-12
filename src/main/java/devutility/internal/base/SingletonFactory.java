@@ -1,26 +1,37 @@
 package devutility.internal.base;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import devutility.internal.lang.ClassHelper;
 
 public class SingletonFactory {
-	// region variables
-
+	/**
+	 * Singleton object.
+	 */
 	private static volatile Object value = null;
 
-	private static volatile Map<String, Object> container = new HashMap<>();
+	/**
+	 * Container for singleton object.
+	 */
+	private static volatile Map<String, Object> container = new ConcurrentHashMap<>();
 
-	// endregion
-
-	// region create
-
+	/**
+	 * Create a singleton object.
+	 * @param clazz: Class of singleton object.
+	 * @return {@literal T}
+	 */
 	public static <T> T create(Class<T> clazz) {
 		String key = clazz.getName();
 		return create(key, clazz);
 	}
 
+	/**
+	 * Create a singleton object.
+	 * @param key: Key of singleton object to save.
+	 * @param clazz: Class of singleton object.
+	 * @return {@literal T}
+	 */
 	public static <T> T create(String key, Class<T> clazz) {
 		if (container.get(key) != null) {
 			return clazz.cast(container.get(key));
@@ -36,6 +47,4 @@ public class SingletonFactory {
 
 		return clazz.cast(container.get(key));
 	}
-
-	// endregion
 }
