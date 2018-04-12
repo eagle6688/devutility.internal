@@ -1,19 +1,23 @@
 package devutility.internal.base;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 import devutility.internal.lang.ClassHelper;
 
 public class ThreadLocalSingletonFactory {
-	// region variables
+	/**
+	 * Container for singleton object.
+	 */
+	private static volatile ConcurrentMap<String, ThreadLocal<Object>> container = new ConcurrentHashMap<>();
 
-	private static volatile Map<String, ThreadLocal<Object>> container = new HashMap<>();
-
-	// endregion
-
-	// region create
-
+	/**
+	 * Create a singleton object.
+	 * @param clazz: Class of singleton object.
+	 * @return {@literal: T}
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
 	public static <T> T create(Class<T> clazz) throws InstantiationException, IllegalAccessException {
 		T instance = null;
 		String key = clazz.getName();
@@ -41,5 +45,28 @@ public class ThreadLocalSingletonFactory {
 		return instance;
 	}
 
-	// endregion
+	public static <T> T create(String key, Class<T> clazz) throws InstantiationException, IllegalAccessException {
+		ThreadLocal<Object> threadLocal = container.get(key);
+
+		if (threadLocal != null) {
+			Object value = threadLocal.get();
+
+			if (value != null && value.getClass().isAssignableFrom(clazz)) {
+				return clazz.cast(value);
+			}
+
+			container.put(key, null);
+		}
+
+		synchronized (ThreadLocalSingletonFactory.class) {
+			if (container.get(key) == null) {
+				T instance = ClassHelper.newInstance(clazz);
+				threadLocal = new ThreadLocal<Object>();
+				threadLocal.set(instance);
+				container.put(key, threadLocal);
+			}
+		}
+
+		return clazz.cast(container.get(key).get());
+	}
 }

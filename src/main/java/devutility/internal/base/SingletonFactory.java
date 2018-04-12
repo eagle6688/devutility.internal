@@ -1,20 +1,15 @@
 package devutility.internal.base;
 
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 import devutility.internal.lang.ClassHelper;
 
 public class SingletonFactory {
 	/**
-	 * Singleton object.
-	 */
-	private static volatile Object value = null;
-
-	/**
 	 * Container for singleton object.
 	 */
-	private static volatile Map<String, Object> container = new ConcurrentHashMap<>();
+	public static volatile ConcurrentMap<String, Object> container = new ConcurrentHashMap<>();
 
 	/**
 	 * Create a singleton object.
@@ -34,14 +29,19 @@ public class SingletonFactory {
 	 */
 	public static <T> T create(String key, Class<T> clazz) {
 		if (container.get(key) != null) {
-			return clazz.cast(container.get(key));
+			Object value = container.get(key);
+
+			if (value != null && value.getClass().isAssignableFrom(clazz)) {
+				return clazz.cast(value);
+			}
+
+			container.remove(key);
 		}
 
 		synchronized (SingletonFactory.class) {
 			if (container.get(key) == null) {
-				value = ClassHelper.newInstance(clazz);
+				T value = ClassHelper.newInstance(clazz);
 				container.put(key, value);
-				value = null;
 			}
 		}
 

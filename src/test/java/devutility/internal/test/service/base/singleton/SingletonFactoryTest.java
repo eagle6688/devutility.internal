@@ -14,7 +14,7 @@ public class SingletonFactoryTest extends BaseTest {
 			println("Null!");
 		}
 
-		// println(String.format("The size of container %d", SingletonFactory.container.keySet().size()));
+		println(String.format("The size of container %d", SingletonFactory.container.keySet().size()));
 	}
 
 	public static void main(String[] args) {

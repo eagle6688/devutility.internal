@@ -47,7 +47,7 @@ public class ConcurrentExecutor {
 			});
 		}
 
-		List<Future<List<R>>> results = ConcurrentHelper.instance().getExecutorService().invokeAll(tasks);
+		List<Future<List<R>>> results = ExecutorServiceUtils.threadPoolExecutor().invokeAll(tasks);
 
 		for (Future<List<R>> result : results) {
 			resultList.addAll(result.get());

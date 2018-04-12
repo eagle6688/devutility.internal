@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 
 import devutility.internal.base.InstanceHelper;
 import devutility.internal.lang.ClassHelper;
-import devutility.internal.util.concurrent.ConcurrentHelper;
+import devutility.internal.util.concurrent.ExecutorServiceUtils;
 
 public class TestExecutor {
 	// region run
@@ -64,15 +64,15 @@ public class TestExecutor {
 			printEndMessage(cl);
 		};
 
-		ConcurrentHelper.instance().getExecutorService().execute(task);
+		ExecutorServiceUtils.threadPoolExecutor().execute(task);
 	}
 
 	// endregion
 
 	// region print start message
 
-	private static void printStartMessage(Class<?> cl) {
-		System.out.println(String.format("Start %s:", cl.getSimpleName()));
+	private static void printStartMessage(Class<?> clazz) {
+		System.out.println(String.format("Start %s:", clazz.getSimpleName()));
 	}
 
 	// endregion
