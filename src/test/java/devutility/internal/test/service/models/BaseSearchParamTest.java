@@ -4,7 +4,7 @@ import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 import devutility.internal.test.models.StudentSearchParam;
 
-public class TestBaseSearchParam extends BaseTest {
+public class BaseSearchParamTest extends BaseTest {
 	@Override
 	public void run() {
 		String[] numbers = { "100001", "100002" };
@@ -18,6 +18,6 @@ public class TestBaseSearchParam extends BaseTest {
 	}
 
 	public static void main(String[] args) {
-		TestExecutor.run(TestBaseSearchParam.class);
+		TestExecutor.run(BaseSearchParamTest.class);
 	}
 }
