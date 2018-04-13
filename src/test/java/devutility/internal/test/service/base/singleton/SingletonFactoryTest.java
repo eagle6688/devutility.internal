@@ -14,12 +14,12 @@ public class SingletonFactoryTest extends BaseTest {
 			println("Null!");
 		}
 
-		println(String.format("The size of container %d", SingletonFactory.container.keySet().size()));
+		println(String.format("The size of container %d", SingletonFactory.getContainer().size()));
 	}
 
 	public static void main(String[] args) {
-		for (int i = 0; i < 100; i++) {
-			TestExecutor.concurrentRun(SingletonFactoryTest.class);
-		}
+		TestExecutor.concurrentRun(100, SingletonFactoryTest.class, (data) -> {
+			System.out.println(data);
+		});
 	}
 }

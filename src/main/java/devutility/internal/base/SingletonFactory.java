@@ -9,7 +9,15 @@ public class SingletonFactory {
 	/**
 	 * Container for singleton object.
 	 */
-	public static volatile ConcurrentMap<String, Object> container = new ConcurrentHashMap<>();
+	private static volatile ConcurrentMap<String, Object> container = new ConcurrentHashMap<>();
+
+	/**
+	 * Get container of SingletonFactory
+	 * @return ConcurrentMap<String,Object>
+	 */
+	public static ConcurrentMap<String, Object> getContainer() {
+		return container;
+	}
 
 	/**
 	 * Create a singleton object.

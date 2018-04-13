@@ -6,6 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import devutility.internal.base.Callback;
 import devutility.internal.lang.ClassHelper;
+import devutility.internal.util.concurrent.CompletionServiceUtils;
 import devutility.internal.util.concurrent.ExecutorServiceUtils;
 
 public class TestExecutor {
@@ -76,6 +77,42 @@ public class TestExecutor {
 		ExecutorServiceUtils.threadPoolExecutor().execute(task);
 	}
 
+	/**
+	 * Running instance list concurrently.
+	 * @param instances: Instance list
+	 * @param clazz: BaseTest instance
+	 */
+	public static <T extends BaseTest> void concurrentRun(List<T> instances, Class<T> clazz) {
+		concurrentRun(instances, clazz, null);
+	}
+
+	/**
+	 * Running {@code:count} instances with class {@code:clazz} concurrently.
+	 * @param count: The amount of instances.
+	 * @param clazz: BaseTest instance
+	 * @param callback
+	 */
+	public static <T extends BaseTest> void concurrentRun(int count, Class<T> clazz, Callback callback) {
+		if (count <= 0 || clazz == null) {
+			return;
+		}
+
+		List<T> instances = new ArrayList<>(count);
+
+		for (int i = 0; i < count; i++) {
+			T instance = ClassHelper.newInstance(clazz);
+			instances.add(instance);
+		}
+
+		concurrentRun(instances, clazz, callback);
+	}
+
+	/**
+	 * Running instances concurrently.
+	 * @param instances: Instance list
+	 * @param clazz: BaseTest instance
+	 * @param callback
+	 */
 	public static <T extends BaseTest> void concurrentRun(List<T> instances, Class<T> clazz, Callback callback) {
 		if (instances == null || clazz == null) {
 			return;
@@ -90,10 +127,16 @@ public class TestExecutor {
 
 				long startTime = System.currentTimeMillis();
 				instance.run();
-				counter.addAndGet(1);
 
 				postExecute(startTime, clazz);
+				counter.addAndGet(1);
 			});
+		}
+
+		try {
+			CompletionServiceUtils.run(tasks);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 
 		if (callback != null) {
