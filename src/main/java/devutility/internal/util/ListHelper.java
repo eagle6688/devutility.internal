@@ -5,10 +5,15 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import devutility.internal.system.SystemHelper;
+import devutility.internal.util.concurrent.ConcurrentExecutor;
 
 public class ListHelper {
 	// region empty or not
@@ -133,6 +138,39 @@ public class ListHelper {
 
 	public static <T, R> List<R> parallelMapAndDistinct(List<T> list, Predicate<T> predicate, Function<? super T, ? extends R> mapper) {
 		return parallelQuery(list, predicate).map(mapper).distinct().collect(Collectors.toList());
+	}
+
+	/**
+	 * Concurrent map
+	 * @param list: List need map
+	 * @param mapper: Mapper expression
+	 * @return {@literal: List<R>}
+	 * @throws InterruptedException
+	 * @throws ExecutionException
+	 */
+	public static <T, R> List<R> concurrentMap(List<T> list, Function<? super T, ? extends R> mapper) throws InterruptedException, ExecutionException {
+		List<R> results = new ArrayList<>();
+		int processorsCount = SystemHelper.getProcessorsCount();
+		List<Callable<List<R>>> callables = new ArrayList<>(processorsCount);
+		int pageSize = list.size() / processorsCount + list.size() % processorsCount;
+
+		for (int i = 0; i < processorsCount; i++) {
+			int start = i * pageSize;
+			int targetEnd = start + pageSize;
+			int end = targetEnd > list.size() ? list.size() : targetEnd;
+
+			callables.add(() -> {
+				return list.subList(start, end).stream().map(mapper).collect(Collectors.toList());
+			});
+		}
+
+		List<List<R>> futureResults = ConcurrentExecutor.runAndGet(callables);
+
+		for (List<R> futureResult : futureResults) {
+			results.addAll(futureResult);
+		}
+
+		return results;
 	}
 
 	// endregion

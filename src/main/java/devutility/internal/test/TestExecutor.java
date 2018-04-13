@@ -1,97 +1,92 @@
 package devutility.internal.test;
 
-import java.lang.reflect.InvocationTargetException;
-
-import devutility.internal.base.InstanceHelper;
 import devutility.internal.lang.ClassHelper;
 import devutility.internal.util.concurrent.ExecutorServiceUtils;
 
 public class TestExecutor {
-	// region run
-
-	public static void run(BaseTest test) {
-		if (test == null) {
+	/**
+	 * Run BaseTest instance
+	 * @param instance: BaseTest instance
+	 */
+	public static void run(BaseTest instance) {
+		if (instance == null) {
 			return;
 		}
 
-		printStartMessage(test.getClass());
-		test.run();
-		printEndMessage(test.getClass());
-	}
+		preExecute(instance.getClass());
 
-	public static <T extends BaseTest> void run(Class<T> cl) {
 		long startTime = System.currentTimeMillis();
-
-		if (cl == null) {
-			return;
-		}
-
-		T instance = null;
-
-		try {
-			instance = cl.getDeclaredConstructor().newInstance();
-		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
-			e.printStackTrace();
-		}
-
-		if (InstanceHelper.notInstanceof(instance, BaseTest.class)) {
-			return;
-		}
-
-		printStartMessage(cl);
 		instance.run();
-		handleEnd(startTime, cl);
+
+		postExecute(startTime, instance.getClass());
 	}
 
-	// endregion
-
-	// region concurrent run
-
-	public static <T extends BaseTest> void concurrentRun(Class<T> cl) {
-		if (cl == null) {
+	/**
+	 * Create a BaseTest instance and run it.
+	 * @param clazz: BaseTest instance
+	 */
+	public static <T extends BaseTest> void run(Class<T> clazz) {
+		if (clazz == null) {
 			return;
 		}
 
-		T instance = ClassHelper.newInstance(cl);
+		T instance = ClassHelper.newInstance(clazz);
+
+		if (!ClassHelper.isInstanceOf(instance, BaseTest.class)) {
+			return;
+		}
+
+		preExecute(clazz);
+
+		long startTime = System.currentTimeMillis();
+		instance.run();
+
+		postExecute(startTime, clazz);
+	}
+
+	/**
+	 * Create a BaseTest instance and concurrently run it.
+	 * @param clazz: BaseTest instance
+	 */
+	public static <T extends BaseTest> void concurrentRun(Class<T> clazz) {
+		if (clazz == null) {
+			return;
+		}
+
+		T instance = ClassHelper.newInstance(clazz);
 
 		if (instance == null) {
 			return;
 		}
 
 		Runnable task = () -> {
-			printStartMessage(cl);
+			preExecute(clazz);
+
+			long startTime = System.currentTimeMillis();
 			instance.run();
-			printEndMessage(cl);
+
+			postExecute(startTime, clazz);
 		};
 
 		ExecutorServiceUtils.threadPoolExecutor().execute(task);
 	}
 
-	// endregion
-
-	// region print start message
-
-	private static void printStartMessage(Class<?> clazz) {
-		System.out.println(String.format("Start %s:", clazz.getSimpleName()));
+	/**
+	 * Event pre execute
+	 * @param clazz: Class of executing object.
+	 */
+	private static void preExecute(Class<?> clazz) {
+		System.out.println(String.format("Start executing  %s:", clazz.getSimpleName()));
 	}
 
-	// endregion
-
-	// region print end message
-
-	private static void printEndMessage(Class<?> cl) {
-		System.out.println(String.format("%s end.", cl.getSimpleName()));
-	}
-
-	// endregion
-
-	// region handle end
-
-	private static void handleEnd(long startTime, Class<?> clazz) {
+	/**
+	 * Post execute
+	 * @param startTime: Start time of execution.
+	 * @param clazz: Class of executing object.
+	 */
+	private static void postExecute(long startTime, Class<?> clazz) {
 		long endTime = System.currentTimeMillis();
-		String message = String.format("%s end, cost %d millisecond.", clazz.getSimpleName(), (endTime - startTime));
+		String message = String.format("Executing %s end, cost %d millisecond.", clazz.getSimpleName(), (endTime - startTime));
 		System.out.println(message);
 	}
-
-	// endregion
 }

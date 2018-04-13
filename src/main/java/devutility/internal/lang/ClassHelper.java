@@ -166,4 +166,23 @@ public class ClassHelper {
 
 		return null;
 	}
+
+	/**
+	 * Check whether object is instance of clazz?
+	 * @param object: Object need check.
+	 * @param clazz: Target Class object.
+	 * @return boolean
+	 */
+	public static boolean isInstanceOf(Object object, Class<?> clazz) {
+		return clazz.isInstance(object) || clazz.isAssignableFrom(object.getClass());
+	}
+
+	/**
+	 * Whether clazz is Jave class
+	 * @param clazz: Class object need check
+	 * @return boolean
+	 */
+	public static boolean isJaveClass(Class<?> clazz) {
+		return clazz != null && clazz.getClassLoader() == null;
+	}
 }

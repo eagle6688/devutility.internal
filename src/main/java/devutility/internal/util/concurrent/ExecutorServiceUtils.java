@@ -20,7 +20,7 @@ public class ExecutorServiceUtils {
 		/**
 		 * Default ThreadPoolExecutor object
 		 */
-		public static ExecutorService executorService = new ThreadPoolExecutor(processorsCount, processorsCount * 2, 5, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>(), (thread) -> {
+		public static ExecutorService executorService = new ThreadPoolExecutor(processorsCount, processorsCount * 5, 3, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>(), (thread) -> {
 			return new Thread(thread);
 		});
 	}

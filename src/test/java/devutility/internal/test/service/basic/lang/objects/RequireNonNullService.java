@@ -21,7 +21,7 @@ public class RequireNonNullService extends BaseTest {
 		String str = Objects.requireNonNull(value, "value can not null in RequireNonNullService!");
 		println(str);
 	}
-	
+
 	public static void main(String[] args) {
 		TestExecutor.run(new RequireNonNullService(null));
 	}

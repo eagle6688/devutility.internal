@@ -4,55 +4,41 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
-import devutility.internal.system.SystemHelper;
 
 public class ConcurrentExecutor {
-	private static volatile ConcurrentExecutor instance;
-	private int processorsCount = 1;
+	/**
+	 * Run list of callables, return futures after runing completely.
+	 * @param callables: Callable list
+	 * @return {@literal: List<Future<R>>}
+	 * @throws InterruptedException
+	 */
+	public static <R> List<Future<R>> run(List<Callable<R>> callables) throws InterruptedException {
+		ExecutorService executorService = ExecutorServiceUtils.threadPoolExecutor();
 
-	public ConcurrentExecutor() {
-		processorsCount = SystemHelper.getProcessorsCount();
+		if (executorService == null) {
+			return new ArrayList<>();
+		}
+
+		return executorService.invokeAll(callables);
 	}
 
-	public static ConcurrentExecutor instance() {
-		if (instance != null) {
-			return instance;
+	/**
+	 * Run callables and return their results.
+	 * @param callables: Callable list
+	 * @return {@literal: List<R>}
+	 * @throws InterruptedException
+	 * @throws ExecutionException
+	 */
+	public static <R> List<R> runAndGet(List<Callable<R>> callables) throws InterruptedException, ExecutionException {
+		List<R> list = new ArrayList<>(callables.size());
+		List<Future<R>> futures = run(callables);
+
+		for (Future<R> future : futures) {
+			list.add(future.get());
 		}
 
-		synchronized (ConcurrentExecutor.class) {
-			if (instance == null) {
-				instance = new ConcurrentExecutor();
-			}
-		}
-
-		return instance;
-	}
-
-	public <T, R> List<R> map(List<T> list, Function<? super T, ? extends R> mapper) throws InterruptedException, ExecutionException {
-		List<R> resultList = new ArrayList<>();
-		List<Callable<List<R>>> tasks = new ArrayList<>();
-		int pageSize = list.size() / processorsCount + list.size() % processorsCount;
-
-		for (int i = 0; i < processorsCount; i++) {
-			Integer start = i * pageSize;
-			int index = start + pageSize;
-			Integer end = index > list.size() ? list.size() : index;
-
-			tasks.add(() -> {
-				return list.subList(start, end).stream().map(mapper).collect(Collectors.toList());
-			});
-		}
-
-		List<Future<List<R>>> results = ExecutorServiceUtils.threadPoolExecutor().invokeAll(tasks);
-
-		for (Future<List<R>> result : results) {
-			resultList.addAll(result.get());
-		}
-
-		return resultList;
+		return list;
 	}
 }
