@@ -1,5 +1,10 @@
 package devutility.internal.test;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import devutility.internal.base.Callback;
 import devutility.internal.lang.ClassHelper;
 import devutility.internal.util.concurrent.ExecutorServiceUtils;
 
@@ -69,6 +74,31 @@ public class TestExecutor {
 		};
 
 		ExecutorServiceUtils.threadPoolExecutor().execute(task);
+	}
+
+	public static <T extends BaseTest> void concurrentRun(List<T> instances, Class<T> clazz, Callback callback) {
+		if (instances == null || clazz == null) {
+			return;
+		}
+
+		AtomicInteger counter = new AtomicInteger(0);
+		List<Runnable> tasks = new ArrayList<>(instances.size());
+
+		for (T instance : instances) {
+			tasks.add(() -> {
+				preExecute(clazz);
+
+				long startTime = System.currentTimeMillis();
+				instance.run();
+				counter.addAndGet(1);
+
+				postExecute(startTime, clazz);
+			});
+		}
+
+		if (callback != null) {
+			callback.execute(counter);
+		}
 	}
 
 	/**
