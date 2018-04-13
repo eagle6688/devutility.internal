@@ -49,7 +49,7 @@ public class ThreadLocalSingletonFactory {
 				return clazz.cast(value);
 			}
 
-			container.put(key, null);
+			container.remove(key);
 		}
 
 		synchronized (ThreadLocalSingletonFactory.class) {

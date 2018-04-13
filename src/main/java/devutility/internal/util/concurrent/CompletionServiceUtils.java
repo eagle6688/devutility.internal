@@ -37,5 +37,7 @@ public class CompletionServiceUtils {
 			completionService.take();
 			index++;
 		}
+
+		ExecutorServiceUtils.threadPoolExecutor().shutdown();
 	}
 }

@@ -19,11 +19,13 @@ public class ThreadLocalSingletonFactoryTest extends BaseTest {
 		if (person == null) {
 			println("Null!");
 		}
+
+		println(String.format("Size of ThreadLocal singleton objects: %d", ThreadLocalSingletonFactory.getContainer().size()));
 	}
 
 	public static void main(String[] args) {
-		for (int i = 0; i < 100; i++) {
-			TestExecutor.concurrentRun(ThreadLocalSingletonFactoryTest.class);
-		}
+		TestExecutor.concurrentRun(100, ThreadLocalSingletonFactoryTest.class, (data) -> {
+			println(String.valueOf(data));
+		});
 	}
 }
