@@ -66,10 +66,14 @@ public class SingletonFactory {
 	 * @return {@code:T}
 	 */
 	public static <T> T create(String key, Class<T> clazz) {
-		T instance = get(key, clazz);
+		if (container.get(key) != null) {
+			Object value = container.get(key);
 
-		if (instance != null) {
-			return instance;
+			if (value != null && value.getClass().isAssignableFrom(clazz)) {
+				return clazz.cast(value);
+			}
+
+			container.remove(key);
 		}
 
 		synchronized (SingletonFactory.class) {
@@ -80,5 +84,19 @@ public class SingletonFactory {
 		}
 
 		return clazz.cast(container.get(key));
+	}
+
+	/**
+	 * Save an instance in container.
+	 * @param key: Key of instance.
+	 * @param instance: Singleton instance.
+	 * @return {@code:T}
+	 */
+	public static <T> T save(String key, T instance) {
+		synchronized (SingletonFactory.class) {
+			container.put(key, instance);
+		}
+
+		return instance;
 	}
 }
