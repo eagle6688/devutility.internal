@@ -13,7 +13,7 @@ public class SingletonFactory {
 
 	/**
 	 * Get container of SingletonFactory
-	 * @return ConcurrentMap<String,Object>
+	 * @return {@code ConcurrentMap<String, Object>}
 	 */
 	public static ConcurrentMap<String, Object> getContainer() {
 		return container;
@@ -22,7 +22,7 @@ public class SingletonFactory {
 	/**
 	 * Get or create a singleton object.
 	 * @param clazz: Class of singleton object.
-	 * @return {@code: T}
+	 * @return {@code T}
 	 */
 	public static <T> T get(Class<T> clazz) {
 		String key = clazz.getName();
@@ -33,7 +33,7 @@ public class SingletonFactory {
 	 * Get a singleton object.
 	 * @param key: Key of singleton object to save.
 	 * @param clazz: Class of singleton object.
-	 * @return {@code: T}
+	 * @return {@code T}
 	 */
 	public static <T> T get(String key, Class<T> clazz) {
 		if (container.get(key) != null) {
@@ -52,7 +52,7 @@ public class SingletonFactory {
 	/**
 	 * Create a singleton object.
 	 * @param clazz: Class of singleton object.
-	 * @return {@code: T}
+	 * @return {@code T}
 	 */
 	public static <T> T create(Class<T> clazz) {
 		String key = clazz.getName();
@@ -63,7 +63,7 @@ public class SingletonFactory {
 	 * Create a singleton object.
 	 * @param Key of singleton object to save.
 	 * @param Class of singleton object.
-	 * @return {@code:T}
+	 * @return {@code T}
 	 */
 	public static <T> T create(String key, Class<T> clazz) {
 		if (container.get(key) != null) {
@@ -90,7 +90,7 @@ public class SingletonFactory {
 	 * Save an instance in container.
 	 * @param key: Key of instance.
 	 * @param instance: Singleton instance.
-	 * @return {@code:T}
+	 * @return {@code T}
 	 */
 	public static <T> T save(String key, T instance) {
 		synchronized (SingletonFactory.class) {

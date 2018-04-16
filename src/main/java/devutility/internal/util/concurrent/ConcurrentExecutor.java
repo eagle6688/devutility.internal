@@ -11,7 +11,7 @@ public class ConcurrentExecutor {
 	/**
 	 * Run list of callables, return futures after runing completely.
 	 * @param callables: Callable list
-	 * @return {@literal: List<Future<R>>}
+	 * @return {@code List<Future<R>>}
 	 * @throws InterruptedException
 	 */
 	public static <R> List<Future<R>> run(List<Callable<R>> callables) throws InterruptedException {
@@ -27,7 +27,7 @@ public class ConcurrentExecutor {
 	/**
 	 * Run callables and return their results.
 	 * @param callables: Callable list
-	 * @return {@literal: List<R>}
+	 * @return {@code List<R>}
 	 * @throws InterruptedException
 	 * @throws ExecutionException
 	 */

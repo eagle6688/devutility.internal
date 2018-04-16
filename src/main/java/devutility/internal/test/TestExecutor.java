@@ -87,7 +87,7 @@ public class TestExecutor {
 	}
 
 	/**
-	 * Running {@code:count} instances with class {@code:clazz} concurrently.
+	 * Running {@code count} instances with class {@code clazz} concurrently.
 	 * @param count: The amount of instances.
 	 * @param clazz: BaseTest instance
 	 * @param callback

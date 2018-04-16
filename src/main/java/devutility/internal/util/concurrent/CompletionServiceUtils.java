@@ -8,7 +8,7 @@ import java.util.concurrent.ExecutorService;
 public class CompletionServiceUtils {
 	/**
 	 * Create a CompletionService instance
-	 * @return CompletionService<V>
+	 * @return {@code CompletionService<V>}
 	 */
 	public static <V> CompletionService<V> instance() {
 		ExecutorService executorService = ExecutorServiceUtils.threadPoolExecutor();

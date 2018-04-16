@@ -144,7 +144,7 @@ public class ListHelper {
 	 * Concurrent map
 	 * @param list: List need map
 	 * @param mapper: Mapper expression
-	 * @return {@literal: List<R>}
+	 * @return {@code List<R>}
 	 * @throws InterruptedException
 	 * @throws ExecutionException
 	 */
