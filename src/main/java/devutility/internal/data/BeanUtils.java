@@ -9,10 +9,11 @@ import java.util.List;
 import devutility.internal.base.Convertor;
 import devutility.internal.lang.ClassHelper;
 import devutility.internal.lang.StringHelper;
+import devutility.internal.lang.models.EntityField;
 
-public class BeanHelper {
+public class BeanUtils {
 	/**
-	 * set value for field
+	 * Set value for field
 	 * @param setter: Setter method for field
 	 * @param model: Model that need set
 	 * @param value: String value
@@ -122,5 +123,65 @@ public class BeanHelper {
 			Date[] array = list.toArray(new Date[0]);
 			setter.invoke(model, new Object[] { array });
 		}
+	}
+
+	/**
+	 * Entity to Array
+	 * @param entity: Bean object
+	 * @param entityFields: EntityField list
+	 * @return String[]
+	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
+	 * @throws InvocationTargetException
+	 */
+	public static <T> String[] toArray(T entity, List<EntityField> entityFields) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		if (entity == null || entityFields.size() == 0) {
+			return null;
+		}
+
+		String[] array = new String[entityFields.size()];
+
+		for (int i = 0; i < entityFields.size(); i++) {
+			EntityField entityField = entityFields.get(i);
+			Method method = entityField.getGetter();
+			Object value = method.invoke(entity);
+
+			if (value != null) {
+				array[i] = Convertor.objectToString(value);
+			}
+		}
+
+		return array;
+	}
+
+	/**
+	 * Array to entity
+	 * @param array: Array
+	 * @param entityFields: EntityField list
+	 * @param clazz: Class object of entity.
+	 * @return {@code T}
+	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
+	 * @throws InvocationTargetException
+	 */
+	public static <T> T toEntity(String[] array, List<EntityField> entityFields, Class<T> clazz) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		if (array == null || array.length == 0 || entityFields == null || entityFields.size() == 0) {
+			return null;
+		}
+
+		T entity = ClassHelper.newInstance(clazz);
+
+		for (int i = 0; i < entityFields.size(); i++) {
+			if (array[i] == null) {
+				continue;
+			}
+
+			EntityField entityField = entityFields.get(i);
+			Field field = entityField.getField();
+			Method setter = entityField.getSetter();
+			setField(setter, entity, array[i], field);
+		}
+
+		return entity;
 	}
 }

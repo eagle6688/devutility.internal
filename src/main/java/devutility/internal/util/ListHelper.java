@@ -1,5 +1,6 @@
 package devutility.internal.util;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -12,6 +13,9 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import devutility.internal.data.BeanUtils;
+import devutility.internal.lang.ClassHelper;
+import devutility.internal.lang.models.EntityField;
 import devutility.internal.system.SystemHelper;
 import devutility.internal.util.concurrent.ConcurrentExecutor;
 
@@ -265,4 +269,62 @@ public class ListHelper {
 	}
 
 	// endregion
+
+	/**
+	 * List to arrays
+	 * @param list: Bean list
+	 * @param clazz: Class object of bean.
+	 * @return String[][]
+	 * @throws IllegalArgumentException
+	 * @throws IllegalAccessException
+	 * @throws InvocationTargetException
+	 */
+	public static <T> String[][] toArrays(List<T> list, Class<T> clazz) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+		List<EntityField> entityFields = ClassHelper.getEntityFields(clazz);
+
+		if (list.size() == 0 || entityFields.size() == 0) {
+			return null;
+		}
+
+		String[][] arrays = new String[list.size()][];
+
+		for (int i = 0; i < list.size(); i++) {
+			T entity = list.get(i);
+			String[] array = BeanUtils.toArray(entity, entityFields);
+
+			if (array != null) {
+				arrays[i] = array;
+			}
+		}
+
+		return arrays;
+	}
+
+	/**
+	 * Arrays to entities list
+	 * @param arrays: Arrays
+	 * @param clazz: Class object of bean.
+	 * @return {@code List<T>}
+	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
+	 * @throws InvocationTargetException
+	 */
+	public static <T> List<T> toEntities(String[][] arrays, Class<T> clazz) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		List<T> list = new ArrayList<>(arrays.length);
+		List<EntityField> entityFields = ClassHelper.getEntityFields(clazz);
+
+		if (arrays == null || arrays.length == 0 || clazz == null || entityFields.size() == 0) {
+			return list;
+		}
+
+		for (int i = 0; i < arrays.length; i++) {
+			T entity = BeanUtils.toEntity(arrays[i], entityFields, clazz);
+
+			if (entity != null) {
+				list.add(entity);
+			}
+		}
+
+		return list;
+	}
 }

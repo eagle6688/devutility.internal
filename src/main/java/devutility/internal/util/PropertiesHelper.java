@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
-import devutility.internal.data.BeanHelper;
+import devutility.internal.data.BeanUtils;
 import devutility.internal.lang.ClassHelper;
 import devutility.internal.lang.StringHelper;
 import devutility.internal.lang.models.EntityField;
@@ -185,7 +185,7 @@ public class PropertiesHelper {
 			String propertyValue = PropertiesHelper.getProperty(properties, propertyKey);
 
 			if (!StringHelper.isNullOrEmpty(propertyValue)) {
-				BeanHelper.setField(entityField.getSetter(), model, propertyValue, entityField.getField());
+				BeanUtils.setField(entityField.getSetter(), model, propertyValue, entityField.getField());
 				hasProperty = true;
 			}
 		}
