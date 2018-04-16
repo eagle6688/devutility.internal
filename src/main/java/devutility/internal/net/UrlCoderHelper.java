@@ -4,9 +4,12 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 
-public class URLCoderHelper {
-	// region encode
-
+public class UrlCoderHelper {
+	/**
+	 * Encode url string
+	 * @param value: Url string
+	 * @return String
+	 */
 	public static String encode(String value) {
 		try {
 			return URLEncoder.encode(value, "UTF-8");
@@ -16,10 +19,11 @@ public class URLCoderHelper {
 		}
 	}
 
-	// endregion
-
-	// region decode
-
+	/**
+	 * Decode url string
+	 * @param value: Url string
+	 * @return String
+	 */
 	public static String decode(String value) {
 		try {
 			return URLDecoder.decode(value, "UTF-8");
@@ -28,6 +32,4 @@ public class URLCoderHelper {
 			return null;
 		}
 	}
-
-	// endregion
 }
