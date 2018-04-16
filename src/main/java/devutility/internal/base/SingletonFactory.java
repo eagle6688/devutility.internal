@@ -61,8 +61,8 @@ public class SingletonFactory {
 
 	/**
 	 * Create a singleton object.
-	 * @param Key of singleton object to save.
-	 * @param Class of singleton object.
+	 * @param key: Key of instance.
+	 * @param clazz: Class of singleton object.
 	 * @return {@code T}
 	 */
 	public static <T> T create(String key, Class<T> clazz) {
