@@ -13,8 +13,6 @@ public class SingletonFactoryTest extends BaseTest {
 		if (person == null) {
 			println("Null!");
 		}
-
-		println(String.format("The size of container %d", SingletonFactory.getContainer().size()));
 	}
 
 	public static void main(String[] args) {

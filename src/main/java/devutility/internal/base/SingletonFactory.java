@@ -12,14 +12,6 @@ public class SingletonFactory {
 	private static volatile ConcurrentMap<String, Object> container = new ConcurrentHashMap<>();
 
 	/**
-	 * Get container of SingletonFactory
-	 * @return {@code ConcurrentMap<String, Object>}
-	 */
-	public static ConcurrentMap<String, Object> getContainer() {
-		return container;
-	}
-
-	/**
 	 * Get or create a singleton object.
 	 * @param clazz: Class of singleton object.
 	 * @return {@code T}
