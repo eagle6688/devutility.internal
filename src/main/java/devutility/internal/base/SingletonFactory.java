@@ -20,22 +20,22 @@ public class SingletonFactory {
 	}
 
 	/**
-	 * Create a singleton object.
+	 * Get or create a singleton object.
 	 * @param clazz: Class of singleton object.
 	 * @return {@literal T}
 	 */
-	public static <T> T create(Class<T> clazz) {
+	public static <T> T get(Class<T> clazz) {
 		String key = clazz.getName();
-		return create(key, clazz);
+		return get(key, clazz);
 	}
 
 	/**
-	 * Create a singleton object.
+	 * Get or create a singleton object.
 	 * @param key: Key of singleton object to save.
 	 * @param clazz: Class of singleton object.
 	 * @return {@literal T}
 	 */
-	public static <T> T create(String key, Class<T> clazz) {
+	public static <T> T get(String key, Class<T> clazz) {
 		if (container.get(key) != null) {
 			Object value = container.get(key);
 
