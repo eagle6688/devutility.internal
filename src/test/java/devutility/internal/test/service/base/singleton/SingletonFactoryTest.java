@@ -8,7 +8,7 @@ import devutility.internal.test.models.Person;
 public class SingletonFactoryTest extends BaseTest {
 	@Override
 	public void run() {
-		Person person = SingletonFactory.get(Person.class);
+		Person person = SingletonFactory.create(Person.class);
 
 		if (person == null) {
 			println("Null!");
