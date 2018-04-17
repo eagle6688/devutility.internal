@@ -10,44 +10,37 @@ import java.net.URL;
 import devutility.internal.data.codec.UTF8Helper;
 import devutility.internal.io.StreamHelper;
 
-public class HttpHelper {
-	// region get
-
-	public static String get(String url) {
+public class HttpUtils {
+	/**
+	 * Get content from url.
+	 * @param url: Url of content.
+	 * @return String
+	 * @throws IOException
+	 */
+	public static String get(String url) throws IOException {
 		return get(url, 0);
 	}
 
-	public static String get(String url, int timeout) {
-		String content = null;
+	/**
+	 * Get content from url.
+	 * @param url: Url of content.
+	 * @param timeout: Timeout
+	 * @return String
+	 * @throws IOException
+	 */
+	public static String get(String url, int timeout) throws IOException {
 		byte[] bytes = null;
+		URL urlObj = new URL(url);
+		HttpURLConnection httpURLConnection = createHttpURLConnection(urlObj, timeout);
 
-		try {
-			URL urlObj = new URL(url);
-			HttpURLConnection httpURLConnection = createHttpURLConnection(urlObj, timeout);
-
-			try (InputStream inputStream = httpURLConnection.getInputStream()) {
-				bytes = StreamHelper.read(inputStream);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		try (InputStream inputStream = httpURLConnection.getInputStream()) {
+			bytes = StreamHelper.read(inputStream);
+		} catch (IOException e) {
+			throw e;
 		}
 
-		if (bytes == null) {
-			return content;
-		}
-
-		try {
-			content = UTF8Helper.decode(bytes);
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-
-		return content;
+		return UTF8Helper.decode(bytes);
 	}
-
-	// endregion
 
 	// region post
 
