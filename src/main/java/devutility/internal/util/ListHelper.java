@@ -1,5 +1,6 @@
 package devutility.internal.util;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -281,6 +282,37 @@ public class ListHelper {
 	 */
 	public static <T> String[][] toArrays(List<T> list, Class<T> clazz) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
 		List<EntityField> entityFields = ClassHelper.getEntityFields(clazz);
+
+		if (list.size() == 0 || entityFields.size() == 0) {
+			return null;
+		}
+
+		String[][] arrays = new String[list.size()][];
+
+		for (int i = 0; i < list.size(); i++) {
+			T entity = list.get(i);
+			String[] array = BeanUtils.toArray(entity, entityFields);
+
+			if (array != null) {
+				arrays[i] = array;
+			}
+		}
+
+		return arrays;
+	}
+
+	/**
+	 * List to arrays
+	 * @param list: Bean list.
+	 * @param clazz: Class object of bean.
+	 * @param excludeAnnotations: Annotations want to be excluded.
+	 * @return String[][]
+	 * @throws IllegalArgumentException
+	 * @throws IllegalAccessException
+	 * @throws InvocationTargetException
+	 */
+	public static <T> String[][] toArrays(List<T> list, Class<T> clazz, List<Annotation> excludeAnnotations) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+		List<EntityField> entityFields = ClassHelper.getEntityFields(clazz, excludeAnnotations);
 
 		if (list.size() == 0 || entityFields.size() == 0) {
 			return null;

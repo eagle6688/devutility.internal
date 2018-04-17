@@ -107,6 +107,12 @@ public class ClassHelper {
 		return list;
 	}
 
+	/**
+	 * Get EntityFields and exclude specified annotations.
+	 * @param clazz: Class object
+	 * @param excludeAnnotations: Annotations want to be excluded.
+	 * @return {@code List<EntityField>}
+	 */
 	public static List<EntityField> getEntityFields(Class<?> clazz, List<Annotation> excludeAnnotations) {
 		List<Field> declaredFields = getAllDeclaredFields(clazz);
 		List<Method> declaredMethods = getAllDeclaredMethods(clazz);
