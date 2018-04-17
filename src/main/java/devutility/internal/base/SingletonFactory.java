@@ -70,7 +70,7 @@ public class SingletonFactory {
 
 		synchronized (SingletonFactory.class) {
 			if (container.get(key) == null) {
-				T value = ClassHelper.newInstance(clazz);
+				T value = ClassHelper.instance(clazz);
 				container.put(key, value);
 			}
 		}

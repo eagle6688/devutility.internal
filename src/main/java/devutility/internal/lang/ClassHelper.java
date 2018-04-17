@@ -1,7 +1,7 @@
 package devutility.internal.lang;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -12,23 +12,25 @@ import java.util.List;
 import devutility.internal.lang.models.EntityField;
 
 public class ClassHelper {
-	public static <T> T newInstanceEx(Class<T> clazz) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+	/**
+	 * Create a new instance.
+	 * @param clazz: Class object
+	 * @return {@code  T}
+	 * @throws ReflectiveOperationException
+	 */
+	public static <T> T newInstance(Class<T> clazz) throws ReflectiveOperationException {
 		return clazz.getDeclaredConstructor().newInstance();
 	}
 
-	public static <T> T newInstance(Class<T> clazz) {
+	/**
+	 * Create a new instance.
+	 * @param clazz: Class object
+	 * @return {@code  T}
+	 */
+	public static <T> T instance(Class<T> clazz) {
 		try {
-			return newInstanceEx(clazz);
-		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	public static Object newInstanceObj(Class<?> clazz) {
-		try {
-			return newInstanceEx(clazz);
-		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+			return newInstance(clazz);
+		} catch (ReflectiveOperationException e) {
 			e.printStackTrace();
 			return null;
 		}
@@ -98,6 +100,35 @@ public class ClassHelper {
 			entityField.setField(declaredField);
 			entityField.setSetter(setter);
 			entityField.setGetter(getter);
+			list.add(entityField);
+		}
+
+		list.sort((ef1, ef2) -> ef1.getField().getName().compareTo(ef2.getField().getName()));
+		return list;
+	}
+
+	public static List<EntityField> getEntityFields(Class<?> clazz, List<Annotation> excludeAnnotations) {
+		List<Field> declaredFields = getAllDeclaredFields(clazz);
+		List<Method> declaredMethods = getAllDeclaredMethods(clazz);
+		List<EntityField> list = new ArrayList<>(declaredFields.size());
+
+		for (Field declaredField : declaredFields) {
+			Method setter = getSetter(declaredField.getName(), declaredMethods);
+			Method getter = getGetter(declaredField, declaredMethods);
+
+			if (setter == null || getter == null) {
+				continue;
+			}
+
+			EntityField entityField = new EntityField();
+			entityField.setField(declaredField);
+			entityField.setSetter(setter);
+			entityField.setGetter(getter);
+
+			if (entityField.containAnnotations(excludeAnnotations)) {
+				continue;
+			}
+
 			list.add(entityField);
 		}
 

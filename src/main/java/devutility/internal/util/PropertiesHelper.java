@@ -177,7 +177,7 @@ public class PropertiesHelper {
 		}
 
 		boolean hasProperty = false;
-		T model = ClassHelper.newInstance(clazz);
+		T model = ClassHelper.instance(clazz);
 		List<EntityField> entityFields = ClassHelper.getEntityFields(clazz);
 
 		for (EntityField entityField : entityFields) {

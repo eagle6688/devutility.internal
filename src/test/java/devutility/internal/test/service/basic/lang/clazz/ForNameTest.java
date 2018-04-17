@@ -21,7 +21,7 @@ public class ForNameTest extends BaseTest {
 			e.printStackTrace();
 		}
 
-		Object object = ClassHelper.newInstance(class2);
+		Object object = ClassHelper.instance(class2);
 		println(String.format("object getCanonicalName: %s", object.getClass().getCanonicalName()));
 		println(object instanceof Student ? "object is instance of Student!" : "object is not instance of Student!");
 	}

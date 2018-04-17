@@ -36,7 +36,7 @@ public class TestExecutor {
 			return;
 		}
 
-		T instance = ClassHelper.newInstance(clazz);
+		T instance = ClassHelper.instance(clazz);
 
 		if (!ClassHelper.isInstanceOf(instance, BaseTest.class)) {
 			return;
@@ -59,7 +59,7 @@ public class TestExecutor {
 			return;
 		}
 
-		T instance = ClassHelper.newInstance(clazz);
+		T instance = ClassHelper.instance(clazz);
 
 		if (instance == null) {
 			return;
@@ -100,7 +100,7 @@ public class TestExecutor {
 		List<T> instances = new ArrayList<>(count);
 
 		for (int i = 0; i < count; i++) {
-			T instance = ClassHelper.newInstance(clazz);
+			T instance = ClassHelper.instance(clazz);
 			instances.add(instance);
 		}
 

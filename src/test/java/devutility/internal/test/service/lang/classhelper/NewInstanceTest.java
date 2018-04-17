@@ -9,7 +9,7 @@ public class NewInstanceTest extends BaseTest {
 	@Override
 	public void run() {
 		Class<Student> clazz = Student.class;
-		Student student = ClassHelper.newInstance(clazz);
+		Student student = ClassHelper.instance(clazz);
 		System.out.println(String.format("student.getClass().getCanonicalName(): %s", student.getClass().getCanonicalName()));
 	}
 

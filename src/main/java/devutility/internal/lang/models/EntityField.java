@@ -1,8 +1,12 @@
 package devutility.internal.lang.models;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.List;
+
+import devutility.internal.lang.reflect.FieldUtils;
+import devutility.internal.lang.reflect.MethodUtils;
 
 public class EntityField {
 	private Field field;
@@ -33,7 +37,23 @@ public class EntityField {
 		this.getter = getter;
 	}
 
-	public Object getValue(Object model) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	public Object getValue(Object model) throws ReflectiveOperationException {
 		return getter.invoke(model);
+	}
+
+	public boolean containAnnotations(List<Annotation> annotations) {
+		if (FieldUtils.contain(field, annotations)) {
+			return true;
+		}
+
+		if (MethodUtils.contain(setter, annotations)) {
+			return true;
+		}
+
+		if (MethodUtils.contain(getter, annotations)) {
+			return true;
+		}
+
+		return false;
 	}
 }

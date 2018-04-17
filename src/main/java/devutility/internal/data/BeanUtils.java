@@ -169,7 +169,7 @@ public class BeanUtils {
 			return null;
 		}
 
-		T entity = ClassHelper.newInstance(clazz);
+		T entity = ClassHelper.instance(clazz);
 
 		for (int i = 0; i < entityFields.size(); i++) {
 			if (array[i] == null) {
