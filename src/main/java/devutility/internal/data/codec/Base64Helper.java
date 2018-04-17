@@ -22,7 +22,7 @@ public class Base64Helper {
 		byte[] base64Bytes = encode(bytes);
 
 		try {
-			return UTF8Helper.decode(base64Bytes);
+			return UTF8Utils.decode(base64Bytes);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 			return null;
@@ -47,7 +47,7 @@ public class Base64Helper {
 
 	public static byte[] decodeByString(String value) {
 		try {
-			byte[] base64Bytes = UTF8Helper.encode(value);
+			byte[] base64Bytes = UTF8Utils.encode(value);
 			return decode(base64Bytes);
 		} catch (Exception e) {
 			e.printStackTrace();

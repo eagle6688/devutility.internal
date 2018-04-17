@@ -2,7 +2,7 @@ package devutility.internal.test.service.data.codec.utf8helper;
 
 import java.io.UnsupportedEncodingException;
 
-import devutility.internal.data.codec.UTF8Helper;
+import devutility.internal.data.codec.UTF8Utils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
@@ -12,8 +12,8 @@ public class EncodeTest extends BaseTest {
 		String value = "Hello World!大家好！";
 
 		try {
-			byte[] bytes = UTF8Helper.encode(value);
-			String originalValue = UTF8Helper.decode(bytes);
+			byte[] bytes = UTF8Utils.encode(value);
+			String originalValue = UTF8Utils.decode(bytes);
 			println(originalValue);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();

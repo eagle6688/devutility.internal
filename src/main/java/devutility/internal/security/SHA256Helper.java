@@ -5,7 +5,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import devutility.internal.base.Convertor;
-import devutility.internal.data.codec.UTF8Helper;
+import devutility.internal.data.codec.UTF8Utils;
 
 public class SHA256Helper {
 	// region encipher
@@ -28,7 +28,7 @@ public class SHA256Helper {
 		byte[] bytes = null;
 
 		try {
-			bytes = UTF8Helper.encode(value);
+			bytes = UTF8Utils.encode(value);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
