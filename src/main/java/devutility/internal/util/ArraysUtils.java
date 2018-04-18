@@ -14,7 +14,7 @@ public class ArraysUtils {
 	public static String[][] pageArray(String[][] array, int pageIndex, int pageSize) {
 		List<String[]> list = new LinkedList<>();
 		int start = pageIndex * pageSize;
-		int end = start + pageSize;
+		int end = Math.min(start + pageSize, array.length);
 
 		for (int index = start; index < end; index++) {
 			list.add(array[index]);
