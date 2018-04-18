@@ -1,6 +1,7 @@
 package devutility.internal.util;
 
-import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 public class ArraysUtils {
 	/**
@@ -11,6 +12,14 @@ public class ArraysUtils {
 	 * @return String[][]
 	 */
 	public static String[][] pageArray(String[][] array, int pageIndex, int pageSize) {
-		return (String[][]) Arrays.stream(array).skip(pageIndex * pageSize).limit(pageSize).toArray();
+		List<String[]> list = new LinkedList<>();
+		int start = pageIndex * pageSize;
+		int end = start + pageSize;
+
+		for (int index = start; index < end; index++) {
+			list.add(array[index]);
+		}
+
+		return list.toArray(new String[0][]);
 	}
 }
