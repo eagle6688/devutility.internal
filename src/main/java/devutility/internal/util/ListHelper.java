@@ -231,9 +231,13 @@ public class ListHelper {
 	// region paging
 
 	public static <T> List<T> paging(List<T> list, int pageIndex, int pageSize) {
+		if (list == null || pageIndex < 1) {
+			return new ArrayList<T>();
+		}
+
 		int skip = (pageIndex - 1) * pageSize;
 
-		if (list == null || skip < 0 || skip >= list.size()) {
+		if (skip < 0 || skip >= list.size()) {
 			return new ArrayList<T>();
 		}
 
