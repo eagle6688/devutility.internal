@@ -94,7 +94,7 @@ public class HttpUtils {
 	 * @throws IOException
 	 */
 	public static String postForm(String url, String data, int timeout) throws IOException {
-		return post(url, data, "application/x-www-form-urlencoded", timeout);
+		return post(url, "application/x-www-form-urlencoded", data, timeout);
 	}
 
 	/**
@@ -117,7 +117,7 @@ public class HttpUtils {
 	 * @throws IOException
 	 */
 	public static String postJson(String url, String data, int timeout) throws IOException {
-		return post(url, data, "application/json", timeout);
+		return post(url, "application/json", data, timeout);
 	}
 
 	/**
