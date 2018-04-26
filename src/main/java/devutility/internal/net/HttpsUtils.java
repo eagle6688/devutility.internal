@@ -2,6 +2,8 @@ package devutility.internal.net;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
@@ -24,6 +26,14 @@ public class HttpsUtils {
 		return get(url, null, protocol, timeout);
 	}
 
+	public static String getJson(String url, String protocol) throws KeyManagementException, NoSuchAlgorithmException, IOException {
+		return getJson(url, protocol, 0);
+	}
+
+	public static String getJson(String url, String protocol, int timeout) throws IOException, KeyManagementException, NoSuchAlgorithmException {
+		return get(url, "application/json", protocol, timeout);
+	}
+
 	public static String get(String url, String contentType, String protocol, int timeout) throws IOException, KeyManagementException, NoSuchAlgorithmException {
 		byte[] bytes = null;
 		HttpsURLConnection httpsURLConnection = httpsURLConnection(url, "GET", contentType, protocol, timeout);
@@ -32,6 +42,50 @@ public class HttpsUtils {
 			bytes = StreamHelper.read(inputStream);
 		} catch (IOException e) {
 			throw e;
+		}
+
+		return UTF8Utils.decode(bytes);
+	}
+
+	public static String postForm(String url, String data, String protocol) throws KeyManagementException, NoSuchAlgorithmException, UnsupportedEncodingException, IOException {
+		return postForm(url, data, protocol, 0);
+	}
+
+	public static String postForm(String url, String data, String protocol, int timeout) throws KeyManagementException, NoSuchAlgorithmException, UnsupportedEncodingException, IOException {
+		return post(url, "application/x-www-form-urlencoded", data, protocol, timeout);
+	}
+
+	public static String postJson(String url, String data, String protocol) throws KeyManagementException, NoSuchAlgorithmException, UnsupportedEncodingException, IOException {
+		return postJson(url, data, protocol, 0);
+	}
+
+	public static String postJson(String url, String data, String protocol, int timeout) throws KeyManagementException, NoSuchAlgorithmException, UnsupportedEncodingException, IOException {
+		return post(url, "application/json", data, protocol, timeout);
+	}
+
+	public static String post(String url, String contentType, String data, String protocol, int timeout) throws KeyManagementException, NoSuchAlgorithmException, UnsupportedEncodingException, IOException {
+		return post(url, contentType, UTF8Utils.encode(data), protocol, timeout);
+	}
+
+	public static String post(String url, String contentType, byte[] data, String protocol, int timeout) throws IOException, KeyManagementException, NoSuchAlgorithmException {
+		HttpsURLConnection httpsURLConnection = httpsURLConnection(url, "POST", contentType, protocol, timeout);
+
+		try (OutputStream outputStream = httpsURLConnection.getOutputStream()) {
+			outputStream.write(data);
+		} catch (IOException e) {
+			throw e;
+		}
+
+		byte[] bytes = null;
+
+		try (InputStream inputStream = httpsURLConnection.getInputStream()) {
+			bytes = StreamHelper.read(inputStream);
+		} catch (IOException e) {
+			throw e;
+		}
+
+		if (bytes == null) {
+			return null;
 		}
 
 		return UTF8Utils.decode(bytes);
