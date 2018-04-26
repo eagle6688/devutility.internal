@@ -10,7 +10,7 @@ public class GetTest extends BaseTest {
 	@Override
 	public void run() {
 		try {
-			println(HttpUtils.get("http://www.baidu.com"));
+			println(HttpUtils.get("https://www.baidu.com"));
 			println(HttpUtils.getJson("http://10.62.100.222:8086/subscription/orders?rrCustomerNumber=401&page=0&size=20"));
 		} catch (IOException e) {
 			e.printStackTrace();
