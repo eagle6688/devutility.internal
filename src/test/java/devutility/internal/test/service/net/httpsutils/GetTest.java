@@ -12,7 +12,7 @@ public class GetTest extends BaseTest {
 	@Override
 	public void run() {
 		try {
-			println(HttpsUtils.get("https://gateway-pre.earth-us.xpaas.lenovo.com/subscription/orders?rrCustomerNumber=401&page=0&size=20", "TLS"));
+			println(HttpsUtils.get("https://www.baidu.com", "TLS"));
 		} catch (KeyManagementException | NoSuchAlgorithmException | IOException e) {
 			e.printStackTrace();
 		}
