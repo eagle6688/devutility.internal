@@ -8,9 +8,11 @@ import java.net.URL;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 
+import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.KeyManager;
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocketFactory;
 
 import devutility.internal.data.codec.UTF8Utils;
@@ -126,12 +128,21 @@ public class HttpsUtils {
 			httpsURLConnection.setReadTimeout(timeout);
 		}
 
+		httpsURLConnection.setSSLSocketFactory(sslSocketFactory);
+
+		httpsURLConnection.setHostnameVerifier(new HostnameVerifier() {
+			@Override
+			public boolean verify(String arg0, SSLSession arg1) {
+				return true;
+			}
+		});
+
 		return httpsURLConnection;
 	}
 
 	private static SSLSocketFactory sslSocketFactory(String protocol) throws NoSuchAlgorithmException, KeyManagementException {
 		SSLContext sslContext = SSLContext.getInstance(protocol);
-		sslContext.init(new KeyManager[0], DefaultTrustManager.trustManagers(), new java.security.SecureRandom());
+		sslContext.init(new KeyManager[0], DefaultTrustManager.trustManagers(), null);
 		return sslContext.getSocketFactory();
 	}
 }
