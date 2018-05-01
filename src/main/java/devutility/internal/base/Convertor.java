@@ -2,13 +2,11 @@ package devutility.internal.base;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import devutility.internal.lang.StringHelper;
-import devutility.internal.util.DateHelper;
 
 public class Convertor {
 	/**
@@ -188,11 +186,8 @@ public class Convertor {
 		}
 
 		if (clazz == Date.class) {
-			try {
-				return (T) DateHelper.standardToDate(value);
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
+			long time = Long.parseLong(value);
+			return (T) new Date(time);
 		}
 
 		return null;
@@ -248,7 +243,8 @@ public class Convertor {
 		}
 
 		if (clazz == Date.class) {
-			return DateHelper.formatToStandard((Date) value);
+			long time = ((Date) value).getTime();
+			return String.valueOf(time);
 		}
 
 		return value.toString();

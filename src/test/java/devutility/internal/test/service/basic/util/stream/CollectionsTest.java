@@ -1,7 +1,5 @@
 package devutility.internal.test.service.basic.util.stream;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -10,29 +8,22 @@ import java.util.List;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 import devutility.internal.test.models.Person;
-import devutility.internal.text.format.DateFormatHelper;
+import devutility.internal.text.format.DateFormatUtils;
 
 /**
- * This is also a Comparator example
- * CollectionsTest
- * @author: Lenovo 
- * @date:   2018-02-12 15:24:25  
+ * This is also a Comparator example CollectionsTest
+ * @author: Lenovo
+ * @date: 2018-02-12 15:24:25
  * @Copyright: 2018 www.lenovo.com Inc. All rights reserved.
  */
 public class CollectionsTest extends BaseTest {
 	@Override
 	public void run() {
-		SimpleDateFormat simpleDateFormat = DateFormatHelper.getSimpleDateFormat("yyyy-MM-dd");
 		List<Person> persons = new ArrayList<>();
-
-		try {
-			persons.add(new Person("Aldwin", 29, simpleDateFormat.parse("1979-1-2")));
-			persons.add(new Person("James", 49, simpleDateFormat.parse("1989-1-2")));
-			persons.add(new Person("Sandeep", 39, simpleDateFormat.parse("1990-1-2")));
-			persons.add(new Person("Sandeep", 19, simpleDateFormat.parse("1990-1-2")));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+		persons.add(new Person("Aldwin", 29, DateFormatUtils.toDate("1979-1-2", DateFormatUtils.STANDARDDATEFORMAT)));
+		persons.add(new Person("James", 49, DateFormatUtils.toDate("1989-1-2", DateFormatUtils.STANDARDDATEFORMAT)));
+		persons.add(new Person("Sandeep", 39, DateFormatUtils.toDate("1990-1-2", DateFormatUtils.STANDARDDATEFORMAT)));
+		persons.add(new Person("Sandeep", 19, DateFormatUtils.toDate("1990-1-2", DateFormatUtils.STANDARDDATEFORMAT)));
 
 		sortName1(persons);
 		sortName2(persons);
