@@ -7,6 +7,8 @@ import java.util.Locale;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import devutility.internal.lang.StringHelper;
+
 public class DateFormatUtils {
 	/**
 	 * Container for SimpleDateFormat
@@ -30,6 +32,10 @@ public class DateFormatUtils {
 	 * @return SimpleDateFormat
 	 */
 	public static SimpleDateFormat getSimpleDateFormat(String pattern, Locale locale) {
+		if (pattern == null || locale == null) {
+			return null;
+		}
+
 		String key = String.format("%s-%s", pattern, locale.toString());
 		ThreadLocal<SimpleDateFormat> threadLocal = container.get(key);
 
@@ -79,6 +85,10 @@ public class DateFormatUtils {
 	}
 
 	public static Date parse(String value, String pattern, Locale locale) throws ParseException {
+		if (StringHelper.isNullOrEmpty(value)) {
+			return null;
+		}
+
 		SimpleDateFormat simpleDateFormat = getSimpleDateFormat(pattern, locale);
 
 		if (simpleDateFormat == null) {
@@ -89,6 +99,10 @@ public class DateFormatUtils {
 	}
 
 	public static Date parse(String value, String pattern) throws ParseException {
+		if (StringHelper.isNullOrEmpty(value)) {
+			return null;
+		}
+
 		SimpleDateFormat simpleDateFormat = getSimpleDateFormat(pattern);
 
 		if (simpleDateFormat == null) {
