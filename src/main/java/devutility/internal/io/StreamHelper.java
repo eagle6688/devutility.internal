@@ -4,9 +4,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
 public class StreamHelper {
-	// region read
-
 	public static byte[] read(InputStream inputStream) {
+		if (inputStream == null) {
+			return null;
+		}
+
 		int index = 0;
 		byte[] bytes = new byte[1024];
 
@@ -21,6 +23,4 @@ public class StreamHelper {
 			return null;
 		}
 	}
-
-	// endregion
 }

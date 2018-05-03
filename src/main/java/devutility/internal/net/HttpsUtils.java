@@ -1,7 +1,6 @@
 package devutility.internal.net;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
@@ -16,16 +15,21 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocketFactory;
 
 import devutility.internal.data.codec.UTF8Utils;
-import devutility.internal.io.StreamHelper;
 import devutility.internal.lang.StringHelper;
 
-public class HttpsUtils {
+public class HttpsUtils extends BaseUtils {
 	public static String get(String url, String protocol) throws KeyManagementException, NoSuchAlgorithmException, IOException {
 		return get(url, protocol, 0);
 	}
 
 	public static String get(String url, String protocol, int timeout) throws IOException, KeyManagementException, NoSuchAlgorithmException {
-		return get(url, null, protocol, timeout);
+		HttpResponse httpResponse = get(url, null, protocol, timeout);
+
+		if (httpResponse == null) {
+			return null;
+		}
+
+		return httpResponse.getResponse();
 	}
 
 	public static String getJson(String url, String protocol) throws KeyManagementException, NoSuchAlgorithmException, IOException {
@@ -33,20 +37,18 @@ public class HttpsUtils {
 	}
 
 	public static String getJson(String url, String protocol, int timeout) throws IOException, KeyManagementException, NoSuchAlgorithmException {
-		return get(url, "application/json", protocol, timeout);
-	}
+		HttpResponse httpResponse = get(url, "application/json", protocol, timeout);
 
-	public static String get(String url, String contentType, String protocol, int timeout) throws IOException, KeyManagementException, NoSuchAlgorithmException {
-		byte[] bytes = null;
-		HttpsURLConnection httpsURLConnection = httpsURLConnection(url, "GET", contentType, protocol, timeout);
-
-		try (InputStream inputStream = httpsURLConnection.getInputStream()) {
-			bytes = StreamHelper.read(inputStream);
-		} catch (IOException e) {
-			throw e;
+		if (httpResponse == null) {
+			return null;
 		}
 
-		return UTF8Utils.decode(bytes);
+		return httpResponse.getResponse();
+	}
+
+	public static HttpResponse get(String url, String contentType, String protocol, int timeout) throws IOException, KeyManagementException, NoSuchAlgorithmException {
+		HttpsURLConnection httpsURLConnection = httpsURLConnection(url, "GET", contentType, protocol, timeout);
+		return getHttpResponse(httpsURLConnection);
 	}
 
 	public static String postForm(String url, String data, String protocol) throws KeyManagementException, NoSuchAlgorithmException, UnsupportedEncodingException, IOException {
@@ -66,11 +68,17 @@ public class HttpsUtils {
 	}
 
 	public static String post(String url, String contentType, String data, String protocol, int timeout) throws KeyManagementException, NoSuchAlgorithmException, UnsupportedEncodingException, IOException {
-		return post(url, contentType, UTF8Utils.encode(data), protocol, timeout);
+		HttpResponse httpResponse = post(url, contentType, UTF8Utils.encode(data), protocol, timeout);
+
+		if (httpResponse == null) {
+			return null;
+		}
+
+		return httpResponse.getResponse();
 	}
 
-	public static String post(String url, String contentType, byte[] data, String protocol, int timeout) throws IOException, KeyManagementException, NoSuchAlgorithmException {
-		HttpsURLConnection httpsURLConnection = httpsURLConnection(url, "POST", contentType, protocol, timeout);
+	public static HttpResponse post(String url, String contentType, byte[] data, String protocol, int timeout) throws IOException, KeyManagementException, NoSuchAlgorithmException {
+		HttpsURLConnection httpsURLConnection = httpsURLConnection(url, "POST", contentType, data, protocol, timeout);
 
 		try (OutputStream outputStream = httpsURLConnection.getOutputStream()) {
 			outputStream.write(data);
@@ -78,19 +86,7 @@ public class HttpsUtils {
 			throw e;
 		}
 
-		byte[] bytes = null;
-
-		try (InputStream inputStream = httpsURLConnection.getInputStream()) {
-			bytes = StreamHelper.read(inputStream);
-		} catch (IOException e) {
-			throw e;
-		}
-
-		if (bytes == null) {
-			return null;
-		}
-
-		return UTF8Utils.decode(bytes);
+		return getHttpResponse(httpsURLConnection);
 	}
 
 	private static HttpsURLConnection httpsURLConnection(String url, String method, String contentType, String protocol, int timeout) throws KeyManagementException, NoSuchAlgorithmException, IOException {
@@ -105,8 +101,10 @@ public class HttpsUtils {
 
 	private static HttpsURLConnection httpsURLConnection(URL url, String method, String contentType, byte[] data, SSLSocketFactory sslSocketFactory, int timeout) throws IOException {
 		HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
+		httpsURLConnection.setDoOutput(true);
 		httpsURLConnection.setUseCaches(false);
 		httpsURLConnection.setRequestProperty("charset", "utf-8");
+		httpsURLConnection.setSSLSocketFactory(sslSocketFactory);
 
 		if (StringHelper.isNullOrEmpty(method)) {
 			method = "GET";
@@ -119,7 +117,6 @@ public class HttpsUtils {
 		}
 
 		if (method.equals("POST") && data != null) {
-			httpsURLConnection.setDoOutput(true);
 			httpsURLConnection.setRequestProperty("Content-length", String.valueOf(data.length));
 		}
 
@@ -127,8 +124,6 @@ public class HttpsUtils {
 			httpsURLConnection.setConnectTimeout(timeout);
 			httpsURLConnection.setReadTimeout(timeout);
 		}
-
-		httpsURLConnection.setSSLSocketFactory(sslSocketFactory);
 
 		httpsURLConnection.setHostnameVerifier(new HostnameVerifier() {
 			@Override

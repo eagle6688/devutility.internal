@@ -1,16 +1,14 @@
 package devutility.internal.net;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 import devutility.internal.data.codec.UTF8Utils;
-import devutility.internal.io.StreamHelper;
 import devutility.internal.lang.StringHelper;
 
-public class HttpUtils {
+public class HttpUtils extends BaseUtils {
 	/**
 	 * Get content from url.
 	 * @param url: Request Url.
@@ -29,7 +27,13 @@ public class HttpUtils {
 	 * @throws IOException
 	 */
 	public static String get(String url, int timeout) throws IOException {
-		return get(url, null, timeout);
+		HttpResponse httpResponse = get(url, null, timeout);
+
+		if (httpResponse == null) {
+			return null;
+		}
+
+		return httpResponse.getResponse();
 	}
 
 	/**
@@ -37,20 +41,12 @@ public class HttpUtils {
 	 * @param url: Request Url.
 	 * @param contentType: Content-Type in http request header.
 	 * @param timeout: Request timeout.
-	 * @return String
+	 * @return HttpResponse
 	 * @throws IOException
 	 */
-	public static String get(String url, String contentType, int timeout) throws IOException {
-		byte[] bytes = null;
+	public static HttpResponse get(String url, String contentType, int timeout) throws IOException {
 		HttpURLConnection httpURLConnection = httpURLConnection(url, "GET", contentType, timeout);
-
-		try (InputStream inputStream = httpURLConnection.getInputStream()) {
-			bytes = StreamHelper.read(inputStream);
-		} catch (IOException e) {
-			throw e;
-		}
-
-		return UTF8Utils.decode(bytes);
+		return getHttpResponse(httpURLConnection);
 	}
 
 	/**
@@ -61,7 +57,13 @@ public class HttpUtils {
 	 * @throws IOException
 	 */
 	public static String getJson(String url, int timeout) throws IOException {
-		return get(url, "application/json", timeout);
+		HttpResponse httpResponse = get(url, "application/json", timeout);
+
+		if (httpResponse == null) {
+			return null;
+		}
+
+		return httpResponse.getResponse();
 	}
 
 	/**
@@ -130,7 +132,13 @@ public class HttpUtils {
 	 * @throws IOException
 	 */
 	public static String post(String url, String contentType, String data, int timeout) throws IOException {
-		return post(url, contentType, UTF8Utils.encode(data), timeout);
+		HttpResponse httpResponse = post(url, contentType, UTF8Utils.encode(data), timeout);
+
+		if (httpResponse == null) {
+			return null;
+		}
+
+		return httpResponse.getResponse();
 	}
 
 	/**
@@ -139,10 +147,10 @@ public class HttpUtils {
 	 * @param contentType: Content-Type in http request header.
 	 * @param data: Request data.
 	 * @param timeout: Request timeout.
-	 * @return String
+	 * @return HttpResponse
 	 * @throws IOException
 	 */
-	public static String post(String url, String contentType, byte[] data, int timeout) throws IOException {
+	public static HttpResponse post(String url, String contentType, byte[] data, int timeout) throws IOException {
 		HttpURLConnection httpURLConnection = httpURLConnection(url, "POST", contentType, data, timeout);
 
 		try (OutputStream outputStream = httpURLConnection.getOutputStream()) {
@@ -151,19 +159,7 @@ public class HttpUtils {
 			throw e;
 		}
 
-		byte[] bytes = null;
-
-		try (InputStream inputStream = httpURLConnection.getInputStream()) {
-			bytes = StreamHelper.read(inputStream);
-		} catch (IOException e) {
-			throw e;
-		}
-
-		if (bytes == null) {
-			return null;
-		}
-
-		return UTF8Utils.decode(bytes);
+		return getHttpResponse(httpURLConnection);
 	}
 
 	/**
