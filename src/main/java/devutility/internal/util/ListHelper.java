@@ -264,6 +264,10 @@ public class ListHelper {
 		return list.stream().collect(Collectors.groupingBy(classifier));
 	}
 
+	public static <T, K> Map<K, List<T>> groupToMap(List<T> list, Predicate<T> predicate, Function<? super T, ? extends K> classifier) {
+		return query(list, predicate).collect(Collectors.groupingBy(classifier));
+	}
+
 	public static <T, K> List<K> group(List<T> list, Function<? super T, ? extends K> classifier) {
 		Map<K, List<T>> map = groupToMap(list, classifier);
 		return map.keySet().stream().collect(Collectors.toList());
