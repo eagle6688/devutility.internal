@@ -1,6 +1,5 @@
 package devutility.internal.util;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -290,40 +289,21 @@ public class ListHelper {
 	 */
 	public static <T> String[][] toArrays(List<T> list, Class<T> clazz) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
 		List<EntityField> entityFields = ClassHelper.getEntityFields(clazz);
-
-		if (list.size() == 0 || entityFields.size() == 0) {
-			return null;
-		}
-
-		String[][] arrays = new String[list.size()][];
-
-		for (int i = 0; i < list.size(); i++) {
-			T entity = list.get(i);
-			String[] array = BeanUtils.toArray(entity, entityFields);
-
-			if (array != null) {
-				arrays[i] = array;
-			}
-		}
-
-		return arrays;
+		return toArrays(list, entityFields);
 	}
 
 	/**
 	 * List to arrays
 	 * @param list: Bean list.
-	 * @param clazz: Class object of bean.
-	 * @param excludeAnnotations: Annotations want to be excluded.
+	 * @param entityFields: EntityFields of {@code T}
 	 * @return String[][]
 	 * @throws IllegalArgumentException
 	 * @throws IllegalAccessException
 	 * @throws InvocationTargetException
 	 */
-	public static <T> String[][] toArrays(List<T> list, Class<T> clazz, List<Annotation> excludeAnnotations) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
-		List<EntityField> entityFields = ClassHelper.getEntityFields(clazz, excludeAnnotations);
-
+	public static <T> String[][] toArrays(List<T> list, List<EntityField> entityFields) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		if (list.size() == 0 || entityFields.size() == 0) {
-			return null;
+			return new String[0][];
 		}
 
 		String[][] arrays = new String[list.size()][];
@@ -350,12 +330,26 @@ public class ListHelper {
 	 * @throws InvocationTargetException
 	 */
 	public static <T> List<T> toEntities(String[][] arrays, Class<T> clazz) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		List<T> list = new ArrayList<>(arrays.length);
 		List<EntityField> entityFields = ClassHelper.getEntityFields(clazz);
+		return toEntities(arrays, clazz, entityFields);
+	}
 
-		if (arrays == null || arrays.length == 0 || clazz == null || entityFields.size() == 0) {
-			return list;
+	/**
+	 * Arrays to entities list
+	 * @param arrays: Arrays
+	 * @param clazz: Class object of bean.
+	 * @param entityFields: EntityFields of {@code T}
+	 * @return {@code List<T>}
+	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
+	 * @throws InvocationTargetException
+	 */
+	public static <T> List<T> toEntities(String[][] arrays, Class<T> clazz, List<EntityField> entityFields) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		if (arrays == null || arrays.length == 0 || entityFields == null || entityFields.size() == 0) {
+			return new ArrayList<>();
 		}
+
+		List<T> list = new ArrayList<>(arrays.length);
 
 		for (int i = 0; i < arrays.length; i++) {
 			T entity = BeanUtils.toEntity(arrays[i], entityFields, clazz);

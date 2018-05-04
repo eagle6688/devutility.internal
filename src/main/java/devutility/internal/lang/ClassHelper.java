@@ -83,12 +83,22 @@ public class ClassHelper {
 		return list;
 	}
 
-	public static List<EntityField> getEntityFields(Class<?> clazz) {
+	/**
+	 * Get EntityFields and exclude specified annotations.
+	 * @param clazz: Class object
+	 * @param excludeAnnotations: Annotations want to be excluded.
+	 * @return {@code List<EntityField>}
+	 */
+	public static List<EntityField> getEntityFields(Class<?> clazz, List<String> excludeFields) {
 		List<Field> declaredFields = getAllDeclaredFields(clazz);
 		List<Method> declaredMethods = getAllDeclaredMethods(clazz);
 		List<EntityField> list = new ArrayList<>(declaredFields.size());
 
 		for (Field declaredField : declaredFields) {
+			if (excludeFields != null && excludeFields.contains(declaredField.getName())) {
+				continue;
+			}
+
 			Method setter = getSetter(declaredField.getName(), declaredMethods);
 			Method getter = getGetter(declaredField, declaredMethods);
 
@@ -108,12 +118,23 @@ public class ClassHelper {
 	}
 
 	/**
+	 * Get EntityFields.
+	 * @param clazz: Class object
+	 * @return {@code List<EntityField>}
+	 */
+	public static List<EntityField> getEntityFields(Class<?> clazz) {
+		//return getEntityFields(clazz, null);
+
+		return null;
+	}
+
+	/**
 	 * Get EntityFields and exclude specified annotations.
 	 * @param clazz: Class object
 	 * @param excludeAnnotations: Annotations want to be excluded.
 	 * @return {@code List<EntityField>}
 	 */
-	public static List<EntityField> getEntityFields(Class<?> clazz, List<Annotation> excludeAnnotations) {
+	public static List<EntityField> getEntityFields(Class<?> clazz, Annotation[] excludeAnnotations) {
 		List<Field> declaredFields = getAllDeclaredFields(clazz);
 		List<Method> declaredMethods = getAllDeclaredMethods(clazz);
 		List<EntityField> list = new ArrayList<>(declaredFields.size());
@@ -131,7 +152,7 @@ public class ClassHelper {
 			entityField.setSetter(setter);
 			entityField.setGetter(getter);
 
-			if (entityField.containAnnotations(excludeAnnotations)) {
+			if (entityField.containAnnotations(Arrays.asList(excludeAnnotations))) {
 				continue;
 			}
 
