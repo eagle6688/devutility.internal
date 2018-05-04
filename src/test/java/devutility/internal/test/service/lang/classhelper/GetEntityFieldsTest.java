@@ -1,5 +1,6 @@
 package devutility.internal.test.service.lang.classhelper;
 
+import java.util.Arrays;
 import java.util.List;
 
 import devutility.internal.lang.ClassHelper;
@@ -12,6 +13,13 @@ public class GetEntityFieldsTest extends BaseTest {
 	@Override
 	public void run() {
 		List<EntityField> list = ClassHelper.getEntityFields(Student.class);
+
+		list.forEach(i -> {
+			println(i.getField().getName());
+		});
+
+		println("========================================");
+		list = ClassHelper.getEntityFields(Student.class, Arrays.asList("age"));
 
 		list.forEach(i -> {
 			println(i.getField().getName());

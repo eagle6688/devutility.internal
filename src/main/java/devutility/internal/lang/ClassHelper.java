@@ -90,6 +90,10 @@ public class ClassHelper {
 	 * @return {@code List<EntityField>}
 	 */
 	public static List<EntityField> getEntityFields(Class<?> clazz, List<String> excludeFields) {
+		if (clazz == null) {
+			return new ArrayList<>();
+		}
+
 		List<Field> declaredFields = getAllDeclaredFields(clazz);
 		List<Method> declaredMethods = getAllDeclaredMethods(clazz);
 		List<EntityField> list = new ArrayList<>(declaredFields.size());
@@ -123,9 +127,7 @@ public class ClassHelper {
 	 * @return {@code List<EntityField>}
 	 */
 	public static List<EntityField> getEntityFields(Class<?> clazz) {
-		//return getEntityFields(clazz, null);
-
-		return null;
+		return getEntityFields(clazz, new ArrayList<String>());
 	}
 
 	/**
