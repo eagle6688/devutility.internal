@@ -10,7 +10,7 @@ import devutility.internal.test.models.Student;
 public class GetAllClassesTest extends BaseTest {
 	@Override
 	public void run() {
-		List<Class<?>> list = ClassHelper.getAllClasses(Student.class);
+		List<Class<?>> list = ClassHelper.getSuperClasses(Student.class);
 
 		list.forEach(i -> {
 			println(i.getCanonicalName());

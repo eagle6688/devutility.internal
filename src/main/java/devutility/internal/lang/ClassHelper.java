@@ -7,9 +7,12 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import devutility.internal.lang.models.EntityField;
+import devutility.internal.lang.models.EntityFieldUtils;
+import devutility.internal.util.ListHelper;
 
 public class ClassHelper {
 	/**
@@ -36,8 +39,13 @@ public class ClassHelper {
 		}
 	}
 
-	public static <T> List<Class<?>> getAllClasses(Class<T> clazz) {
-		List<Class<?>> list = new ArrayList<>();
+	/**
+	 * Get super classes include itself.
+	 * @param clazz: Class object
+	 * @return {@code List<Class<?>>}
+	 */
+	public static <T> List<Class<?>> getSuperClasses(Class<T> clazz) {
+		List<Class<?>> list = new LinkedList<>();
 
 		if (clazz == null) {
 			return list;
@@ -55,7 +63,7 @@ public class ClassHelper {
 
 	public static List<Field> getAllDeclaredFields(Class<?> clazz) {
 		List<Field> list = new ArrayList<>();
-		List<Class<?>> classes = getAllClasses(clazz);
+		List<Class<?>> classes = getSuperClasses(clazz);
 
 		if (classes.size() == 0) {
 			return list;
@@ -70,7 +78,7 @@ public class ClassHelper {
 
 	public static List<Method> getAllDeclaredMethods(Class<?> clazz) {
 		List<Method> list = new ArrayList<>();
-		List<Class<?>> classes = getAllClasses(clazz);
+		List<Class<?>> classes = getSuperClasses(clazz);
 
 		if (classes.size() == 0) {
 			return list;
@@ -84,12 +92,45 @@ public class ClassHelper {
 	}
 
 	/**
+	 * Get EntityFields and include specified fields.
+	 * @param includeFields: Fields want to include.
+	 * @param clazz: Class object
+	 * @return {@code List<EntityField>}
+	 */
+	public static List<EntityField> getIncludedEntityFields(List<String> includeFields, Class<?> clazz) {
+		List<EntityField> list = getEntityFields(clazz);
+		return EntityFieldUtils.includeEntityFields(list, includeFields);
+	}
+
+	/**
+	 * Get EntityFields and exclude specified fields.
+	 * @param clazz: Class object
+	 * @param excludeFields: Fields want to exclude.
+	 * @return {@code List<EntityField>}
+	 */
+	public static List<EntityField> getNonExcludedEntityFields(List<String> excludeFields, Class<?> clazz) {
+		List<EntityField> list = getEntityFields(clazz);
+		return EntityFieldUtils.excludeEntityFields(list, excludeFields);
+	}
+
+	/**
 	 * Get EntityFields and exclude specified annotations.
 	 * @param clazz: Class object
 	 * @param excludeAnnotations: Annotations want to be excluded.
 	 * @return {@code List<EntityField>}
 	 */
-	public static List<EntityField> getEntityFields(Class<?> clazz, List<String> excludeFields) {
+	public static List<EntityField> getNonExcludedEntityFields(Annotation[] excludeAnnotations, Class<?> clazz) {
+		List<EntityField> list = getEntityFields(clazz);
+		List<Annotation> annotations = Arrays.asList(excludeAnnotations);
+		return ListHelper.list(list, i -> i.containAnnotations(annotations));
+	}
+
+	/**
+	 * Get EntityFields.
+	 * @param clazz: Class object
+	 * @return {@code List<EntityField>}
+	 */
+	public static List<EntityField> getEntityFields(Class<?> clazz) {
 		if (clazz == null) {
 			return new ArrayList<>();
 		}
@@ -99,10 +140,6 @@ public class ClassHelper {
 		List<EntityField> list = new ArrayList<>(declaredFields.size());
 
 		for (Field declaredField : declaredFields) {
-			if (excludeFields != null && excludeFields.contains(declaredField.getName())) {
-				continue;
-			}
-
 			Method setter = getSetter(declaredField.getName(), declaredMethods);
 			Method getter = getGetter(declaredField, declaredMethods);
 
@@ -114,50 +151,6 @@ public class ClassHelper {
 			entityField.setField(declaredField);
 			entityField.setSetter(setter);
 			entityField.setGetter(getter);
-			list.add(entityField);
-		}
-
-		list.sort((ef1, ef2) -> ef1.getField().getName().compareTo(ef2.getField().getName()));
-		return list;
-	}
-
-	/**
-	 * Get EntityFields.
-	 * @param clazz: Class object
-	 * @return {@code List<EntityField>}
-	 */
-	public static List<EntityField> getEntityFields(Class<?> clazz) {
-		return getEntityFields(clazz, new ArrayList<String>());
-	}
-
-	/**
-	 * Get EntityFields and exclude specified annotations.
-	 * @param clazz: Class object
-	 * @param excludeAnnotations: Annotations want to be excluded.
-	 * @return {@code List<EntityField>}
-	 */
-	public static List<EntityField> getEntityFields(Class<?> clazz, Annotation[] excludeAnnotations) {
-		List<Field> declaredFields = getAllDeclaredFields(clazz);
-		List<Method> declaredMethods = getAllDeclaredMethods(clazz);
-		List<EntityField> list = new ArrayList<>(declaredFields.size());
-
-		for (Field declaredField : declaredFields) {
-			Method setter = getSetter(declaredField.getName(), declaredMethods);
-			Method getter = getGetter(declaredField, declaredMethods);
-
-			if (setter == null || getter == null) {
-				continue;
-			}
-
-			EntityField entityField = new EntityField();
-			entityField.setField(declaredField);
-			entityField.setSetter(setter);
-			entityField.setGetter(getter);
-
-			if (entityField.containAnnotations(Arrays.asList(excludeAnnotations))) {
-				continue;
-			}
-
 			list.add(entityField);
 		}
 

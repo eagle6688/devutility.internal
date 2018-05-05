@@ -19,7 +19,14 @@ public class GetEntityFieldsTest extends BaseTest {
 		});
 
 		println("========================================");
-		list = ClassHelper.getEntityFields(Student.class, Arrays.asList("age"));
+		list = ClassHelper.getNonExcludedEntityFields(Arrays.asList("age"), Student.class);
+
+		list.forEach(i -> {
+			println(i.getField().getName());
+		});
+
+		println("========================================");
+		list = ClassHelper.getIncludedEntityFields(Arrays.asList("age"), Student.class);
 
 		list.forEach(i -> {
 			println(i.getField().getName());
