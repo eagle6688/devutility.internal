@@ -12,7 +12,7 @@ import java.util.List;
 
 import devutility.internal.lang.models.EntityField;
 import devutility.internal.lang.models.EntityFieldUtils;
-import devutility.internal.util.ListHelper;
+import devutility.internal.util.CollectionUtils;
 
 public class ClassHelper {
 	/**
@@ -122,7 +122,7 @@ public class ClassHelper {
 	public static List<EntityField> getNonExcludedEntityFields(Annotation[] excludeAnnotations, Class<?> clazz) {
 		List<EntityField> list = getEntityFields(clazz);
 		List<Annotation> annotations = Arrays.asList(excludeAnnotations);
-		return ListHelper.list(list, i -> i.containAnnotations(annotations));
+		return CollectionUtils.list(list, i -> i.containAnnotations(annotations));
 	}
 
 	/**

@@ -3,7 +3,7 @@ package devutility.internal.data;
 import java.util.List;
 
 import devutility.internal.models.BaseSearchParam;
-import devutility.internal.util.ListHelper;
+import devutility.internal.util.CollectionUtils;
 import devutility.internal.util.function.PredicateBuilder;
 
 public class SearchHelper {
@@ -14,6 +14,6 @@ public class SearchHelper {
 			return list;
 		}
 
-		return ListHelper.parallelList(list, predicateBuilder.getPredicate());
+		return CollectionUtils.parallelList(list, predicateBuilder.getPredicate());
 	}
 }

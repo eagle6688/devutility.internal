@@ -7,7 +7,7 @@ import java.util.List;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 import devutility.internal.test.models.Person;
-import devutility.internal.util.ListHelper;
+import devutility.internal.util.CollectionUtils;
 import devutility.internal.util.function.PredicateBuilder;
 
 public class PredicateBuilderTest extends BaseTest {
@@ -25,13 +25,13 @@ public class PredicateBuilderTest extends BaseTest {
 		PredicateBuilder<Integer> predicateBuilder = new PredicateBuilder<>();
 		predicateBuilder.or(i -> i == 1);
 		predicateBuilder.or(i -> i == 2);
-		List<Integer> result = ListHelper.list(list, predicateBuilder.getPredicate());
+		List<Integer> result = CollectionUtils.list(list, predicateBuilder.getPredicate());
 		System.out.println(result);
 
-		int minValue = ListHelper.minInt(list);
+		int minValue = CollectionUtils.minInt(list);
 		println(minValue);
 
-		int maxValue = ListHelper.maxInt(list);
+		int maxValue = CollectionUtils.maxInt(list);
 		println("maxValue");
 		println(maxValue);
 	}
@@ -52,7 +52,7 @@ public class PredicateBuilderTest extends BaseTest {
 		}
 
 		predicateBuilder1.and(i -> i.getAge() == 30);
-		List<Person> result = ListHelper.list(list, predicateBuilder1.getPredicate());
+		List<Person> result = CollectionUtils.list(list, predicateBuilder1.getPredicate());
 		println(result.size());
 	}
 

@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 
-import devutility.internal.util.ListHelper;
+import devutility.internal.util.CollectionUtils;
 
 public class MethodUtils {
 	/**
@@ -15,11 +15,11 @@ public class MethodUtils {
 	 * @return boolean
 	 */
 	public static boolean contain(Method method, List<Annotation> annotations) {
-		if (method == null || annotations == null || annotations.size() == 0) {
+		if (method == null || CollectionUtils.nullOrEmpty(annotations)) {
 			return false;
 		}
 
 		List<Annotation> fieldAnnotations = Arrays.asList(method.getAnnotations());
-		return ListHelper.exist(annotations, i -> fieldAnnotations.contains(i));
+		return CollectionUtils.exist(annotations, i -> fieldAnnotations.contains(i));
 	}
 }

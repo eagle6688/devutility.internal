@@ -3,7 +3,6 @@ package devutility.internal.lang.models;
 import java.util.List;
 
 import devutility.internal.util.CollectionUtils;
-import devutility.internal.util.ListHelper;
 
 public class EntityFieldUtils {
 	public static List<EntityField> includeEntityFields(List<EntityField> entityFields, List<String> includeFields) {
@@ -11,7 +10,7 @@ public class EntityFieldUtils {
 			return entityFields;
 		}
 
-		return ListHelper.list(entityFields, i -> i.getField() != null && includeFields.contains(i.getField().getName()));
+		return CollectionUtils.list(entityFields, i -> i.getField() != null && includeFields.contains(i.getField().getName()));
 	}
 
 	public static List<EntityField> excludeEntityFields(List<EntityField> entityFields, List<String> excludeFields) {
@@ -19,6 +18,6 @@ public class EntityFieldUtils {
 			return entityFields;
 		}
 
-		return ListHelper.list(entityFields, i -> i.getField() != null && !excludeFields.contains(i.getField().getName()));
+		return CollectionUtils.list(entityFields, i -> i.getField() != null && !excludeFields.contains(i.getField().getName()));
 	}
 }
