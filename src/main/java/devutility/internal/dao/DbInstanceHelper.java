@@ -3,15 +3,15 @@ package devutility.internal.dao;
 import java.util.Properties;
 
 import devutility.internal.dao.models.DbInstance;
-import devutility.internal.util.PropertiesHelper;
+import devutility.internal.util.PropertiesUtils;
 
 public class DbInstanceHelper {
 	// region get instance
 
 	public static DbInstance getInstance(String resourceName, String prefix) {
-		Properties properties = PropertiesHelper.getProperties(resourceName);
+		Properties properties = PropertiesUtils.getProperties(resourceName);
 
-		if (properties == null || !PropertiesHelper.containsPrefix(properties, prefix)) {
+		if (properties == null || !PropertiesUtils.containsPrefix(properties, prefix)) {
 			return null;
 		}
 
@@ -25,12 +25,12 @@ public class DbInstanceHelper {
 	// region set instance
 
 	protected static void setInstance(DbInstance instance, Properties properties, String prefix) {
-		instance.setHost(PropertiesHelper.getProperty(properties, getPropertyKeyHost(prefix)));
-		instance.setPort(PropertiesHelper.getIntProperty(properties, getPropertyKeyPort(prefix)));
-		instance.setLoginName(PropertiesHelper.getProperty(properties, getPropertyKeyLoginname(prefix)));
-		instance.setPassword(PropertiesHelper.getProperty(properties, getPropertyKeyPassword(prefix)));
-		instance.setDatabase(PropertiesHelper.getProperty(properties, getPropertyKeyDatabase(prefix)));
-		instance.setTimeout(PropertiesHelper.getIntProperty(properties, getPropertyKeyTimeout(prefix)));
+		instance.setHost(PropertiesUtils.getProperty(properties, getPropertyKeyHost(prefix)));
+		instance.setPort(PropertiesUtils.getIntProperty(properties, getPropertyKeyPort(prefix)));
+		instance.setLoginName(PropertiesUtils.getProperty(properties, getPropertyKeyLoginname(prefix)));
+		instance.setPassword(PropertiesUtils.getProperty(properties, getPropertyKeyPassword(prefix)));
+		instance.setDatabase(PropertiesUtils.getProperty(properties, getPropertyKeyDatabase(prefix)));
+		instance.setTimeout(PropertiesUtils.getIntProperty(properties, getPropertyKeyTimeout(prefix)));
 	}
 
 	// endregion

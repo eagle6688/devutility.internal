@@ -13,14 +13,14 @@ import devutility.internal.lang.ClassHelper;
 import devutility.internal.lang.StringHelper;
 import devutility.internal.lang.models.EntityField;
 
-public class PropertiesHelper {
+public class PropertiesUtils {
 	/**
 	 * Get properties
 	 * @param resourceName: Properties file name
 	 * @return Properties
 	 */
 	public static Properties getProperties(String resourceName) {
-		return getProperties(PropertiesHelper.class.getClassLoader().getResourceAsStream(resourceName));
+		return getProperties(PropertiesUtils.class.getClassLoader().getResourceAsStream(resourceName));
 	}
 
 	/**
@@ -213,7 +213,7 @@ public class PropertiesHelper {
 
 		for (EntityField entityField : entityFields) {
 			String propertyKey = getPropertyKey(prefix, entityField.getField().getName());
-			String propertyValue = PropertiesHelper.getProperty(properties, propertyKey);
+			String propertyValue = PropertiesUtils.getProperty(properties, propertyKey);
 
 			if (!StringHelper.isNullOrEmpty(propertyValue)) {
 				BeanUtils.setField(entityField.getSetter(), model, propertyValue, entityField.getField());

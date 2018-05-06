@@ -2,7 +2,7 @@ package devutility.internal.test.service.util.propertieshelper;
 
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
-import devutility.internal.util.PropertiesHelper;
+import devutility.internal.util.PropertiesUtils;
 
 /**
  * 
@@ -14,9 +14,9 @@ import devutility.internal.util.PropertiesHelper;
 public class ContainsPrefixTest extends BaseTest {
 	@Override
 	public void run() {
-		println(String.valueOf(PropertiesHelper.containsPrefix("system.properties", "database")));
-		println(String.valueOf(PropertiesHelper.containsPrefix("system.properties", "asd")));
-		println(String.valueOf(PropertiesHelper.containsPrefix("system.properties", "test")));
+		println(String.valueOf(PropertiesUtils.containsPrefix("system.properties", "database")));
+		println(String.valueOf(PropertiesUtils.containsPrefix("system.properties", "asd")));
+		println(String.valueOf(PropertiesUtils.containsPrefix("system.properties", "test")));
 	}
 
 	public static void main(String[] args) {

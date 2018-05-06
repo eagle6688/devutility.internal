@@ -4,12 +4,12 @@ import java.util.Properties;
 
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
-import devutility.internal.util.PropertiesHelper;
+import devutility.internal.util.PropertiesUtils;
 
 public class GetPropertiesService extends BaseTest {
 	@Override
 	public void run() {
-		Properties properties = PropertiesHelper.getProperties("system.properties");
+		Properties properties = PropertiesUtils.getProperties("system.properties");
 		println(properties.getProperty("test"));
 	}
 

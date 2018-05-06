@@ -3,13 +3,13 @@ package devutility.internal.dao;
 import java.util.Properties;
 
 import devutility.internal.dao.models.RedisInstance;
-import devutility.internal.util.PropertiesHelper;
+import devutility.internal.util.PropertiesUtils;
 
 public final class RedisInstanceHelper extends DbInstanceHelper {
 	// region get instance
 
 	public static RedisInstance getInstance(String resourceName, String prefix) {
-		Properties properties = PropertiesHelper.getProperties(resourceName);
+		Properties properties = PropertiesUtils.getProperties(resourceName);
 
 		if (properties == null) {
 			return null;
@@ -17,7 +17,7 @@ public final class RedisInstanceHelper extends DbInstanceHelper {
 
 		RedisInstance instance = new RedisInstance();
 		setInstance(instance, properties, prefix);
-		instance.setDBIndex(PropertiesHelper.getIntProperty(properties, getPropertyKeyDBIndex(prefix)));
+		instance.setDBIndex(PropertiesUtils.getIntProperty(properties, getPropertyKeyDBIndex(prefix)));
 		return instance;
 	}
 

@@ -2,15 +2,15 @@ package devutility.internal.test.service.util.propertieshelper;
 
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
-import devutility.internal.util.PropertiesHelper;
+import devutility.internal.util.PropertiesUtils;
 
 public class GetPropertyService extends BaseTest {
 	@Override
 	public void run() {
-		println(PropertiesHelper.getProperty("system.properties", "test"));
-		println(PropertiesHelper.getProperty("system.properties", "Test"));
-		println(PropertiesHelper.getProperty("system.properties", "database"));
-		println(String.valueOf(PropertiesHelper.containsKey("system.properties", "database")));
+		println(PropertiesUtils.getProperty("system.properties", "test"));
+		println(PropertiesUtils.getProperty("system.properties", "Test"));
+		println(PropertiesUtils.getProperty("system.properties", "database"));
+		println(String.valueOf(PropertiesUtils.containsKey("system.properties", "database")));
 	}
 
 	public static void main(String[] args) {
