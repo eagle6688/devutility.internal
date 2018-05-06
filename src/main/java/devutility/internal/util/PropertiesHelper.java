@@ -3,7 +3,9 @@ package devutility.internal.util;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import devutility.internal.data.BeanUtils;
@@ -142,6 +144,35 @@ public class PropertiesHelper {
 		}
 
 		return Integer.parseInt(value);
+	}
+
+	/**
+	 * Convert properties to Map
+	 * @param resourceName: Properties file
+	 * @return {@code Map<String,String>}
+	 */
+	public static Map<String, String> toMap(String resourceName) {
+		Properties properties = getProperties(resourceName);
+		return toMap(properties);
+	}
+
+	/**
+	 * Convert properties to Map
+	 * @param properties: Properties object
+	 * @return {@code Map<String,String>}
+	 */
+	public static Map<String, String> toMap(Properties properties) {
+		Map<String, String> map = new HashMap<>();
+
+		if (properties == null) {
+			return map;
+		}
+
+		for (String name : properties.stringPropertyNames()) {
+			map.put(name, properties.getProperty(name));
+		}
+
+		return map;
 	}
 
 	/**
