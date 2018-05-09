@@ -1,16 +1,14 @@
 package devutility.internal.dao;
 
+import java.io.InputStream;
 import java.util.Properties;
 
 import devutility.internal.dao.models.DbInstance;
+import devutility.internal.lang.StringHelper;
 import devutility.internal.util.PropertiesUtils;
 
 public class DbInstanceHelper {
-	// region get instance
-
-	public static DbInstance getInstance(String resourceName, String prefix) {
-		Properties properties = PropertiesUtils.getProperties(resourceName);
-
+	public static DbInstance getInstance(Properties properties, String prefix) {
 		if (properties == null || !PropertiesUtils.containsPrefix(properties, prefix)) {
 			return null;
 		}
@@ -18,6 +16,29 @@ public class DbInstanceHelper {
 		DbInstance instance = new DbInstance();
 		setInstance(instance, properties, prefix);
 		return instance;
+	}
+
+	public static DbInstance getInstance(InputStream propertiesIns, String prefix) {
+		if (propertiesIns == null) {
+			return null;
+		}
+
+		Properties properties = PropertiesUtils.getProperties(propertiesIns);
+		return getInstance(properties, prefix);
+	}
+
+	public static DbInstance getInstance(String resourceName, String prefix) {
+		if (StringHelper.isNullOrEmpty(resourceName)) {
+			return null;
+		}
+
+		Properties properties = PropertiesUtils.getProperties(resourceName);
+
+		if (properties == null || !PropertiesUtils.containsPrefix(properties, prefix)) {
+			return null;
+		}
+
+		return getInstance(properties, prefix);
 	}
 
 	// endregion
