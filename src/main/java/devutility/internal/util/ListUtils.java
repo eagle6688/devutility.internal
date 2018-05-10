@@ -14,7 +14,7 @@ public class ListUtils {
 	 * @param list: String list.
 	 */
 	public static void sortByAlphabet(List<String> list) {
-		if (CollectionUtils.nullOrEmpty(list)) {
+		if (CollectionUtils.isNullOrEmpty(list)) {
 			return;
 		}
 
@@ -59,7 +59,7 @@ public class ListUtils {
 	 * @throws InvocationTargetException
 	 */
 	public static <T> String[][] toArrays(List<T> list, List<EntityField> entityFields) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		if (CollectionUtils.nullOrEmpty(list) || CollectionUtils.nullOrEmpty(entityFields)) {
+		if (CollectionUtils.isNullOrEmpty(list) || CollectionUtils.isNullOrEmpty(entityFields)) {
 			return new String[0][];
 		}
 
@@ -102,7 +102,7 @@ public class ListUtils {
 	 * @throws InvocationTargetException
 	 */
 	public static <T> List<T> toEntities(String[][] arrays, Class<T> clazz, List<EntityField> entityFields) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		if (ArraysUtils.isNullOrEmpty(arrays) || CollectionUtils.nullOrEmpty(entityFields)) {
+		if (ArraysUtils.isNullOrEmpty(arrays) || CollectionUtils.isNullOrEmpty(entityFields)) {
 			return new ArrayList<>();
 		}
 

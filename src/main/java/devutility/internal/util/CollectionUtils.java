@@ -18,7 +18,7 @@ public class CollectionUtils {
 	 * @param collection: Elements collection.
 	 * @return boolean
 	 */
-	public static <E> boolean nullOrEmpty(Collection<E> collection) {
+	public static <E> boolean isNullOrEmpty(Collection<E> collection) {
 		return collection == null || collection.size() == 0;
 	}
 
@@ -27,7 +27,7 @@ public class CollectionUtils {
 	 * @param collection: Elements collection.
 	 * @return boolean
 	 */
-	public static <E> boolean notEmpty(Collection<E> collection) {
+	public static <E> boolean isNotEmpty(Collection<E> collection) {
 		return collection != null && collection.size() > 0;
 	}
 
@@ -268,7 +268,8 @@ public class CollectionUtils {
 	}
 
 	/**
-	 * Parallel query elements by predicate command, map some fields and return a stream.
+	 * Parallel query elements by predicate command, map some fields and return a
+	 * stream.
 	 * @param collection: Elements collection.
 	 * @param predicate: Predicate command.
 	 * @param mapper: Fields mapper.
@@ -279,7 +280,8 @@ public class CollectionUtils {
 	}
 
 	/**
-	 * Parallel query elements by predicate command, map some fields and return a list.
+	 * Parallel query elements by predicate command, map some fields and return a
+	 * list.
 	 * @param collection: Elements collection.
 	 * @param predicate: Predicate command.
 	 * @param mapper: Fields mapper.
@@ -310,7 +312,8 @@ public class CollectionUtils {
 	}
 
 	/**
-	 * Query elements by predicate command, map some fields, remove repeated items and return a stream.
+	 * Query elements by predicate command, map some fields, remove repeated items
+	 * and return a stream.
 	 * @param collection: Elements collection.
 	 * @param predicate: Predicate command.
 	 * @param mapper: Fields mapper.
@@ -321,7 +324,8 @@ public class CollectionUtils {
 	}
 
 	/**
-	 * Query elements by predicate command, map some fields, remove repeated items and return a list.
+	 * Query elements by predicate command, map some fields, remove repeated items
+	 * and return a list.
 	 * @param collection: Elements collection.
 	 * @param predicate: Predicate command.
 	 * @param mapper: Fields mapper.
@@ -332,7 +336,8 @@ public class CollectionUtils {
 	}
 
 	/**
-	 * Map some fields (for each item, one field has an collection of values) and return a list.
+	 * Map some fields (for each item, one field has an collection of values) and
+	 * return a list.
 	 * @param collection: Elements collection.
 	 * @param mapper: Fields mapper.
 	 * @return {@code List<R>}
@@ -368,7 +373,8 @@ public class CollectionUtils {
 	}
 
 	/**
-	 * Query elements by predicate command, group collection by classifier to map and return it.
+	 * Query elements by predicate command, group collection by classifier to map
+	 * and return it.
 	 * @param collection: Elements collection.
 	 * @param predicate: Predicate command.
 	 * @param classifier: Classifier for group.
@@ -379,7 +385,8 @@ public class CollectionUtils {
 	}
 
 	/**
-	 * Parallel group elements by predicate command, group collection by classifier to map and return it.
+	 * Parallel group elements by predicate command, group collection by classifier
+	 * to map and return it.
 	 * @param collection: Elements collection.
 	 * @param predicate: Predicate command.
 	 * @param classifier: Classifier for group.
@@ -397,7 +404,7 @@ public class CollectionUtils {
 	 * @return {@code List<E>}
 	 */
 	public static <E> List<E> paging(Collection<E> collection, int pageIndex, int pageSize) {
-		if (nullOrEmpty(collection) || pageIndex < 1) {
+		if (isNullOrEmpty(collection) || pageIndex < 1) {
 			return new ArrayList<>();
 		}
 
@@ -417,7 +424,7 @@ public class CollectionUtils {
 	 * @return {@code List<E>}
 	 */
 	public static <E> List<E> top(Collection<E> collection, int count) {
-		if (nullOrEmpty(collection) || count < 1) {
+		if (isNullOrEmpty(collection) || count < 1) {
 			return new ArrayList<>();
 		}
 

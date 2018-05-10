@@ -15,7 +15,7 @@ public class MethodUtils {
 	 * @return boolean
 	 */
 	public static boolean contain(Method method, List<Annotation> annotations) {
-		if (method == null || CollectionUtils.nullOrEmpty(annotations)) {
+		if (method == null || CollectionUtils.isNullOrEmpty(annotations)) {
 			return false;
 		}
 

@@ -15,7 +15,7 @@ public class FieldUtils {
 	 * @return boolean
 	 */
 	public static boolean contain(Field field, List<Annotation> annotations) {
-		if (field == null || CollectionUtils.nullOrEmpty(annotations)) {
+		if (field == null || CollectionUtils.isNullOrEmpty(annotations)) {
 			return false;
 		}
 

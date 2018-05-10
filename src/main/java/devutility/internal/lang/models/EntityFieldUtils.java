@@ -6,7 +6,7 @@ import devutility.internal.util.CollectionUtils;
 
 public class EntityFieldUtils {
 	public static List<EntityField> includeEntityFields(List<EntityField> entityFields, List<String> includeFields) {
-		if (CollectionUtils.nullOrEmpty(entityFields) || CollectionUtils.nullOrEmpty(includeFields)) {
+		if (CollectionUtils.isNullOrEmpty(entityFields) || CollectionUtils.isNullOrEmpty(includeFields)) {
 			return entityFields;
 		}
 
@@ -14,7 +14,7 @@ public class EntityFieldUtils {
 	}
 
 	public static List<EntityField> excludeEntityFields(List<EntityField> entityFields, List<String> excludeFields) {
-		if (CollectionUtils.nullOrEmpty(entityFields) || CollectionUtils.nullOrEmpty(excludeFields)) {
+		if (CollectionUtils.isNullOrEmpty(entityFields) || CollectionUtils.isNullOrEmpty(excludeFields)) {
 			return entityFields;
 		}
 

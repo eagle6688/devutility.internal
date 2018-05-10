@@ -10,6 +10,7 @@ import devutility.internal.base.Convertor;
 import devutility.internal.lang.ClassHelper;
 import devutility.internal.lang.StringHelper;
 import devutility.internal.lang.models.EntityField;
+import devutility.internal.util.CollectionUtils;
 
 public class BeanUtils {
 	/**
@@ -183,5 +184,35 @@ public class BeanUtils {
 		}
 
 		return entity;
+	}
+
+	/**
+	 * Shallow clone the model with K type, this method will clone the properties
+	 * that both of two types have.
+	 * @param kModel
+	 * @param kClazz
+	 * @param tClazz
+	 * @return {@code T}
+	 * @throws ReflectiveOperationException
+	 */
+	public static <T, K> T shallowClone(K kModel, Class<K> kClazz, Class<T> tClazz) throws ReflectiveOperationException {
+		if (kModel == null) {
+			return null;
+		}
+
+		T model = ClassHelper.newInstance(tClazz);
+		List<EntityField> kEntityFields = ClassHelper.getEntityFields(kClazz);
+		List<EntityField> tEntityFields = ClassHelper.getEntityFields(tClazz);
+
+		for (EntityField kEntityField : kEntityFields) {
+			EntityField tEntityField = CollectionUtils.find(tEntityFields, i -> kEntityField.getField().getName().equals(i.getField().getName()) && kEntityField.getField().getType().equals(i.getField().getType()));
+
+			if (tEntityField != null) {
+				Object value = kEntityField.getGetter().invoke(kModel);
+				tEntityField.getSetter().invoke(model, value);
+			}
+		}
+
+		return model;
 	}
 }
