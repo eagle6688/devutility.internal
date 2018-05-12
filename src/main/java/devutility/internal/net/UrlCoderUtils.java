@@ -4,7 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 
-public class UrlCoderHelper {
+public class UrlCoderUtils {
 	/**
 	 * Encode url string
 	 * @param value: Url string

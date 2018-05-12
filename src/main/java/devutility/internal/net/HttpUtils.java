@@ -1,16 +1,14 @@
 package devutility.internal.net;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 import devutility.internal.data.codec.UTF8Utils;
-import devutility.internal.lang.StringHelper;
 
 public class HttpUtils extends BaseUtils {
 	/**
-	 * Get content from url.
+	 * Get data from url.
 	 * @param url: Request Url.
 	 * @return String
 	 * @throws IOException
@@ -20,9 +18,9 @@ public class HttpUtils extends BaseUtils {
 	}
 
 	/**
-	 * Get content from url.
+	 * Get data from url.
 	 * @param url: Request Url.
-	 * @param timeout: Timeout
+	 * @param timeout: Request timeout.
 	 * @return String
 	 * @throws IOException
 	 */
@@ -37,7 +35,7 @@ public class HttpUtils extends BaseUtils {
 	}
 
 	/**
-	 * Get content from url.
+	 * Get data from url.
 	 * @param url: Request Url.
 	 * @param contentType: Content-Type in http request header.
 	 * @param timeout: Request timeout.
@@ -50,7 +48,17 @@ public class HttpUtils extends BaseUtils {
 	}
 
 	/**
-	 * Get json from url.
+	 * Get Json data from url.
+	 * @param url: Request Url.
+	 * @return String
+	 * @throws IOException
+	 */
+	public static String getJson(String url) throws IOException {
+		return getJson(url, 0);
+	}
+
+	/**
+	 * Get Json data from url.
 	 * @param url: Request Url.
 	 * @param timeout: Request timeout.
 	 * @return String
@@ -67,63 +75,7 @@ public class HttpUtils extends BaseUtils {
 	}
 
 	/**
-	 * Get json from url.
-	 * @param url: Request Url.
-	 * @return String
-	 * @throws IOException
-	 */
-	public static String getJson(String url) throws IOException {
-		return getJson(url, 0);
-	}
-
-	/**
-	 * Post form data
-	 * @param url: Request Url.
-	 * @param data: Form data.
-	 * @return String
-	 * @throws IOException
-	 */
-	public static String postForm(String url, String data) throws IOException {
-		return postForm(url, data, 0);
-	}
-
-	/**
-	 * Post form data with timeout limitation.
-	 * @param url: Request Url.
-	 * @param data: Request form data
-	 * @param timeout: Request timeout.
-	 * @return String
-	 * @throws IOException
-	 */
-	public static String postForm(String url, String data, int timeout) throws IOException {
-		return post(url, "application/x-www-form-urlencoded", data, timeout);
-	}
-
-	/**
-	 * Post json data.
-	 * @param url: Request Url.
-	 * @param data: Request json data
-	 * @return String
-	 * @throws IOException
-	 */
-	public static String postJson(String url, String data) throws IOException {
-		return postJson(url, data, 0);
-	}
-
-	/**
-	 * Post json data
-	 * @param url: Request Url.
-	 * @param data: Request json data
-	 * @param timeout: Request timeout.
-	 * @return String
-	 * @throws IOException
-	 */
-	public static String postJson(String url, String data, int timeout) throws IOException {
-		return post(url, "application/json", data, timeout);
-	}
-
-	/**
-	 * Post data to Url
+	 * Post data to Url.
 	 * @param url: Request Url.
 	 * @param contentType: Content-Type in http request header.
 	 * @param data: Request data.
@@ -142,7 +94,7 @@ public class HttpUtils extends BaseUtils {
 	}
 
 	/**
-	 * Post
+	 * Post data to Url.
 	 * @param url: Request Url.
 	 * @param contentType: Content-Type in http request header.
 	 * @param data: Request data.
@@ -152,14 +104,53 @@ public class HttpUtils extends BaseUtils {
 	 */
 	public static HttpResponse post(String url, String contentType, byte[] data, int timeout) throws IOException {
 		HttpURLConnection httpURLConnection = httpURLConnection(url, "POST", contentType, data, timeout);
+		return request(httpURLConnection, data);
+	}
 
-		try (OutputStream outputStream = httpURLConnection.getOutputStream()) {
-			outputStream.write(data);
-		} catch (IOException e) {
-			throw e;
-		}
+	/**
+	 * Post form data to Url.
+	 * @param url: Request Url.
+	 * @param data: Form data.
+	 * @return String
+	 * @throws IOException
+	 */
+	public static String postForm(String url, String data) throws IOException {
+		return postForm(url, data, 0);
+	}
 
-		return getHttpResponse(httpURLConnection);
+	/**
+	 * Post form data to Url.
+	 * @param url: Request Url.
+	 * @param data: Form data
+	 * @param timeout: Request timeout.
+	 * @return String
+	 * @throws IOException
+	 */
+	public static String postForm(String url, String data, int timeout) throws IOException {
+		return post(url, "application/x-www-form-urlencoded", data, timeout);
+	}
+
+	/**
+	 * Post Json data to Url.
+	 * @param url: Request Url.
+	 * @param data: Json data.
+	 * @return String
+	 * @throws IOException
+	 */
+	public static String postJson(String url, String data) throws IOException {
+		return postJson(url, data, 0);
+	}
+
+	/**
+	 * Post Json data to Url.
+	 * @param url: Request Url.
+	 * @param data: Json data.
+	 * @param timeout: Request timeout.
+	 * @return String
+	 * @throws IOException
+	 */
+	public static String postJson(String url, String data, int timeout) throws IOException {
+		return post(url, "application/json", data, timeout);
 	}
 
 	/**
@@ -174,29 +165,7 @@ public class HttpUtils extends BaseUtils {
 	 */
 	private static HttpURLConnection httpURLConnection(URL url, String method, String contentType, byte[] data, int timeout) throws IOException {
 		HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-		httpURLConnection.setUseCaches(false);
-		httpURLConnection.setRequestProperty("charset", "utf-8");
-
-		if (StringHelper.isNullOrEmpty(method)) {
-			method = "GET";
-		}
-
-		httpURLConnection.setRequestMethod(method);
-
-		if (!StringHelper.isNullOrEmpty(contentType)) {
-			httpURLConnection.setRequestProperty("content-Type", contentType);
-		}
-
-		if (method.equals("POST") && data != null) {
-			httpURLConnection.setDoOutput(true);
-			httpURLConnection.setRequestProperty("Content-length", String.valueOf(data.length));
-		}
-
-		if (timeout > 0) {
-			httpURLConnection.setConnectTimeout(timeout);
-			httpURLConnection.setReadTimeout(timeout);
-		}
-
+		initHttpURLConnection(httpURLConnection, method, contentType, data, timeout);
 		return httpURLConnection;
 	}
 
