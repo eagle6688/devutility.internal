@@ -23,6 +23,16 @@ public class StringHelper {
 		return stringBuffer.toString();
 	}
 
+	public static String upperFirstCase(String value) {
+		char[] array = value.toCharArray();
+
+		if (array[0] >= 'a' && array[0] <= 'z') {
+			array[0] = (char) (array[0] - 32);
+		}
+
+		return String.valueOf(array);
+	}
+
 	public static String trimEnd(String value, String tail) {
 		if (value == null || tail == null) {
 			return value;
