@@ -3,17 +3,11 @@ package devutility.internal.io;
 import java.io.File;
 import java.nio.file.Path;
 
-public class FileHelper {
-	// region exists
-
+public class FileUtils {
 	public static boolean exists(String fileName) {
 		File file = new File(fileName);
 		return file.exists();
 	}
-
-	// endregion
-
-	// region get bytes length
 
 	public static long getBytesLength(File file) {
 		if (!file.exists()) {
@@ -33,13 +27,12 @@ public class FileHelper {
 		return getBytesLength(file);
 	}
 
-	// endregion
-
-	// region get hour log file name
-
 	public static String getHourLogFileName(int hour) {
 		return String.format("%d.log", hour);
 	}
 
-	// endregion
+	public static String getFileExtension(String fileName) {
+		int index = fileName.lastIndexOf(".");
+		return fileName.substring(index + 1);
+	}
 }

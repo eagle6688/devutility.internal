@@ -32,7 +32,7 @@ public class LogHelper {
 	// region get file name
 
 	public static String getLogFileName(String fileNameFormat, LocalDateTime dateTime) {
-		String hourLogFileName = FileHelper.getHourLogFileName(dateTime.getHour());
+		String hourLogFileName = FileUtils.getHourLogFileName(dateTime.getHour());
 
 		if (StringHelper.isNullOrEmpty(fileNameFormat)) {
 			return hourLogFileName;

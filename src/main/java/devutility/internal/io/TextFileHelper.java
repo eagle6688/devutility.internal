@@ -8,7 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import devutility.internal.io.FileHelper;
+import devutility.internal.io.FileUtils;
 import devutility.internal.io.RandomAccessFileHelper;
 import devutility.internal.system.SystemHelper;
 
@@ -32,7 +32,7 @@ public class TextFileHelper {
 	 * @throws Exception
 	 */
 	public static void append(String fileName, String content) throws Exception {
-		insert(fileName, FileHelper.getBytesLength(fileName), content);
+		insert(fileName, FileUtils.getBytesLength(fileName), content);
 	}
 
 	/**
