@@ -38,7 +38,8 @@ public class TestExecutor {
 
 		T instance = ClassHelper.instance(clazz);
 
-		if (!ClassHelper.isInstanceOf(instance, BaseTest.class)) {
+		if (instance == null) {
+			System.out.println("Create new instance failed!");
 			return;
 		}
 
