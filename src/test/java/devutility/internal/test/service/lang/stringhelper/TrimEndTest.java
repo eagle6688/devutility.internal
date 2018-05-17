@@ -4,13 +4,13 @@ import devutility.internal.lang.StringHelper;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
-public class UppercaseTest extends BaseTest {
+public class TrimEndTest extends BaseTest {
 	@Override
 	public void run() {
-		println(StringHelper.uppercase("asd"));
+		println(StringHelper.trimEnd("asdqwe", "qwe"));
 	}
 
 	public static void main(String[] args) {
-		TestExecutor.run(UppercaseTest.class);
+		TestExecutor.run(TrimEndTest.class);
 	}
 }

@@ -159,7 +159,7 @@ public class ClassHelper {
 	}
 
 	public static boolean isGetterField(Field field, List<String> methods) {
-		String name = String.format("get%s", StringHelper.uppercase(field.getName()));
+		String name = String.format("get%s", field.getName().toUpperCase());
 
 		if (methods.contains(name)) {
 			return true;
@@ -173,17 +173,17 @@ public class ClassHelper {
 			return false;
 		}
 
-		String name = String.format("is%s", StringHelper.uppercase(field.getName()));
+		String name = String.format("is%s", field.getName().toUpperCase());
 		return methods.contains(name);
 	}
 
 	public static boolean isSetterField(String field, List<String> methods) {
-		String name = String.format("set%s", StringHelper.uppercase(field));
+		String name = String.format("set%s", field.toUpperCase());
 		return methods.contains(name);
 	}
 
 	public static Method getSetter(String field, List<Method> methods) {
-		String name = String.format("set%s", StringHelper.uppercase(field));
+		String name = String.format("set%s", field.toUpperCase());
 
 		for (Method method : methods) {
 			if (name.equals(method.getName())) {
@@ -196,10 +196,10 @@ public class ClassHelper {
 
 	public static Method getGetter(Field field, List<Method> methods) {
 		Class<?> fieldType = field.getType();
-		String name = String.format("get%s", StringHelper.uppercase(field.getName()));
+		String name = String.format("get%s", field.getName().toUpperCase());
 
 		if (fieldType == Boolean.class) {
-			name = String.format("is%s", StringHelper.uppercase(field.getName()));
+			name = String.format("is%s", field.getName().toUpperCase());
 		}
 
 		for (Method method : methods) {

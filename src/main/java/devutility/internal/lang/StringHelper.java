@@ -1,6 +1,14 @@
 package devutility.internal.lang;
 
 public class StringHelper {
+	public static boolean isNullOrEmpty(String value) {
+		return value == null || value.length() == 0 || value.trim().length() == 0;
+	}
+
+	public static boolean isNotEmpty(String value) {
+		return !isNullOrEmpty(value);
+	}
+
 	public static String concat(String... str) {
 		if (str.length == 0) {
 			return null;
@@ -15,17 +23,17 @@ public class StringHelper {
 		return stringBuffer.toString();
 	}
 
-	public static boolean isNullOrEmpty(String value) {
-		return value == null || value.length() == 0 || value.trim().length() == 0;
-	}
-
-	public static String uppercase(String value) {
-		char[] array = value.toCharArray();
-
-		if (array[0] >= 'a' && array[0] <= 'z') {
-			array[0] = (char) (array[0] - 32);
+	public static String trimEnd(String value, String tail) {
+		if (value == null || tail == null) {
+			return value;
 		}
 
-		return String.valueOf(array);
+		int index = value.indexOf(tail);
+
+		if (index == value.length() - tail.length()) {
+			return value.substring(0, index);
+		}
+
+		return value;
 	}
 }
