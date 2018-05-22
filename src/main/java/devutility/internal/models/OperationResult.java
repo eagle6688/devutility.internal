@@ -19,6 +19,10 @@ public class OperationResult {
 		append(message);
 	}
 
+	public void setErrorMessage(String message) {
+		appendError(message);
+	}
+
 	public boolean isSucceeded() {
 		return succeeded;
 	}
