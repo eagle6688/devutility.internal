@@ -9,7 +9,10 @@ public class DateUtils {
 	 * @return long
 	 */
 	public static long millisecondsToDays(long milliseconds) {
-		return milliseconds / (1000 * 60 * 60 * 24);
+		long dividend = 1000 * 60 * 60 * 24;
+		long mod = milliseconds % dividend;
+		long quotient = milliseconds / dividend;
+		return mod == 0 ? quotient : quotient + 1;
 	}
 
 	/**
@@ -18,7 +21,10 @@ public class DateUtils {
 	 * @return long
 	 */
 	public static long millisecondsToHours(long milliseconds) {
-		return milliseconds / (1000 * 60 * 60);
+		long dividend = 1000 * 60 * 60;
+		long mod = milliseconds % dividend;
+		long quotient = milliseconds / dividend;
+		return mod == 0 ? quotient : quotient + 1;
 	}
 
 	/**
