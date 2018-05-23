@@ -4,6 +4,7 @@ public class OperationResult {
 	private boolean succeeded;
 	private StringBuffer message;
 	private Object data;
+	private int code;
 
 	public OperationResult() {
 		succeeded = true;
@@ -41,5 +42,13 @@ public class OperationResult {
 
 	public StringBuffer getMessage() {
 		return message;
+	}
+
+	public int getCode() {
+		return code;
+	}
+
+	public void setCode(int code) {
+		this.code = code;
 	}
 }
