@@ -7,7 +7,7 @@ import devutility.internal.dao.models.DbInstance;
 import devutility.internal.lang.StringHelper;
 import devutility.internal.util.PropertiesUtils;
 
-public class DbInstanceHelper {
+public class DbInstanceUtils {
 	public static DbInstance getInstance(Properties properties, String prefix) {
 		if (properties == null || !PropertiesUtils.containsPrefix(properties, prefix)) {
 			return null;
