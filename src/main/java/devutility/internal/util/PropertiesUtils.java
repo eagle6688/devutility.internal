@@ -1,7 +1,10 @@
 package devutility.internal.util;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
+import java.net.URISyntaxException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -9,18 +12,38 @@ import java.util.Map;
 import java.util.Properties;
 
 import devutility.internal.data.BeanUtils;
+import devutility.internal.io.ResourcesUtils;
 import devutility.internal.lang.ClassHelper;
 import devutility.internal.lang.StringHelper;
 import devutility.internal.lang.models.EntityField;
 
 public class PropertiesUtils {
 	/**
-	 * Get properties
-	 * @param resourceName: Properties file name
+	 * Get properties.
+	 * @param resourceName: Properties file name.
 	 * @return Properties
 	 */
-	public static Properties getProperties(String resourceName) {
-		return getProperties(PropertiesUtils.class.getClassLoader().getResourceAsStream(resourceName));
+	public static Properties getProperties(String propertiesFile) {
+		InputStream inputStream = PropertiesUtils.class.getClassLoader().getResourceAsStream(propertiesFile);
+		return getProperties(inputStream);
+	}
+
+	/**
+	 * Find out the properties file by default order and load it.
+	 * @param propertiesFile: Properties file name.
+	 * @return Properties
+	 * @throws URISyntaxException
+	 * @throws FileNotFoundException
+	 */
+	public static Properties getPropertiesByDefaultOrder(String propertiesFile) throws URISyntaxException, FileNotFoundException {
+		String path = ResourcesUtils.getPathByDefaultOrder(propertiesFile);
+
+		if (path == null) {
+			return null;
+		}
+
+		InputStream inputStream = new FileInputStream(path);
+		return getProperties(inputStream);
 	}
 
 	/**

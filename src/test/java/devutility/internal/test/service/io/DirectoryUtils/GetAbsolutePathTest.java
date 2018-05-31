@@ -1,8 +1,8 @@
-package devutility.internal.test.service.io.DirectoryHelper;
+package devutility.internal.test.service.io.DirectoryUtils;
 
 import java.io.IOException;
 
-import devutility.internal.io.DirectoryHelper;
+import devutility.internal.io.DirectoryUtils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
@@ -10,7 +10,7 @@ public class GetAbsolutePathTest extends BaseTest {
 	@Override
 	public void run() {
 		try {
-			println(DirectoryHelper.toAbsolutePath("src/main/webapp/view/crossdomain/header.html"));
+			println(DirectoryUtils.toAbsolutePath("src/main/webapp/view/crossdomain/header.html"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

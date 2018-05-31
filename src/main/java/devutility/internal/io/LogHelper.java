@@ -18,7 +18,7 @@ public class LogHelper {
 	// region get Log Root Directory
 
 	public static String getLogRootDirectory() throws IOException {
-		String projectDirectory = DirectoryHelper.getProjectDirectory();
+		String projectDirectory = DirectoryUtils.getProjectDirectory();
 
 		if (projectDirectory == null) {
 			throw new IOException("Cannot get project directory!");
@@ -46,9 +46,9 @@ public class LogHelper {
 	// region save
 
 	public static void save(String rootDirectory, LocalDateTime dateTime, String fileNameFormat, String content) throws IOException {
-		String logDirectory = DirectoryHelper.getDateDirectory(rootDirectory, dateTime);
+		String logDirectory = DirectoryUtils.getDateDirectory(rootDirectory, dateTime);
 
-		if (!DirectoryHelper.createIfNon(logDirectory)) {
+		if (!DirectoryUtils.createIfNon(logDirectory)) {
 			throw new IOException(String.format("Cannot create directory %s", logDirectory));
 		}
 

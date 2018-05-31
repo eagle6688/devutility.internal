@@ -37,7 +37,7 @@ public abstract class BaseTest {
 			return;
 		}
 
-		String value = String.format(format, Arrays.asList());
+		String value = String.format(format, Arrays.asList(args).toArray());
 		println(value);
 	}
 
