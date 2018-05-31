@@ -13,6 +13,14 @@ public class ResourceTest extends BaseTest {
 
 		url = this.getClass().getClassLoader().getResource("system.properties");
 		println(url.toString());
+
+		url = this.getClass().getClassLoader().getResource("asd.properties");
+
+		if (url == null) {
+			println("No file");
+		} else {
+			println(url.toString());
+		}
 	}
 
 	public static void main(String[] args) {
