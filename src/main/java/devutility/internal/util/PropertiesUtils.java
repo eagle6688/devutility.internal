@@ -20,7 +20,7 @@ import devutility.internal.lang.models.EntityField;
 public class PropertiesUtils {
 	/**
 	 * Get properties.
-	 * @param resourceName: Properties file name.
+	 * @param propertiesFile: Properties file name.
 	 * @return Properties
 	 */
 	public static Properties getProperties(String propertiesFile) {
