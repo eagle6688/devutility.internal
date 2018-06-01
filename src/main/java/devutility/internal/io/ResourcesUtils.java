@@ -1,6 +1,9 @@
 package devutility.internal.io;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Path;
@@ -8,12 +11,13 @@ import java.nio.file.Paths;
 
 public class ResourcesUtils {
 	/**
-	 * Find out the resource path by default order.
-	 * @param resource: Resource path.
-	 * @return String
+	 * Get InputStream by default loading order.
+	 * @param resource: Resource file name.
+	 * @return InputStream
 	 * @throws URISyntaxException
+	 * @throws IOException
 	 */
-	public static String getPathByDefaultOrder(String resource) throws URISyntaxException {
+	public static InputStream getInputStream(String resource) throws URISyntaxException, IOException {
 		String projectDirectory = DirectoryUtils.getProjectDirectory();
 		URL url = DirectoryUtils.class.getClassLoader().getResource(resource);
 
@@ -25,7 +29,7 @@ public class ResourcesUtils {
 			String path = file.getAbsolutePath();
 
 			if (file.exists() && path.indexOf(projectDirectory) == 0) {
-				return path;
+				return new FileInputStream(file);
 			}
 		}
 
@@ -36,7 +40,7 @@ public class ResourcesUtils {
 		File resourceFile = resourcePath.toFile();
 
 		if (resourceFile.exists()) {
-			return resourceFile.getAbsolutePath();
+			return new FileInputStream(resourceFile);
 		}
 
 		/**
@@ -44,19 +48,17 @@ public class ResourcesUtils {
 		 */
 		if (url != null && "file".equals(url.getProtocol())) {
 			File file = new File(url.toURI());
-			String path = file.getAbsolutePath();
 
 			if (file.exists()) {
-				return path;
+				return new FileInputStream(file);
 			}
 		}
 
 		/**
-		 * Rank 4: Other jar package file.
+		 * Rank 4: Dependent jar package file.
 		 */
 		if (url != null && "jar".equals(url.getProtocol())) {
-			File file = new File(url.toURI());
-			return file.getAbsolutePath();
+			return url.openStream();
 		}
 
 		return null;
