@@ -140,7 +140,7 @@ public class LdapUtils {
 	 * @param searchBase: SearchBase.
 	 * @param searchFilter: SearchFilter.
 	 * @param searchControls: SearchControls object
-	 * @return List<LdapAccount>
+	 * @return {@code List<LdapAccount>}
 	 * @throws NamingException
 	 */
 	public static java.util.List<LdapAccount> search(LdapContext ldapContext, String searchBase, String searchFilter, SearchControls searchControls) throws NamingException {
