@@ -8,6 +8,12 @@ import devutility.internal.lang.StringHelper;
 import devutility.internal.util.PropertiesUtils;
 
 public class DbInstanceUtils {
+	/**
+	 * Get a DbInstance object by properties and key prefix.
+	 * @param properties: Properties object.
+	 * @param prefix: Prefix of properties key.
+	 * @return DbInstance
+	 */
 	public static DbInstance getInstance(Properties properties, String prefix) {
 		if (properties == null || !PropertiesUtils.containsPrefix(properties, prefix)) {
 			return null;
@@ -18,21 +24,33 @@ public class DbInstanceUtils {
 		return instance;
 	}
 
-	public static DbInstance getInstance(InputStream propertiesIns, String prefix) {
-		if (propertiesIns == null) {
+	/**
+	 * Get a DbInstance object by inputStream and key prefix.
+	 * @param inputStream: Properties inputStream.
+	 * @param prefix: Prefix of properties key.
+	 * @return DbInstance
+	 */
+	public static DbInstance getInstance(InputStream inputStream, String prefix) {
+		if (inputStream == null) {
 			return null;
 		}
 
-		Properties properties = PropertiesUtils.getProperties(propertiesIns);
+		Properties properties = PropertiesUtils.getProperties(inputStream);
 		return getInstance(properties, prefix);
 	}
 
-	public static DbInstance getInstance(String resourceName, String prefix) {
-		if (StringHelper.isNullOrEmpty(resourceName)) {
+	/**
+	 * Get a DbInstance object by properties file and key prefix.
+	 * @param propertiesFile: Properties file name.
+	 * @param prefix: Prefix of properties key.
+	 * @return DbInstance
+	 */
+	public static DbInstance getInstance(String propertiesFile, String prefix) {
+		if (StringHelper.isNullOrEmpty(propertiesFile)) {
 			return null;
 		}
 
-		Properties properties = PropertiesUtils.getProperties(resourceName);
+		Properties properties = PropertiesUtils.getProperties(propertiesFile);
 
 		if (properties == null || !PropertiesUtils.containsPrefix(properties, prefix)) {
 			return null;
@@ -41,10 +59,12 @@ public class DbInstanceUtils {
 		return getInstance(properties, prefix);
 	}
 
-	// endregion
-
-	// region set instance
-
+	/**
+	 * Set DbInstance.
+	 * @param instance: DbInstance object.
+	 * @param properties: Properties object.
+	 * @param prefix: Prefix of properties key.
+	 */
 	protected static void setInstance(DbInstance instance, Properties properties, String prefix) {
 		instance.setHost(PropertiesUtils.getProperty(properties, getPropertyKeyHost(prefix)));
 		instance.setPort(PropertiesUtils.getIntProperty(properties, getPropertyKeyPort(prefix)));
@@ -53,10 +73,6 @@ public class DbInstanceUtils {
 		instance.setDatabase(PropertiesUtils.getProperty(properties, getPropertyKeyDatabase(prefix)));
 		instance.setTimeout(PropertiesUtils.getIntProperty(properties, getPropertyKeyTimeout(prefix)));
 	}
-
-	// endregion
-
-	// region get property
 
 	public static String getPropertyKeyHost(String prefix) {
 		return String.format("%s.host", prefix);
@@ -81,6 +97,4 @@ public class DbInstanceUtils {
 	public static String getPropertyKeyTimeout(String prefix) {
 		return String.format("%s.timeout", prefix);
 	}
-
-	// endregion
 }
