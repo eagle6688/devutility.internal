@@ -7,7 +7,7 @@ import javax.naming.NamingException;
 import javax.naming.ldap.InitialLdapContext;
 import javax.naming.ldap.LdapContext;
 
-public class LadpHelper {
+public class LadpUtils {
 	/**
 	 * Url format of provider
 	 */
