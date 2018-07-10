@@ -70,8 +70,8 @@ public class GenericTypeUtils {
 	 * @throws ClassNotFoundException
 	 */
 	public static Class<?> getGenericClass(Field field) throws ClassNotFoundException {
-		Type type = getGenericType(field);
-		return typeToClass(type);
+		Type genericType = getGenericType(field);
+		return typeToClass(genericType);
 	}
 
 	/**
