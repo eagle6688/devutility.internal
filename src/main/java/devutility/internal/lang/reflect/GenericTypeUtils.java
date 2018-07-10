@@ -67,10 +67,22 @@ public class GenericTypeUtils {
 	 * Get actual generic Class object by field's parameterized type.
 	 * @param field: Field object.
 	 * @return Class<?>: Class object.
-	 * @throws ClassNotFoundException
+	 * @throws ClassNotFoundException: When type cannot found.
 	 */
 	public static Class<?> getGenericClass(Field field) throws ClassNotFoundException {
 		Type genericType = getGenericType(field);
+		return typeToClass(genericType);
+	}
+
+	/**
+	 * Get actual generic Class object by type.
+	 * @param type: Type object.
+	 * @return Class<?>
+	 * @throws ClassNotFoundException: When type cannot found.
+	 */
+	public static Class<?> getGenericClass(Type type) throws ClassNotFoundException {
+		ParameterizedType parameterizedType = typeToParameterizedType(type);
+		Type genericType = getGenericType(parameterizedType);
 		return typeToClass(genericType);
 	}
 
