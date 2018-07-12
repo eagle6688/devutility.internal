@@ -1,4 +1,4 @@
-package devutility.internal.test.service.io.RandomAccessFileHelper;
+package devutility.internal.test.service.io.randomaccessfilehelper;
 
 import java.nio.ByteBuffer;
 import java.nio.channels.CompletionHandler;

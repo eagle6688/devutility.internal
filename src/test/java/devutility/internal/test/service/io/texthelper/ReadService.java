@@ -1,4 +1,4 @@
-package devutility.internal.test.service.io.TextHelper;
+package devutility.internal.test.service.io.texthelper;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

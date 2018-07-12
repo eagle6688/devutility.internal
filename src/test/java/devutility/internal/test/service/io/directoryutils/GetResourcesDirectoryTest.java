@@ -1,4 +1,4 @@
-package devutility.internal.test.service.io.DirectoryUtils;
+package devutility.internal.test.service.io.directoryutils;
 
 import devutility.internal.io.DirectoryUtils;
 import devutility.internal.test.BaseTest;
