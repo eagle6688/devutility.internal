@@ -1,6 +1,7 @@
 package devutility.internal.io;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.nio.file.Path;
 
 public class FileUtils {
@@ -34,5 +35,21 @@ public class FileUtils {
 	public static String getFileExtension(String fileName) {
 		int index = fileName.lastIndexOf(".");
 		return fileName.substring(index + 1);
+	}
+
+	/**
+	 * Create an new File object.
+	 * @param filePath: File path.
+	 * @return File
+	 * @throws FileNotFoundException: Throw while file not found.
+	 */
+	public static File create(String filePath) throws FileNotFoundException {
+		File file = new File(filePath);
+
+		if (!file.exists()) {
+			throw new FileNotFoundException(String.format("File %s not found!", filePath));
+		}
+
+		return file;
 	}
 }
