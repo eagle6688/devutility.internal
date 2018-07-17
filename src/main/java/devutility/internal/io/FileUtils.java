@@ -41,7 +41,7 @@ public class FileUtils {
 	 * Create an new File object.
 	 * @param filePath: File path.
 	 * @return File
-	 * @throws FileNotFoundException: Throw while file not found.
+	 * @throws FileNotFoundException When file not found.
 	 */
 	public static File create(String filePath) throws FileNotFoundException {
 		File file = new File(filePath);

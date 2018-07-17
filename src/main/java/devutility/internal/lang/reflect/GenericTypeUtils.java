@@ -22,8 +22,8 @@ public class GenericTypeUtils {
 	/**
 	 * Convert type to Class.
 	 * @param type: Type object.
-	 * @return Class<?>
-	 * @throws ClassNotFoundException: When type cannot found.
+	 * @return {@code Class<?>}
+	 * @throws ClassNotFoundException When type not found.
 	 */
 	public static Class<?> typeToClass(Type type) throws ClassNotFoundException {
 		if (type == null || !(type instanceof Class)) {
@@ -66,8 +66,8 @@ public class GenericTypeUtils {
 	/**
 	 * Get actual generic Class object by field's parameterized type.
 	 * @param field: Field object.
-	 * @return Class<?>: Class object.
-	 * @throws ClassNotFoundException: When type cannot found.
+	 * @return {@code Class<?>}
+	 * @throws ClassNotFoundException When type not found.
 	 */
 	public static Class<?> getGenericClass(Field field) throws ClassNotFoundException {
 		Type genericType = getGenericType(field);
@@ -77,8 +77,8 @@ public class GenericTypeUtils {
 	/**
 	 * Get actual generic Class object by type.
 	 * @param type: Type object.
-	 * @return Class<?>
-	 * @throws ClassNotFoundException: When type cannot found.
+	 * @return {@code Class<?>}
+	 * @throws ClassNotFoundException When type not found.
 	 */
 	public static Class<?> getGenericClass(Type type) throws ClassNotFoundException {
 		ParameterizedType parameterizedType = typeToParameterizedType(type);
@@ -89,7 +89,7 @@ public class GenericTypeUtils {
 	/**
 	 * Get Class object of List.
 	 * @param list: List object.
-	 * @return Class<?>
+	 * @return {@code Class<?>}
 	 */
 	public static Class<?> getGenericClass(List<?> list) {
 		if (list == null || list.isEmpty()) {
