@@ -9,8 +9,6 @@ public class DbInstance {
 	private int timeout = 3000;
 	private String url = "";
 
-	// region Constructor
-
 	public DbInstance() {
 
 	}
@@ -39,8 +37,6 @@ public class DbInstance {
 		this(host, port, database, loginName);
 		this.password = password;
 	}
-
-	// endregion
 
 	public String getHost() {
 		return host;
@@ -81,7 +77,7 @@ public class DbInstance {
 	public void setDatabase(String database) {
 		this.database = database;
 	}
-	
+
 	public int getTimeout() {
 		return timeout;
 	}

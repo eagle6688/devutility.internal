@@ -66,12 +66,17 @@ public class DbInstanceUtils {
 	 * @param prefix: Prefix of properties key.
 	 */
 	protected static void setInstance(DbInstance instance, Properties properties, String prefix) {
+		instance.setUrl(PropertiesUtils.getProperty(properties, getPropertyKeyUrl(prefix)));
 		instance.setHost(PropertiesUtils.getProperty(properties, getPropertyKeyHost(prefix)));
 		instance.setPort(PropertiesUtils.getIntProperty(properties, getPropertyKeyPort(prefix)));
 		instance.setLoginName(PropertiesUtils.getProperty(properties, getPropertyKeyLoginname(prefix)));
 		instance.setPassword(PropertiesUtils.getProperty(properties, getPropertyKeyPassword(prefix)));
 		instance.setDatabase(PropertiesUtils.getProperty(properties, getPropertyKeyDatabase(prefix)));
 		instance.setTimeout(PropertiesUtils.getIntProperty(properties, getPropertyKeyTimeout(prefix)));
+	}
+
+	public static String getPropertyKeyUrl(String prefix) {
+		return String.format("%s.url", prefix);
 	}
 
 	public static String getPropertyKeyHost(String prefix) {
