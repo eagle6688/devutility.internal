@@ -12,7 +12,7 @@ public class GetInstanceTest extends BaseTest {
 	public void run() {
 		InputStream inputStream = GetInstanceTest.class.getClassLoader().getResourceAsStream("database.properties");
 		DbInstance dbInstance = DbInstanceUtils.getInstance(inputStream, "mongodb");
-		println(dbInstance.getUrl());
+		println(dbInstance.getUri());
 		println(dbInstance.getDatabase());
 	}
 

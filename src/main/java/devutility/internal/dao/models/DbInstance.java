@@ -7,7 +7,7 @@ public class DbInstance {
 	private String password = "";
 	private String database = "";
 	private int timeout = 3000;
-	private String url = "";
+	private String uri = "";
 
 	public DbInstance() {
 
@@ -86,11 +86,11 @@ public class DbInstance {
 		this.timeout = timeout;
 	}
 
-	public String getUrl() {
-		return url;
+	public String getUri() {
+		return uri;
 	}
 
-	public void setUrl(String url) {
-		this.url = url;
+	public void setUri(String uri) {
+		this.uri = uri;
 	}
 }
