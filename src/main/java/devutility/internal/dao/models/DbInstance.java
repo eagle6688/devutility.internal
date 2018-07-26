@@ -1,41 +1,48 @@
 package devutility.internal.dao.models;
 
 public class DbInstance {
+	private String uri = "";
 	private String host = "";
-	private int port = 0;
+	private int port = 6379;
 	private String loginName = "";
 	private String password = "";
 	private String database = "";
 	private int timeout = 3000;
-	private String uri = "";
 
 	public DbInstance() {
 
 	}
 
 	public DbInstance(String host) {
-		this();
-		this.host = host;
+		this(host, 6379, null, null, null);
 	}
 
 	public DbInstance(String host, int port) {
-		this(host);
-		this.port = port;
+		this(host, port, null, null, null);
 	}
 
 	public DbInstance(String host, int port, String database) {
-		this(host, port);
-		this.database = database;
+		this(host, port, database, null, null);
 	}
 
 	public DbInstance(String host, int port, String database, String loginName) {
-		this(host, port, database);
-		this.loginName = loginName;
+		this(host, port, database, loginName, null);
 	}
 
 	public DbInstance(String host, int port, String database, String loginName, String password) {
-		this(host, port, database, loginName);
+		this.host = host;
+		this.port = port;
+		this.database = database;
+		this.loginName = loginName;
 		this.password = password;
+	}
+
+	public String getUri() {
+		return uri;
+	}
+
+	public void setUri(String uri) {
+		this.uri = uri;
 	}
 
 	public String getHost() {
@@ -84,13 +91,5 @@ public class DbInstance {
 
 	public void setTimeout(int timeout) {
 		this.timeout = timeout;
-	}
-
-	public String getUri() {
-		return uri;
-	}
-
-	public void setUri(String uri) {
-		this.uri = uri;
 	}
 }

@@ -60,46 +60,28 @@ public class DbInstanceUtils {
 	}
 
 	/**
+	 * Get property key.
+	 * @param prefix: Prefix of key.
+	 * @param name: Key name.
+	 * @return String
+	 */
+	public static String getPropertyKey(String prefix, String name) {
+		return String.format("%s.%s", prefix, name);
+	}
+
+	/**
 	 * Set DbInstance.
 	 * @param instance: DbInstance object.
 	 * @param properties: Properties object.
 	 * @param prefix: Prefix of properties key.
 	 */
 	protected static void setInstance(DbInstance instance, Properties properties, String prefix) {
-		instance.setUri(PropertiesUtils.getProperty(properties, getPropertyKeyUri(prefix)));
-		instance.setHost(PropertiesUtils.getProperty(properties, getPropertyKeyHost(prefix)));
-		instance.setPort(PropertiesUtils.getIntProperty(properties, getPropertyKeyPort(prefix)));
-		instance.setLoginName(PropertiesUtils.getProperty(properties, getPropertyKeyLoginname(prefix)));
-		instance.setPassword(PropertiesUtils.getProperty(properties, getPropertyKeyPassword(prefix)));
-		instance.setDatabase(PropertiesUtils.getProperty(properties, getPropertyKeyDatabase(prefix)));
-		instance.setTimeout(PropertiesUtils.getIntProperty(properties, getPropertyKeyTimeout(prefix)));
-	}
-
-	public static String getPropertyKeyUri(String prefix) {
-		return String.format("%s.uri", prefix);
-	}
-
-	public static String getPropertyKeyHost(String prefix) {
-		return String.format("%s.host", prefix);
-	}
-
-	public static String getPropertyKeyPort(String prefix) {
-		return String.format("%s.port", prefix);
-	}
-
-	public static String getPropertyKeyLoginname(String prefix) {
-		return String.format("%s.loginname", prefix);
-	}
-
-	public static String getPropertyKeyPassword(String prefix) {
-		return String.format("%s.password", prefix);
-	}
-
-	public static String getPropertyKeyDatabase(String prefix) {
-		return String.format("%s.database", prefix);
-	}
-
-	public static String getPropertyKeyTimeout(String prefix) {
-		return String.format("%s.timeout", prefix);
+		instance.setUri(PropertiesUtils.getProperty(properties, getPropertyKey(prefix, "uri")));
+		instance.setHost(PropertiesUtils.getProperty(properties, getPropertyKey(prefix, "host")));
+		instance.setPort(PropertiesUtils.getIntProperty(properties, getPropertyKey(prefix, "port")));
+		instance.setLoginName(PropertiesUtils.getProperty(properties, getPropertyKey(prefix, "loginname")));
+		instance.setPassword(PropertiesUtils.getProperty(properties, getPropertyKey(prefix, "password")));
+		instance.setDatabase(PropertiesUtils.getProperty(properties, getPropertyKey(prefix, "database")));
+		instance.setTimeout(PropertiesUtils.getIntProperty(properties, getPropertyKey(prefix, "timeout")));
 	}
 }
