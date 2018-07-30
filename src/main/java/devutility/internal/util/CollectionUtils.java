@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -226,6 +227,16 @@ public class CollectionUtils {
 	}
 
 	/**
+	 * Map some fields and return a Set.
+	 * @param collection: Elements collection.
+	 * @param mapper: Fields mapper.
+	 * @return {@code Set<R>}
+	 */
+	public static <E, R> Set<R> mapToSet(Collection<E> collection, Function<? super E, ? extends R> mapper) {
+		return map(collection, mapper).collect(Collectors.toSet());
+	}
+
+	/**
 	 * Query elements by predicate command, map some fields and return a stream.
 	 * @param collection: Elements collection.
 	 * @param predicate: Predicate command.
@@ -245,6 +256,17 @@ public class CollectionUtils {
 	 */
 	public static <E, R> List<R> mapToList(Collection<E> collection, Predicate<E> predicate, Function<? super E, ? extends R> mapper) {
 		return map(collection, predicate, mapper).collect(Collectors.toList());
+	}
+
+	/**
+	 * Query elements by predicate command, map some fields and return a Set.
+	 * @param collection: Elements collection.
+	 * @param predicate: Predicate command.
+	 * @param mapper: Fields mapper.
+	 * @return {@code Set<R>}
+	 */
+	public static <E, R> Set<R> mapToSet(Collection<E> collection, Predicate<E> predicate, Function<? super E, ? extends R> mapper) {
+		return map(collection, predicate, mapper).collect(Collectors.toSet());
 	}
 
 	/**
