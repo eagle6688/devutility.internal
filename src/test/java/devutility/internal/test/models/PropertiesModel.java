@@ -6,7 +6,6 @@ public class PropertiesModel {
 	@PropertiesKey("test.loginName")
 	private String loginName;
 
-	@PropertiesKey("test.password")
 	private String password;
 
 	@PropertiesKey("test.timeout")

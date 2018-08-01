@@ -13,6 +13,7 @@ public class ToModelTest extends BaseTest {
 		try {
 			PropertiesModel model = PropertiesUtils.toModel("database.properties", PropertiesModel.class);
 			println(model.getLoginName());
+			println(model.getPassword());
 			println(model.getTimeout());
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			e.printStackTrace();
