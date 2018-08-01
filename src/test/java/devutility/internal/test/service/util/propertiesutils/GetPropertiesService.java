@@ -1,4 +1,4 @@
-package devutility.internal.test.service.util.propertieshelper;
+package devutility.internal.test.service.util.propertiesutils;
 
 import java.util.Properties;
 

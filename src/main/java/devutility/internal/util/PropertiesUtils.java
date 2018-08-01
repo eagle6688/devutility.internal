@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import devutility.internal.annotations.PropertiesField;
+import devutility.internal.annotations.PropertiesKey;
 import devutility.internal.data.BeanUtils;
 import devutility.internal.lang.ClassHelper;
 import devutility.internal.lang.StringHelper;
@@ -310,13 +310,13 @@ public class PropertiesUtils {
 	 * @return String
 	 */
 	public static String getPropertyKey(Field field) {
-		PropertiesField propertiesField = field.getAnnotation(PropertiesField.class);
+		PropertiesKey propertiesKey = field.getAnnotation(PropertiesKey.class);
 
-		if (propertiesField == null) {
+		if (propertiesKey == null) {
 			return null;
 		}
 
-		return propertiesField.name();
+		return propertiesKey.value();
 	}
 
 	/**
