@@ -1,10 +1,11 @@
-package devutility.internal.dao;
+package devutility.internal.data;
 
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Properties;
 
-import devutility.internal.dao.models.DbInstance;
 import devutility.internal.lang.StringHelper;
+import devutility.internal.models.DbInstance;
 import devutility.internal.util.PropertiesUtils;
 
 public class DbInstanceUtils {
@@ -19,8 +20,14 @@ public class DbInstanceUtils {
 			return null;
 		}
 
-		DbInstance instance = new DbInstance();
-		setInstance(instance, properties, prefix);
+		DbInstance instance = null;
+
+		try {
+			instance = PropertiesUtils.toModel(properties, prefix, DbInstance.class);
+		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+			e.printStackTrace();
+		}
+
 		return instance;
 	}
 
@@ -57,31 +64,5 @@ public class DbInstanceUtils {
 		}
 
 		return getInstance(properties, prefix);
-	}
-
-	/**
-	 * Get property key.
-	 * @param prefix: Prefix of key.
-	 * @param name: Key name.
-	 * @return String
-	 */
-	public static String getPropertyKey(String prefix, String name) {
-		return String.format("%s.%s", prefix, name);
-	}
-
-	/**
-	 * Set DbInstance.
-	 * @param instance: DbInstance object.
-	 * @param properties: Properties object.
-	 * @param prefix: Prefix of properties key.
-	 */
-	protected static void setInstance(DbInstance instance, Properties properties, String prefix) {
-		instance.setUri(PropertiesUtils.getProperty(properties, getPropertyKey(prefix, "uri")));
-		instance.setHost(PropertiesUtils.getProperty(properties, getPropertyKey(prefix, "host")));
-		instance.setPort(PropertiesUtils.getIntProperty(properties, getPropertyKey(prefix, "port")));
-		instance.setLoginName(PropertiesUtils.getProperty(properties, getPropertyKey(prefix, "loginname")));
-		instance.setPassword(PropertiesUtils.getProperty(properties, getPropertyKey(prefix, "password")));
-		instance.setDatabase(PropertiesUtils.getProperty(properties, getPropertyKey(prefix, "database")));
-		instance.setTimeout(PropertiesUtils.getIntProperty(properties, getPropertyKey(prefix, "timeout")));
 	}
 }

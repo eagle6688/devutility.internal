@@ -1,6 +1,7 @@
 package devutility.internal.util;
 
 import java.io.InputStream;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 import java.util.HashMap;
@@ -8,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import devutility.internal.annotations.PropertiesField;
 import devutility.internal.data.BeanUtils;
 import devutility.internal.lang.ClassHelper;
 import devutility.internal.lang.StringHelper;
@@ -177,47 +179,58 @@ public class PropertiesUtils {
 	}
 
 	/**
-	 * Properties to model
-	 * @param resourceName: Properties file
-	 * @param prefix: Prefix of property key
-	 * @param clazz: Class of model
-	 * @return model
+	 * Convert Properties to model.
+	 * @param propertiesFile: Properties file.
+	 * @param prefix: Prefix of property key.
+	 * @param clazz: Model Class object.
+	 * @return {@code T}
 	 * @throws NumberFormatException
 	 * @throws IllegalAccessException
 	 * @throws IllegalArgumentException
 	 * @throws InvocationTargetException
 	 */
-	public static <T> T toModel(String resourceName, String prefix, Class<T> clazz) throws NumberFormatException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		Properties properties = getProperties(resourceName);
+	public static <T> T toModel(String propertiesFile, String prefix, Class<T> clazz) throws NumberFormatException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		Properties properties = getProperties(propertiesFile);
 		return toModel(properties, prefix, clazz);
 	}
 
 	/**
-	 * Properties to model
-	 * @param properties: Properties object
-	 * @param prefix: Prefix of property key
-	 * @param clazz: Class of model
-	 * @return model
+	 * Convert Properties to model.
+	 * @param propertiesFile: Properties file.
+	 * @param clazz: Model Class object.
+	 * @return {@code T}
+	 * @throws NumberFormatException
+	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
+	 * @throws InvocationTargetException
+	 */
+	public static <T> T toModel(String propertiesFile, Class<T> clazz) throws NumberFormatException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		Properties properties = getProperties(propertiesFile);
+		return toModel(properties, clazz);
+	}
+
+	/**
+	 * Convert Properties to model.
+	 * @param properties: Properties object.
+	 * @param prefix: Prefix of property key.
+	 * @param clazz: Model Class object.
+	 * @return {@code T}
 	 * @throws NumberFormatException
 	 * @throws IllegalAccessException
 	 * @throws IllegalArgumentException
 	 * @throws InvocationTargetException
 	 */
 	public static <T> T toModel(Properties properties, String prefix, Class<T> clazz) throws NumberFormatException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		if (properties == null) {
-			return null;
-		}
+		T model = ClassHelper.instance(clazz);
 
 		boolean hasProperty = false;
-		T model = ClassHelper.instance(clazz);
 		List<EntityField> entityFields = ClassHelper.getEntityFields(clazz);
 
 		for (EntityField entityField : entityFields) {
-			String propertyKey = getPropertyKey(prefix, entityField.getField().getName());
-			String propertyValue = PropertiesUtils.getProperty(properties, propertyKey);
+			String value = getPropertyValue(properties, prefix, entityField.getField());
 
-			if (!StringHelper.isNullOrEmpty(propertyValue)) {
-				BeanUtils.setField(entityField.getSetter(), model, propertyValue, entityField.getField());
+			if (value != null) {
+				BeanUtils.setField(entityField.getSetter(), model, value, entityField.getField());
 				hasProperty = true;
 			}
 		}
@@ -230,16 +243,112 @@ public class PropertiesUtils {
 	}
 
 	/**
-	 * Get property key
-	 * @param prefix: Prefix of property key
-	 * @param field: field of model
-	 * @return String
+	 * Convert Properties to model.
+	 * @param properties: Properties object.
+	 * @param clazz: Model Class object.
+	 * @return {@code T}
+	 * @throws NumberFormatException
+	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
+	 * @throws InvocationTargetException
 	 */
-	private static String getPropertyKey(String prefix, String field) {
-		if (StringHelper.isNullOrEmpty(prefix)) {
-			return field;
+	public static <T> T toModel(Properties properties, Class<T> clazz) throws NumberFormatException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		T model = ClassHelper.instance(clazz);
+
+		boolean hasProperty = false;
+		List<EntityField> entityFields = ClassHelper.getEntityFields(clazz);
+
+		for (EntityField entityField : entityFields) {
+			String value = getPropertyValue(properties, entityField.getField());
+
+			if (value != null) {
+				BeanUtils.setField(entityField.getSetter(), model, value, entityField.getField());
+				hasProperty = true;
+			}
 		}
 
-		return String.format("%s.%s", prefix, field);
+		if (!hasProperty) {
+			return null;
+		}
+
+		return model;
+	}
+
+	/**
+	 * Get property key.
+	 * @param prefix: Prefix of property key.
+	 * @param field: Field object in model.
+	 * @return String
+	 */
+	public static String getPropertyKey(String prefix, Field field) {
+		String propertyKey = getPropertyKey(field);
+
+		if (StringHelper.isNotEmpty(propertyKey)) {
+			return propertyKey;
+		}
+
+		return getPropertyKey(prefix, field.getName());
+	}
+
+	/**
+	 * Get property key.
+	 * @param prefix: Prefix of property key.
+	 * @param fieldName: Field name.
+	 * @return String
+	 */
+	public static String getPropertyKey(String prefix, String fieldName) {
+		if (StringHelper.isNullOrEmpty(prefix)) {
+			return fieldName;
+		}
+
+		return String.format("%s.%s", prefix, fieldName);
+	}
+
+	/**
+	 * Get property key.
+	 * @param field: Field object in model.
+	 * @return String
+	 */
+	public static String getPropertyKey(Field field) {
+		PropertiesField propertiesField = field.getAnnotation(PropertiesField.class);
+
+		if (propertiesField == null) {
+			return null;
+		}
+
+		return propertiesField.name();
+	}
+
+	/**
+	 * Get property value.
+	 * @param properties: Properties object.
+	 * @param prefix: Prefix of property key.
+	 * @param field: Field object in model.
+	 * @return String
+	 */
+	public static String getPropertyValue(Properties properties, String prefix, Field field) {
+		String propertyKey = getPropertyKey(prefix, field);
+
+		if (StringHelper.isNullOrEmpty(propertyKey)) {
+			return null;
+		}
+
+		return PropertiesUtils.getProperty(properties, propertyKey);
+	}
+
+	/**
+	 * Get property value.
+	 * @param properties: Properties object.
+	 * @param field: Field object in model.
+	 * @return String
+	 */
+	public static String getPropertyValue(Properties properties, Field field) {
+		String propertyKey = getPropertyKey(field);
+
+		if (StringHelper.isNullOrEmpty(propertyKey)) {
+			propertyKey = field.getName();
+		}
+
+		return PropertiesUtils.getProperty(properties, propertyKey);
 	}
 }

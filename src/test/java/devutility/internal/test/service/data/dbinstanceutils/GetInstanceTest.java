@@ -1,9 +1,9 @@
-package devutility.internal.test.service.dao.dbinstanceutils;
+package devutility.internal.test.service.data.dbinstanceutils;
 
 import java.io.InputStream;
 
-import devutility.internal.dao.DbInstanceUtils;
-import devutility.internal.dao.models.DbInstance;
+import devutility.internal.data.DbInstanceUtils;
+import devutility.internal.models.DbInstance;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 

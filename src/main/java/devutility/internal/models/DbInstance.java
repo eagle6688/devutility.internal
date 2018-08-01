@@ -1,10 +1,10 @@
-package devutility.internal.dao.models;
+package devutility.internal.models;
 
 public class DbInstance {
 	private String uri = "";
 	private String host = "";
-	private int port = 6379;
-	private String loginName = "";
+	private int port = 0;
+	private String loginname = "";
 	private String password = "";
 	private String database = "";
 	private int timeout = 3000;
@@ -14,7 +14,7 @@ public class DbInstance {
 	}
 
 	public DbInstance(String host) {
-		this(host, 6379, null, null, null);
+		this(host, 0, null, null, null);
 	}
 
 	public DbInstance(String host, int port) {
@@ -29,11 +29,11 @@ public class DbInstance {
 		this(host, port, database, loginName, null);
 	}
 
-	public DbInstance(String host, int port, String database, String loginName, String password) {
+	public DbInstance(String host, int port, String database, String loginname, String password) {
 		this.host = host;
 		this.port = port;
 		this.database = database;
-		this.loginName = loginName;
+		this.loginname = loginname;
 		this.password = password;
 	}
 
@@ -62,11 +62,11 @@ public class DbInstance {
 	}
 
 	public String getLoginName() {
-		return loginName;
+		return loginname;
 	}
 
-	public void setLoginName(String loginName) {
-		this.loginName = loginName;
+	public void setLoginName(String loginname) {
+		this.loginname = loginname;
 	}
 
 	public String getPassword() {
