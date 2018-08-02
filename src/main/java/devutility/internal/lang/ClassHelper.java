@@ -132,7 +132,7 @@ public class ClassHelper {
 	 */
 	public static List<EntityField> getEntityFields(Class<?> clazz) {
 		if (clazz == null) {
-			return new ArrayList<>();
+			throw new IllegalArgumentException("Illegal parameter!");
 		}
 
 		List<Field> declaredFields = getAllDeclaredFields(clazz);
