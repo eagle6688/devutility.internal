@@ -4,7 +4,7 @@ import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -165,7 +165,7 @@ public class PropertiesUtils {
 	 * @return {@code Map<String,String>}
 	 */
 	public static Map<String, String> toMap(Properties properties) {
-		Map<String, String> map = new HashMap<>();
+		Map<String, String> map = new LinkedHashMap<>();
 
 		if (properties == null) {
 			return map;
