@@ -3,12 +3,8 @@ package devutility.internal.io;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
-public class StreamHelper {
+public class StreamUtils {
 	public static byte[] read(InputStream inputStream) {
-		if (inputStream == null) {
-			return null;
-		}
-
 		int index = 0;
 		byte[] bytes = new byte[1024];
 

@@ -7,7 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.ProtocolException;
 
 import devutility.internal.data.codec.UTF8Utils;
-import devutility.internal.io.StreamHelper;
+import devutility.internal.io.StreamUtils;
 import devutility.internal.lang.StringHelper;
 
 public abstract class BaseUtils {
@@ -55,7 +55,7 @@ public abstract class BaseUtils {
 				inputStream = httpURLConnection.getInputStream();
 			}
 
-			bytes = StreamHelper.read(inputStream);
+			bytes = StreamUtils.read(inputStream);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
