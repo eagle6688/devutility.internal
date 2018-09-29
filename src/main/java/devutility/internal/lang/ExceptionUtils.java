@@ -5,9 +5,7 @@ import java.util.List;
 
 import devutility.internal.system.SystemHelper;
 
-public class ExceptionHelper {
-	// region to string
-
+public class ExceptionUtils {
 	public static String toString(Exception exception) {
 		return toString(exception, SystemHelper.getNewLineChar());
 	}
@@ -26,10 +24,6 @@ public class ExceptionHelper {
 
 		return result.toString();
 	}
-
-	// endregion
-
-	// region to list
 
 	public static List<String> toList(Exception exception) {
 		List<String> list = new ArrayList<>();
@@ -51,6 +45,4 @@ public class ExceptionHelper {
 
 		return list;
 	}
-
-	// endregion
 }

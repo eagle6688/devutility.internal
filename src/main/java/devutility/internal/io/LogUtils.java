@@ -5,17 +5,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 
-import devutility.internal.lang.ExceptionHelper;
+import devutility.internal.lang.ExceptionUtils;
 import devutility.internal.lang.StringHelper;
 
-public class LogHelper {
-	// region variables
-
+public class LogUtils {
 	private static final String FILENAMEFORMAT_EXCEPTION = "exception_%s";
-
-	// endregion
-
-	// region get Log Root Directory
 
 	public static String getLogRootDirectory() throws IOException {
 		String projectDirectory = DirectoryUtils.getProjectDirectory();
@@ -27,10 +21,6 @@ public class LogHelper {
 		return Paths.get(projectDirectory, "data", "logs").toString();
 	}
 
-	// endregion
-
-	// region get file name
-
 	public static String getLogFileName(String fileNameFormat, LocalDateTime dateTime) {
 		String hourLogFileName = FileUtils.getHourLogFileName(dateTime.getHour());
 
@@ -40,10 +30,6 @@ public class LogHelper {
 
 		return String.format(fileNameFormat, hourLogFileName);
 	}
-
-	// endregion
-
-	// region save
 
 	public static void save(String rootDirectory, LocalDateTime dateTime, String fileNameFormat, String content) throws IOException {
 		String logDirectory = DirectoryUtils.getDateDirectory(rootDirectory, dateTime);
@@ -75,8 +61,6 @@ public class LogHelper {
 	}
 
 	public static void save(String rootDirectory, LocalDateTime dateTime, Exception exception) throws Exception {
-		save(rootDirectory, dateTime, FILENAMEFORMAT_EXCEPTION, ExceptionHelper.toString(exception));
+		save(rootDirectory, dateTime, FILENAMEFORMAT_EXCEPTION, ExceptionUtils.toString(exception));
 	}
-
-	// endregion
 }
