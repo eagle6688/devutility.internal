@@ -19,9 +19,13 @@ public class ReversePipeThreadTest extends BaseTest {
 
 		reversePipeThread.start();
 
-		while (true) {
-			Thread.yield();
+		try {
+			reversePipeThread.join();
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
 		}
+
+		System.out.println("Test finished!");
 	}
 
 	public static void main(String[] args) {
