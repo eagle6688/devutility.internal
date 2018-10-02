@@ -6,8 +6,6 @@ public class CacheEntry {
 	private int expireSeconds;
 	private long createTime;
 
-	// region constructor
-
 	public CacheEntry() {
 		createTime = System.currentTimeMillis();
 	}
@@ -23,10 +21,6 @@ public class CacheEntry {
 		this(key, value, 0);
 	}
 
-	// endregion
-
-	// region expired
-
 	public boolean expired() {
 		if (expireSeconds == 0) {
 			return false;
@@ -34,10 +28,6 @@ public class CacheEntry {
 
 		return System.currentTimeMillis() <= (expireSeconds * 1000 + createTime);
 	}
-
-	// endregion
-
-	// region getter setter
 
 	public String getKey() {
 		return key;
@@ -66,6 +56,4 @@ public class CacheEntry {
 	public long getCreateTime() {
 		return createTime;
 	}
-
-	// endregion
 }

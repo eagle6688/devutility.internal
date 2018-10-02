@@ -10,8 +10,6 @@ import devutility.internal.lang.StringUtils;
 public class MemoryCache {
 	private static volatile Map<String, CacheEntry> container = new HashMap<>();
 
-	// region set
-
 	public static boolean set(CacheEntry entry) {
 		if (entry == null || StringUtils.isNullOrEmpty(entry.getKey()) || entry.getValue() == null) {
 			return false;
@@ -40,10 +38,6 @@ public class MemoryCache {
 		return set(key, value, 0);
 	}
 
-	// endregion
-
-	// region get
-
 	public static Object get(String key) {
 		CacheEntry entry = container.get(key);
 
@@ -68,10 +62,6 @@ public class MemoryCache {
 
 		return clazz.cast(value);
 	}
-
-	// endregion
-
-	// region get list
 
 	public static <T> List<T> getList(String key) {
 		Object value = get(key);
@@ -103,10 +93,6 @@ public class MemoryCache {
 		return list;
 	}
 
-	// endregion
-
-	// region del
-
 	public static void del(String key) {
 		synchronized (MemoryCache.class) {
 			if (container.containsKey(key)) {
@@ -114,6 +100,4 @@ public class MemoryCache {
 			}
 		}
 	}
-
-	// endregion
 }

@@ -10,11 +10,9 @@ import devutility.internal.awt.ColorUtils;
 import devutility.internal.awt.FontUtils;
 import devutility.internal.util.RandomUtils;
 
-public class VerificationCodeHelper {
+public class VerificationCodeUtils {
 	public static final char[] CHARS = { '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
 	private static final Random RANDOM = new Random();
-
-	// region create
 
 	public static BufferedImage create(int width, int height, int digit, int fontSize) {
 		String randomString = RandomUtils.getString(CHARS, digit);
@@ -44,23 +42,13 @@ public class VerificationCodeHelper {
 		return bufferedImage;
 	}
 
-	// endregion
-
-	// region get max obstacle count
-
 	public static int getMaxObstacleCount(int width, int height) {
 		return Math.max(width, height);
 	}
-
-	// endregion
-
-	// region set obstacle
 
 	public static void setObstacle(Graphics2D graphics2d, int count, int width, int height) {
 		for (int i = 0; i < count; i++) {
 			graphics2d.drawRect(RANDOM.nextInt(width), RANDOM.nextInt(height), 1, 1);
 		}
 	}
-
-	// endregion
 }
