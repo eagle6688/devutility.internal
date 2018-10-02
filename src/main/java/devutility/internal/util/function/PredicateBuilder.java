@@ -3,22 +3,12 @@ package devutility.internal.util.function;
 import java.util.function.Predicate;
 
 public class PredicateBuilder<T> {
-	// region variables
-
 	private boolean hasPredicate = false;
 	private Predicate<T> predicate;
-
-	// endregion
-
-	// region constructor
 
 	public PredicateBuilder() {
 		setPredicate(i -> true);
 	}
-
-	// endregion
-
-	// region and
 
 	public void and(Predicate<T> expression) {
 		if (!hasPredicate) {
@@ -30,10 +20,6 @@ public class PredicateBuilder<T> {
 		predicate = predicate.and(expression);
 	}
 
-	// endregion
-
-	// region or
-
 	public void or(Predicate<T> expression) {
 		if (!hasPredicate) {
 			hasPredicate = true;
@@ -44,10 +30,6 @@ public class PredicateBuilder<T> {
 		predicate = (predicate.or(expression));
 	}
 
-	// endregion
-
-	// region predicate
-
 	public Predicate<T> getPredicate() {
 		return predicate;
 	}
@@ -56,13 +38,7 @@ public class PredicateBuilder<T> {
 		this.predicate = predicate;
 	}
 
-	// endregion
-
-	// region is has predicate
-
 	public boolean isHasPredicate() {
 		return hasPredicate;
 	}
-
-	// endregion
 }

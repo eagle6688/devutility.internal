@@ -7,8 +7,8 @@ import java.util.Date;
 import java.util.List;
 
 import devutility.internal.base.Convertor;
-import devutility.internal.lang.ClassHelper;
-import devutility.internal.lang.StringHelper;
+import devutility.internal.lang.ClassUtils;
+import devutility.internal.lang.StringUtils;
 import devutility.internal.lang.models.EntityField;
 import devutility.internal.util.CollectionUtils;
 
@@ -25,7 +25,7 @@ public class BeanUtils {
 	 * @throws InvocationTargetException
 	 */
 	public static void setField(Method setter, Object model, String value, Field field) throws NumberFormatException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		if (StringHelper.isNullOrEmpty(value)) {
+		if (StringUtils.isNullOrEmpty(value)) {
 			return;
 		}
 
@@ -37,7 +37,7 @@ public class BeanUtils {
 		}
 
 		if (List.class.isAssignableFrom(clazz)) {
-			Class<?> genericClass = ClassHelper.getGenericClass(field.getGenericType());
+			Class<?> genericClass = ClassUtils.getGenericClass(field.getGenericType());
 
 			if (genericClass == null) {
 				return;
@@ -170,7 +170,7 @@ public class BeanUtils {
 			return null;
 		}
 
-		T entity = ClassHelper.instance(clazz);
+		T entity = ClassUtils.instance(clazz);
 
 		for (int i = 0; i < entityFields.size(); i++) {
 			if (array[i] == null) {
@@ -200,9 +200,9 @@ public class BeanUtils {
 			return null;
 		}
 
-		T model = ClassHelper.newInstance(tClazz);
-		List<EntityField> kEntityFields = ClassHelper.getEntityFields(kClazz);
-		List<EntityField> tEntityFields = ClassHelper.getEntityFields(tClazz);
+		T model = ClassUtils.newInstance(tClazz);
+		List<EntityField> kEntityFields = ClassUtils.getEntityFields(kClazz);
+		List<EntityField> tEntityFields = ClassUtils.getEntityFields(tClazz);
 
 		for (EntityField kEntityField : kEntityFields) {
 			EntityField tEntityField = CollectionUtils.find(tEntityFields, i -> kEntityField.getField().getName().equals(i.getField().getName()) && kEntityField.getField().getType().equals(i.getField().getType()));

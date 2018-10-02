@@ -3,7 +3,7 @@ package devutility.internal.base;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-import devutility.internal.lang.ClassHelper;
+import devutility.internal.lang.ClassUtils;
 
 public class SingletonFactory {
 	/**
@@ -70,7 +70,7 @@ public class SingletonFactory {
 
 		synchronized (SingletonFactory.class) {
 			if (container.get(key) == null) {
-				T value = ClassHelper.instance(clazz);
+				T value = ClassUtils.instance(clazz);
 				container.put(key, value);
 			}
 		}

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import devutility.internal.base.Callback;
-import devutility.internal.lang.ClassHelper;
+import devutility.internal.lang.ClassUtils;
 import devutility.internal.util.concurrent.CompletionServiceUtils;
 import devutility.internal.util.concurrent.ExecutorServiceUtils;
 
@@ -36,7 +36,7 @@ public class TestExecutor {
 			return;
 		}
 
-		T instance = ClassHelper.instance(clazz);
+		T instance = ClassUtils.instance(clazz);
 
 		if (instance == null) {
 			System.out.println("Create new instance failed!");
@@ -60,7 +60,7 @@ public class TestExecutor {
 			return;
 		}
 
-		T instance = ClassHelper.instance(clazz);
+		T instance = ClassUtils.instance(clazz);
 
 		if (instance == null) {
 			return;
@@ -101,7 +101,7 @@ public class TestExecutor {
 		List<T> instances = new ArrayList<>(count);
 
 		for (int i = 0; i < count; i++) {
-			T instance = ClassHelper.instance(clazz);
+			T instance = ClassUtils.instance(clazz);
 			instances.add(instance);
 		}
 

@@ -8,7 +8,7 @@ import java.net.ProtocolException;
 
 import devutility.internal.data.codec.UTF8Utils;
 import devutility.internal.io.StreamUtils;
-import devutility.internal.lang.StringHelper;
+import devutility.internal.lang.StringUtils;
 
 public abstract class BaseUtils {
 	protected static void initHttpURLConnection(HttpURLConnection httpURLConnection, String method, String contentType, byte[] data, int timeout) throws ProtocolException {
@@ -16,13 +16,13 @@ public abstract class BaseUtils {
 		httpURLConnection.setUseCaches(false);
 		httpURLConnection.setRequestProperty("charset", "utf-8");
 
-		if (StringHelper.isNullOrEmpty(method)) {
+		if (StringUtils.isNullOrEmpty(method)) {
 			method = "GET";
 		}
 
 		httpURLConnection.setRequestMethod(method);
 
-		if (!StringHelper.isNullOrEmpty(contentType)) {
+		if (!StringUtils.isNullOrEmpty(contentType)) {
 			httpURLConnection.setRequestProperty("content-Type", contentType);
 		}
 

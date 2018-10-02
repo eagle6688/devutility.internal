@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import devutility.internal.lang.StringHelper;
+import devutility.internal.lang.StringUtils;
 
 public class Convertor {
 	/**
@@ -159,7 +159,7 @@ public class Convertor {
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T stringToType(String value, Class<T> clazz) {
-		if (StringHelper.isNullOrEmpty(value)) {
+		if (StringUtils.isNullOrEmpty(value)) {
 			return null;
 		}
 

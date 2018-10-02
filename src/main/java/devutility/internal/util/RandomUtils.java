@@ -2,7 +2,7 @@ package devutility.internal.util;
 
 import java.util.Random;
 
-public class RandomHelper {
+public class RandomUtils {
 	/**
 	 * Random instance
 	 */

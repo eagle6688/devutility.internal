@@ -5,7 +5,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import devutility.internal.base.Convertor;
-import devutility.internal.data.codec.Base64Helper;
+import devutility.internal.data.codec.Base64Utils;
 import devutility.internal.data.codec.UTF8Utils;
 
 public class MD5Utils {
@@ -43,7 +43,7 @@ public class MD5Utils {
 		}
 
 		byte[] encipheredBytes = encipher(bytes);
-		return Base64Helper.encodeToString(encipheredBytes);
+		return Base64Utils.encodeToString(encipheredBytes);
 	}
 
 	/**

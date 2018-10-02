@@ -1,6 +1,6 @@
 package devutility.internal.test.service.io.texthelper;
 
-import devutility.internal.io.TextFileHelper;
+import devutility.internal.io.TextFileUtils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
@@ -8,7 +8,7 @@ public class AppendLineService extends BaseTest {
 	@Override
 	public void run() {
 		try {
-			TextFileHelper.appendLine("E:\\Downloads\\Test.txt", "newline");
+			TextFileUtils.appendLine("E:\\Downloads\\Test.txt", "newline");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

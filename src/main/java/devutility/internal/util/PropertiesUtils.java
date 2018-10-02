@@ -11,8 +11,8 @@ import java.util.Properties;
 
 import devutility.internal.annotations.PropertiesKey;
 import devutility.internal.data.BeanUtils;
-import devutility.internal.lang.ClassHelper;
-import devutility.internal.lang.StringHelper;
+import devutility.internal.lang.ClassUtils;
+import devutility.internal.lang.StringUtils;
 import devutility.internal.lang.models.EntityField;
 
 public class PropertiesUtils {
@@ -221,10 +221,10 @@ public class PropertiesUtils {
 	 * @throws InvocationTargetException
 	 */
 	public static <T> T toModel(Properties properties, String prefix, Class<T> clazz) throws NumberFormatException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		T model = ClassHelper.instance(clazz);
+		T model = ClassUtils.instance(clazz);
 
 		boolean hasProperty = false;
-		List<EntityField> entityFields = ClassHelper.getEntityFields(clazz);
+		List<EntityField> entityFields = ClassUtils.getEntityFields(clazz);
 
 		for (EntityField entityField : entityFields) {
 			String value = getPropertyValue(properties, prefix, entityField.getField());
@@ -253,10 +253,10 @@ public class PropertiesUtils {
 	 * @throws InvocationTargetException
 	 */
 	public static <T> T toModel(Properties properties, Class<T> clazz) throws NumberFormatException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		T model = ClassHelper.instance(clazz);
+		T model = ClassUtils.instance(clazz);
 
 		boolean hasProperty = false;
-		List<EntityField> entityFields = ClassHelper.getEntityFields(clazz);
+		List<EntityField> entityFields = ClassUtils.getEntityFields(clazz);
 
 		for (EntityField entityField : entityFields) {
 			String value = getPropertyValue(properties, entityField.getField());
@@ -283,7 +283,7 @@ public class PropertiesUtils {
 	public static String getPropertyKey(String prefix, Field field) {
 		String propertyKey = getPropertyKey(field);
 
-		if (StringHelper.isNotEmpty(propertyKey)) {
+		if (StringUtils.isNotEmpty(propertyKey)) {
 			return propertyKey;
 		}
 
@@ -297,7 +297,7 @@ public class PropertiesUtils {
 	 * @return String
 	 */
 	public static String getPropertyKey(String prefix, String fieldName) {
-		if (StringHelper.isNullOrEmpty(prefix)) {
+		if (StringUtils.isNullOrEmpty(prefix)) {
 			return fieldName;
 		}
 
@@ -329,7 +329,7 @@ public class PropertiesUtils {
 	public static String getPropertyValue(Properties properties, String prefix, Field field) {
 		String propertyKey = getPropertyKey(prefix, field);
 
-		if (StringHelper.isNullOrEmpty(propertyKey)) {
+		if (StringUtils.isNullOrEmpty(propertyKey)) {
 			return null;
 		}
 
@@ -345,7 +345,7 @@ public class PropertiesUtils {
 	public static String getPropertyValue(Properties properties, Field field) {
 		String propertyKey = getPropertyKey(field);
 
-		if (StringHelper.isNullOrEmpty(propertyKey)) {
+		if (StringUtils.isNullOrEmpty(propertyKey)) {
 			propertyKey = field.getName();
 		}
 

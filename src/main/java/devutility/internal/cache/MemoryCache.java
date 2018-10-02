@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import devutility.internal.lang.StringHelper;
+import devutility.internal.lang.StringUtils;
 
 public class MemoryCache {
 	private static volatile Map<String, CacheEntry> container = new HashMap<>();
@@ -13,7 +13,7 @@ public class MemoryCache {
 	// region set
 
 	public static boolean set(CacheEntry entry) {
-		if (entry == null || StringHelper.isNullOrEmpty(entry.getKey()) || entry.getValue() == null) {
+		if (entry == null || StringUtils.isNullOrEmpty(entry.getKey()) || entry.getValue() == null) {
 			return false;
 		}
 

@@ -1,8 +1,6 @@
 package devutility.internal.lang;
 
-public class IntegerHelper {
-	// region Is numeric
-
+public class IntegerUtils {
 	public static boolean isNumberic(String value) {
 		for (int i = 0; i < value.length(); i++) {
 			if (!Character.isDigit(value.charAt(i))) {
@@ -12,10 +10,6 @@ public class IntegerHelper {
 
 		return true;
 	}
-
-	// endregion
-
-	// region Try parse to int
 
 	public static IntegerConvertResult tryParse(String value) {
 		IntegerConvertResult result = new IntegerConvertResult();
@@ -29,6 +23,4 @@ public class IntegerHelper {
 		result.setSucceeded(true);
 		return result;
 	}
-
-	// endregion
 }

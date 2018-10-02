@@ -1,14 +1,14 @@
 package devutility.internal.test.service.lang.stringhelper;
 
-import devutility.internal.lang.StringHelper;
+import devutility.internal.lang.StringUtils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
 public class ConcatTest extends BaseTest {
 	@Override
 	public void run() {
-		println(StringHelper.concat(""));
-		println(StringHelper.concat("1", "2", "3", "4"));
+		println(StringUtils.concat(""));
+		println(StringUtils.concat("1", "2", "3", "4"));
 		println("Concat completely!");
 	}
 

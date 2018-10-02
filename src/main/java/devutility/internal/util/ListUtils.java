@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import devutility.internal.data.BeanUtils;
-import devutility.internal.lang.ClassHelper;
+import devutility.internal.lang.ClassUtils;
 import devutility.internal.lang.models.EntityField;
 
 public class ListUtils {
@@ -45,7 +45,7 @@ public class ListUtils {
 	 * @throws InvocationTargetException
 	 */
 	public static <T> String[][] toArrays(List<T> list, Class<T> clazz) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
-		List<EntityField> entityFields = ClassHelper.getEntityFields(clazz);
+		List<EntityField> entityFields = ClassUtils.getEntityFields(clazz);
 		return toArrays(list, entityFields);
 	}
 
@@ -87,7 +87,7 @@ public class ListUtils {
 	 * @throws InvocationTargetException
 	 */
 	public static <T> List<T> toEntities(String[][] arrays, Class<T> clazz) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		List<EntityField> entityFields = ClassHelper.getEntityFields(clazz);
+		List<EntityField> entityFields = ClassUtils.getEntityFields(clazz);
 		return toEntities(arrays, clazz, entityFields);
 	}
 

@@ -6,9 +6,7 @@ import java.io.IOException;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
-public class GZipHelper {
-	// region compress
-
+public class GzipUtils {
 	public static byte[] compress(byte[] bytes) throws IOException {
 		if (bytes == null || bytes.length == 0) {
 			return null;
@@ -30,10 +28,6 @@ public class GZipHelper {
 
 		return compressedBytes;
 	}
-
-	// endregion
-
-	// region deCompress
 
 	public static byte[] deCompress(byte[] bytes) throws IOException {
 		if (bytes == null || bytes.length == 0) {
@@ -65,6 +59,4 @@ public class GZipHelper {
 
 		return deCompressedBytes;
 	}
-
-	// endregion
 }

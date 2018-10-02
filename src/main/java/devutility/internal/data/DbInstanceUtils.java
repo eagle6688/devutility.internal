@@ -4,7 +4,7 @@ import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Properties;
 
-import devutility.internal.lang.StringHelper;
+import devutility.internal.lang.StringUtils;
 import devutility.internal.models.DbInstance;
 import devutility.internal.util.PropertiesUtils;
 
@@ -53,7 +53,7 @@ public class DbInstanceUtils {
 	 * @return DbInstance
 	 */
 	public static DbInstance getInstance(String propertiesFile, String prefix) {
-		if (StringHelper.isNullOrEmpty(propertiesFile)) {
+		if (StringUtils.isNullOrEmpty(propertiesFile)) {
 			return null;
 		}
 

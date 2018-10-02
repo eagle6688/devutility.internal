@@ -5,7 +5,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import devutility.internal.system.SystemHelper;
+import devutility.internal.base.SystemUtils;
 
 public class ExecutorServiceUtils {
 	/**
@@ -15,7 +15,7 @@ public class ExecutorServiceUtils {
 		/**
 		 * Processors count for the current machine
 		 */
-		private static int processorsCount = SystemHelper.getProcessorsCount();
+		private static int processorsCount = SystemUtils.getProcessorsCount();
 
 		/**
 		 * Default ThreadPoolExecutor object

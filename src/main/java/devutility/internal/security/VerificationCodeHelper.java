@@ -6,9 +6,9 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-import devutility.internal.awt.ColorHelper;
-import devutility.internal.awt.FontHelper;
-import devutility.internal.util.RandomHelper;
+import devutility.internal.awt.ColorUtils;
+import devutility.internal.awt.FontUtils;
+import devutility.internal.util.RandomUtils;
 
 public class VerificationCodeHelper {
 	public static final char[] CHARS = { '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
@@ -17,7 +17,7 @@ public class VerificationCodeHelper {
 	// region create
 
 	public static BufferedImage create(int width, int height, int digit, int fontSize) {
-		String randomString = RandomHelper.getString(CHARS, digit);
+		String randomString = RandomUtils.getString(CHARS, digit);
 		return create(width, height, randomString, fontSize);
 	}
 
@@ -29,14 +29,14 @@ public class VerificationCodeHelper {
 		Font font = new Font(Font.SANS_SERIF, Font.BOLD, fontSize);
 		graphics2d.setFont(font);
 
-		Color color = ColorHelper.getColor();
+		Color color = ColorUtils.getRandomColor();
 		graphics2d.setColor(color);
 
-		Color reverseColor = ColorHelper.getReverseColor(color);
+		Color reverseColor = ColorUtils.getReverseColor(color);
 		graphics2d.setColor(reverseColor);
 
-		float xOffset = FontHelper.getXOffset(width, graphics2d, font, code);
-		float yOffset = FontHelper.getYOffset(height, graphics2d, font);
+		float xOffset = FontUtils.getXOffset(width, graphics2d, font, code);
+		float yOffset = FontUtils.getYOffset(height, graphics2d, font);
 		graphics2d.drawString(code, xOffset, yOffset);
 
 		int obstacleCount = RANDOM.nextInt(getMaxObstacleCount(width, height));

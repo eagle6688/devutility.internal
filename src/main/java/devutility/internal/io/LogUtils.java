@@ -6,7 +6,7 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 
 import devutility.internal.lang.ExceptionUtils;
-import devutility.internal.lang.StringHelper;
+import devutility.internal.lang.StringUtils;
 
 public class LogUtils {
 	private static final String FILENAMEFORMAT_EXCEPTION = "exception_%s";
@@ -24,7 +24,7 @@ public class LogUtils {
 	public static String getLogFileName(String fileNameFormat, LocalDateTime dateTime) {
 		String hourLogFileName = FileUtils.getHourLogFileName(dateTime.getHour());
 
-		if (StringHelper.isNullOrEmpty(fileNameFormat)) {
+		if (StringUtils.isNullOrEmpty(fileNameFormat)) {
 			return hourLogFileName;
 		}
 
@@ -40,7 +40,7 @@ public class LogUtils {
 
 		String fileName = getLogFileName(fileNameFormat, dateTime);
 		Path path = Paths.get(logDirectory, fileName);
-		TextFileHelper.asyncAppend(path, content);
+		TextFileUtils.asyncAppend(path, content);
 	}
 
 	public static void save(LocalDateTime dateTime, String fileNameFormat, String content) throws IOException {

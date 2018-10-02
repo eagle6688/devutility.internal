@@ -1,6 +1,6 @@
 package devutility.internal.lang;
 
-public class StringHelper {
+public class StringUtils {
 	public static boolean isNullOrEmpty(String value) {
 		return value == null || value.length() == 0 || value.trim().length() == 0;
 	}

@@ -3,10 +3,10 @@ package devutility.internal.awt;
 import java.awt.Color;
 import java.util.Random;
 
-public class ColorHelper {
+public class ColorUtils {
 	private static final Random RANDOM = new Random();
 
-	public static Color getColor() {
+	public static Color getRandomColor() {
 		return new Color(RANDOM.nextInt(255), RANDOM.nextInt(255), RANDOM.nextInt(255));
 	}
 

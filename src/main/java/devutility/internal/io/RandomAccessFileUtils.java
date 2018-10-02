@@ -10,11 +10,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
-public class RandomAccessFileHelper {
-	public static final int BUFFERSIZE = 1024;
-
-	// region insert
-
+public class RandomAccessFileUtils {
 	public static void insert(String fileName, long startIndex, byte[] bytes) throws Exception {
 		try (RandomAccessFile randomAccessFile = new RandomAccessFile(fileName, "rw")) {
 			long fileLength = randomAccessFile.length();
@@ -40,10 +36,6 @@ public class RandomAccessFileHelper {
 		}
 	}
 
-	// endregion
-
-	// region append
-
 	public static void append(String fileName, byte[] bytes) throws IOException {
 		append(fileName, ByteBuffer.wrap(bytes));
 	}
@@ -56,10 +48,6 @@ public class RandomAccessFileHelper {
 			throw e;
 		}
 	}
-
-	// endregion
-
-	// region async append
 
 	public static void asyncAppend(Path path, ByteBuffer byteBuffer) throws IOException {
 		long fileLength = FileUtils.getBytesLength(path);
@@ -86,6 +74,4 @@ public class RandomAccessFileHelper {
 			throw e;
 		}
 	}
-
-	// endregion
 }

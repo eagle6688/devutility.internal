@@ -14,7 +14,7 @@ import devutility.internal.lang.models.EntityField;
 import devutility.internal.lang.models.EntityFieldUtils;
 import devutility.internal.util.CollectionUtils;
 
-public class ClassHelper {
+public class ClassUtils {
 	/**
 	 * Create a new instance.
 	 * @param clazz: Class object
@@ -159,7 +159,7 @@ public class ClassHelper {
 	}
 
 	public static boolean isGetterField(Field field, List<String> methods) {
-		String name = String.format("get%s", StringHelper.upperFirstCase(field.getName()));
+		String name = String.format("get%s", StringUtils.upperFirstCase(field.getName()));
 
 		if (methods.contains(name)) {
 			return true;
@@ -173,17 +173,17 @@ public class ClassHelper {
 			return false;
 		}
 
-		String name = String.format("is%s", StringHelper.upperFirstCase(field.getName()));
+		String name = String.format("is%s", StringUtils.upperFirstCase(field.getName()));
 		return methods.contains(name);
 	}
 
 	public static boolean isSetterField(String field, List<String> methods) {
-		String name = String.format("set%s", StringHelper.upperFirstCase(field));
+		String name = String.format("set%s", StringUtils.upperFirstCase(field));
 		return methods.contains(name);
 	}
 
 	public static Method getSetter(String field, List<Method> methods) {
-		String name = String.format("set%s", StringHelper.upperFirstCase(field));
+		String name = String.format("set%s", StringUtils.upperFirstCase(field));
 
 		for (Method method : methods) {
 			if (name.equals(method.getName())) {
@@ -196,10 +196,10 @@ public class ClassHelper {
 
 	public static Method getGetter(Field field, List<Method> methods) {
 		Class<?> fieldType = field.getType();
-		String name = String.format("get%s", StringHelper.upperFirstCase(field.getName()));
+		String name = String.format("get%s", StringUtils.upperFirstCase(field.getName()));
 
 		if (fieldType == Boolean.class) {
-			name = String.format("is%s", StringHelper.upperFirstCase(field.getName()));
+			name = String.format("is%s", StringUtils.upperFirstCase(field.getName()));
 		}
 
 		for (Method method : methods) {

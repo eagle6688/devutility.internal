@@ -3,7 +3,7 @@ package devutility.internal.test.service.io.randomaccessfilehelper;
 import java.nio.ByteBuffer;
 import java.nio.channels.CompletionHandler;
 
-import devutility.internal.io.RandomAccessFileHelper;
+import devutility.internal.io.RandomAccessFileUtils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
@@ -15,11 +15,11 @@ public class AsyncAppendService extends BaseTest {
 		ByteBuffer byteBuffer = ByteBuffer.wrap("Hello Lenovo!".getBytes());
 		
 		try {
-			RandomAccessFileHelper.asyncAppend(fileName, byteBuffer);
+			RandomAccessFileUtils.asyncAppend(fileName, byteBuffer);
 			
 			byteBuffer.flip();
 			
-			RandomAccessFileHelper.asyncAppend(fileName, byteBuffer, new CompletionHandler<Integer, ByteBuffer>() {
+			RandomAccessFileUtils.asyncAppend(fileName, byteBuffer, new CompletionHandler<Integer, ByteBuffer>() {
 				@Override
 				public void completed(Integer result, ByteBuffer attachment) {
 					println("bytes written: " + result);

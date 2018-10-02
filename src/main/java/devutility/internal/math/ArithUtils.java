@@ -3,9 +3,7 @@ package devutility.internal.math;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class ArithHelper {
-	// region add
-
+public class ArithUtils {
 	public static BigDecimal add(BigDecimal value1, BigDecimal value2) {
 		return value1.add(value2);
 	}
@@ -29,10 +27,6 @@ public class ArithHelper {
 	public static BigDecimal add(int value1, float value2) {
 		return add(BigDecimal.valueOf(value1), BigDecimal.valueOf(value2));
 	}
-
-	// endregion
-
-	// region sub
 
 	public static BigDecimal sub(BigDecimal value1, BigDecimal value2) {
 		return value1.subtract(value2);
@@ -70,10 +64,6 @@ public class ArithHelper {
 		return sub(BigDecimal.valueOf(value1), BigDecimal.valueOf(value2));
 	}
 
-	// endregion
-
-	// region mul
-
 	public static BigDecimal mul(BigDecimal value1, BigDecimal value2) {
 		return value1.multiply(value2);
 	}
@@ -102,10 +92,6 @@ public class ArithHelper {
 		return mul(BigDecimal.valueOf(value1), BigDecimal.valueOf(value2));
 	}
 
-	// endregion
-
-	// region div
-
 	public static BigDecimal div(double value1, double value2, int scale, RoundingMode mode) throws IllegalAccessException {
 		if (scale < 0) {
 			throw new IllegalAccessException("scale cannot less than 0!");
@@ -113,6 +99,4 @@ public class ArithHelper {
 
 		return BigDecimal.valueOf(value1).divide(BigDecimal.valueOf(value2), scale, mode);
 	}
-
-	// endregion
 }

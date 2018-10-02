@@ -1,6 +1,6 @@
 package devutility.internal.test.service.data.codec.gziphelper;
 
-import devutility.internal.data.codec.GZipHelper;
+import devutility.internal.data.codec.GzipUtils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
@@ -13,7 +13,7 @@ public class CompressTest extends BaseTest {
 			byte[] bytes = value.getBytes();
 			println(bytes.length);
 
-			byte[] compressedBytes = GZipHelper.compress(bytes);
+			byte[] compressedBytes = GzipUtils.compress(bytes);
 			println(compressedBytes.length);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -7,7 +7,7 @@ import java.util.Locale;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-import devutility.internal.lang.StringHelper;
+import devutility.internal.lang.StringUtils;
 
 public class DateFormatUtils {
 	/**
@@ -85,7 +85,7 @@ public class DateFormatUtils {
 	}
 
 	public static Date parse(String value, String pattern, Locale locale) throws ParseException {
-		if (StringHelper.isNullOrEmpty(value)) {
+		if (StringUtils.isNullOrEmpty(value)) {
 			return null;
 		}
 
@@ -99,7 +99,7 @@ public class DateFormatUtils {
 	}
 
 	public static Date parse(String value, String pattern) throws ParseException {
-		if (StringHelper.isNullOrEmpty(value)) {
+		if (StringUtils.isNullOrEmpty(value)) {
 			return null;
 		}
 

@@ -3,7 +3,7 @@ package devutility.internal.test.service.lang.classhelper;
 import java.lang.reflect.Method;
 import java.util.List;
 
-import devutility.internal.lang.ClassHelper;
+import devutility.internal.lang.ClassUtils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 import devutility.internal.test.models.Student;
@@ -11,7 +11,7 @@ import devutility.internal.test.models.Student;
 public class GetAllDeclaredMethodsTest extends BaseTest {
 	@Override
 	public void run() {
-		List<Method> list = ClassHelper.getAllDeclaredMethods(Student.class);
+		List<Method> list = ClassUtils.getAllDeclaredMethods(Student.class);
 
 		list.forEach(i -> {
 			println(i.getName());

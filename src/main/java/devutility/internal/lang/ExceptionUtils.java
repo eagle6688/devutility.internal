@@ -3,11 +3,11 @@ package devutility.internal.lang;
 import java.util.ArrayList;
 import java.util.List;
 
-import devutility.internal.system.SystemHelper;
+import devutility.internal.base.SystemUtils;
 
 public class ExceptionUtils {
 	public static String toString(Exception exception) {
-		return toString(exception, SystemHelper.getNewLineChar());
+		return toString(exception, SystemUtils.getNewLineChar());
 	}
 
 	public static String toString(Exception exception, String separator) {

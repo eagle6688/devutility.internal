@@ -3,7 +3,7 @@ package devutility.internal.test.service.basic.util.stream;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
-import devutility.internal.io.TextFileHelper;
+import devutility.internal.io.TextFileUtils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
@@ -20,7 +20,7 @@ public class MapService extends BaseTest {
 	}
 	
 	public static void main(String[] args) throws Exception {
-		String content = TextFileHelper.read("E:\\Downloads\\Test.txt", StandardCharsets.UTF_8);
+		String content = TextFileUtils.read("E:\\Downloads\\Test.txt", StandardCharsets.UTF_8);
 		String[] array = content.split("\\PL+");
 		TestExecutor.run(new MapService(array));
 	}

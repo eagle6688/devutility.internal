@@ -8,11 +8,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import devutility.internal.base.SystemUtils;
 import devutility.internal.io.FileUtils;
-import devutility.internal.io.RandomAccessFileHelper;
-import devutility.internal.system.SystemHelper;
+import devutility.internal.io.RandomAccessFileUtils;
 
-public class TextFileHelper {
+public class TextFileUtils {
 	/**
 	 * Insert new content from startIndex.
 	 * @param fileName: file name
@@ -22,7 +22,7 @@ public class TextFileHelper {
 	 */
 	public static void insert(String fileName, long startIndex, String content) throws Exception {
 		byte[] bytes = content.getBytes();
-		RandomAccessFileHelper.insert(fileName, startIndex, bytes);
+		RandomAccessFileUtils.insert(fileName, startIndex, bytes);
 	}
 
 	/**
@@ -42,7 +42,7 @@ public class TextFileHelper {
 	 * @throws Exception
 	 */
 	public static void appendLine(String fileName, String content) throws Exception {
-		StringBuffer stringBuffer = new StringBuffer(SystemHelper.getNewLineChar());
+		StringBuffer stringBuffer = new StringBuffer(SystemUtils.getNewLineChar());
 		stringBuffer.append(content);
 		append(fileName, stringBuffer.toString());
 	}
@@ -55,7 +55,7 @@ public class TextFileHelper {
 	 */
 	public static void asyncAppend(String fileName, ByteBuffer byteBuffer) throws IOException {
 		Path path = Paths.get(fileName);
-		RandomAccessFileHelper.asyncAppend(path, byteBuffer);
+		RandomAccessFileUtils.asyncAppend(path, byteBuffer);
 	}
 
 	/**
@@ -66,7 +66,7 @@ public class TextFileHelper {
 	 */
 	public static void asyncAppend(Path path, String content) throws IOException {
 		ByteBuffer byteBuffer = ByteBuffer.wrap(content.getBytes());
-		RandomAccessFileHelper.asyncAppend(path, byteBuffer);
+		RandomAccessFileUtils.asyncAppend(path, byteBuffer);
 	}
 
 	/**
