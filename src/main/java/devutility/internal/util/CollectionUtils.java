@@ -290,8 +290,7 @@ public class CollectionUtils {
 	}
 
 	/**
-	 * Parallel query elements by predicate command, map some fields and return a
-	 * stream.
+	 * Parallel query elements by predicate command, map some fields and return a stream.
 	 * @param collection: Elements collection.
 	 * @param predicate: Predicate command.
 	 * @param mapper: Fields mapper.
@@ -302,8 +301,7 @@ public class CollectionUtils {
 	}
 
 	/**
-	 * Parallel query elements by predicate command, map some fields and return a
-	 * list.
+	 * Parallel query elements by predicate command, map some fields and return a list.
 	 * @param collection: Elements collection.
 	 * @param predicate: Predicate command.
 	 * @param mapper: Fields mapper.
@@ -334,8 +332,7 @@ public class CollectionUtils {
 	}
 
 	/**
-	 * Query elements by predicate command, map some fields, remove repeated items
-	 * and return a stream.
+	 * Query elements by predicate command, map some fields, remove repeated items and return a stream.
 	 * @param collection: Elements collection.
 	 * @param predicate: Predicate command.
 	 * @param mapper: Fields mapper.
@@ -346,8 +343,7 @@ public class CollectionUtils {
 	}
 
 	/**
-	 * Query elements by predicate command, map some fields, remove repeated items
-	 * and return a list.
+	 * Query elements by predicate command, map some fields, remove repeated items and return a list.
 	 * @param collection: Elements collection.
 	 * @param predicate: Predicate command.
 	 * @param mapper: Fields mapper.
@@ -358,8 +354,7 @@ public class CollectionUtils {
 	}
 
 	/**
-	 * Map some fields (for each item, one field has an collection of values) and
-	 * return a list.
+	 * Map some fields (for each item, one field has an collection of values) and return a list.
 	 * @param collection: Elements collection.
 	 * @param mapper: Fields mapper.
 	 * @return {@code List<R>}
@@ -395,8 +390,7 @@ public class CollectionUtils {
 	}
 
 	/**
-	 * Query elements by predicate command, group collection by classifier to map
-	 * and return it.
+	 * Query elements by predicate command, group collection by classifier to map and return it.
 	 * @param collection: Elements collection.
 	 * @param predicate: Predicate command.
 	 * @param classifier: Classifier for group.
@@ -407,8 +401,7 @@ public class CollectionUtils {
 	}
 
 	/**
-	 * Parallel group elements by predicate command, group collection by classifier
-	 * to map and return it.
+	 * Parallel group elements by predicate command, group collection by classifier to map and return it.
 	 * @param collection: Elements collection.
 	 * @param predicate: Predicate command.
 	 * @param classifier: Classifier for group.

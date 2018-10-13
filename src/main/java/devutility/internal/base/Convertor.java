@@ -2,6 +2,10 @@ package devutility.internal.base;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -262,5 +266,35 @@ public class Convertor {
 		}
 
 		return value.toString();
+	}
+
+	/**
+	 * Convert LocalDate To Date
+	 * @param localDate: LocalDate object.
+	 * @param zoneId: ZoneId object, default is ZoneId.systemDefault().
+	 * @return Date
+	 */
+	public static Date localDateToDate(LocalDate localDate, ZoneId zoneId) {
+		if (zoneId == null) {
+			zoneId = ZoneId.systemDefault();
+		}
+
+		ZonedDateTime zonedDateTime = localDate.atStartOfDay(zoneId);
+		return Date.from(zonedDateTime.toInstant());
+	}
+
+	/**
+	 * Convert LocalDateTime to Date.
+	 * @param localDateTime: LocalDateTime object.
+	 * @param zoneId: ZoneId object, default is ZoneId.systemDefault().
+	 * @return Date
+	 */
+	public static Date localDateTimeToDate(LocalDateTime localDateTime, ZoneId zoneId) {
+		if (zoneId == null) {
+			zoneId = ZoneId.systemDefault();
+		}
+
+		ZonedDateTime zonedDateTime = localDateTime.atZone(zoneId);
+		return Date.from(zonedDateTime.toInstant());
 	}
 }

@@ -221,6 +221,17 @@ public class ClassUtils {
 	}
 
 	/**
+	 * Get Method object by provided name and clazz.
+	 * @param name: Method name.
+	 * @param clazz: Class object.
+	 * @return Method
+	 */
+	public static Method getMethod(String name, Class<?> clazz) {
+		List<Method> methods = getAllDeclaredMethods(clazz);
+		return CollectionUtils.find(methods, i -> name.equals(i.getName()));
+	}
+
+	/**
 	 * Check whether object is instance of clazz?
 	 * @param object: Object need check.
 	 * @param clazz: Target Class object.

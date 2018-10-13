@@ -6,7 +6,7 @@ public class RandomUtils {
 	/**
 	 * Random instance
 	 */
-	private static final Random RANDOM = new Random();
+	public static final Random RANDOM = new Random();
 
 	/**
 	 * Get random string
@@ -31,5 +31,16 @@ public class RandomUtils {
 	 */
 	public static int getNumber(int bound) {
 		return RANDOM.nextInt(bound);
+	}
+
+	/**
+	 * Get a int number between lower and upper.
+	 * @param lower: Range lower (inclusive).
+	 * @param upper: Range upper (inclusive).
+	 * @return int
+	 */
+	public static int getNumber(int lower, int upper) {
+		int bound = upper - lower + 1;
+		return RANDOM.nextInt(bound) + lower;
 	}
 }
