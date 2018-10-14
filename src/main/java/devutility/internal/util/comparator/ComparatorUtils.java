@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class ComparatorUtils {
 	/**
-	 * Create a Comparator<E> object to compare the provided field (with Date type) use asc sort direction.
+	 * Create a Comparator object to compare the provided field (with Date type) use asc sort direction.
 	 * @param getter: Getter method for field with Date type.
 	 * @return {@code Comparator<E>}
 	 */
@@ -39,7 +39,7 @@ public class ComparatorUtils {
 	}
 
 	/**
-	 * Create a Comparator<E> object to compare the provided field (with Date type) use desc sort direction.
+	 * Create a Comparator object to compare the provided field (with Date type) use desc sort direction.
 	 * @param getter: Getter method for field with Date type.
 	 * @return {@code Comparator<E>}
 	 */
