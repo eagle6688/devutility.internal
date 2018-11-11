@@ -7,7 +7,7 @@ import devutility.internal.test.TestExecutor;
  * @Description: StringLengthService
  * @author: Aldwin
  */
-public class StringLengthService extends BaseTest {
+public class StringLengthTest extends BaseTest {
 	@Override
 	public void run() {
 		String str1 = "asd!";
@@ -18,8 +18,8 @@ public class StringLengthService extends BaseTest {
 		println("length of string is: %s", str2.length());
 		println("length of string bytes is: %d", str2.getBytes().length);
 	}
-	
+
 	public static void main(String[] args) {
-		TestExecutor.run(StringLengthService.class);
+		TestExecutor.run(StringLengthTest.class);
 	}
 }
