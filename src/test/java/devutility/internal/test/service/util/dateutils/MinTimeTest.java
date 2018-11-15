@@ -19,6 +19,7 @@ public class MinTimeTest extends BaseTest {
 			 * -62135798400000
 			 */
 			System.out.println(time.getTime());
+			System.out.println(time.getTime() == -62135798400000L);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
