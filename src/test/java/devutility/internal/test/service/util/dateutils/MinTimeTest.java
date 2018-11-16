@@ -20,6 +20,12 @@ public class MinTimeTest extends BaseTest {
 			 */
 			System.out.println(time.getTime());
 			System.out.println(time.getTime() == -62135798400000L);
+
+			/**
+			 * -2209017600000
+			 */
+			time = simpleDateFormat.parse("1900-01-01 00:00:00");
+			System.out.println(time.getTime());
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
