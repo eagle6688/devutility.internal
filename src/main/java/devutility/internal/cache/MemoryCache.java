@@ -1,32 +1,43 @@
 package devutility.internal.cache;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import devutility.internal.lang.StringUtils;
+import devutility.internal.util.CollectionUtils;
 
 public class MemoryCache {
+	/**
+	 * Container
+	 */
 	private static volatile Map<String, CacheEntry> container = new HashMap<>();
 
+	/**
+	 * Set entry in memory.
+	 * @param entry: Entry object.
+	 * @return boolean
+	 */
 	public static boolean set(CacheEntry entry) {
 		if (entry == null || StringUtils.isNullOrEmpty(entry.getKey()) || entry.getValue() == null) {
 			return false;
 		}
 
-		if (container.containsKey(entry.getKey())) {
-			return false;
-		}
+		if (entry.getValue() instanceof Collection) {
+			Collection<?> collection = Collection.class.cast(entry.getValue());
 
-		synchronized (MemoryCache.class) {
-			if (!container.containsKey(entry.getKey())) {
-				container.put(entry.getKey(), entry);
-				return true;
+			if (CollectionUtils.isNullOrEmpty(collection)) {
+				return false;
 			}
 		}
 
-		return false;
+		synchronized (MemoryCache.class) {
+			container.put(entry.getKey(), entry);
+		}
+
+		return true;
 	}
 
 	public static boolean set(String key, Object value, int expireSeconds) {
