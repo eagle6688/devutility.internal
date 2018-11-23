@@ -198,7 +198,7 @@ public class ClassUtils {
 		Class<?> fieldType = field.getType();
 		String name = String.format("get%s", StringUtils.upperFirstCase(field.getName()));
 
-		if (fieldType == Boolean.class) {
+		if (fieldType == Boolean.class || "boolean".equals(fieldType.getName())) {
 			name = String.format("is%s", StringUtils.upperFirstCase(field.getName()));
 		}
 
