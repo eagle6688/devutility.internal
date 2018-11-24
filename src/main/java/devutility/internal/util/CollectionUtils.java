@@ -332,6 +332,16 @@ public class CollectionUtils {
 	}
 
 	/**
+	 * Map some fields, remove repeated items and return a set.
+	 * @param collection: Elements collection.
+	 * @param mapper: Fields mapper.
+	 * @return {@code Set<R>}
+	 */
+	public static <E, R> Set<R> mapAndDistinctToSet(Collection<E> collection, Function<? super E, ? extends R> mapper) {
+		return mapAndDistinct(collection, mapper).collect(Collectors.toSet());
+	}
+
+	/**
 	 * Query elements by predicate command, map some fields, remove repeated items and return a stream.
 	 * @param collection: Elements collection.
 	 * @param predicate: Predicate command.
@@ -351,6 +361,17 @@ public class CollectionUtils {
 	 */
 	public static <E, R> List<R> mapAndDistinctToList(Collection<E> collection, Predicate<E> predicate, Function<? super E, ? extends R> mapper) {
 		return mapAndDistinct(collection, predicate, mapper).collect(Collectors.toList());
+	}
+
+	/**
+	 * Query elements by predicate command, map some fields, remove repeated items and return a set.
+	 * @param collection: Elements collection.
+	 * @param predicate: Predicate command.
+	 * @param mapper: Fields mapper.
+	 * @return {@code Set<R>}
+	 */
+	public static <E, R> Set<R> mapAndDistinctToSet(Collection<E> collection, Predicate<E> predicate, Function<? super E, ? extends R> mapper) {
+		return mapAndDistinct(collection, predicate, mapper).collect(Collectors.toSet());
 	}
 
 	/**
