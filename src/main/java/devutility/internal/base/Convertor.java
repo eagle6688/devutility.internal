@@ -1,5 +1,6 @@
 package devutility.internal.base;
 
+import java.lang.reflect.Type;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.time.LocalDate;
@@ -11,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 import devutility.internal.lang.StringUtils;
+import devutility.internal.models.Converter;
 
 public class Convertor {
 	/**
@@ -266,6 +268,30 @@ public class Convertor {
 		}
 
 		return value.toString();
+	}
+
+	/**
+	 * Convert S value to T value.
+	 * @param value: S type value.
+	 * @param converter: Convert.
+	 * @return {@code T}
+	 */
+	public static <T, S> T convert(S value, Converter<S, T> converter) {
+		return converter.convert(value);
+	}
+
+	/**
+	 * convert
+	 * @param value
+	 * @param converters
+	 * @return T
+	 */
+	public static <T, S> T convert(S value, List<Converter<?, ?>> converters) {
+		for (Converter<?, ?> converter : converters) {
+			Type[] types = converter.getClass().getGenericInterfaces();
+		}
+
+		return null;
 	}
 
 	/**
