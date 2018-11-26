@@ -1,4 +1,4 @@
-package devutility.internal.models;
+package devutility.internal.data.converter;
 
 public interface Converter<S, T> {
 	T convert(S value);
