@@ -36,8 +36,6 @@ public class ConverterUtils {
 	/**
 	 * Register a converter in System.
 	 * @param converter: Converter object.
-	 * @param sClazz: Class object for source type.
-	 * @param tClazz: Class object for target type.
 	 */
 	public static <S, T> void register(Converter<S, T> converter) {
 		Type[] types = converter.getClass().getGenericInterfaces();
