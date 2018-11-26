@@ -31,7 +31,7 @@ public class SingletonFactory {
 		if (container.get(key) != null) {
 			Object value = container.get(key);
 
-			if (value != null && value.getClass().isAssignableFrom(clazz)) {
+			if (value != null && clazz.isAssignableFrom(value.getClass())) {
 				return clazz.cast(value);
 			}
 

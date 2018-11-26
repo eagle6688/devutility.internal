@@ -13,6 +13,7 @@ public class Person implements Comparable<Person> {
 	private int age;
 	private Date birthday;
 	private boolean local;
+	private Gender gender;
 
 	public Person() {
 	}
@@ -71,6 +72,19 @@ public class Person implements Comparable<Person> {
 
 	public void setLocal(boolean local) {
 		this.local = local;
+	}
+
+	public Gender getGender() {
+		return gender;
+	}
+
+	public void setGender(Gender gender) {
+		this.gender = gender;
+	}
+
+	public static Person get() {
+		List<Person> persons = list(1);
+		return persons.get(0);
 	}
 
 	public static List<Person> list(int count) {

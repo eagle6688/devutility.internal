@@ -1,5 +1,8 @@
 package devutility.internal.data.converter;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+
 import devutility.internal.base.SingletonFactory;
 
 public class ConverterUtils {
@@ -36,8 +39,12 @@ public class ConverterUtils {
 	 * @param sClazz: Class object for source type.
 	 * @param tClazz: Class object for target type.
 	 */
-	public static <S, T> void register(Converter<S, T> converter, Class<S> sClazz, Class<T> tClazz) {
-		String key = getCacheKey_Converter(sClazz.getName(), tClazz.getName());
+	public static <S, T> void register(Converter<S, T> converter) {
+		Type[] types = converter.getClass().getGenericInterfaces();
+		ParameterizedType parameterizedType = (ParameterizedType) types[0];
+		Type[] actualTypes = parameterizedType.getActualTypeArguments();
+
+		String key = getCacheKey_Converter(actualTypes[0].getTypeName(), actualTypes[1].getTypeName());
 		SingletonFactory.save(key, converter);
 	}
 }
