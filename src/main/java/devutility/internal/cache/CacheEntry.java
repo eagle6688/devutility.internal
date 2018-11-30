@@ -5,6 +5,7 @@ public class CacheEntry {
 	private Object value;
 	private int expireSeconds;
 	private long createTime;
+	private long expiredTimeMillis;
 
 	public CacheEntry() {
 		createTime = System.currentTimeMillis();
@@ -15,6 +16,7 @@ public class CacheEntry {
 		this.key = key;
 		this.value = value;
 		this.expireSeconds = expireSeconds;
+		this.expiredTimeMillis = createTime + expireSeconds * 1000;
 	}
 
 	public CacheEntry(String key, Object value) {
@@ -26,7 +28,7 @@ public class CacheEntry {
 			return false;
 		}
 
-		return System.currentTimeMillis() <= (expireSeconds * 1000 + createTime);
+		return System.currentTimeMillis() > this.expiredTimeMillis;
 	}
 
 	public String getKey() {

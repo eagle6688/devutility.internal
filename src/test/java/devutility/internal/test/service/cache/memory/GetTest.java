@@ -12,7 +12,7 @@ public class GetTest extends BaseTest {
 	public void run() {
 		String key = GetTest.class.getName();
 
-		ArrayList<Integer> numbers = new ArrayList<>();
+		List<Integer> numbers = new ArrayList<>();
 		numbers.add(1);
 		numbers.add(3);
 		numbers.add(5);
@@ -20,8 +20,14 @@ public class GetTest extends BaseTest {
 		numbers.add(4);
 		numbers.add(1);
 
-		if (MemoryCache.set(key, numbers)) {
+		if (MemoryCache.set(key, numbers, 6)) {
 			println("success!");
+		}
+
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 
 		List<Integer> cache = MemoryCache.<Integer>getList(key);
