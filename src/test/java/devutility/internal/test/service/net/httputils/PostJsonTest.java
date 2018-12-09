@@ -10,7 +10,8 @@ public class PostJsonTest extends BaseTest {
 	@Override
 	public void run() {
 		try {
-			println(HttpUtils.postJson("http://localhost:9080/products/search?pageIndex=1&pageSize=10", "{}", 1000 * 30));
+			String result = HttpUtils.postJson("http://localhost:9080/products/search?pageIndex=1&pageSize=10", "{}", 1000 * 30).getResponse();
+			println(result);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
