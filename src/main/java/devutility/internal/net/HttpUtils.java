@@ -6,7 +6,7 @@ import java.net.URL;
 
 import devutility.internal.data.codec.UTF8Utils;
 
-public class HttpUtils extends BaseUtils {
+public class HttpUtils extends BaseHttpUtils {
 	/**
 	 * Get data from url.
 	 * @param url: Request Url.
@@ -44,7 +44,7 @@ public class HttpUtils extends BaseUtils {
 	 */
 	public static HttpResponse get(String url, String contentType, int timeout) throws IOException {
 		HttpURLConnection httpURLConnection = httpURLConnection(url, "GET", contentType, timeout);
-		return getHttpResponse(httpURLConnection);
+		return httpResponse(httpURLConnection);
 	}
 
 	/**
@@ -104,7 +104,8 @@ public class HttpUtils extends BaseUtils {
 	 */
 	public static HttpResponse post(String url, String contentType, byte[] data, int timeout) throws IOException {
 		HttpURLConnection httpURLConnection = httpURLConnection(url, "POST", contentType, data, timeout);
-		return request(httpURLConnection, data);
+		send(httpURLConnection, data);
+		return httpResponse(httpURLConnection);
 	}
 
 	/**
@@ -165,7 +166,7 @@ public class HttpUtils extends BaseUtils {
 	 */
 	private static HttpURLConnection httpURLConnection(URL url, String method, String contentType, byte[] data, int timeout) throws IOException {
 		HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-		initHttpURLConnection(httpURLConnection, method, contentType, data, timeout);
+		setHttpURLConnection(httpURLConnection, method, contentType, data, timeout);
 		return httpURLConnection;
 	}
 

@@ -8,17 +8,21 @@ import devutility.internal.net.HttpsUtils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
-public class GetTest extends BaseTest {
+public class PostTest extends BaseTest {
 	@Override
 	public void run() {
+		String url = "";
+		String data = "";
+
 		try {
-			println(HttpsUtils.get("https://www.baidu.com", "TLS"));
+			String result = HttpsUtils.postJson(url, data, "TLS").getResponse();
+			println(result);
 		} catch (KeyManagementException | NoSuchAlgorithmException | IOException e) {
 			e.printStackTrace();
 		}
 	}
 
 	public static void main(String[] args) {
-		TestExecutor.run(GetTest.class);
+		TestExecutor.run(PostTest.class);
 	}
 }
