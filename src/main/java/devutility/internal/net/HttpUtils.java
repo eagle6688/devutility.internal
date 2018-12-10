@@ -13,28 +13,6 @@ public class HttpUtils extends BaseHttpUtils {
 	/**
 	 * Get data from url.
 	 * @param url Request Url.
-	 * @return String
-	 * @throws IOException
-	 */
-	public static String get(String url) throws IOException {
-		return get(url, 0);
-	}
-
-	/**
-	 * Get data from url.
-	 * @param url Request Url.
-	 * @param timeout Timeout in milliseconds, a timeout of zero is interpreted as an infinite timeout.
-	 * @return String
-	 * @throws IOException
-	 */
-	public static String get(String url, int timeout) throws IOException {
-		HttpResponse httpResponse = get(url, "", timeout);
-		return httpResponse.getResponse();
-	}
-
-	/**
-	 * Get data from url.
-	 * @param url Request Url.
 	 * @param header Key value list in request.
 	 * @param timeout Timeout in milliseconds, a timeout of zero is interpreted as an infinite timeout.
 	 * @return HttpResponse
@@ -60,24 +38,44 @@ public class HttpUtils extends BaseHttpUtils {
 	}
 
 	/**
-	 * Get Json data from url.
+	 * Get data from url.
 	 * @param url Request Url.
 	 * @param timeout Timeout in milliseconds, a timeout of zero is interpreted as an infinite timeout.
-	 * @return String
+	 * @return HttpResponse
 	 * @throws IOException
 	 */
-	public static String getJson(String url, int timeout) throws IOException {
-		HttpResponse httpResponse = get(url, "application/json", timeout);
-		return httpResponse.getResponse();
+	public static HttpResponse get(String url, int timeout) throws IOException {
+		return get(url, "", timeout);
+	}
+
+	/**
+	 * Get data from url.
+	 * @param url Request Url.
+	 * @return HttpResponse
+	 * @throws IOException
+	 */
+	public static HttpResponse get(String url) throws IOException {
+		return get(url, 0);
 	}
 
 	/**
 	 * Get Json data from url.
 	 * @param url Request Url.
-	 * @return String
+	 * @param timeout Timeout in milliseconds, a timeout of zero is interpreted as an infinite timeout.
+	 * @return HttpResponse
 	 * @throws IOException
 	 */
-	public static String getJson(String url) throws IOException {
+	public static HttpResponse getJson(String url, int timeout) throws IOException {
+		return get(url, "application/json", timeout);
+	}
+
+	/**
+	 * Get Json data from url.
+	 * @param url Request Url.
+	 * @return HttpResponse
+	 * @throws IOException
+	 */
+	public static HttpResponse getJson(String url) throws IOException {
 		return getJson(url, 0);
 	}
 

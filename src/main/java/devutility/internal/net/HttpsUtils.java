@@ -21,34 +21,6 @@ public class HttpsUtils extends BaseHttpUtils {
 	/**
 	 * Get data from Url.
 	 * @param url Request Url.
-	 * @param protocol Protocol for SSLSocketFactory, SSL or TLS.
-	 * @return String
-	 * @throws KeyManagementException
-	 * @throws NoSuchAlgorithmException
-	 * @throws IOException
-	 */
-	public static String get(String url, String protocol) throws KeyManagementException, NoSuchAlgorithmException, IOException {
-		return get(url, protocol, 0);
-	}
-
-	/**
-	 * Get data from Url.
-	 * @param url Request Url.
-	 * @param protocol Protocol for SSLSocketFactory, SSL or TLS.
-	 * @param timeout Timeout in milliseconds, a timeout of zero is interpreted as an infinite timeout.
-	 * @return String
-	 * @throws IOException
-	 * @throws KeyManagementException
-	 * @throws NoSuchAlgorithmException
-	 */
-	public static String get(String url, String protocol, int timeout) throws IOException, KeyManagementException, NoSuchAlgorithmException {
-		HttpResponse httpResponse = get(url, "", protocol, timeout);
-		return httpResponse.getResponse();
-	}
-
-	/**
-	 * Get data from Url.
-	 * @param url Request Url.
 	 * @param header Key value in request header.
 	 * @param protocol Protocol for SSLSocketFactory, SSL or TLS.
 	 * @param timeout Timeout in milliseconds, a timeout of zero is interpreted as an infinite timeout.
@@ -78,6 +50,34 @@ public class HttpsUtils extends BaseHttpUtils {
 		Map<String, String> header = new HashMap<>();
 		header.put("Content-Type", contentType);
 		return get(url, header, protocol, timeout);
+	}
+
+	/**
+	 * Get data from Url.
+	 * @param url Request Url.
+	 * @param protocol Protocol for SSLSocketFactory, SSL or TLS.
+	 * @param timeout Timeout in milliseconds, a timeout of zero is interpreted as an infinite timeout.
+	 * @return String
+	 * @throws IOException
+	 * @throws KeyManagementException
+	 * @throws NoSuchAlgorithmException
+	 */
+	public static String get(String url, String protocol, int timeout) throws IOException, KeyManagementException, NoSuchAlgorithmException {
+		HttpResponse httpResponse = get(url, "", protocol, timeout);
+		return httpResponse.getResponse();
+	}
+
+	/**
+	 * Get data from Url.
+	 * @param url Request Url.
+	 * @param protocol Protocol for SSLSocketFactory, SSL or TLS.
+	 * @return String
+	 * @throws KeyManagementException
+	 * @throws NoSuchAlgorithmException
+	 * @throws IOException
+	 */
+	public static String get(String url, String protocol) throws KeyManagementException, NoSuchAlgorithmException, IOException {
+		return get(url, protocol, 0);
 	}
 
 	/**
