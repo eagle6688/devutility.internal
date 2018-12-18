@@ -172,7 +172,7 @@ public class BeanUtils {
 
 		T entity = ClassUtils.instance(clazz);
 
-		for (int i = 0; i < entityFields.size(); i++) {
+		for (int i = 0; i < entityFields.size() && i < array.length; i++) {
 			if (array[i] == null) {
 				continue;
 			}
@@ -187,8 +187,7 @@ public class BeanUtils {
 	}
 
 	/**
-	 * Shallow clone the model with K type, this method will clone the properties
-	 * that both of two types have.
+	 * Shallow clone the model with K type, this method will clone the properties that both of two types have.
 	 * @param kModel
 	 * @param kClazz
 	 * @param tClazz
