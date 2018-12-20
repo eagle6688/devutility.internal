@@ -7,27 +7,32 @@ import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 import devutility.internal.test.models.IntegerData;
 
-public class GetTest extends BaseTest {
+public class VersionTest extends BaseTest {
 	@Override
 	public void run() {
-		String key = GetTest.class.getName();
+		String key = VersionTest.class.getName();
 		List<Integer> list = IntegerData.list(10);
+		long timestamp = System.currentTimeMillis();
 
-		if (MemoryCache.set(key, list, 6)) {
+		if (MemoryCache.set(key, list)) {
 			println("Save successful!");
 		}
 
 		try {
-			Thread.sleep(5000);
+			Thread.sleep(3000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 
-		List<Integer> cache = MemoryCache.list(key, Integer.class);
+		List<Integer> cache = MemoryCache.list(key, timestamp, Integer.class);
+		System.out.println(cache);
+
+		timestamp += 3000;
+		cache = MemoryCache.list(key, timestamp, Integer.class);
 		System.out.println(cache);
 	}
 
 	public static void main(String[] args) {
-		TestExecutor.run(GetTest.class);
+		TestExecutor.run(VersionTest.class);
 	}
 }

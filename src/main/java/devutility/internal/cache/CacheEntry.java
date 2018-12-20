@@ -3,7 +3,7 @@ package devutility.internal.cache;
 public class CacheEntry {
 	private String key;
 	private Object value;
-	private int expireSeconds;
+	private int expiredTimeSeconds;
 	private long createTime;
 	private long expiredTimeMillis;
 
@@ -11,24 +11,37 @@ public class CacheEntry {
 		createTime = System.currentTimeMillis();
 	}
 
-	public CacheEntry(String key, Object value, int expireSeconds) {
+	public CacheEntry(String key, Object value, int expiredTimeSeconds) {
 		this();
 		this.key = key;
 		this.value = value;
-		this.expireSeconds = expireSeconds;
-		this.expiredTimeMillis = createTime + expireSeconds * 1000;
+		this.expiredTimeSeconds = expiredTimeSeconds;
+		this.expiredTimeMillis = createTime + expiredTimeSeconds * 1000;
 	}
 
 	public CacheEntry(String key, Object value) {
 		this(key, value, 0);
 	}
 
+	/**
+	 * Whether current cache object is expired or not?
+	 * @return boolean
+	 */
 	public boolean expired() {
-		if (expireSeconds == 0) {
+		if (expiredTimeSeconds == 0) {
 			return false;
 		}
 
 		return System.currentTimeMillis() > this.expiredTimeMillis;
+	}
+
+	/**
+	 * Whether current cache object is latest version or not?
+	 * @param timestamp Timestamp for the latest cache data.
+	 * @return boolean
+	 */
+	public boolean latestVersion(long timestamp) {
+		return this.createTime >= timestamp;
 	}
 
 	public String getKey() {
@@ -47,12 +60,12 @@ public class CacheEntry {
 		this.value = value;
 	}
 
-	public int getExpireSeconds() {
-		return expireSeconds;
+	public int getExpiredTimeSeconds() {
+		return expiredTimeSeconds;
 	}
 
-	public void setExpireSeconds(int expireSecond) {
-		this.expireSeconds = expireSecond;
+	public void setExpiredTimeSeconds(int expiredTimeSeconds) {
+		this.expiredTimeSeconds = expiredTimeSeconds;
 	}
 
 	public long getCreateTime() {
