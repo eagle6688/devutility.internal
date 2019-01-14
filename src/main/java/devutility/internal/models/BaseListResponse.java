@@ -2,7 +2,7 @@ package devutility.internal.models;
 
 import java.util.List;
 
-public class BasePageResponse<T> extends BaseResponse<List<T>> {
+public class BaseListResponse<T> extends BaseResponse<List<T>> {
 	private int count;
 
 	public int getCount() {
