@@ -9,9 +9,23 @@ public class RandomUtils {
 	public static final Random RANDOM = new Random();
 
 	/**
+	 * Chars for generate random string.
+	 */
+	public static final char[] CHARS = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+
+	/**
 	 * Get random string
-	 * @param chars: Chars pool which will generate random string.
-	 * @param length: Chars length
+	 * @param length Chars length
+	 * @return String
+	 */
+	public static String getString(int length) {
+		return getString(CHARS, length);
+	}
+
+	/**
+	 * Get random string
+	 * @param chars Chars pool which will generate random string.
+	 * @param length Chars length
 	 * @return String
 	 */
 	public static String getString(char[] chars, int length) {
@@ -26,7 +40,7 @@ public class RandomUtils {
 
 	/**
 	 * Get random number
-	 * @param bound: Scope for random number.
+	 * @param bound Scope for random number.
 	 * @return int
 	 */
 	public static int getNumber(int bound) {
@@ -35,8 +49,8 @@ public class RandomUtils {
 
 	/**
 	 * Get a int number between lower and upper.
-	 * @param lower: Range lower (inclusive).
-	 * @param upper: Range upper (inclusive).
+	 * @param lower Range lower (inclusive).
+	 * @param upper Range upper (inclusive).
 	 * @return int
 	 */
 	public static int getNumber(int lower, int upper) {
