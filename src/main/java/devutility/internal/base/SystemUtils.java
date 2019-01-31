@@ -1,6 +1,8 @@
 package devutility.internal.base;
 
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SystemUtils {
 	/**
@@ -49,5 +51,31 @@ public class SystemUtils {
 	 */
 	public static String uuid() {
 		return UUID.randomUUID().toString();
+	}
+
+	/**
+	 * Return value of environment variable and following the rule: 
+	 * 1.If format of "str" does not match our pattern, then return the str; 
+	 * 2.If format of "str" match pattern ${environment variable name:environment variable default value}, first get environment variable value by "environment variable name", if value = null return "environment variable default value"; 
+	 * 3.If format of "str" match pattern ${environment variable name}, return environment variable value by "environment variable name".
+	 * @param str format "${[environment variable name]:[environment variable default value]}"
+	 * @return String
+	 */
+	public static String envVariableValue(String str) {
+		Pattern pattern = Pattern.compile("^\\$\\{([^:\\}]*):?(.*)\\}$");
+		Matcher matcher = pattern.matcher(str);
+
+		if (!matcher.matches() || matcher.groupCount() != 2) {
+			return str;
+		}
+
+		String envName = matcher.group(1);
+		String envValue = System.getenv(envName);
+
+		if (envValue != null) {
+			return envValue;
+		}
+
+		return matcher.group(2);
 	}
 }
