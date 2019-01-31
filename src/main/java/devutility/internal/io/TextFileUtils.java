@@ -42,7 +42,7 @@ public class TextFileUtils {
 	 * @throws Exception
 	 */
 	public static void appendLine(String fileName, String content) throws Exception {
-		StringBuffer stringBuffer = new StringBuffer(SystemUtils.getNewLineChar());
+		StringBuffer stringBuffer = new StringBuffer(SystemUtils.lineSeparator());
 		stringBuffer.append(content);
 		append(fileName, stringBuffer.toString());
 	}

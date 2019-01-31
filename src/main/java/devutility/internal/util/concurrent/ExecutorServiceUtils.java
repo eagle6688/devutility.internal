@@ -15,7 +15,7 @@ public class ExecutorServiceUtils {
 		/**
 		 * Processors count for the current machine
 		 */
-		private static int processorsCount = SystemUtils.getProcessorsCount();
+		private static int processorsCount = SystemUtils.processorsCount();
 
 		/**
 		 * Default ThreadPoolExecutor object

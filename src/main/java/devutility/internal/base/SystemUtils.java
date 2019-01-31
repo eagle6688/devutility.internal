@@ -3,27 +3,51 @@ package devutility.internal.base;
 import java.util.UUID;
 
 public class SystemUtils {
-	public static String getNewLineChar() {
+	/**
+	 * Get line separator.
+	 * @return String
+	 */
+	public static String lineSeparator() {
 		return System.getProperty("line.separator");
 	}
 
-	public static String getPathSeparator() {
+	/**
+	 * Get path separator.
+	 * @return String
+	 */
+	public static String pathSeparator() {
 		return System.getProperty("path.separator");
 	}
 
-	public static String getFileSeparator() {
+	/**
+	 * Get file separator.
+	 * @return String
+	 */
+	public static String fileSeparator() {
 		return System.getProperty("file.separator");
 	}
 
-	public static int getProcessorsCount() {
+	/**
+	 * Return processors count.
+	 * @return int
+	 */
+	public static int processorsCount() {
 		return Runtime.getRuntime().availableProcessors();
 	}
 
-	public static int getProperProcessorsCount() {
-		return getProcessorsCount() * 3 / 4;
+	/**
+	 * Return proper processors count for programe usage.
+	 * @return int
+	 */
+	public static int properProcessorsCount() {
+		return processorsCount() * 3 / 4;
 	}
 
-	public static String getUUID() {
+	/**
+	 * Return a new UUID.
+	 * @return String
+	 */
+	public static String uuid() {
 		return UUID.randomUUID().toString();
 	}
 }

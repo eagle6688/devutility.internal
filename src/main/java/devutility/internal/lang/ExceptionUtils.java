@@ -7,7 +7,7 @@ import devutility.internal.base.SystemUtils;
 
 public class ExceptionUtils {
 	public static String toString(Exception exception) {
-		return toString(exception, SystemUtils.getNewLineChar());
+		return toString(exception, SystemUtils.lineSeparator());
 	}
 
 	public static String toString(Exception exception, String separator) {

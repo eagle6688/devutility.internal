@@ -7,10 +7,10 @@ import devutility.internal.test.TestExecutor;
 public class SystemHelperTest extends BaseTest {
 	@Override
 	public void run() {
-		int count = SystemUtils.getProcessorsCount();
+		int count = SystemUtils.processorsCount();
 		println(count);
 
-		int porperCount = SystemUtils.getProperProcessorsCount();
+		int porperCount = SystemUtils.properProcessorsCount();
 		println(porperCount);
 	}
 
