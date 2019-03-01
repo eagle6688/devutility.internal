@@ -5,6 +5,12 @@ import java.lang.reflect.Type;
 
 import devutility.internal.base.SingletonFactory;
 
+/**
+ * 
+ * ConverterUtils
+ * 
+ * @author: Aldwin Su
+ */
 public class ConverterUtils {
 	/**
 	 * Cache key format for converter.
@@ -17,7 +23,7 @@ public class ConverterUtils {
 	 * @param tName
 	 * @return String
 	 */
-	private static String getCacheKey_Converter(String sName, String tName) {
+	private static String getCacheKeyConverter(String sName, String tName) {
 		return String.format(CACHEKEYFORMAT_CONVERTER, sName, tName);
 	}
 
@@ -29,7 +35,7 @@ public class ConverterUtils {
 	 */
 	@SuppressWarnings("unchecked")
 	public static <S, T> Converter<S, T> find(Class<S> sClazz, Class<T> tClazz) {
-		String key = getCacheKey_Converter(sClazz.getName(), tClazz.getName());
+		String key = getCacheKeyConverter(sClazz.getName(), tClazz.getName());
 		return SingletonFactory.get(key, Converter.class);
 	}
 
@@ -42,7 +48,7 @@ public class ConverterUtils {
 		ParameterizedType parameterizedType = (ParameterizedType) types[0];
 		Type[] actualTypes = parameterizedType.getActualTypeArguments();
 
-		String key = getCacheKey_Converter(actualTypes[0].getTypeName(), actualTypes[1].getTypeName());
+		String key = getCacheKeyConverter(actualTypes[0].getTypeName(), actualTypes[1].getTypeName());
 		SingletonFactory.save(key, converter);
 	}
 }

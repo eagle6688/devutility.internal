@@ -1,7 +1,26 @@
 package devutility.internal.test.models;
 
+/**
+ * 
+ * Gender
+ * 
+ * @author: Aldwin Su
+ */
 public enum Gender {
-	UNKNOW(0), MALE(1), FEMALE(2);
+	/**
+	 * Unknow
+	 */
+	UNKNOW(0),
+
+	/**
+	 * Mail
+	 */
+	MALE(1),
+
+	/**
+	 * Femail
+	 */
+	FEMALE(2);
 
 	private int value;
 
@@ -9,9 +28,8 @@ public enum Gender {
 		this.value = value;
 	}
 
-	@Override
-	public String toString() {
-		return String.valueOf(value);
+	public int getValue() {
+		return value;
 	}
 
 	public static Gender parse(String value) {
@@ -24,5 +42,22 @@ public enum Gender {
 		}
 
 		return Gender.UNKNOW;
+	}
+
+	public static Gender parse(int value) {
+		Gender[] array = Gender.values();
+
+		for (int i = 0; i < array.length; i++) {
+			if (value == array[i].value) {
+				return array[i];
+			}
+		}
+
+		return Gender.UNKNOW;
+	}
+
+	@Override
+	public String toString() {
+		return String.valueOf(value);
 	}
 }

@@ -10,7 +10,10 @@ import java.nio.channels.WritableByteChannel;
 import devutility.internal.lang.ExceptionUtils;
 
 /**
+ * 
  * A thread for reverse pipe, read data from InputSteam, write data into WritableByteChannel object.
+ * 
+ * @author: Aldwin Su
  */
 public class ReversePipeThread extends Thread {
 	/**
@@ -33,6 +36,7 @@ public class ReversePipeThread extends Thread {
 		this.setDaemon(true);
 	}
 
+	@Override
 	public void run() {
 		ByteBuffer byteBuffer = ByteBuffer.allocate(bufferSize);
 

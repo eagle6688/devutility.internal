@@ -6,6 +6,11 @@ import java.util.regex.Pattern;
 
 public class SystemUtils {
 	/**
+	 * Env variable pattern.
+	 */
+	public final static Pattern ENVVARIABLEPATTERN = Pattern.compile("^\\$\\{([^:\\}]*):?(.*)\\}$");
+
+	/**
 	 * Get line separator.
 	 * @return String
 	 */
@@ -54,18 +59,19 @@ public class SystemUtils {
 	}
 
 	/**
-	 * Return value of environment variable and following the rule: 
-	 * 1.If format of "str" does not match our pattern, then return the str; 
-	 * 2.If format of "str" match pattern ${environment variable name:environment variable default value}, first get environment variable value by "environment variable name", if value = null return "environment variable default value"; 
-	 * 3.If format of "str" match pattern ${environment variable name}, return environment variable value by "environment variable name".
+	 * Return value of environment variable and following the rule: 1.If format of "str" does not match our pattern, then
+	 * return the str; 2.If format of "str" match pattern ${environment variable name:environment variable default value},
+	 * first get environment variable value by "environment variable name", if value = null return "environment variable
+	 * default value"; 3.If format of "str" match pattern ${environment variable name}, return environment variable value by
+	 * "environment variable name".
 	 * @param str format "${[environment variable name]:[environment variable default value]}"
 	 * @return String
 	 */
 	public static String envVariableValue(String str) {
-		Pattern pattern = Pattern.compile("^\\$\\{([^:\\}]*):?(.*)\\}$");
-		Matcher matcher = pattern.matcher(str);
+		int groupCount = 2;
+		Matcher matcher = ENVVARIABLEPATTERN.matcher(str);
 
-		if (!matcher.matches() || matcher.groupCount() != 2) {
+		if (!matcher.matches() || matcher.groupCount() != groupCount) {
 			return str;
 		}
 

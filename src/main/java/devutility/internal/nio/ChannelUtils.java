@@ -4,6 +4,12 @@ import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
 import java.nio.channels.ReadableByteChannel;
 
+/**
+ * 
+ * ChannelUtils
+ * 
+ * @author: Aldwin Su
+ */
 public class ChannelUtils {
 	/**
 	 * Read bytes from ReadableByteChannel object.
