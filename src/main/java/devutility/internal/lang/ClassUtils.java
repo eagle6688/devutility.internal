@@ -12,8 +12,15 @@ import java.util.List;
 
 import devutility.internal.lang.models.EntityField;
 import devutility.internal.lang.models.EntityFieldUtils;
+import devutility.internal.lang.reflect.MethodUtils;
 import devutility.internal.util.CollectionUtils;
 
+/**
+ * 
+ * ClassUtils
+ * 
+ * @author: Aldwin Su
+ */
 public class ClassUtils {
 	/**
 	 * Create a new instance.
@@ -61,8 +68,13 @@ public class ClassUtils {
 		return list;
 	}
 
+	/**
+	 * Get all of declared fields include provided class and its super class.
+	 * @param clazz Class object.
+	 * @return {@code List<Field>}
+	 */
 	public static List<Field> getAllDeclaredFields(Class<?> clazz) {
-		List<Field> list = new ArrayList<>();
+		List<Field> list = new LinkedList<>();
 		List<Class<?>> classes = getSuperClasses(clazz);
 
 		if (classes.size() == 0) {
@@ -76,8 +88,13 @@ public class ClassUtils {
 		return list;
 	}
 
+	/**
+	 * Get all of declared methods include provided class and its super class.
+	 * @param clazz Class object.
+	 * @return {@code List<Method>}
+	 */
 	public static List<Method> getAllDeclaredMethods(Class<?> clazz) {
-		List<Method> list = new ArrayList<>();
+		List<Method> list = new LinkedList<>();
 		List<Class<?>> classes = getSuperClasses(clazz);
 
 		if (classes.size() == 0) {
@@ -140,8 +157,8 @@ public class ClassUtils {
 		List<EntityField> list = new ArrayList<>(declaredFields.size());
 
 		for (Field declaredField : declaredFields) {
-			Method setter = getSetter(declaredField.getName(), declaredMethods);
-			Method getter = getGetter(declaredField, declaredMethods);
+			Method getter = MethodUtils.getter(declaredField, declaredMethods);
+			Method setter = MethodUtils.setter(declaredField.getName(), declaredMethods);
 
 			if (setter == null || getter == null) {
 				continue;
@@ -158,68 +175,6 @@ public class ClassUtils {
 		return list;
 	}
 
-	public static boolean isGetterField(Field field, List<String> methods) {
-		String name = String.format("get%s", StringUtils.upperFirstCase(field.getName()));
-
-		if (methods.contains(name)) {
-			return true;
-		}
-
-		return isBoolField(field, methods);
-	}
-
-	private static boolean isBoolField(Field field, List<String> methods) {
-		if (field.getType() != Boolean.class) {
-			return false;
-		}
-
-		String name = String.format("is%s", StringUtils.upperFirstCase(field.getName()));
-		return methods.contains(name);
-	}
-
-	public static boolean isSetterField(String field, List<String> methods) {
-		String name = String.format("set%s", StringUtils.upperFirstCase(field));
-		return methods.contains(name);
-	}
-
-	public static Method getSetter(String field, List<Method> methods) {
-		String name = String.format("set%s", StringUtils.upperFirstCase(field));
-
-		for (Method method : methods) {
-			if (name.equals(method.getName())) {
-				return method;
-			}
-		}
-
-		return null;
-	}
-
-	public static Method getGetter(Field field, List<Method> methods) {
-		Class<?> fieldType = field.getType();
-		String name = String.format("get%s", StringUtils.upperFirstCase(field.getName()));
-
-		if (fieldType == Boolean.class || "boolean".equals(fieldType.getName())) {
-			name = String.format("is%s", StringUtils.upperFirstCase(field.getName()));
-		}
-
-		for (Method method : methods) {
-			if (name.equals(method.getName())) {
-				return method;
-			}
-		}
-
-		return null;
-	}
-
-	public static Class<?> getGenericClass(Type genericType) {
-		if (genericType != null && genericType instanceof ParameterizedType) {
-			ParameterizedType parameterizedType = (ParameterizedType) genericType;
-			return (Class<?>) parameterizedType.getActualTypeArguments()[0];
-		}
-
-		return null;
-	}
-
 	/**
 	 * Get Method object by provided name and clazz.
 	 * @param name: Method name.
@@ -228,7 +183,21 @@ public class ClassUtils {
 	 */
 	public static Method getMethod(String name, Class<?> clazz) {
 		List<Method> methods = getAllDeclaredMethods(clazz);
-		return CollectionUtils.find(methods, i -> name.equals(i.getName()));
+		return MethodUtils.find(name, methods);
+	}
+
+	/**
+	 * Return Generic Class object by provided generic type.
+	 * @param genericType Type object.
+	 * @return {@code Class<?>}
+	 */
+	public static Class<?> getGenericClass(Type genericType) {
+		if (genericType != null && genericType instanceof ParameterizedType) {
+			ParameterizedType parameterizedType = (ParameterizedType) genericType;
+			return (Class<?>) parameterizedType.getActualTypeArguments()[0];
+		}
+
+		return null;
 	}
 
 	/**

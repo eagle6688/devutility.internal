@@ -18,12 +18,12 @@ public class ConverterUtils {
 	private final static String CACHEKEYFORMAT_CONVERTER = "Converter-%s-%s";
 
 	/**
-	 * Get cache key Converter
+	 * Get cache key for Converter
 	 * @param sName
 	 * @param tName
 	 * @return String
 	 */
-	private static String getCacheKeyConverter(String sName, String tName) {
+	private static String getCacheKeyForConverter(String sName, String tName) {
 		return String.format(CACHEKEYFORMAT_CONVERTER, sName, tName);
 	}
 
@@ -35,7 +35,7 @@ public class ConverterUtils {
 	 */
 	@SuppressWarnings("unchecked")
 	public static <S, T> Converter<S, T> find(Class<S> sClazz, Class<T> tClazz) {
-		String key = getCacheKeyConverter(sClazz.getName(), tClazz.getName());
+		String key = getCacheKeyForConverter(sClazz.getName(), tClazz.getName());
 		return SingletonFactory.get(key, Converter.class);
 	}
 
@@ -48,7 +48,7 @@ public class ConverterUtils {
 		ParameterizedType parameterizedType = (ParameterizedType) types[0];
 		Type[] actualTypes = parameterizedType.getActualTypeArguments();
 
-		String key = getCacheKeyConverter(actualTypes[0].getTypeName(), actualTypes[1].getTypeName());
+		String key = getCacheKeyForConverter(actualTypes[0].getTypeName(), actualTypes[1].getTypeName());
 		SingletonFactory.save(key, converter);
 	}
 }
