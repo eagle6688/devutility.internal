@@ -1,6 +1,5 @@
 package devutility.internal.test.service.basic.reflect.method;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
 import devutility.internal.annotations.NeedToken;
@@ -8,7 +7,7 @@ import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 import devutility.internal.test.models.StudentSearchParam;
 
-public class TestGetAnnotation extends BaseTest {
+public class IsAnnotationPresentTest extends BaseTest {
 	@Override
 	public void run() {
 		Method[] methods = StudentSearchParam.class.getDeclaredMethods();
@@ -25,18 +24,13 @@ public class TestGetAnnotation extends BaseTest {
 			println("Method not found!");
 			return;
 		}
-		
-		Annotation annotation = target.getAnnotation(NeedToken.class);
 
-		if (annotation == null) {
-			println("Annotation not found!");
-			return;
+		if (target.isAnnotationPresent(NeedToken.class)) {
+			println("isAnnotationPresent true!");
 		}
-
-		println(annotation.annotationType().getName());
 	}
 
 	public static void main(String[] args) {
-		TestExecutor.run(TestGetAnnotation.class);
+		TestExecutor.run(IsAnnotationPresentTest.class);
 	}
 }
