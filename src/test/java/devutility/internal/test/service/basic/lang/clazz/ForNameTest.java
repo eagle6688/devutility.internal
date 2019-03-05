@@ -12,6 +12,8 @@ public class ForNameTest extends BaseTest {
 		Class<?> class1 = student.getClass();
 		String canonicalName = class1.getCanonicalName();
 		println(canonicalName);
+		println(class1.getName());
+		println(class1.getSimpleName());
 
 		Class<?> class2 = null;
 

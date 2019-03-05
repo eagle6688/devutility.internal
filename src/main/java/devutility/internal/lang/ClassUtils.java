@@ -188,7 +188,7 @@ public class ClassUtils {
 
 	/**
 	 * Return Generic Class object by provided generic type.
-	 * @param genericType Type object.
+	 * @param genericType Type object for generic type.
 	 * @return {@code Class<?>}
 	 */
 	public static Class<?> getGenericClass(Type genericType) {

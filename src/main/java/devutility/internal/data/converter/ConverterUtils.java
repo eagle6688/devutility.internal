@@ -1,9 +1,14 @@
 package devutility.internal.data.converter;
 
+import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Arrays;
+import java.util.List;
 
+import devutility.internal.annotations.Convertor;
 import devutility.internal.base.SingletonFactory;
+import devutility.internal.util.CollectionUtils;
 
 /**
  * 
@@ -23,7 +28,7 @@ public class ConverterUtils {
 	 * @param tName
 	 * @return String
 	 */
-	private static String getCacheKeyForConverter(String sName, String tName) {
+	public static String getCacheKeyForConverter(String sName, String tName) {
 		return String.format(CACHEKEYFORMAT_CONVERTER, sName, tName);
 	}
 
@@ -37,6 +42,21 @@ public class ConverterUtils {
 	public static <S, T> Converter<S, T> find(Class<S> sClazz, Class<T> tClazz) {
 		String key = getCacheKeyForConverter(sClazz.getName(), tClazz.getName());
 		return SingletonFactory.get(key, Converter.class);
+	}
+
+	public static <S, T> Method getConverterMethod(List<Method> methods, Class<S> sClazz, Class<T> tClazz) {
+		for (Method method : methods) {
+			if (method.isAnnotationPresent(Convertor.class)) {
+				Class<?>[] parameterTypes = method.getParameterTypes();
+				Class<?> returnType = method.getReturnType();
+
+				if (CollectionUtils.exist(Arrays.asList(parameterTypes), i -> sClazz.equals(i.getClass())) && returnType.equals(tClazz)) {
+					return method;
+				}
+			}
+		}
+
+		return null;
 	}
 
 	/**
