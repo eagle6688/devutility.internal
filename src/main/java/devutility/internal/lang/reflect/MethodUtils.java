@@ -164,7 +164,6 @@ public class MethodUtils {
 	/**
 	 * Invoke provided method and return result with inherent type.
 	 * @param method Method object.
-	 * @param clazz Class object for return type.
 	 * @param args Parameters for invoking method.
 	 * @return {@code T}
 	 * @throws IllegalAccessException
