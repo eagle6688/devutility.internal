@@ -2,13 +2,21 @@ package devutility.internal.lang.reflect;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.List;
 
 import devutility.internal.lang.StringUtils;
 import devutility.internal.util.CollectionUtils;
 
+/**
+ * 
+ * MethodUtils
+ * 
+ * @author: Aldwin Su
+ */
 public class MethodUtils {
 	/**
 	 * Method whether contains annotations?
@@ -28,10 +36,26 @@ public class MethodUtils {
 	/**
 	 * Find Method object from Method objects by method name.
 	 * @param name Method name.
-	 * @param methods Method object.
+	 * @param methods Methods object.
 	 * @return Method
 	 */
 	public static Method find(String name, List<Method> methods) {
+		for (Method method : methods) {
+			if (name.equals(method.getName())) {
+				return method;
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * Find Method object from Method objects by method name.
+	 * @param name Method name.
+	 * @param methods Methods array.
+	 * @return Method
+	 */
+	public static Method find(String name, Method[] methods) {
 		for (Method method : methods) {
 			if (name.equals(method.getName())) {
 				return method;
@@ -108,6 +132,89 @@ public class MethodUtils {
 		String name = getterName(field);
 		return find(name, methods);
 	}
-	
-	
+
+	/**
+	 * Whether method is static method or not?
+	 * @param method Method object.
+	 * @return boolean
+	 */
+	public static boolean isStatic(Method method) {
+		return Modifier.isStatic(method.getModifiers());
+	}
+
+	/**
+	 * Invoke provided method.
+	 * @param method Method object.
+	 * @param args Parameters for invoking method.
+	 * @return Object
+	 * @throws InvocationTargetException
+	 * @throws IllegalArgumentException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 */
+	public static Object invoke(Method method, Object... args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException {
+		if (isStatic(method)) {
+			return method.invoke(null, args);
+		}
+
+		Class<?> clazz = method.getDeclaringClass();
+		return method.invoke(clazz.newInstance(), args);
+	}
+
+	/**
+	 * Invoke provided method and return result with inherent type.
+	 * @param method Method object.
+	 * @param clazz Class object for return type.
+	 * @param args Parameters for invoking method.
+	 * @return {@code T}
+	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
+	 * @throws InvocationTargetException
+	 * @throws InstantiationException
+	 */
+	public static <T> T call(Method method, Object... args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException {
+		Object value = invoke(method, args);
+
+		if (value == null) {
+			return null;
+		}
+
+		@SuppressWarnings("unchecked")
+		Class<T> clazz = (Class<T>) method.getReturnType();
+		return clazz.cast(value);
+	}
+
+	/**
+	 * Invoke provided method without any exceptions.
+	 * @param method Method object.
+	 * @param args Parameters for invoking method.
+	 * @return Object
+	 */
+	public static Object quietInvoke(Method method, Object... args) {
+		try {
+			return invoke(method, args);
+		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | InstantiationException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	/**
+	 * Invoke provided method without any exceptions.
+	 * @param method Method object.
+	 * @param args Parameters for invoking method.
+	 * @return {@code T}
+	 */
+	public static <T> T quietCall(Method method, Object... args) {
+		Object value = quietInvoke(method, args);
+
+		if (value == null) {
+			return null;
+		}
+
+		@SuppressWarnings("unchecked")
+		Class<T> clazz = (Class<T>) method.getReturnType();
+		return clazz.cast(value);
+	}
 }

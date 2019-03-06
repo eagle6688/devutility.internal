@@ -1,6 +1,6 @@
-package devutility.internal.test.service.base.convertor;
+package devutility.internal.test.service.data.converter.converterutils;
 
-import devutility.internal.base.ConvertorUtils;
+import devutility.internal.data.converter.ConverterUtils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
@@ -17,13 +17,13 @@ public class IntAndByteTest extends BaseTest {
 	private void test(int number) {
 		System.out.format("Number: %d", number);
 
-		byte b = ConvertorUtils.intToByte(number);
+		byte b = ConverterUtils.intToByte(number);
 		System.out.format(", byte: %d", b);
 
-		int newNumber = ConvertorUtils.byteToInt(b);
+		int newNumber = ConverterUtils.byteToInt(b);
 		System.out.format(", new number: %d\n", newNumber);
 
-		byte[] bytes = ConvertorUtils.intToBytes(number);
+		byte[] bytes = ConverterUtils.intToBytes(number);
 
 		for (byte c : bytes) {
 			System.out.format("%d, ", c);

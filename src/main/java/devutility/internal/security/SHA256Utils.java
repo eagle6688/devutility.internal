@@ -4,8 +4,8 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import devutility.internal.base.ConvertorUtils;
 import devutility.internal.data.codec.UTF8Utils;
+import devutility.internal.data.converter.ConverterUtils;
 
 public class SHA256Utils {
 	/**
@@ -42,6 +42,6 @@ public class SHA256Utils {
 		}
 
 		byte[] encipheredBytes = encipher(bytes);
-		return ConvertorUtils.bytesToHex(encipheredBytes);
+		return ConverterUtils.bytesToHex(encipheredBytes);
 	}
 }
