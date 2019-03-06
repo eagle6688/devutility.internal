@@ -1,5 +1,7 @@
 package devutility.internal.base;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.time.LocalDate;
@@ -14,7 +16,13 @@ import devutility.internal.data.converter.Converter;
 import devutility.internal.data.converter.ConverterUtils;
 import devutility.internal.lang.StringUtils;
 
-public class Convertor {
+/**
+ * 
+ * ConvertorUtils
+ * 
+ * @author: Aldwin Su
+ */
+public class ConvertorUtils {
 	/**
 	 * int to byte
 	 * @param value: int value
@@ -216,6 +224,16 @@ public class Convertor {
 			return converter.convert(value);
 		}
 
+		Method convertorMethod = ConverterUtils.getConverterMethod(String.class, clazz);
+
+		if (convertorMethod != null) {
+			try {
+				return (T) convertorMethod.invoke(null, value);
+			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+				e.printStackTrace();
+			}
+		}
+
 		return null;
 	}
 
@@ -232,7 +250,7 @@ public class Convertor {
 		List<T> list = new ArrayList<>(array.length);
 
 		for (String item : array) {
-			list.add(Convertor.stringToType(item, clazz));
+			list.add(ConvertorUtils.stringToType(item, clazz));
 		}
 
 		return list;

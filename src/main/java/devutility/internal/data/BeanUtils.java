@@ -6,7 +6,7 @@ import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.List;
 
-import devutility.internal.base.Convertor;
+import devutility.internal.base.ConvertorUtils;
 import devutility.internal.lang.ClassUtils;
 import devutility.internal.lang.StringUtils;
 import devutility.internal.lang.models.EntityField;
@@ -32,7 +32,7 @@ public class BeanUtils {
 		Class<?> clazz = field.getType();
 
 		if (clazz.isArray()) {
-			List<?> list = Convertor.stringToList(value, ",", clazz.getComponentType());
+			List<?> list = ConvertorUtils.stringToList(value, ",", clazz.getComponentType());
 			setArrayField(setter, model, list, clazz);
 		}
 
@@ -43,11 +43,11 @@ public class BeanUtils {
 				return;
 			}
 
-			List<?> list = Convertor.stringToList(value, ",", genericClass);
+			List<?> list = ConvertorUtils.stringToList(value, ",", genericClass);
 			setter.invoke(model, list);
 		}
 
-		Object obj = Convertor.stringToType(value, clazz);
+		Object obj = ConvertorUtils.stringToType(value, clazz);
 
 		if (obj != null) {
 			setter.invoke(model, obj);
@@ -148,7 +148,7 @@ public class BeanUtils {
 			Object value = method.invoke(entity);
 
 			if (value != null) {
-				array[i] = Convertor.objectToString(value);
+				array[i] = ConvertorUtils.objectToString(value);
 			}
 		}
 

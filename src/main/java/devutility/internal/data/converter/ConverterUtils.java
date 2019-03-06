@@ -4,11 +4,11 @@ import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import devutility.internal.annotations.Convertor;
 import devutility.internal.base.SingletonFactory;
-import devutility.internal.util.CollectionUtils;
 
 /**
  * 
@@ -23,13 +23,28 @@ public class ConverterUtils {
 	private final static String CACHEKEYFORMAT_CONVERTER = "Converter-%s-%s";
 
 	/**
-	 * Get cache key for Converter
-	 * @param sName
-	 * @param tName
+	 * Cache key format for converter method.
+	 */
+	private final static String CACHEKEYFORMAT_CONVERTER_METHOD = "Converter-Method-%s-%s";
+
+	/**
+	 * Get cache key for Converter object.
+	 * @param sName Name of source Class object.
+	 * @param tName Name of target Class object.
 	 * @return String
 	 */
 	public static String getCacheKeyForConverter(String sName, String tName) {
 		return String.format(CACHEKEYFORMAT_CONVERTER, sName, tName);
+	}
+
+	/**
+	 * Get cache key for converter method object.
+	 * @param sName Name of source Class object.
+	 * @param tName Name of target Class object.
+	 * @return String
+	 */
+	public static String getCacheKeyForConverterMethod(String sName, String tName) {
+		return String.format(CACHEKEYFORMAT_CONVERTER_METHOD, sName, tName);
 	}
 
 	/**
@@ -44,19 +59,41 @@ public class ConverterUtils {
 		return SingletonFactory.get(key, Converter.class);
 	}
 
-	public static <S, T> Method getConverterMethod(List<Method> methods, Class<S> sClazz, Class<T> tClazz) {
-		for (Method method : methods) {
-			if (method.isAnnotationPresent(Convertor.class)) {
-				Class<?>[] parameterTypes = method.getParameterTypes();
-				Class<?> returnType = method.getReturnType();
+	/**
+	 * Get converter method by provided source Class object and target Class object.
+	 * @param sClazz Source Class object.
+	 * @param tClazz Target Class object.
+	 * @return Method
+	 */
+	public static <S, T> Method getConverterMethod(Class<S> sClazz, Class<T> tClazz) {
+		String key = getCacheKeyForConverterMethod(sClazz.getName(), tClazz.getName());
+		Method method = SingletonFactory.get(key, Method.class);
 
-				if (CollectionUtils.exist(Arrays.asList(parameterTypes), i -> sClazz.equals(i.getClass())) && returnType.equals(tClazz)) {
-					return method;
+		if (method != null) {
+			return method;
+		}
+
+		List<Method> methods = new LinkedList<>();
+		methods.addAll(Arrays.asList(sClazz.getDeclaredMethods()));
+		methods.addAll(Arrays.asList(tClazz.getDeclaredMethods()));
+
+		for (Method convertorMethod : methods) {
+			if (convertorMethod.isAnnotationPresent(Convertor.class)) {
+				Class<?>[] parameterTypes = convertorMethod.getParameterTypes();
+				Class<?> returnType = convertorMethod.getReturnType();
+
+				if (parameterTypes != null && parameterTypes.length == 1 && parameterTypes[0].equals(sClazz) && returnType != null && returnType.equals(tClazz)) {
+					method = convertorMethod;
+					break;
 				}
 			}
 		}
 
-		return null;
+		if (method != null) {
+			SingletonFactory.save(key, method);
+		}
+
+		return method;
 	}
 
 	/**

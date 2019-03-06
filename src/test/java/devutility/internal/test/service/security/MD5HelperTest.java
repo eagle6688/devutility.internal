@@ -2,7 +2,7 @@ package devutility.internal.test.service.security;
 
 import java.io.UnsupportedEncodingException;
 
-import devutility.internal.base.Convertor;
+import devutility.internal.base.ConvertorUtils;
 import devutility.internal.data.codec.UTF8Utils;
 import devutility.internal.security.MD5Utils;
 import devutility.internal.test.BaseTest;
@@ -24,8 +24,8 @@ public class MD5HelperTest extends BaseTest {
 		}
 
 		byte[] encipheredBytes = MD5Utils.encipher(bytes);
-		println(Convertor.bytesToHex(encipheredBytes));
-		println(Convertor.bytesToLong(encipheredBytes));
+		println(ConvertorUtils.bytesToHex(encipheredBytes));
+		println(ConvertorUtils.bytesToLong(encipheredBytes));
 	}
 
 	public static void main(String[] args) {

@@ -4,7 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import devutility.internal.base.Convertor;
+import devutility.internal.base.ConvertorUtils;
 import devutility.internal.data.codec.Base64Utils;
 import devutility.internal.data.codec.UTF8Utils;
 
@@ -61,6 +61,6 @@ public class MD5Utils {
 		}
 
 		byte[] encipheredBytes = encipher(bytes);
-		return Convertor.bytesToHex(encipheredBytes);
+		return ConvertorUtils.bytesToHex(encipheredBytes);
 	}
 }

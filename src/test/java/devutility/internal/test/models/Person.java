@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import devutility.internal.base.Convertor;
+import devutility.internal.base.ConvertorUtils;
 import devutility.internal.util.RandomUtils;
 
 public class Person implements Comparable<Person> {
@@ -97,7 +97,7 @@ public class Person implements Comparable<Person> {
 			int year = RandomUtils.getNumber(currentYear - count, currentYear);
 			int month = RandomUtils.getNumber(1, 12);
 			int day = RandomUtils.getNumber(1, 28);
-			person.setBirthday(Convertor.localDateToDate(LocalDate.of(year, month, day), null));
+			person.setBirthday(ConvertorUtils.localDateToDate(LocalDate.of(year, month, day), null));
 			list.add(person);
 		}
 

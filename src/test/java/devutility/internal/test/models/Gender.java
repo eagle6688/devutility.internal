@@ -1,5 +1,7 @@
 package devutility.internal.test.models;
 
+import devutility.internal.annotations.Convertor;
+
 /**
  * 
  * Gender
@@ -32,6 +34,7 @@ public enum Gender {
 		return value;
 	}
 
+	@Convertor
 	public static Gender parse(String value) {
 		Gender[] array = Gender.values();
 
