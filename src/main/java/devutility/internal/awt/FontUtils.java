@@ -5,24 +5,52 @@ import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 
 public class FontUtils {
-	public static int getFontWidth(Graphics2D graphics2d, Font font, String value) {
-		FontMetrics fontMetrics = graphics2d.getFontMetrics(font);
+	/**
+	 * Return string width use Font object.
+	 * @param graphics Graphics2D object.
+	 * @param font Font object.
+	 * @param value String value need display in Graphics2D object.
+	 * @return int
+	 */
+	public static int getStringWidth(Graphics2D graphics, Font font, String value) {
+		FontMetrics fontMetrics = graphics.getFontMetrics(font);
 		return fontMetrics.stringWidth(value);
 	}
 
-	public static int getFontHeight(Graphics2D graphics2d, Font font) {
-		FontMetrics fontMetrics = graphics2d.getFontMetrics(font);
+	/**
+	 * Return height of Font object.
+	 * @param graphics Graphics2D object.
+	 * @param font Font object.
+	 * @return int
+	 */
+	public static int getHeight(Graphics2D graphics, Font font) {
+		FontMetrics fontMetrics = graphics.getFontMetrics(font);
 		return fontMetrics.getHeight();
 	}
 
-	public static float getXOffset(int backgroundWidth, Graphics2D graphics2d, Font font, String value) {
-		int width = FontUtils.getFontWidth(graphics2d, font, value);
-		return (backgroundWidth - width) / 2;
+	/**
+	 * Return X offset of centric position for string.
+	 * @param imageWidth Image width.
+	 * @param graphics Graphics2D object.
+	 * @param font Font object.
+	 * @param value String value.
+	 * @return float
+	 */
+	public static float getCentricXOffset(int imageWidth, Graphics2D graphics, Font font, String value) {
+		int width = FontUtils.getStringWidth(graphics, font, value);
+		return (imageWidth - width) / 2;
 	}
 
-	public static float getYOffset(int backgroundHeight, Graphics2D graphics2d, Font font) {
-		FontMetrics fontMetrics = graphics2d.getFontMetrics(font);
+	/**
+	 * Return Y offset of centric position for Font.
+	 * @param imageHeight Image height.
+	 * @param graphics Graphics2D object.
+	 * @param font Font object.
+	 * @return float
+	 */
+	public static float getCentricYOffset(int imageHeight, Graphics2D graphics, Font font) {
+		FontMetrics fontMetrics = graphics.getFontMetrics(font);
 		int height = fontMetrics.getHeight();
-		return (backgroundHeight - height) / 2 + fontMetrics.getAscent();
+		return (imageHeight - height) / 2 + fontMetrics.getAscent();
 	}
 }

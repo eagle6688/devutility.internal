@@ -33,8 +33,8 @@ public class VerificationCodeUtils {
 		Color reverseColor = ColorUtils.getReverseColor(color);
 		graphics2d.setColor(reverseColor);
 
-		float xOffset = FontUtils.getXOffset(width, graphics2d, font, code);
-		float yOffset = FontUtils.getYOffset(height, graphics2d, font);
+		float xOffset = FontUtils.getCentricXOffset(width, graphics2d, font, code);
+		float yOffset = FontUtils.getCentricYOffset(height, graphics2d, font);
 		graphics2d.drawString(code, xOffset, yOffset);
 
 		int obstacleCount = RANDOM.nextInt(getMaxObstacleCount(width, height));

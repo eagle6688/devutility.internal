@@ -1,6 +1,7 @@
 package devutility.internal.test.service.awt.image;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Image;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -20,18 +21,18 @@ public class WaterMarkTest extends BaseTest {
 		Image image = null;
 
 		try {
-			image = ImageIO.read(new File("E:\\Downloads\\1.png"));
+			image = ImageIO.read(new File("E:\\Downloads\\1.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		try (ByteArrayOutputStream outputStream = (ByteArrayOutputStream) ImageUtils.waterMark(image, "Hello world!", 45, new Color(0, 0, 0), "png")) {
+		try (ByteArrayOutputStream outputStream = (ByteArrayOutputStream) ImageUtils.waterMark(image, "Hello world!", 45, new Font(null, Font.BOLD, 16), new Color(0, 0, 0), 100, 1000, "jpg")) {
 			if (outputStream == null) {
 				println("No OutputStream!");
 				return;
 			}
 
-			String name = String.format("%s.png", UUID.randomUUID().toString());
+			String name = String.format("%s.jpg", UUID.randomUUID().toString());
 			FileOutputStream fileOutputStream = new FileOutputStream(new File("E:\\Downloads\\" + name));
 			outputStream.writeTo(fileOutputStream);
 			fileOutputStream.flush();

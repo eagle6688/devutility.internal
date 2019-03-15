@@ -20,7 +20,20 @@ import javax.imageio.ImageIO;
  * @author: Aldwin Su
  */
 public class ImageUtils {
-	public static OutputStream waterMark(Image image, String text, int slopeAngle, Color color, String formaName) throws IOException {
+	/**
+	 * Add watermark in image.
+	 * @param image Image object.
+	 * @param text Watermark text.
+	 * @param slopeAngle Watermark text slope angle.
+	 * @param font Font object for watermark.
+	 * @param color Color object for watermark.
+	 * @param positionX Position X for watermark in image.
+	 * @param positionY Position Y for watermark in image.
+	 * @param extension Extension for new image.
+	 * @return OutputStream
+	 * @throws IOException
+	 */
+	public static OutputStream waterMark(Image image, String text, int slopeAngle, Font font, Color color, float positionX, float positionY, String extension) throws IOException {
 		int width = image.getWidth(null);
 		int height = image.getHeight(null);
 
@@ -32,18 +45,18 @@ public class ImageUtils {
 		graphics.drawImage(scaledImage, 0, 0, null);
 
 		if (slopeAngle > 0) {
-			graphics.rotate(Math.toRadians(slopeAngle), bufferedImage.getWidth() / 2, bufferedImage.getHeight() / 2);
+			graphics.rotate(Math.toRadians(slopeAngle), width / 2, height / 2);
 		}
 
 		graphics.setColor(color);
-		graphics.setFont(new Font(null, Font.BOLD, bufferedImage.getHeight() / 2));
+		graphics.setFont(font);
 		graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, 0.15f));
-		graphics.drawString(text, bufferedImage.getWidth() / 2, bufferedImage.getHeight() / 2);
+		graphics.drawString(text, positionX, positionY);
 		graphics.dispose();
 
 		OutputStream outputStream = new ByteArrayOutputStream();
 
-		if (!ImageIO.write(bufferedImage, formaName, outputStream)) {
+		if (!ImageIO.write(bufferedImage, extension, outputStream)) {
 			return null;
 		}
 
