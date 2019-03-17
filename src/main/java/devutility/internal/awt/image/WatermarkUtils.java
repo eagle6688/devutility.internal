@@ -12,6 +12,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import devutility.internal.awt.FontUtils;
 import devutility.internal.awt.RenderingHintsUtils;
 import devutility.internal.io.FileUtils;
 
@@ -142,5 +143,61 @@ public class WatermarkUtils {
 	 */
 	public static void mark(Image image, String text, int slopeAngle, Font font, Color color, float positionX, float positionY, float alpha, String imagePath) throws IOException {
 		mark(image, text, slopeAngle, font, color, positionX, positionY, RenderingHintsUtils.highQuality(), alpha, imagePath);
+	}
+
+	public static BufferedImage bottomRightMark(Image image, String text, Font font, Color color, RenderingHints renderingHints, AlphaComposite alphaComposite) {
+		int width = image.getWidth(null);
+		int height = image.getHeight(null);
+		Image scaledImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+
+		BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D graphics = bufferedImage.createGraphics();
+		graphics.setRenderingHints(renderingHints);
+		graphics.drawImage(scaledImage, 0, 0, null);
+		graphics.setFont(font);
+		graphics.setColor(color);
+		graphics.setComposite(alphaComposite);
+
+		float[] position = getBottomRightPosition(width, height, graphics, font, text);
+		graphics.drawString(text, position[0], position[1]);
+		graphics.dispose();
+		return bufferedImage;
+	}
+
+	public static BufferedImage bottomRightMark(Image image, String text, Font font, Color color, RenderingHints renderingHints, float alpha) {
+		return bottomRightMark(image, text, font, color, renderingHints, AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, alpha));
+	}
+
+	public static BufferedImage bottomRightMark(Image image, String text, Font font, Color color, float alpha) {
+		return bottomRightMark(image, text, font, color, RenderingHintsUtils.highQuality(), alpha);
+	}
+
+	public static void bottomRightMark(Image image, String text, Font font, Color color, RenderingHints renderingHints, AlphaComposite alphaComposite, String imagePath) throws IOException {
+		BufferedImage bufferedImage = bottomRightMark(image, text, font, color, renderingHints, alphaComposite);
+		File file = new File(imagePath);
+		String extension = FileUtils.getExtension(imagePath).substring(1);
+
+		if (!ImageIO.write(bufferedImage, extension, file)) {
+			throw new IOException(String.format("Write image failed! %s", imagePath));
+		}
+	}
+
+	public static void bottomRightMark(Image image, String text, Font font, Color color, RenderingHints renderingHints, float alpha, String imagePath) throws IOException {
+		bottomRightMark(image, text, font, color, renderingHints, AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, alpha), imagePath);
+	}
+
+	public static void bottomRightMark(Image image, String text, Font font, Color color, float alpha, String imagePath) throws IOException {
+		bottomRightMark(image, text, font, color, RenderingHintsUtils.highQuality(), AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, alpha), imagePath);
+	}
+
+	private static float[] getBottomRightPosition(int imageWidth, int imageHeight, Graphics2D graphics, Font font, String text) {
+		float xOffset = 15;
+		float yOffset = 15;
+		int stringWidth = FontUtils.getStringWidth(graphics, font, text);
+
+		float[] array = new float[2];
+		array[0] = imageWidth - stringWidth - xOffset;
+		array[1] = imageHeight - yOffset;
+		return array;
 	}
 }
