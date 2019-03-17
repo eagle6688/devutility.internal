@@ -3,15 +3,12 @@ package devutility.internal.test.service.awt.image;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.UUID;
 
 import javax.imageio.ImageIO;
 
-import devutility.internal.awt.ImageUtils;
+import devutility.internal.awt.image.WatermarkUtils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
@@ -21,22 +18,17 @@ public class WaterMarkTest extends BaseTest {
 		Image image = null;
 
 		try {
-			image = ImageIO.read(new File("E:\\Downloads\\1.jpg"));
+			image = ImageIO.read(new File("E:\\Downloads\\1.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		try (ByteArrayOutputStream outputStream = (ByteArrayOutputStream) ImageUtils.waterMark(image, "Hello world!", 45, new Font(null, Font.BOLD, 16), new Color(0, 0, 0), 100, 1000, "jpg")) {
-			if (outputStream == null) {
-				println("No OutputStream!");
-				return;
-			}
+		String imageName = "WaterMarkTest.png";
+		String imagePath = String.format("E:\\Downloads\\%s", imageName);
 
-			String name = String.format("%s.jpg", UUID.randomUUID().toString());
-			FileOutputStream fileOutputStream = new FileOutputStream(new File("E:\\Downloads\\" + name));
-			outputStream.writeTo(fileOutputStream);
-			fileOutputStream.flush();
-		} catch (Exception e) {
+		try {
+			WatermarkUtils.mark(image, "Hello world!", 0, new Font(null, Font.BOLD, 26), Color.GRAY, 0, 26, 0.5f, imagePath);
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}

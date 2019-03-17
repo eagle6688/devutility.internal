@@ -32,14 +32,19 @@ public class FileUtils {
 		return String.format("%d.log", hour);
 	}
 
-	public static String getFileExtension(String fileName) {
+	/**
+	 * Get file extension name.
+	 * @param fileName File name or file path.
+	 * @return String
+	 */
+	public static String getExtension(String fileName) {
 		int index = fileName.lastIndexOf(".");
 		return fileName.substring(index);
 	}
 
 	/**
 	 * Create an new File object.
-	 * @param filePath: File path.
+	 * @param filePath File path.
 	 * @return File
 	 * @throws FileNotFoundException When file not found.
 	 */

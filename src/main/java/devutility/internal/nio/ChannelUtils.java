@@ -13,8 +13,8 @@ import java.nio.channels.ReadableByteChannel;
 public class ChannelUtils {
 	/**
 	 * Read bytes from ReadableByteChannel object.
-	 * @param channel: ReadableByteChannel object.
-	 * @param bufferSize: Buffer size.
+	 * @param channel ReadableByteChannel object.
+	 * @param bufferSize Buffer size.
 	 * @return byte[]
 	 */
 	public static byte[] read(ReadableByteChannel channel, int bufferSize) {
