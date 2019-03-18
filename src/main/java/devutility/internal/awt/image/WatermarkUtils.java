@@ -35,7 +35,7 @@ public class WatermarkUtils {
 		int height = image.getHeight(null);
 		Image scaledImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 
-		BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		Graphics2D graphics = bufferedImage.createGraphics();
 		graphics.setRenderingHints(renderingHints);
 		graphics.drawImage(scaledImage, 0, 0, null);
@@ -66,7 +66,7 @@ public class WatermarkUtils {
 	 * @return BufferedImage
 	 */
 	public static BufferedImage mark(Image image, String text, int slopeAngle, Font font, Color color, float positionX, float positionY, RenderingHints renderingHints, float alpha) {
-		return mark(image, text, slopeAngle, font, color, positionX, positionY, renderingHints, AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, alpha));
+		return mark(image, text, slopeAngle, font, color, positionX, positionY, renderingHints, AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
 	}
 
 	/**
@@ -125,12 +125,12 @@ public class WatermarkUtils {
 	 * @throws IOException Throw when File not found or writed failed.
 	 */
 	public static void mark(Image image, String text, int slopeAngle, Font font, Color color, float positionX, float positionY, RenderingHints renderingHints, float alpha, String imagePath) throws IOException {
-		mark(image, text, slopeAngle, font, color, positionX, positionY, renderingHints, AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, alpha), imagePath);
+		mark(image, text, slopeAngle, font, color, positionX, positionY, renderingHints, AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha), imagePath);
 	}
 
 	/**
 	 * Add watermark in image, save the new image to provided imagePath.
-	 * @param image Image object.
+	 * @param image BufferedImage object.
 	 * @param text Watermark text.
 	 * @param slopeAngle Watermark text slope angle, for example 45.
 	 * @param font Font object for watermark.
@@ -145,15 +145,14 @@ public class WatermarkUtils {
 		mark(image, text, slopeAngle, font, color, positionX, positionY, RenderingHintsUtils.highQuality(), alpha, imagePath);
 	}
 
-	public static BufferedImage bottomRightMark(Image image, String text, Font font, Color color, RenderingHints renderingHints, AlphaComposite alphaComposite) {
-		int width = image.getWidth(null);
-		int height = image.getHeight(null);
-		Image scaledImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+	public static BufferedImage bottomRightMark(BufferedImage image, String text, Font font, Color color, RenderingHints renderingHints, AlphaComposite alphaComposite) {
+		int width = image.getWidth();
+		int height = image.getHeight();
 
-		BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImageUtils.getImageType(image));
 		Graphics2D graphics = bufferedImage.createGraphics();
 		graphics.setRenderingHints(renderingHints);
-		graphics.drawImage(scaledImage, 0, 0, null);
+		graphics.drawImage(image, 0, 0, null);
 		graphics.setFont(font);
 		graphics.setColor(color);
 		graphics.setComposite(alphaComposite);
@@ -164,15 +163,15 @@ public class WatermarkUtils {
 		return bufferedImage;
 	}
 
-	public static BufferedImage bottomRightMark(Image image, String text, Font font, Color color, RenderingHints renderingHints, float alpha) {
-		return bottomRightMark(image, text, font, color, renderingHints, AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, alpha));
+	public static BufferedImage bottomRightMark(BufferedImage image, String text, Font font, Color color, RenderingHints renderingHints, float alpha) {
+		return bottomRightMark(image, text, font, color, renderingHints, AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
 	}
 
-	public static BufferedImage bottomRightMark(Image image, String text, Font font, Color color, float alpha) {
+	public static BufferedImage bottomRightMark(BufferedImage image, String text, Font font, Color color, float alpha) {
 		return bottomRightMark(image, text, font, color, RenderingHintsUtils.highQuality(), alpha);
 	}
 
-	public static void bottomRightMark(Image image, String text, Font font, Color color, RenderingHints renderingHints, AlphaComposite alphaComposite, String imagePath) throws IOException {
+	public static void bottomRightMark(BufferedImage image, String text, Font font, Color color, RenderingHints renderingHints, AlphaComposite alphaComposite, String imagePath) throws IOException {
 		BufferedImage bufferedImage = bottomRightMark(image, text, font, color, renderingHints, alphaComposite);
 		File file = new File(imagePath);
 		String extension = FileUtils.getExtension(imagePath).substring(1);
@@ -182,12 +181,12 @@ public class WatermarkUtils {
 		}
 	}
 
-	public static void bottomRightMark(Image image, String text, Font font, Color color, RenderingHints renderingHints, float alpha, String imagePath) throws IOException {
-		bottomRightMark(image, text, font, color, renderingHints, AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, alpha), imagePath);
+	public static void bottomRightMark(BufferedImage image, String text, Font font, Color color, RenderingHints renderingHints, float alpha, String imagePath) throws IOException {
+		bottomRightMark(image, text, font, color, renderingHints, AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha), imagePath);
 	}
 
-	public static void bottomRightMark(Image image, String text, Font font, Color color, float alpha, String imagePath) throws IOException {
-		bottomRightMark(image, text, font, color, RenderingHintsUtils.highQuality(), AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, alpha), imagePath);
+	public static void bottomRightMark(BufferedImage image, String text, Font font, Color color, float alpha, String imagePath) throws IOException {
+		bottomRightMark(image, text, font, color, RenderingHintsUtils.highQuality(), alpha, imagePath);
 	}
 
 	private static float[] getBottomRightPosition(int imageWidth, int imageHeight, Graphics2D graphics, Font font, String text) {

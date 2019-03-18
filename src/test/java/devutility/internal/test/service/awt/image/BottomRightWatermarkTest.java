@@ -2,32 +2,40 @@ package devutility.internal.test.service.awt.image;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.UUID;
 
 import javax.imageio.ImageIO;
 
 import devutility.internal.awt.image.WatermarkUtils;
+import devutility.internal.io.FileUtils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
 public class BottomRightWatermarkTest extends BaseTest {
 	@Override
 	public void run() {
-		Image image = null;
+		test("E:\\Downloads\\Test\\1.jpg");
+		test("E:\\Downloads\\Test\\2.jpg");
+		test("E:\\Downloads\\Test\\3.png");
+	}
+
+	private void test(String sourceImagePath) {
+		String extension = FileUtils.getExtension(sourceImagePath);
+		String imagePath = sourceImagePath.replace(extension, String.format("_%s%s", UUID.randomUUID().toString(), extension));
+
+		BufferedImage image = null;
 
 		try {
-			image = ImageIO.read(new File("E:\\Downloads\\2.png"));
+			image = ImageIO.read(new File(sourceImagePath));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		String imageName = "BottomRightWatermarkTest.png";
-		String imagePath = String.format("E:\\Downloads\\%s", imageName);
-
 		try {
-			WatermarkUtils.bottomRightMark(image, "Hello world!", new Font(null, Font.BOLD, 26), Color.white, 0.5f, imagePath);
+			WatermarkUtils.bottomRightMark(image, "Hello world!", new Font(null, Font.BOLD, 26), Color.BLACK, 0.5f, imagePath);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
