@@ -190,13 +190,13 @@ public class WatermarkUtils {
 	}
 
 	private static float[] getBottomRightPosition(int imageWidth, int imageHeight, Graphics2D graphics, Font font, String text) {
-		float xOffset = 15;
-		float yOffset = 15;
+		float xRightOffset = 15;
+		float yBottomOffset = 15;
 		int stringWidth = FontUtils.getStringWidth(graphics, font, text);
 
 		float[] array = new float[2];
-		array[0] = imageWidth - stringWidth - xOffset;
-		array[1] = imageHeight - yOffset;
+		array[0] = imageWidth - stringWidth - xRightOffset;
+		array[1] = imageHeight - yBottomOffset;
 		return array;
 	}
 }
