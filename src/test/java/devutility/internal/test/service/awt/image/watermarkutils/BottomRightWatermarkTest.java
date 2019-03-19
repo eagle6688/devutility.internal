@@ -1,4 +1,4 @@
-package devutility.internal.test.service.awt.image;
+package devutility.internal.test.service.awt.image.watermarkutils;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -25,7 +25,6 @@ public class BottomRightWatermarkTest extends BaseTest {
 	private void test(String sourceImagePath) {
 		String extension = FileUtils.getExtension(sourceImagePath);
 		String imagePath = sourceImagePath.replace(extension, String.format("_%s%s", UUID.randomUUID().toString(), extension));
-
 		BufferedImage image = null;
 
 		try {
@@ -35,7 +34,7 @@ public class BottomRightWatermarkTest extends BaseTest {
 		}
 
 		try {
-			WatermarkUtils.bottomRightMark(image, "Hello world!", new Font(null, Font.BOLD, 26), Color.BLACK, 0.5f, imagePath);
+			WatermarkUtils.bottomRightString(image, "Hello world!", new Font(null, Font.BOLD, 26), Color.BLACK, 0.5f, imagePath);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
