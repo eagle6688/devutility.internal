@@ -7,7 +7,10 @@ import devutility.internal.test.TestExecutor;
 public class LoginTest extends BaseTest {
 	@Override
 	public void run() {
-		boolean result = LdapUtils.login("", "", "");
+		String loginName = "";
+		String password = "";
+		String host = "";
+		boolean result = LdapUtils.login(loginName, password, host);
 		System.out.println(result);
 	}
 

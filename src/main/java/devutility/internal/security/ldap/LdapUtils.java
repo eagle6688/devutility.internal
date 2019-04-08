@@ -158,6 +158,7 @@ public class LdapUtils {
 			while (namingEnumerationLevel2.hasMore()) {
 				Attribute attribute = (Attribute) namingEnumerationLevel2.next();
 				ldapAccount.put(attribute.getID().toString(), getAttributeValue(attribute));
+				System.out.println(attribute.getID().toString() + ":" + getAttributeValue(attribute));
 			}
 
 			list.add(ldapAccount);
