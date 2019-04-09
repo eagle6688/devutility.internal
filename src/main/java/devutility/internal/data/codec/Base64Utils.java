@@ -1,8 +1,18 @@
 package devutility.internal.data.codec;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Base64;
 
+/**
+ * 
+ * Base64Utils
+ * 
+ * @author: Aldwin Su
+ */
 public class Base64Utils {
 	public static byte[] encode(byte[] bytes) {
 		if (bytes == null || bytes.length == 0) {
@@ -31,13 +41,33 @@ public class Base64Utils {
 		return Base64.getDecoder().decode(bytes);
 	}
 
-	public static byte[] decodeByString(String value) {
-		try {
-			byte[] base64Bytes = UTF8Utils.encode(value);
-			return decode(base64Bytes);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
+	/**
+	 * Decode base64 string to bytes array.
+	 * @param value Base64 string value.
+	 * @return {@code byte[]}
+	 * @throws UnsupportedEncodingException
+	 */
+	public static byte[] decode(String value) throws UnsupportedEncodingException {
+		byte[] base64Bytes = UTF8Utils.encode(value);
+		return decode(base64Bytes);
+	}
+
+	/**
+	 * Decode base64 string and save to File.
+	 * @param value Base64 string value.
+	 * @param file File object.
+	 * @throws IOException
+	 */
+	public static void decodeToFile(String value, File file) throws IOException {
+		byte[] bytes = decode(value);
+
+		if (bytes == null || bytes.length == 0) {
+			return;
 		}
+
+		OutputStream outputStream = new FileOutputStream(file);
+		outputStream.write(bytes);
+		outputStream.flush();
+		outputStream.close();
 	}
 }
