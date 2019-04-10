@@ -1,13 +1,13 @@
-package devutility.internal.test.service.io.randomaccessfilehelper;
+package devutility.internal.test.service.nio.rafu;
 
 import java.nio.ByteBuffer;
 import java.nio.channels.CompletionHandler;
 
-import devutility.internal.io.RandomAccessFileUtils;
+import devutility.internal.nio.RandomAccessFileUtils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
-public class AsyncAppendService extends BaseTest {
+public class AsyncAppendTest extends BaseTest {
 	String fileName = "E:\\Downloads\\Test.txt";
 
 	@Override
@@ -39,6 +39,6 @@ public class AsyncAppendService extends BaseTest {
 	}
 	
 	public static void main(String[] args) {
-		TestExecutor.run(new AsyncAppendService());
+		TestExecutor.run(new AsyncAppendTest());
 	}
 }

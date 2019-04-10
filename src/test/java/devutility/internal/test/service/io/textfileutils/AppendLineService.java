@@ -1,22 +1,22 @@
-package devutility.internal.test.service.io.texthelper;
+package devutility.internal.test.service.io.textfileutils;
 
 import devutility.internal.io.TextFileUtils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
-public class AppendService extends BaseTest {
+public class AppendLineService extends BaseTest {
 	@Override
 	public void run() {
 		try {
-			TextFileUtils.append("E:\\Downloads\\Test.txt", "asd");
+			TextFileUtils.appendLine("E:\\Downloads\\Test.txt", "newline");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		println("Append completely!");
+		println("AppendLine completely!");
 	}
 	
 	public static void main(String[] args) throws Exception {
-		TestExecutor.run(AppendService.class);
+		TestExecutor.run(AppendLineService.class);
 	}
 }

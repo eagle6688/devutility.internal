@@ -10,19 +10,26 @@ import java.nio.file.Paths;
 
 import devutility.internal.base.SystemUtils;
 import devutility.internal.io.FileUtils;
-import devutility.internal.io.RandomAccessFileUtils;
+import devutility.internal.nio.RandomAccessFileUtils;
 
+/**
+ * 
+ * TextFileUtils
+ * 
+ * @author: Aldwin Su
+ * @date: 2019-04-10 17:39:50
+ */
 public class TextFileUtils {
 	/**
 	 * Insert new content from startIndex.
-	 * @param fileName: file name
-	 * @param startIndex: Start index of content in file
-	 * @param content: New content
-	 * @throws Exception
+	 * @param file File path.
+	 * @param start Start index in file bytes array, not file content index.
+	 * @param content New content
+	 * @throws IOException From RandomAccessFileUtils
 	 */
-	public static void insert(String fileName, long startIndex, String content) throws Exception {
+	public static void insert(String file, long start, String content) throws IOException {
 		byte[] bytes = content.getBytes();
-		RandomAccessFileUtils.insert(fileName, startIndex, bytes);
+		RandomAccessFileUtils.insert(file, start, bytes);
 	}
 
 	/**
