@@ -1,11 +1,12 @@
 package devutility.internal.data.codec;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Base64;
+
+import devutility.internal.data.uri.UriHeader;
+import devutility.internal.data.uri.UriUtils;
+import devutility.internal.nio.RandomAccessFileUtils;
 
 /**
  * 
@@ -21,10 +22,6 @@ public class Base64Utils {
 	 * @return byte[]
 	 */
 	public static byte[] encode(byte[] bytes) {
-		if (bytes == null || bytes.length == 0) {
-			return null;
-		}
-
 		return Base64.getEncoder().encode(bytes);
 	}
 
@@ -45,10 +42,6 @@ public class Base64Utils {
 	 * @return byte[]
 	 */
 	public static byte[] decode(byte[] bytes) {
-		if (bytes == null || bytes.length == 0) {
-			return null;
-		}
-
 		return Base64.getDecoder().decode(bytes);
 	}
 
@@ -64,22 +57,30 @@ public class Base64Utils {
 	}
 
 	/**
-	 * Decode base64 string and save to File.
-	 * @param value Base64 string value.
-	 * @param file File object.
-	 * @throws IOException
+	 * Decode base64 string and save into file.
+	 * @param file File path.
+	 * @param value String value.
+	 * @throws IOException From RandomAccessFileUtils.
 	 */
-	public static void decodeToFile(String value, File file) throws IOException {
+	public static void decodeToFile(String file, String value) throws IOException {
 		byte[] bytes = Base64.getDecoder().decode(value);
+		RandomAccessFileUtils.save(file, bytes);
+	}
 
-		if (bytes == null || bytes.length == 0) {
-			return;
+	/**
+	 * Decode ToImage
+	 * @param file
+	 * @param value
+	 * @throws IOException void
+	 */
+	public static void decodeToImage(String file, String value) throws IOException {
+		UriHeader uriHeader = UriUtils.uriHeader(value);
+
+		if (uriHeader == null) {
+			throw new IllegalArgumentException("Invalid base64 header format!");
 		}
 
-		try (OutputStream outputStream = new FileOutputStream(file)) {
-			outputStream.write(bytes);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		String base64 = value.substring(uriHeader.getHeader().length());
+		decodeToFile(file, base64);
 	}
 }
