@@ -9,12 +9,8 @@ import devutility.internal.io.TextFileUtils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
-public class ReadService extends BaseTest {
-	private String path;
-
-	public ReadService(String path) {
-		this.path = path;
-	}
+public class ReadTest extends BaseTest {
+	private String path = "E:\\Downloads\\Test.txt";
 
 	@Override
 	public void run() {
@@ -36,6 +32,6 @@ public class ReadService extends BaseTest {
 	}
 
 	public static void main(String[] args) {
-		TestExecutor.run(new ReadService("E:\\Downloads\\Test.txt"));
+		TestExecutor.run(ReadTest.class);
 	}
 }

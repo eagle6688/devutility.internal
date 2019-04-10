@@ -4,19 +4,19 @@ import devutility.internal.io.TextFileUtils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
-public class AppendLineService extends BaseTest {
+public class AppendLineTest extends BaseTest {
 	@Override
 	public void run() {
 		try {
-			TextFileUtils.appendLine("E:\\Downloads\\Test.txt", "newline");
+			TextFileUtils.appendLine("E:\\Test\\Test.txt", "New line!");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		println("AppendLine completely!");
+
+		println("Append new line completely!");
 	}
-	
+
 	public static void main(String[] args) throws Exception {
-		TestExecutor.run(AppendLineService.class);
+		TestExecutor.run(AppendLineTest.class);
 	}
 }

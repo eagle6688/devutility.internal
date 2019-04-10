@@ -6,10 +6,9 @@ import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import devutility.internal.base.SystemUtils;
-import devutility.internal.io.FileUtils;
+import devutility.internal.data.codec.Utf8Utils;
 import devutility.internal.nio.RandomAccessFileUtils;
 
 /**
@@ -33,43 +32,30 @@ public class TextFileUtils {
 	}
 
 	/**
-	 * Append new content in file.
-	 * @param fileName: file name
-	 * @param content: New content
-	 * @throws Exception
+	 * Append content at the end of file.
+	 * @param file File path.
+	 * @param content New string content.
+	 * @throws IOException From RandomAccessFileUtils.
 	 */
-	public static void append(String fileName, String content) throws Exception {
-		insert(fileName, FileUtils.getBytesLength(fileName), content);
+	public static void append(String file, String content) throws IOException {
+		RandomAccessFileUtils.append(file, Utf8Utils.encode(content));
 	}
 
 	/**
 	 * Append content in a new line.
-	 * @param fileName: file name
-	 * @param content: New content
-	 * @throws Exception
+	 * @param file File path.
+	 * @param content New string content.
+	 * @throws IOException From RandomAccessFileUtils.
 	 */
-	public static void appendLine(String fileName, String content) throws Exception {
-		StringBuffer stringBuffer = new StringBuffer(SystemUtils.lineSeparator());
-		stringBuffer.append(content);
-		append(fileName, stringBuffer.toString());
-	}
-
-	/**
-	 * Async append byteBuffer
-	 * @param fileName: file name
-	 * @param byteBuffer: ByteBuffer object that need append.
-	 * @throws IOException
-	 */
-	public static void asyncAppend(String fileName, ByteBuffer byteBuffer) throws IOException {
-		Path path = Paths.get(fileName);
-		RandomAccessFileUtils.asyncAppend(path, byteBuffer);
+	public static void appendLine(String file, String content) throws IOException {
+		append(file, SystemUtils.lineSeparator() + content);
 	}
 
 	/**
 	 * Async append new content.
-	 * @param path: File path
-	 * @param content: New content
-	 * @throws IOException
+	 * @param path File path.
+	 * @param content New content
+	 * @throws IOException From RandomAccessFileUtils.
 	 */
 	public static void asyncAppend(Path path, String content) throws IOException {
 		ByteBuffer byteBuffer = ByteBuffer.wrap(content.getBytes());
@@ -77,14 +63,14 @@ public class TextFileUtils {
 	}
 
 	/**
-	 * Read content from file in charset
-	 * @param fileName: File name
-	 * @param charset: Encoding type
-	 * @return String: Content
-	 * @throws IOException
+	 * Read content from file in charset.
+	 * @param path File path.
+	 * @param charset Encoding type.
+	 * @return String
+	 * @throws IOException From Files.readAllBytes.
 	 */
-	public static String read(String fileName, Charset charset) throws IOException {
-		File file = new File(fileName);
+	public static String read(String path, Charset charset) throws IOException {
+		File file = new File(path);
 
 		if (!file.exists()) {
 			return null;
