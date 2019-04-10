@@ -27,11 +27,22 @@ public class Base64Utils {
 		return Base64.getEncoder().encode(bytes);
 	}
 
+	/**
+	 * Encode base64 bytes to string.
+	 * @param bytes Base64 bytes.
+	 * @return String
+	 * @throws UnsupportedEncodingException When can't support UTF-8 coder.
+	 */
 	public static String encodeToString(byte[] bytes) throws UnsupportedEncodingException {
 		byte[] base64Bytes = encode(bytes);
 		return Utf8Utils.decode(base64Bytes);
 	}
 
+	/**
+	 * Decode base64 bytes to normal bytes.
+	 * @param bytes Base64 bytes array.
+	 * @return byte[]
+	 */
 	public static byte[] decode(byte[] bytes) {
 		if (bytes == null || bytes.length == 0) {
 			return null;
@@ -64,9 +75,10 @@ public class Base64Utils {
 			return;
 		}
 
-		OutputStream outputStream = new FileOutputStream(file);
-		outputStream.write(bytes);
-		outputStream.flush();
-		outputStream.close();
+		try (OutputStream outputStream = new FileOutputStream(file)) {
+			outputStream.write(bytes);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
