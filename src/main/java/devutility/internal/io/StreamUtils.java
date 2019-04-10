@@ -3,7 +3,18 @@ package devutility.internal.io;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
+/**
+ * 
+ * StreamUtils
+ * 
+ * @author: Aldwin Su
+ */
 public class StreamUtils {
+	/**
+	 * Read bytes array from InputStream object.
+	 * @param inputStream InputStream object.
+	 * @return byte[]
+	 */
 	public static byte[] read(InputStream inputStream) {
 		int index = 0;
 		byte[] bytes = new byte[1024];

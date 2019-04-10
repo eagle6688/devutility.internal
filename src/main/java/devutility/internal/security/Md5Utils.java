@@ -5,10 +5,10 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import devutility.internal.data.codec.Base64Utils;
-import devutility.internal.data.codec.UTF8Utils;
+import devutility.internal.data.codec.Utf8Utils;
 import devutility.internal.data.converter.ConverterUtils;
 
-public class MD5Utils {
+public class Md5Utils {
 	/**
 	 * Encipher bytes in MD5.
 	 * @param bytes: Input bytes.
@@ -37,13 +37,19 @@ public class MD5Utils {
 		byte[] bytes = null;
 
 		try {
-			bytes = UTF8Utils.encode(value);
+			bytes = Utf8Utils.encode(value);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 
 		byte[] encipheredBytes = encipher(bytes);
-		return Base64Utils.encodeToString(encipheredBytes);
+
+		try {
+			return Base64Utils.encodeToString(encipheredBytes);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	/**
@@ -55,7 +61,7 @@ public class MD5Utils {
 		byte[] bytes = null;
 
 		try {
-			bytes = UTF8Utils.encode(value);
+			bytes = Utf8Utils.encode(value);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}

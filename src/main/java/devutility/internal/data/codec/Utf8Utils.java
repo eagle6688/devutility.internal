@@ -2,7 +2,7 @@ package devutility.internal.data.codec;
 
 import java.io.UnsupportedEncodingException;
 
-public class UTF8Utils {
+public class Utf8Utils {
 	/**
 	 * Encode value use UTF-8
 	 * @param value: String value.

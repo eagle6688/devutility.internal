@@ -7,7 +7,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-import devutility.internal.data.codec.UTF8Utils;
+import devutility.internal.data.codec.Utf8Utils;
 
 public class HttpUtils extends BaseHttpUtils {
 	/**
@@ -122,7 +122,7 @@ public class HttpUtils extends BaseHttpUtils {
 	public static HttpResponse post(String url, String contentType, String data, int timeout) throws UnsupportedEncodingException, IOException {
 		Map<String, String> header = new HashMap<>();
 		header.put("Content-Type", contentType);
-		return post(url, header, UTF8Utils.encode(data), timeout);
+		return post(url, header, Utf8Utils.encode(data), timeout);
 	}
 
 	/**

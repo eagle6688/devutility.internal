@@ -14,6 +14,11 @@ import java.util.Base64;
  * @author: Aldwin Su
  */
 public class Base64Utils {
+	/**
+	 * Encode bytes array to base64 bytes.
+	 * @param bytes bytes array.
+	 * @return byte[]
+	 */
 	public static byte[] encode(byte[] bytes) {
 		if (bytes == null || bytes.length == 0) {
 			return null;
@@ -22,15 +27,9 @@ public class Base64Utils {
 		return Base64.getEncoder().encode(bytes);
 	}
 
-	public static String encodeToString(byte[] bytes) {
+	public static String encodeToString(byte[] bytes) throws UnsupportedEncodingException {
 		byte[] base64Bytes = encode(bytes);
-
-		try {
-			return UTF8Utils.decode(base64Bytes);
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-			return null;
-		}
+		return Utf8Utils.decode(base64Bytes);
 	}
 
 	public static byte[] decode(byte[] bytes) {
@@ -48,7 +47,7 @@ public class Base64Utils {
 	 * @throws UnsupportedEncodingException
 	 */
 	public static byte[] decode(String value) throws UnsupportedEncodingException {
-		byte[] base64Bytes = UTF8Utils.encode(value);
+		byte[] base64Bytes = Utf8Utils.encode(value);
 		return decode(base64Bytes);
 	}
 
@@ -59,7 +58,7 @@ public class Base64Utils {
 	 * @throws IOException
 	 */
 	public static void decodeToFile(String value, File file) throws IOException {
-		byte[] bytes = decode(value);
+		byte[] bytes = Base64.getDecoder().decode(value);
 
 		if (bytes == null || bytes.length == 0) {
 			return;

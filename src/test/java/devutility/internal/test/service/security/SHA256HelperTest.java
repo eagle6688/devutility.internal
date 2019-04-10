@@ -4,7 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import devutility.internal.security.SHA256Utils;
+import devutility.internal.security.Sha256Utils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
@@ -12,7 +12,7 @@ public class SHA256HelperTest extends BaseTest {
 	@Override
 	public void run() {
 		String value = "Hello World!";
-		println(SHA256Utils.encipherToHex(value));
+		println(Sha256Utils.encipherToHex(value));
 		println(getSHA256StrJava(value));
 	}
 

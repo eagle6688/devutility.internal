@@ -8,7 +8,7 @@ import java.net.ProtocolException;
 import java.util.HashMap;
 import java.util.Map;
 
-import devutility.internal.data.codec.UTF8Utils;
+import devutility.internal.data.codec.Utf8Utils;
 import devutility.internal.io.StreamUtils;
 import devutility.internal.lang.StringUtils;
 
@@ -116,7 +116,7 @@ public abstract class BaseHttpUtils {
 
 		if (bytes != null) {
 			httpResponse.setBytes(bytes);
-			httpResponse.setResponse(UTF8Utils.decode(bytes));
+			httpResponse.setResponse(Utf8Utils.decode(bytes));
 		}
 
 		return httpResponse;

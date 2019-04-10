@@ -15,7 +15,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocketFactory;
 
-import devutility.internal.data.codec.UTF8Utils;
+import devutility.internal.data.codec.Utf8Utils;
 
 public class HttpsUtils extends BaseHttpUtils {
 	/**
@@ -158,7 +158,7 @@ public class HttpsUtils extends BaseHttpUtils {
 	 * @throws IOException
 	 */
 	public static HttpResponse post(String url, String contentType, String data, String protocol, int timeout) throws KeyManagementException, NoSuchAlgorithmException, UnsupportedEncodingException, IOException {
-		return post(url, contentType, UTF8Utils.encode(data), protocol, timeout);
+		return post(url, contentType, Utf8Utils.encode(data), protocol, timeout);
 	}
 
 	/**
@@ -174,7 +174,7 @@ public class HttpsUtils extends BaseHttpUtils {
 	 * @throws IOException
 	 */
 	public static HttpResponse postForm(String url, String data, String protocol, int timeout) throws KeyManagementException, NoSuchAlgorithmException, UnsupportedEncodingException, IOException {
-		return post(url, "application/x-www-form-urlencoded", UTF8Utils.encode(data), protocol, timeout);
+		return post(url, "application/x-www-form-urlencoded", Utf8Utils.encode(data), protocol, timeout);
 	}
 
 	/**

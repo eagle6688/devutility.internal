@@ -1,21 +1,20 @@
-package devutility.internal.test.service.data.codec.base64helper;
+package devutility.internal.test.service.data.codec.base64utils;
 
 import devutility.internal.data.codec.Base64Utils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
-public class DecodeTest extends BaseTest {
+public class EncodeTest extends BaseTest {
 	@Override
 	public void run() {
 		String value = "Hellp World!Hello World!";
 		byte[] bytes = value.getBytes();
 		byte[] base64Bytes = Base64Utils.encode(bytes);
-		byte[] originalBytes = Base64Utils.decode(base64Bytes);
-		String originalValue = new String(originalBytes);
-		println(originalValue);
+		String base64String = new String(base64Bytes);
+		println(base64String);
 	}
 
 	public static void main(String[] args) {
-		TestExecutor.run(DecodeTest.class);
+		TestExecutor.run(EncodeTest.class);
 	}
 }
