@@ -65,7 +65,7 @@ public class ListUtils {
 
 		String[][] arrays = new String[list.size()][];
 
-		for (int i = 0; i < list.size(); i++) {
+		for (int i = 0; i < arrays.length; i++) {
 			T entity = list.get(i);
 			String[] array = BeanUtils.toArray(entity, entityFields);
 
