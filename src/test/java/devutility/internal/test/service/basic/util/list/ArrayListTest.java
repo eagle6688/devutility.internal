@@ -1,4 +1,4 @@
-package devutility.internal.test.service.basic.util;
+package devutility.internal.test.service.basic.util.list;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,10 +8,10 @@ import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
 public class ArrayListTest extends BaseTest {
+	private List<Integer> numbers = new ArrayList<>();
+
 	@Override
 	public void run() {
-		// ArrayList
-		ArrayList<Integer> numbers = new ArrayList<>();
 		numbers.add(1);
 		numbers.add(3);
 		numbers.add(5);
@@ -19,33 +19,44 @@ public class ArrayListTest extends BaseTest {
 		numbers.add(4);
 		numbers.add(1);
 
-		System.out.println(numbers);
+		printArray();
+		compareItem();
+		convertToArray();
+		convertToIntegerArray();
+		arrayInList();
+	}
 
+	private void printArray() {
+		System.out.println(numbers);
 		println(numbers.getClass().getName());
 		println(numbers instanceof ArrayList ? "yes" : "no");
+	}
 
-		// compare
+	private void compareItem() {
 		if (numbers.get(0) == numbers.get(numbers.size() - 1)) {
-			System.out.println("equal!");
+			System.out.println("Equal!");
 		} else {
-			System.out.println("not equal!");
+			System.out.println("Not equal!");
 		}
+	}
 
-		// ArrayList to object array
+	private void convertToArray() {
 		Object[] array = numbers.toArray();
 		System.out.println(array);
 		System.out.println(Arrays.toString(array));
 
-		// instanceof integer
 		if (array[0] instanceof Integer) {
-			System.out.println("is Integer type.");
+			System.out.println("array[0] is Integer type.");
 		}
+	}
 
-		// ArrayList to Integer array
+	private void convertToIntegerArray() {
 		Integer[] integers = numbers.toArray(new Integer[0]);
 		System.out.println(integers);
 		System.out.println(Arrays.toString(integers));
+	}
 
+	private void arrayInList() {
 		println("Arrays: ");
 		List<String[]> list = new ArrayList<>();
 		list.add(new String[] { "1", "2", "3", "4" });
@@ -54,12 +65,6 @@ public class ArrayListTest extends BaseTest {
 
 		for (String[] array1 : arrays1) {
 			System.out.println(Arrays.toString(array1));
-		}
-
-		String[][] arrays2 = new String[0][];
-
-		for (String[] array2 : arrays2) {
-			System.out.println(Arrays.toString(array2));
 		}
 	}
 

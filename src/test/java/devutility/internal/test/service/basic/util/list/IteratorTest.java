@@ -1,4 +1,4 @@
-package devutility.internal.test.service.basic.util;
+package devutility.internal.test.service.basic.util.list;
 
 import java.util.ArrayList;
 import java.util.Iterator;

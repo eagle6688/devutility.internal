@@ -1,4 +1,4 @@
-package devutility.internal.test.service.basic.util;
+package devutility.internal.test.service.basic.util.map;
 
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;

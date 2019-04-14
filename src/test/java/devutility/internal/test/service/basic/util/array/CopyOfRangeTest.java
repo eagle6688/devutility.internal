@@ -1,4 +1,4 @@
-package devutility.internal.test.service.basic.util.arrays;
+package devutility.internal.test.service.basic.util.array;
 
 import java.util.Arrays;
 

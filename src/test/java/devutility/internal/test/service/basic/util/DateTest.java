@@ -8,7 +8,6 @@ import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
 public class DateTest extends BaseTest {
-
 	@Override
 	public void run() {
 		Date date = new Date(0);
