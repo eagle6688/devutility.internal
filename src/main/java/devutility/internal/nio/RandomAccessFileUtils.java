@@ -17,7 +17,7 @@ import devutility.internal.io.FileUtils;
  * RandomAccessFileUtils
  * 
  * @author: Aldwin Su
- * @date: 2019-04-10 17:00:01
+ * @version: 2019-04-10 17:00:01
  */
 public class RandomAccessFileUtils {
 	/**

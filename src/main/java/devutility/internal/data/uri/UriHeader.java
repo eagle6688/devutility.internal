@@ -5,7 +5,7 @@ package devutility.internal.data.uri;
  * The object contains header information of base64 string.
  * 
  * @author: Aldwin Su
- * @date: 2019-04-10 15:50:53
+ * @version: 2019-04-10 15:50:53
  */
 public class UriHeader {
 	private String header;

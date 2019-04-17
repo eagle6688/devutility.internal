@@ -10,7 +10,7 @@ import devutility.internal.lang.StringUtils;
  * DataURI utils.
  * 
  * @author: Aldwin Su
- * @date: 2019-04-10 15:55:24
+ * @version: 2019-04-10 15:55:24
  */
 public class UriUtils {
 	/**

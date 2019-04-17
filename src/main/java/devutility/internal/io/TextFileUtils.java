@@ -16,7 +16,7 @@ import devutility.internal.nio.RandomAccessFileUtils;
  * TextFileUtils
  * 
  * @author: Aldwin Su
- * @date: 2019-04-10 17:39:50
+ * @version: 2019-04-10 17:39:50
  */
 public class TextFileUtils {
 	/**
