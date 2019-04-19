@@ -8,7 +8,7 @@ import devutility.internal.security.Sha256Utils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
-public class SHA256HelperTest extends BaseTest {
+public class Sha256HelperTest extends BaseTest {
 	@Override
 	public void run() {
 		String value = "Hello World!";
@@ -49,6 +49,6 @@ public class SHA256HelperTest extends BaseTest {
 	}
 
 	public static void main(String[] args) {
-		TestExecutor.run(SHA256HelperTest.class);
+		TestExecutor.run(Sha256HelperTest.class);
 	}
 }

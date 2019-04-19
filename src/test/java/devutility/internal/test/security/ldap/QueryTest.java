@@ -1,19 +1,19 @@
 package devutility.internal.test.security.ldap;
 
-import devutility.internal.security.ldap.LdapAccount;
+import devutility.internal.security.ldap.LdapEntry;
 import devutility.internal.security.ldap.LdapUtils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
 public class QueryTest extends BaseTest {
+	private String host = "lenovo.com";
+	private String loginName = "sufb1@lenovo.com";
+	private String password = "asd.0123";
+
 	@Override
 	public void run() {
-		String loginName = "";
-		String password = "";
-		String host = "";
-		LdapAccount result = LdapUtils.getLdapAccount(loginName, password, host);
-		println(result != null ? result.get("displayName").get(0) : "");
-		println(loginName);
+		LdapEntry result = LdapUtils.getLdapAccount(loginName, password, host);
+		println(result.size());
 	}
 
 	public static void main(String[] args) {

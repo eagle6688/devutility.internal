@@ -4,17 +4,17 @@ import devutility.internal.security.ldap.LdapUtils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
-public class LoginTest extends BaseTest {
+public class AuthenticateTest extends BaseTest {
+	String providerUrl = "";
+	String principal = "";
+	String password = "";
+
 	@Override
 	public void run() {
-		String loginName = "";
-		String password = "";
-		String host = "";
-		boolean result = LdapUtils.login(loginName, password, host);
-		System.out.println(result);
+		System.out.println(LdapUtils.authenticate(providerUrl, principal, password));
 	}
 
 	public static void main(String[] args) {
-		TestExecutor.run(LoginTest.class);
+		TestExecutor.run(AuthenticateTest.class);
 	}
 }
