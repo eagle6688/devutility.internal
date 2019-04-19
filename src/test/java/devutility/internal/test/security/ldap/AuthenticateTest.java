@@ -1,22 +1,20 @@
 package devutility.internal.test.security.ldap;
 
-import devutility.internal.security.ldap.LdapEntry;
 import devutility.internal.security.ldap.LdapUtils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
-public class QueryTest extends BaseTest {
+public class AuthenticateTest extends BaseTest {
 	private String providerUrl = "";
 	private String principal = "";
 	private String password = "";
 
 	@Override
 	public void run() {
-		LdapEntry result = LdapUtils.getLdapAccount(principal, password, providerUrl);
-		println(result.size());
+		System.out.println(LdapUtils.authenticate(providerUrl, principal, password));
 	}
 
 	public static void main(String[] args) {
-		TestExecutor.run(QueryTest.class);
+		TestExecutor.run(AuthenticateTest.class);
 	}
 }

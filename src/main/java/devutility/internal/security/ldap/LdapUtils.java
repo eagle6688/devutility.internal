@@ -3,6 +3,7 @@ package devutility.internal.security.ldap;
 import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.NamingEnumeration;
@@ -14,80 +15,77 @@ import javax.naming.directory.SearchResult;
 import javax.naming.ldap.InitialLdapContext;
 import javax.naming.ldap.LdapContext;
 
+/**
+ * 
+ * LdapUtils
+ * 
+ * @author: Aldwin Su
+ * @version: 2019-04-19 14:27:12
+ */
 public class LdapUtils {
 	/**
-	 * Url format of provider
+	 * Ldap provider url format.
 	 */
-	public static final String PROVIDER_URLFORMAT = "LDAP://%s";
+	private final static String PROVIDERURL_LDAP_FORMAT = "ldap://%s";
 
 	/**
-	 * Get provider url.
-	 * @param host: Host address
-	 * @return String: Provider url
+	 * Ldaps provider url format.
 	 */
-	public static String providerUrl(String host) {
-		return String.format(PROVIDER_URLFORMAT, host);
+	private final static String PROVIDERURL_LDAPS_FORMAT = "ldaps://%s";
+
+	/**
+	 * Ldap default port.
+	 */
+	public final static int PORT = 389;
+
+	/**
+	 * Get provider url of ldap.
+	 * @param host Host address without ldap:// prefix.
+	 * @return String
+	 */
+	public static String ldapProviderUrl(String host) {
+		return String.format(PROVIDERURL_LDAP_FORMAT, host);
 	}
 
 	/**
-	 * Connect with provider url
-	 * @param loginName: Login name for provider url
-	 * @param password: Password for provider url
-	 * @param providerUrl: Provider url
+	 * Get provider url of ldaps.
+	 * @param host Host address without ldaps:// prefix.
+	 * @return String
+	 */
+	public static String ldapsProviderUrl(String host) {
+		return String.format(PROVIDERURL_LDAPS_FORMAT, host);
+	}
+
+	/**
+	 * Initializing a LdapContext instance.
+	 * @param providerUrl Provider url for LDAP with format ldap://host:port.
+	 * @param principal Principal in LDAP system, sometimes its a login name.
+	 * @param credentials Password for specific entry in LDAP.
 	 * @return LdapContext
 	 * @throws NamingException
 	 */
-	public static LdapContext connect(String loginName, String password, String providerUrl) throws NamingException {
-		Hashtable<String, String> hashtable = new Hashtable<>();
-		hashtable.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
-		hashtable.put(Context.SECURITY_AUTHENTICATION, "simple");
-		hashtable.put(Context.SECURITY_PRINCIPAL, loginName);
-		hashtable.put(Context.SECURITY_CREDENTIALS, password);
-		hashtable.put(Context.PROVIDER_URL, providerUrl);
-		return new InitialLdapContext(hashtable, null);
+	public static LdapContext ldapContext(String providerUrl, String principal, String credentials) throws NamingException {
+		Hashtable<String, String> environment = new Hashtable<>();
+		environment.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
+		environment.put(Context.SECURITY_AUTHENTICATION, "simple");
+		environment.put(Context.PROVIDER_URL, providerUrl);
+		environment.put(Context.SECURITY_PRINCIPAL, principal);
+		environment.put(Context.SECURITY_CREDENTIALS, credentials);
+		return new InitialLdapContext(environment, null);
 	}
 
 	/**
-	 * Login
-	 * @param loginName: loginName@xxx.com or logiName.
-	 * @param password: Password for login
-	 * @param host: Example xxx.com
+	 * Authenticate principal and password matched in providerUrl or not?
+	 * @param providerUrl Provider url for LDAP with format ldap://host:port.
+	 * @param principal Principal in LDAP system, sometimes its a login name.
+	 * @param password Password for specific entry in LDAP.
 	 * @return boolean
 	 */
-	public static boolean login(String loginName, String password, String host) {
-		String name = loginName(loginName, host);
-		String providerUrl = providerUrl(host);
-		return verify(name, password, providerUrl);
-	}
-
-	/**
-	 * Check the format of login name and return.
-	 * @param loginName: loginName@xxx.com or logiName.
-	 * @param host: Example xxx.com
-	 * @return String
-	 */
-	private static String loginName(String loginName, String host) {
-		String name = loginName;
-
-		if (loginName.indexOf(host) == -1) {
-			name = String.format("%s@%s", loginName, host);
-		}
-
-		return name;
-	}
-
-	/**
-	 * Verify
-	 * @param loginName: Login name for provider Url
-	 * @param password: Password
-	 * @param providerUrl: Provider Url
-	 * @return boolean
-	 */
-	public static boolean verify(String loginName, String password, String providerUrl) {
+	public static boolean authenticate(String providerUrl, String principal, String password) {
 		LdapContext context = null;
 
 		try {
-			context = connect(loginName, password, providerUrl);
+			context = ldapContext(providerUrl, principal, password);
 			return true;
 		} catch (NamingException e) {
 			e.printStackTrace();
@@ -97,25 +95,52 @@ public class LdapUtils {
 				try {
 					context.close();
 				} catch (NamingException e) {
+					e.printStackTrace();
 				}
 			}
 		}
 	}
 
+	public static LdapEntry search(String providerUrl, String principal, String password, SearchControls searchControls) {
+		return null;
+	}
+
+	public static List<LdapEntry> toLdapEntries(NamingEnumeration<SearchResult> namingEnumeration) throws NamingException {
+		List<LdapEntry> list = new LinkedList<>();
+
+		if (namingEnumeration == null || !namingEnumeration.hasMoreElements()) {
+			return list;
+		}
+
+		while (namingEnumeration.hasMoreElements()) {
+			SearchResult searchResult = namingEnumeration.nextElement();
+			LdapEntry entry = new LdapEntry(searchResult.getName());
+			NamingEnumeration<?> attributes = searchResult.getAttributes().getAll();
+
+			while (attributes.hasMore()) {
+				Attribute attribute = (Attribute) attributes.next();
+				entry.put(attribute.getID().toString(), getAttributeValue(attribute));
+			}
+
+			list.add(entry);
+		}
+
+		return list;
+	}
+
 	/**
 	 * Get ldap account information.
-	 * @param loginName: loginName@xxx.com or logiName.
-	 * @param password: Password for login.
-	 * @param host: Example xxx.com.
-	 * @return LdapAccount
+	 * @param loginName loginName@xxx.com or logiName.
+	 * @param password Password for login.
+	 * @param host Example xxx.com.
+	 * @return LdapEntry
 	 */
-	public static LdapAccount getLdapAccount(String loginName, String password, String host) {
-		loginName = loginName(loginName, host);
-		String providerUrl = providerUrl(host);
+	public static LdapEntry getLdapAccount(String loginName, String password, String host) {
+		String providerUrl = ldapProviderUrl(host);
 		LdapContext ldapContext = null;
 
 		try {
-			ldapContext = connect(loginName, password, providerUrl);
+			ldapContext = ldapContext(providerUrl, loginName, password);
 			SearchControls searchControls = new SearchControls();
 			searchControls.setSearchScope(SearchControls.SUBTREE_SCOPE);
 			searchControls.setReturningAttributes(null);
@@ -143,12 +168,12 @@ public class LdapUtils {
 	 * @return {@code List<LdapAccount>}
 	 * @throws NamingException
 	 */
-	public static java.util.List<LdapAccount> search(LdapContext ldapContext, String searchBase, String searchFilter, SearchControls searchControls) throws NamingException {
-		java.util.List<LdapAccount> list = new LinkedList<>();
+	public static java.util.List<LdapEntry> search(LdapContext ldapContext, String searchBase, String searchFilter, SearchControls searchControls) throws NamingException {
+		java.util.List<LdapEntry> list = new LinkedList<>();
 		NamingEnumeration<SearchResult> namingEnumerationLevel1 = ldapContext.search(searchBase, searchFilter, searchControls);
 
 		while (namingEnumerationLevel1.hasMoreElements()) {
-			LdapAccount ldapAccount = new LdapAccount();
+			LdapEntry ldapAccount = new LdapEntry();
 			SearchResult searchResult = namingEnumerationLevel1.nextElement();
 			ldapAccount.put("name", Arrays.asList(searchResult.getName()));
 
