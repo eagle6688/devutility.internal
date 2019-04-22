@@ -1,6 +1,7 @@
 package devutility.internal.security.ldap;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * 
@@ -9,7 +10,7 @@ import java.util.HashMap;
  * @author: Aldwin Su
  * @version: 2019-04-19 15:31:02
  */
-public class LdapEntry extends HashMap<String, Object> {
+public class LdapEntry extends HashMap<String, List<String>> {
 	private static final long serialVersionUID = 1150936436248723995L;
 
 	private String name;

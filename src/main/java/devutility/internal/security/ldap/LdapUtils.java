@@ -1,6 +1,5 @@
 package devutility.internal.security.ldap;
 
-import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
@@ -9,7 +8,6 @@ import javax.naming.Context;
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
 import javax.naming.directory.Attribute;
-import javax.naming.directory.Attributes;
 import javax.naming.directory.SearchControls;
 import javax.naming.directory.SearchResult;
 import javax.naming.ldap.InitialLdapContext;
@@ -57,6 +55,47 @@ public class LdapUtils {
 	}
 
 	/**
+	 * Get domain component.
+	 * @param domain Domain name.
+	 * @return String
+	 */
+	public static String getDomainComponent(String domain) {
+		int index = domain.lastIndexOf(".");
+
+		if (index == -1) {
+			throw new IllegalArgumentException("Invalid format of host!");
+		}
+
+		return String.format("DC=%s,DC=%s", domain.substring(0, index), domain.substring(index + 1));
+	}
+
+	/**
+	 * Get search filter for active directory.
+	 * @param accountName sAMAccountName value.
+	 * @return String
+	 */
+	public static String getActiveDirectoryFilter(String accountName) {
+		return String.format("sAMAccountName=%s", accountName);
+	}
+
+	/**
+	 * Get attribute value.
+	 * @param attribute Attribute object.
+	 * @return {@code List<String>}
+	 * @throws NamingException From NamingEnumeration.
+	 */
+	public static List<String> getAttributeValue(Attribute attribute) throws NamingException {
+		List<String> list = new LinkedList<>();
+		NamingEnumeration<?> namingEnumeration = attribute.getAll();
+
+		while (namingEnumeration.hasMore()) {
+			list.add(namingEnumeration.next().toString());
+		}
+
+		return list;
+	}
+
+	/**
 	 * Initializing a LdapContext instance.
 	 * @param providerUrl Provider url for LDAP with format ldap://host:port.
 	 * @param principal Principal in LDAP system, sometimes its a login name.
@@ -101,10 +140,57 @@ public class LdapUtils {
 		}
 	}
 
-	public static LdapEntry search(String providerUrl, String principal, String password, SearchControls searchControls) {
-		return null;
+	/**
+	 * Search LdapEntry objects in Ldap system.
+	 * @param providerUrl Provider url for LDAP with format ldap://host:port.
+	 * @param principal Principal in LDAP system, sometimes its a login name.
+	 * @param password Password for specific entry in LDAP.
+	 * @param name The name of the context or object to search.
+	 * @param filter The filter expression to use for the search; may not be null.
+	 * @param searchControls SearchControls object.
+	 * @return {@code List<LdapEntry>}
+	 * @throws NamingException
+	 */
+	public static List<LdapEntry> search(String providerUrl, String principal, String password, String name, String filter, SearchControls searchControls) throws NamingException {
+		LdapContext context = ldapContext(providerUrl, principal, password);
+		return search(context, name, filter, searchControls);
 	}
 
+	/**
+	 * Search LdapEntry objects in Ldap system.
+	 * @param ldapContext LdapContext object.
+	 * @param name The name of the context or object to search.
+	 * @param filter The filter expression to use for the search; may not be null.
+	 * @param searchControls SearchControls object.
+	 * @return {@code List<LdapAccount>}
+	 * @throws NamingException
+	 */
+	public static List<LdapEntry> search(LdapContext ldapContext, String name, String filter, SearchControls searchControls) throws NamingException {
+		NamingEnumeration<SearchResult> searchResult = ldapContext.search(name, filter, searchControls);
+		return toLdapEntries(searchResult);
+	}
+
+	/**
+	 * Search LdapEntry objects in Ldap system.
+	 * @param ldapContext LdapContext object.
+	 * @param name The name of the context or object to search.
+	 * @param filter The filter expression to use for the search; may not be null.
+	 * @return {@code List<LdapEntry>}
+	 * @throws NamingException From search and toLdapEntries.
+	 */
+	public static List<LdapEntry> search(LdapContext ldapContext, String name, String filter) throws NamingException {
+		SearchControls searchControls = new SearchControls();
+		searchControls.setSearchScope(SearchControls.SUBTREE_SCOPE);
+		searchControls.setReturningAttributes(null);
+		return search(ldapContext, name, filter, searchControls);
+	}
+
+	/**
+	 * Convert NamingEnumeration to LdapEntry list.
+	 * @param namingEnumeration NamingEnumeration object.
+	 * @return {@code List<LdapEntry>}
+	 * @throws NamingException From NamingEnumeration object..
+	 */
 	public static List<LdapEntry> toLdapEntries(NamingEnumeration<SearchResult> namingEnumeration) throws NamingException {
 		List<LdapEntry> list = new LinkedList<>();
 
@@ -123,117 +209,6 @@ public class LdapUtils {
 			}
 
 			list.add(entry);
-		}
-
-		return list;
-	}
-
-	/**
-	 * Get ldap account information.
-	 * @param loginName loginName@xxx.com or logiName.
-	 * @param password Password for login.
-	 * @param host Example xxx.com.
-	 * @return LdapEntry
-	 */
-	public static LdapEntry getLdapAccount(String loginName, String password, String host) {
-		String providerUrl = ldapProviderUrl(host);
-		LdapContext ldapContext = null;
-
-		try {
-			ldapContext = ldapContext(providerUrl, loginName, password);
-			SearchControls searchControls = new SearchControls();
-			searchControls.setSearchScope(SearchControls.SUBTREE_SCOPE);
-			searchControls.setReturningAttributes(null);
-			return search(ldapContext, getDomainComponent(host), getSearchFilter(loginName), searchControls).get(0);
-		} catch (NamingException e) {
-			e.printStackTrace();
-			return null;
-		} finally {
-			if (ldapContext != null) {
-				try {
-					ldapContext.close();
-				} catch (NamingException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
-
-	/**
-	 * Search
-	 * @param ldapContext: LdapContext object.
-	 * @param searchBase: SearchBase.
-	 * @param searchFilter: SearchFilter.
-	 * @param searchControls: SearchControls object
-	 * @return {@code List<LdapAccount>}
-	 * @throws NamingException
-	 */
-	public static java.util.List<LdapEntry> search(LdapContext ldapContext, String searchBase, String searchFilter, SearchControls searchControls) throws NamingException {
-		java.util.List<LdapEntry> list = new LinkedList<>();
-		NamingEnumeration<SearchResult> namingEnumerationLevel1 = ldapContext.search(searchBase, searchFilter, searchControls);
-
-		while (namingEnumerationLevel1.hasMoreElements()) {
-			LdapEntry ldapAccount = new LdapEntry();
-			SearchResult searchResult = namingEnumerationLevel1.nextElement();
-			ldapAccount.put("name", Arrays.asList(searchResult.getName()));
-
-			Attributes attributes = searchResult.getAttributes();
-			NamingEnumeration<?> namingEnumerationLevel2 = attributes.getAll();
-
-			while (namingEnumerationLevel2.hasMore()) {
-				Attribute attribute = (Attribute) namingEnumerationLevel2.next();
-				ldapAccount.put(attribute.getID().toString(), getAttributeValue(attribute));
-				System.out.println(attribute.getID().toString() + ":" + getAttributeValue(attribute));
-			}
-
-			list.add(ldapAccount);
-		}
-
-		return list;
-	}
-
-	/**
-	 * Get domain component from host.
-	 * @param host: Example xxx.com.
-	 * @return String
-	 */
-	private static String getDomainComponent(String host) {
-		int index = host.lastIndexOf(".");
-
-		if (index == -1) {
-			throw new IllegalArgumentException("Invalid format of host!");
-		}
-
-		return String.format("DC=%s,DC=%s", host.substring(0, index), host.substring(index + 1));
-	}
-
-	/**
-	 * Get search filter by login name.
-	 * @param loginName: Should contain host.
-	 * @return String
-	 */
-	private static String getSearchFilter(String loginName) {
-		int index = loginName.indexOf("@");
-
-		if (index == -1) {
-			throw new IllegalArgumentException("LoginName should contain host like \"@xxx.com\"");
-		}
-
-		return String.format("sAMAccountName=%s", loginName.substring(0, index));
-	}
-
-	/**
-	 * Get attribute value.
-	 * @param attribute: Attribute object.
-	 * @return java.util.List<String>
-	 * @throws NamingException
-	 */
-	private static java.util.List<String> getAttributeValue(Attribute attribute) throws NamingException {
-		java.util.List<String> list = new LinkedList<>();
-		NamingEnumeration<?> namingEnumeration = attribute.getAll();
-
-		while (namingEnumeration.hasMore()) {
-			list.add(namingEnumeration.next().toString());
 		}
 
 		return list;
