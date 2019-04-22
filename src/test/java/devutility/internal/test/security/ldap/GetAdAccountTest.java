@@ -26,7 +26,7 @@ public class GetAdAccountTest extends BaseTest {
 		LdapEntry ldapEntry = null;
 
 		try {
-			ldapEntry = ldapHelper.getAdAccount(userName, password);
+			ldapEntry = ldapHelper.findOne(userName + "@" + domain, password, LdapUtils.getActiveDirectoryFilter(userName));
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}

@@ -3,6 +3,7 @@ package devutility.internal.security.ldap;
 import java.util.List;
 
 import javax.naming.NamingException;
+import javax.naming.directory.SearchControls;
 import javax.naming.ldap.LdapContext;
 
 import devutility.internal.util.CollectionUtils;
@@ -34,14 +35,18 @@ public class LdapHelper {
 		this.baseDn = baseDn;
 	}
 
-	public LdapEntry getAdAccount(String userName, String password) throws NamingException {
-		LdapContext context = LdapUtils.ldapContext(ldapUrl, userName, password);
-		List<LdapEntry> list = LdapUtils.search(context, baseDn, LdapUtils.getActiveDirectoryFilter(userName));
+	public LdapEntry findOne(String principal, String password, String filter, SearchControls searchControls) throws NamingException {
+		LdapContext context = LdapUtils.ldapContext(ldapUrl, principal, password);
+		List<LdapEntry> list = LdapUtils.search(context, baseDn, filter);
 
 		if (CollectionUtils.isNullOrEmpty(list)) {
 			return null;
 		}
 
 		return list.get(0);
+	}
+
+	public LdapEntry findOne(String principal, String password, String filter) throws NamingException {
+		return findOne(principal, password, filter, LdapUtils.searchControls());
 	}
 }

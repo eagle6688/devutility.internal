@@ -96,6 +96,17 @@ public class LdapUtils {
 	}
 
 	/**
+	 * Return a default SearchControls object.
+	 * @return SearchControls
+	 */
+	public static SearchControls searchControls() {
+		SearchControls searchControls = new SearchControls();
+		searchControls.setSearchScope(SearchControls.SUBTREE_SCOPE);
+		searchControls.setReturningAttributes(null);
+		return searchControls;
+	}
+
+	/**
 	 * Initializing a LdapContext instance.
 	 * @param providerUrl Provider url for LDAP with format ldap://host:port.
 	 * @param principal Principal in LDAP system, sometimes its a login name.
@@ -179,10 +190,7 @@ public class LdapUtils {
 	 * @throws NamingException From search and toLdapEntries.
 	 */
 	public static List<LdapEntry> search(LdapContext ldapContext, String name, String filter) throws NamingException {
-		SearchControls searchControls = new SearchControls();
-		searchControls.setSearchScope(SearchControls.SUBTREE_SCOPE);
-		searchControls.setReturningAttributes(null);
-		return search(ldapContext, name, filter, searchControls);
+		return search(ldapContext, name, filter, searchControls());
 	}
 
 	/**
