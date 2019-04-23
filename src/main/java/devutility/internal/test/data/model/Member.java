@@ -7,10 +7,10 @@ import devutility.internal.util.RandomUtils;
 
 /**
  * 
- * Member,
+ * Member
  * 
  * @author: Aldwin Su
- * @date: 2019-04-14 13:00:11
+ * @version: 2019-04-14 13:00:11
  */
 public class Member {
 	private int id;
