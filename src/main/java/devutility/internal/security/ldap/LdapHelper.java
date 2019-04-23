@@ -46,6 +46,10 @@ public class LdapHelper {
 		return list.get(0);
 	}
 
+	public LdapEntry findOne(String principal, String password, String filter, String[] attributes) throws NamingException {
+		return findOne(principal, password, filter, LdapUtils.searchControls(attributes));
+	}
+
 	public LdapEntry findOne(String principal, String password, String filter) throws NamingException {
 		return findOne(principal, password, filter, LdapUtils.searchControls());
 	}

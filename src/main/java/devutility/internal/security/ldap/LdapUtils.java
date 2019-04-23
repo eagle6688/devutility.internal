@@ -100,9 +100,18 @@ public class LdapUtils {
 	 * @return SearchControls
 	 */
 	public static SearchControls searchControls() {
+		return searchControls(null);
+	}
+
+	/**
+	 * Return a SearchControls object with specified attributes.
+	 * @param attributes Attributes should contained in return data.
+	 * @return SearchControls
+	 */
+	public static SearchControls searchControls(String[] attributes) {
 		SearchControls searchControls = new SearchControls();
 		searchControls.setSearchScope(SearchControls.SUBTREE_SCOPE);
-		searchControls.setReturningAttributes(null);
+		searchControls.setReturningAttributes(attributes);
 		return searchControls;
 	}
 
