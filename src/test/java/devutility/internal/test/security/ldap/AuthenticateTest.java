@@ -5,9 +5,9 @@ import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
 public class AuthenticateTest extends BaseTest {
-	String providerUrl = "";
-	String principal = "";
-	String password = "";
+	private String providerUrl = "";
+	private String principal = "";
+	private String password = "";
 
 	@Override
 	public void run() {
