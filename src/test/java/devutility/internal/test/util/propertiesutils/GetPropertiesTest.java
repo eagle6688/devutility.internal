@@ -6,7 +6,7 @@ import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 import devutility.internal.util.PropertiesUtils;
 
-public class GetPropertiesService extends BaseTest {
+public class GetPropertiesTest extends BaseTest {
 	@Override
 	public void run() {
 		Properties properties = PropertiesUtils.getProperties("system.properties");
@@ -14,6 +14,6 @@ public class GetPropertiesService extends BaseTest {
 	}
 
 	public static void main(String[] args) {
-		TestExecutor.run(new GetPropertiesService());
+		TestExecutor.run(new GetPropertiesTest());
 	}
 }
