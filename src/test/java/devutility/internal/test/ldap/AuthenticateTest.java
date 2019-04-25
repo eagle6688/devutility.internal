@@ -1,6 +1,6 @@
-package devutility.internal.test.security.ldap;
+package devutility.internal.test.ldap;
 
-import devutility.internal.security.ldap.LdapUtils;
+import devutility.internal.ldap.LdapUtils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 

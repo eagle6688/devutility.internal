@@ -1,4 +1,4 @@
-package devutility.internal.security.ldap;
+package devutility.internal.ldap;
 
 import java.util.Hashtable;
 import java.util.LinkedList;

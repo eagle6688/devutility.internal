@@ -1,17 +1,19 @@
-package devutility.internal.test.security.ldap;
+package devutility.internal.test.ldap;
 
 import java.util.List;
 import java.util.Map;
 
 import javax.naming.NamingException;
 
-import devutility.internal.security.ldap.LdapEntry;
-import devutility.internal.security.ldap.LdapHelper;
-import devutility.internal.security.ldap.LdapUtils;
+import devutility.internal.ldap.LdapEntry;
+import devutility.internal.ldap.LdapHelper;
+import devutility.internal.ldap.LdapProperties;
+import devutility.internal.ldap.LdapUtils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
 public class GetAdAccountTest extends BaseTest {
+	private LdapProperties ldapProperties = new LdapProperties();
 	private String providerUrl = "";
 	private String domain = "";
 	private String userName = "";
@@ -19,10 +21,10 @@ public class GetAdAccountTest extends BaseTest {
 
 	@Override
 	public void run() {
-		LdapHelper ldapHelper = new LdapHelper();
-		ldapHelper.setLdapUrl(providerUrl);
-		ldapHelper.setBaseDn(LdapUtils.getDomainComponent(domain));
+		ldapProperties.setUrl(providerUrl);
+		ldapProperties.setBaseDn(LdapUtils.getDomainComponent(domain));
 
+		LdapHelper ldapHelper = new LdapHelper(ldapProperties);
 		LdapEntry ldapEntry = null;
 
 		try {

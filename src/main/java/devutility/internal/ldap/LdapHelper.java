@@ -1,4 +1,4 @@
-package devutility.internal.security.ldap;
+package devutility.internal.ldap;
 
 import java.util.List;
 
@@ -16,28 +16,26 @@ import devutility.internal.util.CollectionUtils;
  * @version: 2019-04-19 15:29:19
  */
 public class LdapHelper {
-	private String ldapUrl;
-	private String baseDn;
+	private LdapProperties ldapProperties;
 
-	public String getLdapUrl() {
-		return ldapUrl;
+	public LdapHelper() {
 	}
 
-	public void setLdapUrl(String ldapUrl) {
-		this.ldapUrl = ldapUrl;
+	public LdapHelper(LdapProperties ldapProperties) {
+		this.setLdapProperties(ldapProperties);
 	}
 
-	public String getBaseDn() {
-		return baseDn;
+	public LdapProperties getLdapProperties() {
+		return ldapProperties;
 	}
 
-	public void setBaseDn(String baseDn) {
-		this.baseDn = baseDn;
+	public void setLdapProperties(LdapProperties ldapProperties) {
+		this.ldapProperties = ldapProperties;
 	}
 
 	public LdapEntry findOne(String principal, String password, String filter, SearchControls searchControls) throws NamingException {
-		LdapContext context = LdapUtils.ldapContext(ldapUrl, principal, password);
-		List<LdapEntry> list = LdapUtils.search(context, baseDn, filter);
+		LdapContext context = LdapUtils.ldapContext(ldapProperties.getUrl(), principal, password);
+		List<LdapEntry> list = LdapUtils.search(context, ldapProperties.getBaseDn(), filter);
 
 		if (CollectionUtils.isNullOrEmpty(list)) {
 			return null;
