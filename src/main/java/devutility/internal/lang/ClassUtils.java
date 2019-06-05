@@ -12,6 +12,7 @@ import java.util.List;
 
 import devutility.internal.lang.models.EntityField;
 import devutility.internal.lang.models.EntityFieldUtils;
+import devutility.internal.lang.reflect.FieldUtils;
 import devutility.internal.lang.reflect.MethodUtils;
 import devutility.internal.util.CollectionUtils;
 
@@ -168,10 +169,11 @@ public class ClassUtils {
 			entityField.setField(declaredField);
 			entityField.setSetter(setter);
 			entityField.setGetter(getter);
+			entityField.setOrder(FieldUtils.getOrder(declaredField));
 			list.add(entityField);
 		}
 
-		list.sort((ef1, ef2) -> ef1.getField().getName().compareTo(ef2.getField().getName()));
+		list.sort((ef1, ef2) -> ef1.getOrder() - ef2.getOrder());
 		return list;
 	}
 

@@ -5,6 +5,7 @@ import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
 
+import devutility.internal.annotations.Order;
 import devutility.internal.util.CollectionUtils;
 
 public class FieldUtils {
@@ -21,5 +22,20 @@ public class FieldUtils {
 
 		List<Annotation> fieldAnnotations = Arrays.asList(field.getAnnotations());
 		return CollectionUtils.exist(annotations, i -> fieldAnnotations.contains(i));
+	}
+
+	/**
+	 * Return Order value by provided Field object. 0 if no Order setting.
+	 * @param field Field object.
+	 * @return int
+	 */
+	public static int getOrder(Field field) {
+		Order order = field.getAnnotation(Order.class);
+
+		if (order == null) {
+			return 0;
+		}
+
+		return order.value();
 	}
 }

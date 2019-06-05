@@ -3,6 +3,7 @@ package devutility.internal.test.data.model;
 import java.util.LinkedList;
 import java.util.List;
 
+import devutility.internal.annotations.Order;
 import devutility.internal.util.RandomUtils;
 
 /**
@@ -13,9 +14,16 @@ import devutility.internal.util.RandomUtils;
  * @version: 2019-04-14 13:00:11
  */
 public class Member {
+	@Order(2)
 	private int id;
+
+	@Order(1)
 	private String value;
+
+	@Order(3)
 	private String name;
+
+	@Order(4)
 	private int age;
 
 	public int getId() {

@@ -8,10 +8,18 @@ import java.util.List;
 import devutility.internal.lang.reflect.FieldUtils;
 import devutility.internal.lang.reflect.MethodUtils;
 
+/**
+ * 
+ * EntityField
+ * 
+ * @author: Aldwin Su
+ * @version: 2019-06-05 15:24:00
+ */
 public class EntityField {
 	private Field field;
 	private Method setter;
 	private Method getter;
+	private int order;
 
 	public Field getField() {
 		return field;
@@ -35,6 +43,14 @@ public class EntityField {
 
 	public void setGetter(Method getter) {
 		this.getter = getter;
+	}
+
+	public int getOrder() {
+		return order;
+	}
+
+	public void setOrder(int order) {
+		this.order = order;
 	}
 
 	public Object getValue(Object model) throws ReflectiveOperationException {
