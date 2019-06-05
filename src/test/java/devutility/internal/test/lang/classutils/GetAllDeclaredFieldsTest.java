@@ -1,4 +1,4 @@
-package devutility.internal.test.lang.classhelper;
+package devutility.internal.test.lang.classutils;
 
 import java.lang.reflect.Field;
 import java.util.List;

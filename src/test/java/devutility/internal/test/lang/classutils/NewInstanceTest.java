@@ -1,4 +1,4 @@
-package devutility.internal.test.lang.classhelper;
+package devutility.internal.test.lang.classutils;
 
 import devutility.internal.lang.ClassUtils;
 import devutility.internal.test.BaseTest;
