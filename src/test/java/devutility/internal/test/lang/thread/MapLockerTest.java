@@ -1,13 +1,13 @@
 package devutility.internal.test.lang.thread;
 
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
 public class MapLockerTest extends BaseTest {
 	private static String lockerName = "asd";
-	private static HashMap<String, Object> lockers = new HashMap<>();
+	private static ConcurrentHashMap<String, Object> lockers = new ConcurrentHashMap<>();
 
 	@Override
 	public void run() {
@@ -59,7 +59,8 @@ public class MapLockerTest extends BaseTest {
 		Object locker = lockers.get(lockerName);
 
 		if (locker == null) {
-			return;
+			locker = new Object();
+			lockers.put(lockerName, locker);
 		}
 
 		synchronized (locker) {
@@ -80,7 +81,6 @@ public class MapLockerTest extends BaseTest {
 	}
 
 	public static void main(String[] args) {
-		lockers.put(lockerName, new Object());
 		TestExecutor.run(MapLockerTest.class);
 	}
 }
