@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -454,6 +455,21 @@ public class CollectionUtils {
 	}
 
 	/**
+	 * Convert collection to Map. {@code Map}
+	 * @param <E> the type of the input elements
+	 * @param <K> the output type of the key mapping function
+	 * @param <V> the output type of the value mapping function
+	 * @param collection Elements collection.
+	 * @param keyMapper a mapping function to produce keys.
+	 * @param valueMapper a mapping function to produce values.
+	 * @param mergeFunction a merge function, selector function.
+	 * @return Map<K,V> {@code Map}
+	 */
+	public static <E, K, V> Map<K, V> toMap(Collection<E> collection, Function<? super E, ? extends K> keyMapper, Function<? super E, ? extends V> valueMapper, BinaryOperator<V> mergeFunction) {
+		return collection.stream().collect(Collectors.toMap(keyMapper, valueMapper, mergeFunction));
+	}
+
+	/**
 	 * Parallel convert collection to Map. {@code Map}
 	 * @param <E> the type of the input elements
 	 * @param <K> the output type of the key mapping function
@@ -465,6 +481,21 @@ public class CollectionUtils {
 	 */
 	public static <E, K, V> Map<K, V> parallelToMap(Collection<E> collection, Function<? super E, ? extends K> keyMapper, Function<? super E, ? extends V> valueMapper) {
 		return collection.stream().parallel().collect(Collectors.toMap(keyMapper, valueMapper));
+	}
+
+	/**
+	 * Parallel convert collection to Map. {@code Map}
+	 * @param <E> the type of the input elements
+	 * @param <K> the output type of the key mapping function
+	 * @param <V> the output type of the value mapping function
+	 * @param collection Elements collection.
+	 * @param keyMapper a mapping function to produce keys.
+	 * @param valueMapper a mapping function to produce values.
+	 * @param mergeFunction a merge function, selector function.
+	 * @return Map<K,V> {@code Map}
+	 */
+	public static <E, K, V> Map<K, V> parallelToMap(Collection<E> collection, Function<? super E, ? extends K> keyMapper, Function<? super E, ? extends V> valueMapper, BinaryOperator<V> mergeFunction) {
+		return collection.stream().parallel().collect(Collectors.toMap(keyMapper, valueMapper, mergeFunction));
 	}
 
 	/**
@@ -483,6 +514,22 @@ public class CollectionUtils {
 	}
 
 	/**
+	 * Convert collection to Map. {@code Map}
+	 * @param <E> the type of the input elements
+	 * @param <K> the output type of the key mapping function
+	 * @param <V> the output type of the value mapping function
+	 * @param collection Elements collection.
+	 * @param predicate Predicate command.
+	 * @param keyMapper a mapping function to produce keys.
+	 * @param valueMapper a mapping function to produce values.
+	 * @param mergeFunction a merge function, selector function.
+	 * @return Map<K,V> {@code Map}
+	 */
+	public static <E, K, V> Map<K, V> toMap(Collection<E> collection, Predicate<E> predicate, Function<? super E, ? extends K> keyMapper, Function<? super E, ? extends V> valueMapper, BinaryOperator<V> mergeFunction) {
+		return query(collection, predicate).collect(Collectors.toMap(keyMapper, valueMapper, mergeFunction));
+	}
+
+	/**
 	 * Parallel convert collection to Map. {@code Map}
 	 * @param <E> the type of the input elements
 	 * @param <K> the output type of the key mapping function
@@ -494,6 +541,22 @@ public class CollectionUtils {
 	 * @return Map<K,V> {@code Map}
 	 */
 	public static <E, K, V> Map<K, V> parallelToMap(Collection<E> collection, Predicate<E> predicate, Function<? super E, ? extends K> keyMapper, Function<? super E, ? extends V> valueMapper) {
+		return parallelQuery(collection, predicate).collect(Collectors.toMap(keyMapper, valueMapper));
+	}
+
+	/**
+	 * Parallel convert collection to Map. {@code Map}
+	 * @param <E> the type of the input elements
+	 * @param <K> the output type of the key mapping function
+	 * @param <V> the output type of the value mapping function
+	 * @param collection Elements collection.
+	 * @param predicate Predicate command.
+	 * @param keyMapper a mapping function to produce keys.
+	 * @param valueMapper a mapping function to produce values.
+	 * @param mergeFunction a merge function, selector function.
+	 * @return Map<K,V> {@code Map}
+	 */
+	public static <E, K, V> Map<K, V> parallelToMap(Collection<E> collection, Predicate<E> predicate, Function<? super E, ? extends K> keyMapper, Function<? super E, ? extends V> valueMapper, BinaryOperator<V> mergeFunction) {
 		return parallelQuery(collection, predicate).collect(Collectors.toMap(keyMapper, valueMapper));
 	}
 
