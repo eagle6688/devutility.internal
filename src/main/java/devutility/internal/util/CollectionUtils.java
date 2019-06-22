@@ -13,10 +13,17 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * 
+ * CollectionUtils
+ * 
+ * @author: Aldwin Su
+ * @version: 2019-06-22 10:29:36
+ */
 public class CollectionUtils {
 	/**
 	 * If collection does null or empty?
-	 * @param collection: Elements collection.
+	 * @param collection Elements collection.
 	 * @return boolean
 	 */
 	public static <E> boolean isNullOrEmpty(Collection<E> collection) {
@@ -25,7 +32,7 @@ public class CollectionUtils {
 
 	/**
 	 * If collection does not empty?
-	 * @param collection: Elements collection.
+	 * @param collection Elements collection.
 	 * @return boolean
 	 */
 	public static <E> boolean isNotEmpty(Collection<E> collection) {
@@ -34,8 +41,8 @@ public class CollectionUtils {
 
 	/**
 	 * Sort by comparator and return the minimum value.
-	 * @param collection: Elements collection.
-	 * @param comparator: Comparator for sort.
+	 * @param collection Elements collection.
+	 * @param comparator Comparator for sort.
 	 * @return {@code E}
 	 */
 	public static <E> E min(Collection<E> collection, Comparator<? super E> comparator) {
@@ -50,7 +57,7 @@ public class CollectionUtils {
 
 	/**
 	 * Return the minimum integer value.
-	 * @param collection: Elements collection.
+	 * @param collection Elements collection.
 	 * @return int
 	 */
 	public static int minInt(Collection<Integer> collection) {
@@ -65,8 +72,8 @@ public class CollectionUtils {
 
 	/**
 	 * Sort by comparator and return the maximum value.
-	 * @param collection: Elements collection.
-	 * @param comparator: Comparator for sort.
+	 * @param collection Elements collection.
+	 * @param comparator Comparator for sort.
 	 * @return {@code E}
 	 */
 	public static <E> E max(Collection<E> collection, Comparator<? super E> comparator) {
@@ -81,7 +88,7 @@ public class CollectionUtils {
 
 	/**
 	 * Return the maximum integer value.
-	 * @param collection: Elements collection.
+	 * @param collection Elements collection.
 	 * @return int
 	 */
 	public static int maxInt(Collection<Integer> collection) {
@@ -96,8 +103,8 @@ public class CollectionUtils {
 
 	/**
 	 * Calculate elements that meet predicate command.
-	 * @param collection: Elements collection.
-	 * @param predicate: Predicate command.
+	 * @param collection Elements collection.
+	 * @param predicate Predicate command.
 	 * @return long
 	 */
 	public static <E> long count(Collection<E> collection, Predicate<E> predicate) {
@@ -106,8 +113,8 @@ public class CollectionUtils {
 
 	/**
 	 * Execute predicate and check whether any object exist?
-	 * @param collection: Elements collection.
-	 * @param predicate: Predicate command.
+	 * @param collection Elements collection.
+	 * @param predicate Predicate command.
 	 * @return boolean
 	 */
 	public static <E> boolean exist(Collection<E> collection, Predicate<E> predicate) {
@@ -116,8 +123,8 @@ public class CollectionUtils {
 
 	/**
 	 * Find element by predicate command and return optional object.
-	 * @param collection: Elements collection.
-	 * @param predicate: Predicate command.
+	 * @param collection Elements collection.
+	 * @param predicate Predicate command.
 	 * @return {@code Optional<E>}
 	 */
 	public static <E> Optional<E> findOptional(Collection<E> collection, Predicate<E> predicate) {
@@ -126,8 +133,8 @@ public class CollectionUtils {
 
 	/**
 	 * Find element by predicate command and return it.
-	 * @param collection: Elements collection.
-	 * @param predicate: Predicate command.
+	 * @param collection Elements collection.
+	 * @param predicate Predicate command.
 	 * @return {@code E}
 	 */
 	public static <E> E find(Collection<E> collection, Predicate<E> predicate) {
@@ -142,8 +149,8 @@ public class CollectionUtils {
 
 	/**
 	 * Parallel find element by predicate command and return optional object.
-	 * @param collection: Elements collection.
-	 * @param predicate: Predicate command.
+	 * @param collection Elements collection.
+	 * @param predicate Predicate command.
 	 * @return {@code Optional<E>}
 	 */
 	public static <E> Optional<E> parallelFindOptional(Collection<E> collection, Predicate<E> predicate) {
@@ -152,8 +159,8 @@ public class CollectionUtils {
 
 	/**
 	 * Parallel find element by predicate command and return it.
-	 * @param collection: Elements collection.
-	 * @param predicate: Predicate command.
+	 * @param collection Elements collection.
+	 * @param predicate Predicate command.
 	 * @return {@code E}
 	 */
 	public static <E> E parallelFind(Collection<E> collection, Predicate<E> predicate) {
@@ -168,8 +175,8 @@ public class CollectionUtils {
 
 	/**
 	 * Query elements by predicate command and return a stream.
-	 * @param collection: Elements collection.
-	 * @param predicate: Predicate command.
+	 * @param collection Elements collection.
+	 * @param predicate Predicate command.
 	 * @return {@code Stream<E>}
 	 */
 	public static <E> Stream<E> query(Collection<E> collection, Predicate<E> predicate) {
@@ -178,8 +185,8 @@ public class CollectionUtils {
 
 	/**
 	 * Parallel query elements by predicate command and return a stream.
-	 * @param collection: Elements collection.
-	 * @param predicate: Predicate command.
+	 * @param collection Elements collection.
+	 * @param predicate Predicate command.
 	 * @return {@code Stream<E>}
 	 */
 	public static <E> Stream<E> parallelQuery(Collection<E> collection, Predicate<E> predicate) {
@@ -188,8 +195,8 @@ public class CollectionUtils {
 
 	/**
 	 * Query elements by predicate command and return a list.
-	 * @param collection: Elements collection.
-	 * @param predicate: Predicate command.
+	 * @param collection Elements collection.
+	 * @param predicate Predicate command.
 	 * @return {@code List<E>}
 	 */
 	public static <E> List<E> list(Collection<E> collection, Predicate<E> predicate) {
@@ -198,8 +205,8 @@ public class CollectionUtils {
 
 	/**
 	 * Parallel query elements by predicate command and return a list.
-	 * @param collection: Elements collection.
-	 * @param predicate: Predicate command.
+	 * @param collection Elements collection.
+	 * @param predicate Predicate command.
 	 * @return {@code List<E>}
 	 */
 	public static <E> List<E> parallelList(Collection<E> collection, Predicate<E> predicate) {
@@ -208,8 +215,8 @@ public class CollectionUtils {
 
 	/**
 	 * Map some fields and return a stream.
-	 * @param collection: Elements collection.
-	 * @param mapper: Fields mapper.
+	 * @param collection Elements collection.
+	 * @param mapper Fields mapper.
 	 * @return {@code Stream<R>}
 	 */
 	public static <E, R> Stream<R> map(Collection<E> collection, Function<? super E, ? extends R> mapper) {
@@ -218,8 +225,8 @@ public class CollectionUtils {
 
 	/**
 	 * Map some fields and return a list.
-	 * @param collection: Elements collection.
-	 * @param mapper: Fields mapper.
+	 * @param collection Elements collection.
+	 * @param mapper Fields mapper.
 	 * @return {@code List<R>}
 	 */
 	public static <E, R> List<R> mapToList(Collection<E> collection, Function<? super E, ? extends R> mapper) {
@@ -228,8 +235,8 @@ public class CollectionUtils {
 
 	/**
 	 * Map some fields and return a Set.
-	 * @param collection: Elements collection.
-	 * @param mapper: Fields mapper.
+	 * @param collection Elements collection.
+	 * @param mapper Fields mapper.
 	 * @return {@code Set<R>}
 	 */
 	public static <E, R> Set<R> mapToSet(Collection<E> collection, Function<? super E, ? extends R> mapper) {
@@ -238,9 +245,9 @@ public class CollectionUtils {
 
 	/**
 	 * Query elements by predicate command, map some fields and return a stream.
-	 * @param collection: Elements collection.
-	 * @param predicate: Predicate command.
-	 * @param mapper: Fields mapper.
+	 * @param collection Elements collection.
+	 * @param predicate Predicate command.
+	 * @param mapper Fields mapper.
 	 * @return {@code Stream<R>}
 	 */
 	public static <E, R> Stream<R> map(Collection<E> collection, Predicate<E> predicate, Function<? super E, ? extends R> mapper) {
@@ -249,9 +256,9 @@ public class CollectionUtils {
 
 	/**
 	 * Query elements by predicate command, map some fields and return a list.
-	 * @param collection: Elements collection.
-	 * @param predicate: Predicate command.
-	 * @param mapper: Fields mapper.
+	 * @param collection Elements collection.
+	 * @param predicate Predicate command.
+	 * @param mapper Fields mapper.
 	 * @return {@code List<R>}
 	 */
 	public static <E, R> List<R> mapToList(Collection<E> collection, Predicate<E> predicate, Function<? super E, ? extends R> mapper) {
@@ -260,9 +267,9 @@ public class CollectionUtils {
 
 	/**
 	 * Query elements by predicate command, map some fields and return a Set.
-	 * @param collection: Elements collection.
-	 * @param predicate: Predicate command.
-	 * @param mapper: Fields mapper.
+	 * @param collection Elements collection.
+	 * @param predicate Predicate command.
+	 * @param mapper Fields mapper.
 	 * @return {@code Set<R>}
 	 */
 	public static <E, R> Set<R> mapToSet(Collection<E> collection, Predicate<E> predicate, Function<? super E, ? extends R> mapper) {
@@ -271,8 +278,8 @@ public class CollectionUtils {
 
 	/**
 	 * Parallel map some fields and return a stream.
-	 * @param collection: Elements collection.
-	 * @param mapper: Fields mapper.
+	 * @param collection Elements collection.
+	 * @param mapper Fields mapper.
 	 * @return {@code Stream<R>}
 	 */
 	public static <E, R> Stream<R> parallelMap(Collection<E> collection, Function<? super E, ? extends R> mapper) {
@@ -281,8 +288,8 @@ public class CollectionUtils {
 
 	/**
 	 * Parallel map some fields and return a list.
-	 * @param collection: Elements collection.
-	 * @param mapper: Fields mapper.
+	 * @param collection Elements collection.
+	 * @param mapper Fields mapper.
 	 * @return {@code List<R>}
 	 */
 	public static <E, R> List<R> parallelMapToList(Collection<E> collection, Function<? super E, ? extends R> mapper) {
@@ -291,9 +298,9 @@ public class CollectionUtils {
 
 	/**
 	 * Parallel query elements by predicate command, map some fields and return a stream.
-	 * @param collection: Elements collection.
-	 * @param predicate: Predicate command.
-	 * @param mapper: Fields mapper.
+	 * @param collection Elements collection.
+	 * @param predicate Predicate command.
+	 * @param mapper Fields mapper.
 	 * @return {@code Stream<R>}
 	 */
 	public static <E, R> Stream<R> parallelMap(Collection<E> collection, Predicate<E> predicate, Function<? super E, ? extends R> mapper) {
@@ -302,9 +309,9 @@ public class CollectionUtils {
 
 	/**
 	 * Parallel query elements by predicate command, map some fields and return a list.
-	 * @param collection: Elements collection.
-	 * @param predicate: Predicate command.
-	 * @param mapper: Fields mapper.
+	 * @param collection Elements collection.
+	 * @param predicate Predicate command.
+	 * @param mapper Fields mapper.
 	 * @return {@code List<R>}
 	 */
 	public static <E, R> List<R> parallelMapToList(Collection<E> collection, Predicate<E> predicate, Function<? super E, ? extends R> mapper) {
@@ -313,8 +320,8 @@ public class CollectionUtils {
 
 	/**
 	 * Map some fields, remove repeated items and return a stream.
-	 * @param collection: Elements collection.
-	 * @param mapper: Fields mapper.
+	 * @param collection Elements collection.
+	 * @param mapper Fields mapper.
 	 * @return {@code Stream<? extends R>}
 	 */
 	public static <E, R> Stream<? extends R> mapAndDistinct(Collection<E> collection, Function<? super E, ? extends R> mapper) {
@@ -323,8 +330,8 @@ public class CollectionUtils {
 
 	/**
 	 * Map some fields, remove repeated items and return a list.
-	 * @param collection: Elements collection.
-	 * @param mapper: Fields mapper.
+	 * @param collection Elements collection.
+	 * @param mapper Fields mapper.
 	 * @return {@code List<R>}
 	 */
 	public static <E, R> List<R> mapAndDistinctToList(Collection<E> collection, Function<? super E, ? extends R> mapper) {
@@ -333,8 +340,8 @@ public class CollectionUtils {
 
 	/**
 	 * Map some fields, remove repeated items and return a set.
-	 * @param collection: Elements collection.
-	 * @param mapper: Fields mapper.
+	 * @param collection Elements collection.
+	 * @param mapper Fields mapper.
 	 * @return {@code Set<R>}
 	 */
 	public static <E, R> Set<R> mapAndDistinctToSet(Collection<E> collection, Function<? super E, ? extends R> mapper) {
@@ -343,9 +350,9 @@ public class CollectionUtils {
 
 	/**
 	 * Query elements by predicate command, map some fields, remove repeated items and return a stream.
-	 * @param collection: Elements collection.
-	 * @param predicate: Predicate command.
-	 * @param mapper: Fields mapper.
+	 * @param collection Elements collection.
+	 * @param predicate Predicate command.
+	 * @param mapper Fields mapper.
 	 * @return {@code Stream<? extends R>}
 	 */
 	public static <E, R> Stream<? extends R> mapAndDistinct(Collection<E> collection, Predicate<E> predicate, Function<? super E, ? extends R> mapper) {
@@ -354,9 +361,9 @@ public class CollectionUtils {
 
 	/**
 	 * Query elements by predicate command, map some fields, remove repeated items and return a list.
-	 * @param collection: Elements collection.
-	 * @param predicate: Predicate command.
-	 * @param mapper: Fields mapper.
+	 * @param collection Elements collection.
+	 * @param predicate Predicate command.
+	 * @param mapper Fields mapper.
 	 * @return {@code List<R>}
 	 */
 	public static <E, R> List<R> mapAndDistinctToList(Collection<E> collection, Predicate<E> predicate, Function<? super E, ? extends R> mapper) {
@@ -365,9 +372,9 @@ public class CollectionUtils {
 
 	/**
 	 * Query elements by predicate command, map some fields, remove repeated items and return a set.
-	 * @param collection: Elements collection.
-	 * @param predicate: Predicate command.
-	 * @param mapper: Fields mapper.
+	 * @param collection Elements collection.
+	 * @param predicate Predicate command.
+	 * @param mapper Fields mapper.
 	 * @return {@code Set<R>}
 	 */
 	public static <E, R> Set<R> mapAndDistinctToSet(Collection<E> collection, Predicate<E> predicate, Function<? super E, ? extends R> mapper) {
@@ -376,8 +383,8 @@ public class CollectionUtils {
 
 	/**
 	 * Map some fields (for each item, one field has an collection of values) and return a list.
-	 * @param collection: Elements collection.
-	 * @param mapper: Fields mapper.
+	 * @param collection Elements collection.
+	 * @param mapper Fields mapper.
 	 * @return {@code List<R>}
 	 */
 	public static <E, R> List<R> mapManyToList(Collection<E> collection, Function<? super E, ? extends Stream<? extends R>> mapper) {
@@ -392,8 +399,8 @@ public class CollectionUtils {
 
 	/**
 	 * Group collection by classifier to map and return it.
-	 * @param collection: Elements collection.
-	 * @param classifier: Classifier for group.
+	 * @param collection Elements collection.
+	 * @param classifier Classifier for group.
 	 * @return {@code Map<K,List<E>>}
 	 */
 	public static <K, E> Map<K, List<E>> groupToMap(Collection<E> collection, Function<? super E, ? extends K> classifier) {
@@ -402,8 +409,8 @@ public class CollectionUtils {
 
 	/**
 	 * Parallel group collection by classifier to map and return it.
-	 * @param collection: Elements collection.
-	 * @param classifier: Classifier for group.
+	 * @param collection Elements collection.
+	 * @param classifier Classifier for group.
 	 * @return {@code Map<K,List<E>>}
 	 */
 	public static <K, E> Map<K, List<E>> parallelGroupToMap(Collection<E> collection, Function<? super E, ? extends K> classifier) {
@@ -412,9 +419,9 @@ public class CollectionUtils {
 
 	/**
 	 * Query elements by predicate command, group collection by classifier to map and return it.
-	 * @param collection: Elements collection.
-	 * @param predicate: Predicate command.
-	 * @param classifier: Classifier for group.
+	 * @param collection Elements collection.
+	 * @param predicate Predicate command.
+	 * @param classifier Classifier for group.
 	 * @return {@code Map<K,List<E>>}
 	 */
 	public static <K, E> Map<K, List<E>> groupToMap(Collection<E> collection, Predicate<E> predicate, Function<? super E, ? extends K> classifier) {
@@ -423,9 +430,9 @@ public class CollectionUtils {
 
 	/**
 	 * Parallel group elements by predicate command, group collection by classifier to map and return it.
-	 * @param collection: Elements collection.
-	 * @param predicate: Predicate command.
-	 * @param classifier: Classifier for group.
+	 * @param collection Elements collection.
+	 * @param predicate Predicate command.
+	 * @param classifier Classifier for group.
 	 * @return {@code Map<K,List<E>>}
 	 */
 	public static <K, E> Map<K, List<E>> parallelGroupToMap(Collection<E> collection, Predicate<E> predicate, Function<? super E, ? extends K> classifier) {
@@ -433,10 +440,68 @@ public class CollectionUtils {
 	}
 
 	/**
+	 * Convert collection to Map. {@code Map}
+	 * @param <E> the type of the input elements
+	 * @param <K> the output type of the key mapping function
+	 * @param <V> the output type of the value mapping function
+	 * @param collection Elements collection.
+	 * @param keyMapper a mapping function to produce keys.
+	 * @param valueMapper a mapping function to produce values.
+	 * @return Map<K,V> {@code Map}
+	 */
+	public static <E, K, V> Map<K, V> toMap(Collection<E> collection, Function<? super E, ? extends K> keyMapper, Function<? super E, ? extends V> valueMapper) {
+		return collection.stream().collect(Collectors.toMap(keyMapper, valueMapper));
+	}
+
+	/**
+	 * Parallel convert collection to Map. {@code Map}
+	 * @param <E> the type of the input elements
+	 * @param <K> the output type of the key mapping function
+	 * @param <V> the output type of the value mapping function
+	 * @param collection Elements collection.
+	 * @param keyMapper a mapping function to produce keys.
+	 * @param valueMapper a mapping function to produce values.
+	 * @return Map<K,V> {@code Map}
+	 */
+	public static <E, K, V> Map<K, V> parallelToMap(Collection<E> collection, Function<? super E, ? extends K> keyMapper, Function<? super E, ? extends V> valueMapper) {
+		return collection.stream().parallel().collect(Collectors.toMap(keyMapper, valueMapper));
+	}
+
+	/**
+	 * Convert collection to Map. {@code Map}
+	 * @param <E> the type of the input elements
+	 * @param <K> the output type of the key mapping function
+	 * @param <V> the output type of the value mapping function
+	 * @param collection Elements collection.
+	 * @param predicate Predicate command.
+	 * @param keyMapper a mapping function to produce keys.
+	 * @param valueMapper a mapping function to produce values.
+	 * @return Map<K,V> {@code Map}
+	 */
+	public static <E, K, V> Map<K, V> toMap(Collection<E> collection, Predicate<E> predicate, Function<? super E, ? extends K> keyMapper, Function<? super E, ? extends V> valueMapper) {
+		return query(collection, predicate).collect(Collectors.toMap(keyMapper, valueMapper));
+	}
+
+	/**
+	 * Parallel convert collection to Map. {@code Map}
+	 * @param <E> the type of the input elements
+	 * @param <K> the output type of the key mapping function
+	 * @param <V> the output type of the value mapping function
+	 * @param collection Elements collection.
+	 * @param predicate Predicate command.
+	 * @param keyMapper a mapping function to produce keys.
+	 * @param valueMapper a mapping function to produce values.
+	 * @return Map<K,V> {@code Map}
+	 */
+	public static <E, K, V> Map<K, V> parallelToMap(Collection<E> collection, Predicate<E> predicate, Function<? super E, ? extends K> keyMapper, Function<? super E, ? extends V> valueMapper) {
+		return parallelQuery(collection, predicate).collect(Collectors.toMap(keyMapper, valueMapper));
+	}
+
+	/**
 	 * Paging collection with specified page index and page size.
-	 * @param collection: Elements collection.
-	 * @param pageIndex: Page index.
-	 * @param pageSize: Page size.
+	 * @param collection Elements collection.
+	 * @param pageIndex Page index.
+	 * @param pageSize Page size.
 	 * @return {@code List<E>}
 	 */
 	public static <E> List<E> paging(Collection<E> collection, int pageIndex, int pageSize) {
@@ -455,8 +520,8 @@ public class CollectionUtils {
 
 	/**
 	 * Get the toppest count elements.
-	 * @param collection: Elements collection.
-	 * @param count: Count number.
+	 * @param collection Elements collection.
+	 * @param count Count number.
 	 * @return {@code List<E>}
 	 */
 	public static <E> List<E> top(Collection<E> collection, int count) {

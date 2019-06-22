@@ -2,6 +2,8 @@ package devutility.internal.io;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -83,5 +85,28 @@ public class TextFileUtils {
 		}
 
 		return new String(bytes, charset);
+	}
+
+	/**
+	 * Read content from a InputStream object.
+	 * @param inputStream InputStream object.
+	 * @param charset Encoding type.
+	 * @return String
+	 * @throws UnsupportedEncodingException throw from decode.
+	 */
+	public static String read(InputStream inputStream, Charset charset) {
+		byte[] bytes = StreamUtils.read(inputStream);
+		return new String(bytes, charset);
+	}
+
+	/**
+	 * Read content from a InputStream object.
+	 * @param inputStream InputStream object.
+	 * @return String
+	 * @throws UnsupportedEncodingException throw from decode.
+	 */
+	public static String read(InputStream inputStream) throws UnsupportedEncodingException {
+		byte[] bytes = StreamUtils.read(inputStream);
+		return Utf8Utils.decode(bytes);
 	}
 }
