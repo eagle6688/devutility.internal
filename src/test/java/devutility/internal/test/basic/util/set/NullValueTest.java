@@ -15,6 +15,8 @@ public class NullValueTest extends BaseTest {
 
 		Set<String> set2 = new LinkedHashSet<>();
 		set2.add(null);
+
+		println(set1.contains(null) ? "Yes" : "No");
 	}
 
 	public static void main(String[] args) {
