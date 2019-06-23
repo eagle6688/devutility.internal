@@ -11,6 +11,7 @@ import java.util.Set;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -463,10 +464,11 @@ public class CollectionUtils {
 	 * @param keyMapper a mapping function to produce keys.
 	 * @param valueMapper a mapping function to produce values.
 	 * @param mergeFunction a merge function, selector function.
+	 * @param mapSupplier a function which returns a new, empty {@code Map} into which the results will be inserted
 	 * @return Map<K,V> {@code Map}
 	 */
-	public static <E, K, V> Map<K, V> toMap(Collection<E> collection, Function<? super E, ? extends K> keyMapper, Function<? super E, ? extends V> valueMapper, BinaryOperator<V> mergeFunction) {
-		return collection.stream().collect(Collectors.toMap(keyMapper, valueMapper, mergeFunction));
+	public static <E, K, V, M extends Map<K, V>> Map<K, V> toMap(Collection<E> collection, Function<? super E, ? extends K> keyMapper, Function<? super E, ? extends V> valueMapper, BinaryOperator<V> mergeFunction, Supplier<M> mapSupplier) {
+		return collection.stream().collect(Collectors.toMap(keyMapper, valueMapper, mergeFunction, mapSupplier));
 	}
 
 	/**
