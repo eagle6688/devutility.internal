@@ -92,7 +92,6 @@ public class TextFileUtils {
 	 * @param inputStream InputStream object.
 	 * @param charset Encoding type.
 	 * @return String
-	 * @throws UnsupportedEncodingException throw from decode.
 	 */
 	public static String read(InputStream inputStream, Charset charset) {
 		byte[] bytes = StreamUtils.read(inputStream);
