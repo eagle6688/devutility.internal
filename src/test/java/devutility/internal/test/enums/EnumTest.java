@@ -1,5 +1,7 @@
 package devutility.internal.test.enums;
 
+import java.util.Arrays;
+
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 import devutility.internal.test.data.constants.Gender;
@@ -17,6 +19,13 @@ public class EnumTest extends BaseTest {
 
 		Gender gender = Gender.parse(2);
 		println(gender.toString());
+
+		Arrays.asList(Gender.values()).forEach(i -> {
+			println(i.name());
+		});
+
+		println(Gender.valueOf("MALE").toString());
+		println(Gender.valueOf("asd").toString());
 	}
 
 	public static void main(String[] args) {
