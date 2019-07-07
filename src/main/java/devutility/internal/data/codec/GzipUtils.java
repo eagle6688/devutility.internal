@@ -6,7 +6,20 @@ import java.io.IOException;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
+/**
+ * 
+ * GzipUtils
+ * 
+ * @author: Aldwin Su
+ * @version: 2019-07-07 15:18:59
+ */
 public class GzipUtils {
+	/**
+	 * Compressing {@code byte[]} data using Gzip algorithm.
+	 * @param bytes {@code byte[]} need to be compressed.
+	 * @return Compressed {@code byte[]} data.
+	 * @throws IOException from ByteArrayOutputStream or GZIPOutputStream.
+	 */
 	public static byte[] compress(byte[] bytes) throws IOException {
 		if (bytes == null || bytes.length == 0) {
 			return null;
@@ -15,8 +28,8 @@ public class GzipUtils {
 		byte[] compressedBytes;
 
 		try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
-			try (GZIPOutputStream gZIPOutputStream = new GZIPOutputStream(byteArrayOutputStream)) {
-				gZIPOutputStream.write(bytes);
+			try (GZIPOutputStream gZipOutputStream = new GZIPOutputStream(byteArrayOutputStream)) {
+				gZipOutputStream.write(bytes);
 			} catch (IOException e) {
 				throw e;
 			}
@@ -29,20 +42,26 @@ public class GzipUtils {
 		return compressedBytes;
 	}
 
-	public static byte[] deCompress(byte[] bytes) throws IOException {
+	/**
+	 * Decompress {@code byte[]} data using Gzip algorithm.
+	 * @param bytes {@code byte[]} need to be decompressed.
+	 * @return Decompressed {@code byte[]} data.
+	 * @throws IOException from ByteArrayOutputStream, ByteArrayInputStream or GZIPOutputStream.
+	 */
+	public static byte[] decompress(byte[] bytes) throws IOException {
 		if (bytes == null || bytes.length == 0) {
 			return null;
 		}
 
-		byte[] deCompressedBytes;
+		byte[] decompressedBytes;
 
 		try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
 			try (ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes)) {
-				try (GZIPInputStream gZIPInputStream = new GZIPInputStream(byteArrayInputStream)) {
+				try (GZIPInputStream gZipInputStream = new GZIPInputStream(byteArrayInputStream)) {
 					int readCount = 0;
 					byte[] buffer = new byte[1024];
 
-					while ((readCount = gZIPInputStream.read(buffer)) >= 0) {
+					while ((readCount = gZipInputStream.read(buffer)) >= 0) {
 						byteArrayOutputStream.write(buffer, 0, readCount);
 					}
 				} catch (IOException e) {
@@ -52,11 +71,11 @@ public class GzipUtils {
 				throw e;
 			}
 
-			deCompressedBytes = byteArrayOutputStream.toByteArray();
+			decompressedBytes = byteArrayOutputStream.toByteArray();
 		} catch (IOException e) {
 			throw e;
 		}
 
-		return deCompressedBytes;
+		return decompressedBytes;
 	}
 }

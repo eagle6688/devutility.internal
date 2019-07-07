@@ -1,4 +1,4 @@
-package devutility.internal.test.data.codec.gziphelper;
+package devutility.internal.test.data.codec.gziputils;
 
 import devutility.internal.data.codec.GzipUtils;
 import devutility.internal.test.BaseTest;

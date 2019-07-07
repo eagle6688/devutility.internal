@@ -1,10 +1,10 @@
-package devutility.internal.test.data.codec.gziphelper;
+package devutility.internal.test.data.codec.gziputils;
 
 import devutility.internal.data.codec.GzipUtils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
-public class DeCompressTest extends BaseTest {
+public class DecompressTest extends BaseTest {
 	@Override
 	public void run() {
 		String value = "Hello World!Hello World!Hello World!Hello World!";
@@ -12,7 +12,7 @@ public class DeCompressTest extends BaseTest {
 
 		try {
 			byte[] compressedBytes = GzipUtils.compress(bytes);
-			byte[] unCompressedBytes = GzipUtils.deCompress(compressedBytes);
+			byte[] unCompressedBytes = GzipUtils.decompress(compressedBytes);
 			System.out.println(new String(unCompressedBytes));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -20,6 +20,6 @@ public class DeCompressTest extends BaseTest {
 	}
 
 	public static void main(String[] args) {
-		TestExecutor.run(DeCompressTest.class);
+		TestExecutor.run(DecompressTest.class);
 	}
 }
