@@ -28,8 +28,8 @@ public class GzipUtils {
 		byte[] compressedBytes;
 
 		try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
-			try (GZIPOutputStream gZipOutputStream = new GZIPOutputStream(byteArrayOutputStream)) {
-				gZipOutputStream.write(bytes);
+			try (GZIPOutputStream gzipOutputStream = new GZIPOutputStream(byteArrayOutputStream)) {
+				gzipOutputStream.write(bytes);
 			} catch (IOException e) {
 				throw e;
 			}
@@ -57,11 +57,11 @@ public class GzipUtils {
 
 		try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
 			try (ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes)) {
-				try (GZIPInputStream gZipInputStream = new GZIPInputStream(byteArrayInputStream)) {
+				try (GZIPInputStream gzipInputStream = new GZIPInputStream(byteArrayInputStream)) {
 					int readCount = 0;
 					byte[] buffer = new byte[1024];
 
-					while ((readCount = gZipInputStream.read(buffer)) >= 0) {
+					while ((readCount = gzipInputStream.read(buffer)) >= 0) {
 						byteArrayOutputStream.write(buffer, 0, readCount);
 					}
 				} catch (IOException e) {
