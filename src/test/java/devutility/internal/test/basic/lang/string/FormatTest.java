@@ -13,6 +13,9 @@ public class FormatTest extends BaseTest {
 		String value = String.format("%s_%s", "haha", "%s");
 		println(value);
 
+		value = String.format("%s_%s", "haha", null == null ? "" : "asd");
+		println(value);
+
 		String value1 = String.format(value, "asd");
 		println(value1);
 	}
