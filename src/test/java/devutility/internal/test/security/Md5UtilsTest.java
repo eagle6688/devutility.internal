@@ -8,7 +8,7 @@ import devutility.internal.security.Md5Utils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
-public class Md5HelperTest extends BaseTest {
+public class Md5UtilsTest extends BaseTest {
 	@Override
 	public void run() {
 		String value = "Hello World!";
@@ -29,6 +29,6 @@ public class Md5HelperTest extends BaseTest {
 	}
 
 	public static void main(String[] args) {
-		TestExecutor.run(Md5HelperTest.class);
+		TestExecutor.run(Md5UtilsTest.class);
 	}
 }
