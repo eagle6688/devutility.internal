@@ -11,7 +11,7 @@ public class GetPublicKeyTest extends BaseTest {
 	@Override
 	public void run() {
 		try {
-			println(EccUtils.getPublicKey("asd"));
+			println(EccUtils.getPublicKey());
 		} catch (UnsupportedEncodingException | GeneralSecurityException e) {
 			e.printStackTrace();
 		}

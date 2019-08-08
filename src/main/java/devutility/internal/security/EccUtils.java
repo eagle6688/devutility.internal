@@ -6,8 +6,12 @@ import java.security.GeneralSecurityException;
 import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.spec.ECGenParameterSpec;
+import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 
@@ -49,12 +53,11 @@ public class EccUtils {
 
 	/**
 	 * Get public key string for ECC encryption.
-	 * @param key PublicKey object.
 	 * @return String
 	 * @throws UnsupportedEncodingException
 	 * @throws GeneralSecurityException
 	 */
-	public static String getPublicKey(String key) throws UnsupportedEncodingException, GeneralSecurityException {
+	public static String getPublicKey() throws UnsupportedEncodingException, GeneralSecurityException {
 		KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance(ALGORITHM, KEYPROVIDER);
 		ECGenParameterSpec ecGenParameterSpec = new ECGenParameterSpec(STANDARDNAMEFOREC);
 		keyPairGenerator.initialize(ecGenParameterSpec);
@@ -62,9 +65,11 @@ public class EccUtils {
 		return getPublicKey(keyPair.getPublic());
 	}
 
-	public static byte[] decrypt(byte[] data, String key) throws Exception {
+	public static String getPrivateKey(String key) throws NoSuchAlgorithmException, NoSuchProviderException, InvalidKeySpecException, UnsupportedEncodingException {
 		byte[] keyBytes = key.getBytes(Charset.forName(CHARSET));
 		PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(keyBytes);
-		return null;
+		KeyFactory keyFactory = KeyFactory.getInstance(ALGORITHM);
+		PrivateKey privateKey = keyFactory.generatePrivate(pkcs8EncodedKeySpec);
+		return Base64Utils.encodeToString(privateKey.getEncoded());
 	}
 }
