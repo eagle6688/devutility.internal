@@ -72,4 +72,8 @@ public class EntityField {
 
 		return false;
 	}
+
+	public Class<?> fieldType() {
+		return getField() != null ? getField().getType() : null;
+	}
 }
