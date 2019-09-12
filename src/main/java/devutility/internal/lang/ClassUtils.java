@@ -50,7 +50,7 @@ public class ClassUtils {
 
 	/**
 	 * Get super classes include itself.
-	 * @param clazz: Class object
+	 * @param clazz Class object
 	 * @return {@code List<Class<?>>}
 	 */
 	public static <T> List<Class<?>> getSuperClasses(Class<T> clazz) {
@@ -159,7 +159,7 @@ public class ClassUtils {
 
 	/**
 	 * Get EntityFields.
-	 * @param clazz: Class object
+	 * @param clazz Class object
 	 * @return {@code List<EntityField>}
 	 */
 	public static List<EntityField> getEntityFields(Class<?> clazz) {
@@ -193,7 +193,7 @@ public class ClassUtils {
 	/**
 	 * Get sorted EntityField list.
 	 * @param clazz Class object.
-	 * @return List<EntityField>
+	 * @return {@code List<EntityField>}
 	 */
 	public static List<EntityField> getSortedEntityFields(Class<?> clazz) {
 		List<EntityField> list = getEntityFields(clazz);
