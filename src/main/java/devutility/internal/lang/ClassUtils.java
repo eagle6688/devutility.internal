@@ -7,6 +7,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -132,6 +133,19 @@ public class ClassUtils {
 	}
 
 	/**
+	 * Get sorted EntityField list and exclude specified fields.
+	 * @param excludeFields EntityField list.
+	 * @param clazz Class object.
+	 * @return {@code List<EntityField>}
+	 */
+	public static List<EntityField> getSortedAndNonExcludedEntityFields(List<String> excludeFields, Class<?> clazz) {
+		List<EntityField> list = getEntityFields(clazz);
+		list = EntityFieldUtils.excludeEntityFields(list, excludeFields);
+		list.sort(Comparator.comparingInt(EntityField::getOrder));
+		return list;
+	}
+
+	/**
 	 * Get EntityFields and exclude specified annotations.
 	 * @param clazz: Class object
 	 * @param excludeAnnotations: Annotations want to be excluded.
@@ -173,7 +187,17 @@ public class ClassUtils {
 			list.add(entityField);
 		}
 
-		list.sort((ef1, ef2) -> ef1.getOrder() - ef2.getOrder());
+		return list;
+	}
+
+	/**
+	 * Get sorted EntityField list.
+	 * @param clazz Class object.
+	 * @return List<EntityField>
+	 */
+	public static List<EntityField> getSortedEntityFields(Class<?> clazz) {
+		List<EntityField> list = getEntityFields(clazz);
+		list.sort(Comparator.comparingInt(EntityField::getOrder));
 		return list;
 	}
 
