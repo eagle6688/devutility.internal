@@ -387,6 +387,70 @@ public class ConverterUtils {
 	}
 
 	/**
+	 * Convert Object value to long type.
+	 * @param value Object value with unknow type.
+	 * @return long
+	 */
+	public static long objectTolong(Object value) {
+		String className = value.getClass().getName();
+
+		switch (className) {
+		case "java.lang.Short":
+			return ((Short) value).longValue();
+
+		case "java.lang.Integer":
+			return ((Integer) value).longValue();
+
+		case "java.lang.Float":
+			return ((Float) value).longValue();
+
+		case "java.lang.Double":
+			return ((Double) value).longValue();
+
+		case "java.lang.Long":
+			return (Long) value;
+
+		case "java.lang.String":
+			return Long.parseLong((String) value);
+
+		default:
+			return 0;
+		}
+	}
+
+	/**
+	 * Convert Object value to int type.
+	 * @param value Object value with unknow type.
+	 * @return int
+	 */
+	public static int objectToint(Object value) {
+		String className = value.getClass().getName();
+
+		switch (className) {
+		case "java.lang.Short":
+			return ((Short) value).intValue();
+
+		case "java.lang.Integer":
+			return (Integer) value;
+
+		case "java.lang.Float":
+			return ((Float) value).intValue();
+
+		case "java.lang.Double":
+			return ((Double) value).intValue();
+
+		case "java.lang.Long":
+			return ((Long) value).intValue();
+
+		case "java.lang.String":
+			return Integer.parseInt((String) value);
+
+		default:
+			return 0;
+		}
+	}
+
+	/**
 	 * Convert S value to T value.
 	 * @param value: S type value.
 	 * @param converter: Convert.
