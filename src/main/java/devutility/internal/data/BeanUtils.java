@@ -24,6 +24,7 @@ public class BeanUtils {
 	 * @throws IllegalArgumentException
 	 * @throws InvocationTargetException
 	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static void setField(Method setter, Object model, String value, Field field) throws NumberFormatException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		if (StringUtils.isNullOrEmpty(value)) {
 			return;
@@ -51,6 +52,11 @@ public class BeanUtils {
 
 		if (obj != null) {
 			setter.invoke(model, obj);
+		}
+
+		if (Enum.class.isAssignableFrom(clazz)) {
+			Object enumValue = Enum.valueOf((Class<? extends Enum>) clazz, value);
+			setter.invoke(model, enumValue);
 		}
 	}
 
