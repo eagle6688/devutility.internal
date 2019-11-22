@@ -12,17 +12,24 @@ import devutility.internal.lang.StringUtils;
 import devutility.internal.lang.models.EntityField;
 import devutility.internal.util.CollectionUtils;
 
+/**
+ * 
+ * BeanUtils
+ * 
+ * @author: Aldwin Su
+ * @version: 2019-11-22 14:21:39
+ */
 public class BeanUtils {
 	/**
 	 * Set value for field
-	 * @param setter: Setter method for field
-	 * @param model: Model that need set
-	 * @param value: String value
-	 * @param field: Field that need set
+	 * @param setter Setter method for field
+	 * @param model Object that need set
+	 * @param value String value
+	 * @param field Field that need set
 	 * @throws NumberFormatException
-	 * @throws IllegalAccessException
-	 * @throws IllegalArgumentException
-	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException from invoke method.
+	 * @throws IllegalArgumentException from invoke method.
+	 * @throws InvocationTargetException from invoke method.
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static void setField(Method setter, Object model, String value, Field field) throws NumberFormatException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
@@ -55,20 +62,28 @@ public class BeanUtils {
 		}
 
 		if (Enum.class.isAssignableFrom(clazz)) {
-			Object enumValue = Enum.valueOf((Class<? extends Enum>) clazz, value);
-			setter.invoke(model, enumValue);
+			Object enumValue = null;
+
+			try {
+				enumValue = Enum.valueOf((Class<? extends Enum>) clazz, value);
+			} catch (Exception e) {
+			}
+
+			if (enumValue != null) {
+				setter.invoke(model, enumValue);
+			}
 		}
 	}
 
 	/**
-	 * set array field
-	 * @param setter: Setter method for field
-	 * @param model: Model object
-	 * @param list: List value for field
-	 * @param fieldClazz: Field class
-	 * @throws IllegalAccessException
-	 * @throws IllegalArgumentException
-	 * @throws InvocationTargetException void
+	 * Set field value with Array type.
+	 * @param setter Setter method for field
+	 * @param model Object that need set
+	 * @param list List value for field
+	 * @param fieldClazz Field class
+	 * @throws IllegalAccessException from invoke method.
+	 * @throws IllegalArgumentException from invoke method.
+	 * @throws InvocationTargetException from invoke method.
 	 */
 	private static void setArrayField(Method setter, Object model, List<?> list, Class<?> fieldClazz) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		Class<?> componentType = fieldClazz.getComponentType();
@@ -133,13 +148,13 @@ public class BeanUtils {
 	}
 
 	/**
-	 * Entity to Array
-	 * @param entity: Bean object
-	 * @param entityFields: EntityField list
+	 * Convert object to an String Array.
+	 * @param entity Bean object.
+	 * @param entityFields EntityField list.
 	 * @return String[]
-	 * @throws IllegalAccessException
-	 * @throws IllegalArgumentException
-	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException from invoke method.
+	 * @throws IllegalArgumentException from invoke method.
+	 * @throws InvocationTargetException from invoke method.
 	 */
 	public static <T> String[] toArray(T entity, List<EntityField> entityFields) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		if (entity == null || entityFields.size() == 0) {
@@ -162,14 +177,14 @@ public class BeanUtils {
 	}
 
 	/**
-	 * Array to entity
-	 * @param array: Array
-	 * @param entityFields: EntityField list
-	 * @param clazz: Class object of entity.
+	 * Convert an String array to an object.
+	 * @param array String array.
+	 * @param entityFields EntityField objects list.
+	 * @param clazz Class object of entity.
 	 * @return {@code T}
-	 * @throws IllegalAccessException
-	 * @throws IllegalArgumentException
-	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException from setField method.
+	 * @throws IllegalArgumentException from setField method.
+	 * @throws InvocationTargetException from setField method.
 	 */
 	public static <T> T toEntity(String[] array, List<EntityField> entityFields, Class<T> clazz) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		if (array == null || array.length == 0 || entityFields == null || entityFields.size() == 0) {
@@ -194,26 +209,26 @@ public class BeanUtils {
 
 	/**
 	 * Shallow clone the model with K type, this method will clone the properties that both of two types have.
-	 * @param kModel
-	 * @param kClazz
-	 * @param tClazz
+	 * @param sModel Source object.
+	 * @param sClazz Class object of source object.
+	 * @param tClazz Class object of target object.
 	 * @return {@code T}
 	 * @throws ReflectiveOperationException
 	 */
-	public static <T, K> T shallowClone(K kModel, Class<K> kClazz, Class<T> tClazz) throws ReflectiveOperationException {
-		if (kModel == null) {
+	public static <T, S> T shallowClone(S sModel, Class<S> sClazz, Class<T> tClazz) throws ReflectiveOperationException {
+		if (sModel == null) {
 			return null;
 		}
 
 		T model = ClassUtils.newInstance(tClazz);
-		List<EntityField> kEntityFields = ClassUtils.getEntityFields(kClazz);
+		List<EntityField> kEntityFields = ClassUtils.getEntityFields(sClazz);
 		List<EntityField> tEntityFields = ClassUtils.getEntityFields(tClazz);
 
 		for (EntityField kEntityField : kEntityFields) {
 			EntityField tEntityField = CollectionUtils.find(tEntityFields, i -> kEntityField.getField().getName().equals(i.getField().getName()) && kEntityField.getField().getType().equals(i.getField().getType()));
 
 			if (tEntityField != null) {
-				Object value = kEntityField.getGetter().invoke(kModel);
+				Object value = kEntityField.getGetter().invoke(sModel);
 				tEntityField.getSetter().invoke(model, value);
 			}
 		}
