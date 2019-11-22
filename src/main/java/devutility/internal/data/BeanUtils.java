@@ -8,6 +8,7 @@ import java.util.List;
 
 import devutility.internal.data.converter.ConverterUtils;
 import devutility.internal.lang.ClassUtils;
+import devutility.internal.lang.EnumUtils;
 import devutility.internal.lang.StringUtils;
 import devutility.internal.lang.models.EntityField;
 import devutility.internal.util.CollectionUtils;
@@ -61,7 +62,7 @@ public class BeanUtils {
 			setter.invoke(model, obj);
 		}
 
-		if (Enum.class.isAssignableFrom(clazz)) {
+		if (Enum.class.isAssignableFrom(clazz) && EnumUtils.maxConstructorParameterCount(clazz) == 2) {
 			Object enumValue = null;
 
 			try {
