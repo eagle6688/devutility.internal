@@ -62,7 +62,7 @@ public class BeanUtils {
 			setter.invoke(model, obj);
 		}
 
-		if (Enum.class.isAssignableFrom(clazz) && EnumUtils.maxConstructorParameterCount(clazz) == 2) {
+		if (Enum.class.isAssignableFrom(clazz) && EnumUtils.maxConstructorParameterCount(clazz) <= 2) {
 			Object enumValue = null;
 
 			try {
