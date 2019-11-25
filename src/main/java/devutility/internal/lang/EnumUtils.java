@@ -12,7 +12,6 @@ import java.lang.reflect.Constructor;
 public class EnumUtils {
 	/**
 	 * Get max parameter count from constructors in provided Class object.
-	 * @param {@code <T>}
 	 * @param clazz Class object of Enum.
 	 * @return int
 	 */
