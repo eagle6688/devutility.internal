@@ -84,7 +84,7 @@ public class RandomAccessFileUtils {
 	 * @throws IOException From AsynchronousFileChannel.
 	 */
 	public static void asyncAppend(Path path, ByteBuffer byteBuffer) throws IOException {
-		long length = FileUtils.getBytesLength(path);
+		long length = FileUtils.getSize(path);
 
 		try (AsynchronousFileChannel asynchronousFileChannel = AsynchronousFileChannel.open(path, StandardOpenOption.WRITE, StandardOpenOption.CREATE)) {
 			asynchronousFileChannel.write(byteBuffer, length);
@@ -113,7 +113,7 @@ public class RandomAccessFileUtils {
 	 */
 	public static void asyncAppend(String file, ByteBuffer byteBuffer, CompletionHandler<Integer, ByteBuffer> handler) throws IOException {
 		Path path = Paths.get(file);
-		long length = FileUtils.getBytesLength(file);
+		long length = FileUtils.getSize(file);
 
 		try (AsynchronousFileChannel asynchronousFileChannel = AsynchronousFileChannel.open(path, StandardOpenOption.WRITE)) {
 			asynchronousFileChannel.write(byteBuffer, length, byteBuffer, handler);

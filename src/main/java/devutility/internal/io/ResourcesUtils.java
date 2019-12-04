@@ -12,10 +12,10 @@ import java.nio.file.Paths;
 public class ResourcesUtils {
 	/**
 	 * Get InputStream by default loading order.
-	 * @param resource: Resource file name.
+	 * @param resource Resource file name.
 	 * @return InputStream
-	 * @throws URISyntaxException
-	 * @throws IOException
+	 * @throws URISyntaxException from toURI method.
+	 * @throws IOException from FileInputStream constructor.
 	 */
 	public static InputStream getInputStream(String resource) throws URISyntaxException, IOException {
 		String projectDirectory = DirectoryUtils.getProjectDirectory();

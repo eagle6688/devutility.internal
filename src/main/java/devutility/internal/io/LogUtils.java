@@ -11,6 +11,10 @@ import devutility.internal.lang.StringUtils;
 public class LogUtils {
 	private static final String FILENAMEFORMAT_EXCEPTION = "exception_%s";
 
+	public static String getHourLogFileName(int hour) {
+		return String.format("%d.log", hour);
+	}
+
 	public static String getLogRootDirectory() throws IOException {
 		String projectDirectory = DirectoryUtils.getProjectDirectory();
 
@@ -22,7 +26,7 @@ public class LogUtils {
 	}
 
 	public static String getLogFileName(String fileNameFormat, LocalDateTime dateTime) {
-		String hourLogFileName = FileUtils.getHourLogFileName(dateTime.getHour());
+		String hourLogFileName = getHourLogFileName(dateTime.getHour());
 
 		if (StringUtils.isNullOrEmpty(fileNameFormat)) {
 			return hourLogFileName;
