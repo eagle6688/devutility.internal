@@ -14,9 +14,9 @@ import devutility.internal.util.PropertiesUtils;
 public class ContainsPrefixTest extends BaseTest {
 	@Override
 	public void run() {
-		println(String.valueOf(PropertiesUtils.containsPrefix("system.properties", "database")));
-		println(String.valueOf(PropertiesUtils.containsPrefix("system.properties", "asd")));
-		println(String.valueOf(PropertiesUtils.containsPrefix("system.properties", "test")));
+		println(String.valueOf(PropertiesUtils.containsPrefixKeyFromResource("system.properties", "database")));
+		println(String.valueOf(PropertiesUtils.containsPrefixKeyFromResource("system.properties", "asd")));
+		println(String.valueOf(PropertiesUtils.containsPrefixKeyFromResource("system.properties", "test")));
 	}
 
 	public static void main(String[] args) {

@@ -1,5 +1,7 @@
 package devutility.internal.util;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -15,20 +17,17 @@ import devutility.internal.lang.ClassUtils;
 import devutility.internal.lang.StringUtils;
 import devutility.internal.lang.models.EntityField;
 
+/**
+ * 
+ * PropertiesUtils
+ * 
+ * @author: Aldwin Su
+ * @version: 2019-12-07 11:24:30
+ */
 public class PropertiesUtils {
 	/**
-	 * Get properties.
-	 * @param propertiesFile: Properties file name.
-	 * @return Properties
-	 */
-	public static Properties getProperties(String propertiesFile) {
-		InputStream inputStream = PropertiesUtils.class.getClassLoader().getResourceAsStream(propertiesFile);
-		return getProperties(inputStream);
-	}
-
-	/**
-	 * Get properties
-	 * @param inputStream: InputStream of properties file
+	 * Get Properties object from InputStream object of properties file.
+	 * @param inputStream InputStream object of properties file.
 	 * @return Properties
 	 */
 	public static Properties getProperties(InputStream inputStream) {
@@ -43,12 +42,32 @@ public class PropertiesUtils {
 	}
 
 	/**
-	 * Check one properties object whether contains prefix.
-	 * @param properties: Properties object
-	 * @param prefix: Prefix of property key
+	 * Get Properties object from provided file path.
+	 * @param file File path.
+	 * @return Properties
+	 * @throws FileNotFoundException from FileInputStream constructor.
+	 */
+	public static Properties getProperties(String file) throws FileNotFoundException {
+		return getProperties(new FileInputStream(file));
+	}
+
+	/**
+	 * Get Properties object from properties file.
+	 * @param file Properties file in resources folder.
+	 * @return Properties
+	 */
+	public static Properties getPropertiesFromResource(String file) {
+		InputStream inputStream = PropertiesUtils.class.getClassLoader().getResourceAsStream(file);
+		return getProperties(inputStream);
+	}
+
+	/**
+	 * Check whether provided Properties object contains the provided prefix or not.
+	 * @param properties Properties object.
+	 * @param prefix Prefix of property key.
 	 * @return boolean
 	 */
-	public static boolean containsPrefix(Properties properties, String prefix) {
+	public static boolean containsPrefixKey(Properties properties, String prefix) {
 		List<Object> keys = Collections.list(properties.keys());
 
 		for (Object key : keys) {
@@ -61,20 +80,20 @@ public class PropertiesUtils {
 	}
 
 	/**
-	 * Check one properties file whether contains prefix.
-	 * @param resourceName: Properties file
-	 * @param prefix: Prefix of property key
+	 * Check whether provided properties file contains prefix or not.
+	 * @param file Properties file in resources folder.
+	 * @param prefix Prefix of property key.
 	 * @return boolean
 	 */
-	public static boolean containsPrefix(String resourceName, String prefix) {
-		Properties properties = getProperties(resourceName);
-		return containsPrefix(properties, prefix);
+	public static boolean containsPrefixKeyFromResource(String file, String prefix) {
+		Properties properties = getPropertiesFromResource(file);
+		return containsPrefixKey(properties, prefix);
 	}
 
 	/**
-	 * Check one properties object whether contains key.
-	 * @param properties: Properties object
-	 * @param key: Key name for you query
+	 * Check whether provided Properties object contains key or not.
+	 * @param properties Properties object.
+	 * @param key Properties key.
 	 * @return boolean
 	 */
 	public static boolean containsKey(Properties properties, String key) {
@@ -82,20 +101,20 @@ public class PropertiesUtils {
 	}
 
 	/**
-	 * Check one properties file whether contains key.
-	 * @param resourceName: Properties file
-	 * @param key: Key name for you query
+	 * Check whether provided properties file contains key or not.
+	 * @param file Properties file in resources folder.
+	 * @param key Properties key.
 	 * @return boolean
 	 */
-	public static boolean containsKey(String resourceName, String key) {
-		Properties properties = getProperties(resourceName);
+	public static boolean containsKeyFromResource(String file, String key) {
+		Properties properties = getPropertiesFromResource(file);
 		return containsKey(properties, key);
 	}
 
 	/**
 	 * Get property value.
-	 * @param properties: Properties object
-	 * @param key: Key name for you query
+	 * @param properties Properties object.
+	 * @param key Properties key.
 	 * @return String
 	 */
 	public static String getProperty(Properties properties, String key) {
@@ -108,19 +127,19 @@ public class PropertiesUtils {
 
 	/**
 	 * Get property value.
-	 * @param resourceName: Properties file
-	 * @param key: Key name for you query
+	 * @param file Properties file in resources folder.
+	 * @param key Properties key.
 	 * @return String
 	 */
-	public static String getProperty(String resourceName, String key) {
-		Properties properties = getProperties(resourceName);
+	public static String getPropertyFromResource(String file, String key) {
+		Properties properties = getPropertiesFromResource(file);
 		return getProperty(properties, key);
 	}
 
 	/**
-	 * Get property int value.
-	 * @param properties: Properties object
-	 * @param key: Key name for you query
+	 * Get int value from Properties object.
+	 * @param properties Properties object.
+	 * @param key Properties key.
 	 * @return int
 	 */
 	public static int getIntProperty(Properties properties, String key) {
@@ -134,13 +153,13 @@ public class PropertiesUtils {
 	}
 
 	/**
-	 * Get property int value.
-	 * @param resourceName: Properties file
-	 * @param key: Key name for you query
+	 * Get int value from properties file.
+	 * @param file Properties file in resources folder.
+	 * @param key Properties key.
 	 * @return int
 	 */
-	public static int getIntProperty(String resourceName, String key) {
-		String value = getProperty(resourceName, key);
+	public static int getIntPropertyFromResource(String file, String key) {
+		String value = getPropertyFromResource(file, key);
 
 		if (value == null) {
 			return 0;
@@ -150,18 +169,37 @@ public class PropertiesUtils {
 	}
 
 	/**
-	 * Convert properties to Map
-	 * @param resourceName: Properties file
-	 * @return {@code Map<String,String>}
+	 * Get property key.
+	 * @param field Field object.
+	 * @return String
 	 */
-	public static Map<String, String> toMap(String resourceName) {
-		Properties properties = getProperties(resourceName);
-		return toMap(properties);
+	public static String getPropertyKey(Field field) {
+		PropertiesKey propertiesKey = field.getAnnotation(PropertiesKey.class);
+
+		if (propertiesKey == null) {
+			return field.getName();
+		}
+
+		return propertiesKey.value();
 	}
 
 	/**
-	 * Convert properties to Map
-	 * @param properties: Properties object
+	 * Get property key.
+	 * @param prefix: Prefix of property key.
+	 * @param fieldName: Field name.
+	 * @return String
+	 */
+	public static String getPropertyKey(String prefix, String fieldName) {
+		if (StringUtils.isNullOrEmpty(prefix)) {
+			return fieldName;
+		}
+
+		return String.format("%s.%s", prefix, fieldName);
+	}
+
+	/**
+	 * Convert Properties object to Map.
+	 * @param properties Properties object.
 	 * @return {@code Map<String,String>}
 	 */
 	public static Map<String, String> toMap(Properties properties) {
@@ -179,34 +217,44 @@ public class PropertiesUtils {
 	}
 
 	/**
-	 * Convert Properties to model.
-	 * @param propertiesFile: Properties file.
-	 * @param prefix: Prefix of property key.
-	 * @param clazz: Model Class object.
-	 * @return {@code T}
-	 * @throws NumberFormatException
-	 * @throws IllegalAccessException
-	 * @throws IllegalArgumentException
-	 * @throws InvocationTargetException
+	 * Convert properties file to Map.
+	 * @param file Properties file in resources folder.
+	 * @return {@code Map<String,String>}
 	 */
-	public static <T> T toModel(String propertiesFile, String prefix, Class<T> clazz) throws NumberFormatException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		Properties properties = getProperties(propertiesFile);
-		return toModel(properties, prefix, clazz);
+	public static Map<String, String> toMapFromResource(String file) {
+		Properties properties = getPropertiesFromResource(file);
+		return toMap(properties);
 	}
 
 	/**
-	 * Convert Properties to model.
-	 * @param propertiesFile: Properties file.
-	 * @param clazz: Model Class object.
+	 * Convert Properties object to model.
+	 * @param properties Properties object.
+	 * @param clazz Class object.
 	 * @return {@code T}
-	 * @throws NumberFormatException
-	 * @throws IllegalAccessException
-	 * @throws IllegalArgumentException
-	 * @throws InvocationTargetException
+	 * @throws NumberFormatException from BeanUtils.setField method.
+	 * @throws IllegalAccessException from BeanUtils.setField method.
+	 * @throws IllegalArgumentException from BeanUtils.setField method.
+	 * @throws InvocationTargetException from BeanUtils.setField method.
 	 */
-	public static <T> T toModel(String propertiesFile, Class<T> clazz) throws NumberFormatException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		Properties properties = getProperties(propertiesFile);
-		return toModel(properties, clazz);
+	public static <T> T toModel(Properties properties, Class<T> clazz) throws NumberFormatException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		boolean hasProperty = false;
+		T model = ClassUtils.instance(clazz);
+		List<EntityField> entityFields = ClassUtils.getEntityFields(clazz);
+
+		for (EntityField entityField : entityFields) {
+			String value = getPropertyValue(properties, entityField.getField());
+
+			if (value != null) {
+				hasProperty = true;
+				BeanUtils.setField(entityField.getSetter(), model, value, entityField.getField());
+			}
+		}
+
+		if (!hasProperty) {
+			return null;
+		}
+
+		return model;
 	}
 
 	/**
@@ -244,7 +292,8 @@ public class PropertiesUtils {
 
 	/**
 	 * Convert Properties to model.
-	 * @param properties: Properties object.
+	 * @param propertiesFile: Properties file.
+	 * @param prefix: Prefix of property key.
 	 * @param clazz: Model Class object.
 	 * @return {@code T}
 	 * @throws NumberFormatException
@@ -252,26 +301,24 @@ public class PropertiesUtils {
 	 * @throws IllegalArgumentException
 	 * @throws InvocationTargetException
 	 */
-	public static <T> T toModel(Properties properties, Class<T> clazz) throws NumberFormatException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		T model = ClassUtils.instance(clazz);
+	public static <T> T toModel(String file, String prefix, Class<T> clazz) throws NumberFormatException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		Properties properties = getPropertiesFromResource(file);
+		return toModel(properties, prefix, clazz);
+	}
 
-		boolean hasProperty = false;
-		List<EntityField> entityFields = ClassUtils.getEntityFields(clazz);
-
-		for (EntityField entityField : entityFields) {
-			String value = getPropertyValue(properties, entityField.getField());
-
-			if (value != null) {
-				BeanUtils.setField(entityField.getSetter(), model, value, entityField.getField());
-				hasProperty = true;
-			}
-		}
-
-		if (!hasProperty) {
-			return null;
-		}
-
-		return model;
+	/**
+	 * Convert Properties to model.
+	 * @param propertiesFile: Properties file.
+	 * @param clazz: Model Class object.
+	 * @return {@code T}
+	 * @throws NumberFormatException
+	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
+	 * @throws InvocationTargetException
+	 */
+	public static <T> T toModel(String propertiesFile, Class<T> clazz) throws NumberFormatException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		Properties properties = getPropertiesFromResource(propertiesFile);
+		return toModel(properties, clazz);
 	}
 
 	/**
@@ -288,35 +335,6 @@ public class PropertiesUtils {
 		}
 
 		return getPropertyKey(prefix, field.getName());
-	}
-
-	/**
-	 * Get property key.
-	 * @param prefix: Prefix of property key.
-	 * @param fieldName: Field name.
-	 * @return String
-	 */
-	public static String getPropertyKey(String prefix, String fieldName) {
-		if (StringUtils.isNullOrEmpty(prefix)) {
-			return fieldName;
-		}
-
-		return String.format("%s.%s", prefix, fieldName);
-	}
-
-	/**
-	 * Get property key.
-	 * @param field: Field object in model.
-	 * @return String
-	 */
-	public static String getPropertyKey(Field field) {
-		PropertiesKey propertiesKey = field.getAnnotation(PropertiesKey.class);
-
-		if (propertiesKey == null) {
-			return null;
-		}
-
-		return propertiesKey.value();
 	}
 
 	/**

@@ -16,7 +16,7 @@ public class DbInstanceUtils {
 	 * @return DbInstance
 	 */
 	public static DbInstance getInstance(Properties properties, String prefix) {
-		if (properties == null || !PropertiesUtils.containsPrefix(properties, prefix)) {
+		if (properties == null || !PropertiesUtils.containsPrefixKey(properties, prefix)) {
 			return null;
 		}
 
@@ -57,9 +57,9 @@ public class DbInstanceUtils {
 			return null;
 		}
 
-		Properties properties = PropertiesUtils.getProperties(propertiesFile);
+		Properties properties = PropertiesUtils.getPropertiesFromResource(propertiesFile);
 
-		if (properties == null || !PropertiesUtils.containsPrefix(properties, prefix)) {
+		if (properties == null || !PropertiesUtils.containsPrefixKey(properties, prefix)) {
 			return null;
 		}
 

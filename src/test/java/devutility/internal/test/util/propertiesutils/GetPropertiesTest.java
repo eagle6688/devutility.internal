@@ -9,7 +9,7 @@ import devutility.internal.util.PropertiesUtils;
 public class GetPropertiesTest extends BaseTest {
 	@Override
 	public void run() {
-		Properties properties = PropertiesUtils.getProperties("system.properties");
+		Properties properties = PropertiesUtils.getPropertiesFromResource("system.properties");
 		println(properties.getProperty("test"));
 	}
 
