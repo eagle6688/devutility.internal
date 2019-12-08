@@ -10,9 +10,9 @@ import devutility.internal.util.CollectionUtils;
 
 public class FieldUtils {
 	/**
-	 * Field whether contains annotations?
-	 * @param field: Field object
-	 * @param annotations: Annotations want to check.
+	 * Check whether the provided Field object contains annotations or not?
+	 * @param field Field object.
+	 * @param annotations Annotations want to check.
 	 * @return boolean
 	 */
 	public static boolean contain(Field field, List<Annotation> annotations) {
@@ -23,6 +23,8 @@ public class FieldUtils {
 		List<Annotation> fieldAnnotations = Arrays.asList(field.getAnnotations());
 		return CollectionUtils.exist(annotations, i -> fieldAnnotations.contains(i));
 	}
+
+	
 
 	/**
 	 * Return Order value by provided Field object. 0 if no Order setting.

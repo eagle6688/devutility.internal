@@ -158,8 +158,8 @@ public class ClassUtils {
 	}
 
 	/**
-	 * Get EntityFields.
-	 * @param clazz Class object
+	 * Get EntityField list.
+	 * @param clazz Class object.
 	 * @return {@code List<EntityField>}
 	 */
 	public static List<EntityField> getEntityFields(Class<?> clazz) {
@@ -172,6 +172,44 @@ public class ClassUtils {
 		List<EntityField> list = new ArrayList<>(declaredFields.size());
 
 		for (Field declaredField : declaredFields) {
+			Method getter = MethodUtils.getter(declaredField, declaredMethods);
+			Method setter = MethodUtils.setter(declaredField.getName(), declaredMethods);
+
+			if (setter == null || getter == null) {
+				continue;
+			}
+
+			EntityField entityField = new EntityField();
+			entityField.setField(declaredField);
+			entityField.setSetter(setter);
+			entityField.setGetter(getter);
+			entityField.setOrder(FieldUtils.getOrder(declaredField));
+			list.add(entityField);
+		}
+
+		return list;
+	}
+
+	/**
+	 * TODO Get EntityField list.
+	 * @param clazz Class object.
+	 * @param excludeAnnotationClasses {@code Class<? extends Annotation> objects that need to be excluded}
+	 * @return {@code List<EntityField>}
+	 */
+	public static List<EntityField> getEntityFields(Class<?> clazz, List<Class<? extends Annotation>> excludeAnnotationClasses) {
+		if (clazz == null) {
+			throw new IllegalArgumentException("Illegal parameter!");
+		}
+
+		List<Field> declaredFields = getAllDeclaredFields(clazz);
+		List<Method> declaredMethods = getAllDeclaredMethods(clazz);
+		List<EntityField> list = new ArrayList<>(declaredFields.size());
+
+		for (Field declaredField : declaredFields) {
+			if (FieldUtils.contain(declaredField, excludeAnnotationClasses)) {
+				continue;
+			}
+
 			Method getter = MethodUtils.getter(declaredField, declaredMethods);
 			Method setter = MethodUtils.setter(declaredField.getName(), declaredMethods);
 
