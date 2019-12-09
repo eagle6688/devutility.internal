@@ -5,11 +5,9 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.Arrays;
 import java.util.List;
 
 import devutility.internal.lang.StringUtils;
-import devutility.internal.util.CollectionUtils;
 
 /**
  * 
@@ -19,18 +17,23 @@ import devutility.internal.util.CollectionUtils;
  */
 public class MethodUtils {
 	/**
-	 * Method whether contains annotations?
-	 * @param method: Method object.
-	 * @param annotations: Annotations want to check.
+	 * Check whether provided Method object contains provided annotations?
+	 * @param method Method object.
+	 * @param annotations Annotations want to check.
 	 * @return boolean
 	 */
-	public static boolean contain(Method method, List<Annotation> annotations) {
-		if (method == null || CollectionUtils.isNullOrEmpty(annotations)) {
-			return false;
-		}
+	public static boolean containAnnotations(Method method, List<Annotation> annotations) {
+		return AccessibleObjectUtils.containAnnotations(method, annotations);
+	}
 
-		List<Annotation> fieldAnnotations = Arrays.asList(method.getAnnotations());
-		return CollectionUtils.exist(annotations, i -> fieldAnnotations.contains(i));
+	/**
+	 * Check whether provided Field object contains annotations?
+	 * @param field Field object.
+	 * @param annotations Class objects of Annotations want to check.
+	 * @return boolean
+	 */
+	public static boolean containAnnotationClasses(Method method, List<Class<? extends Annotation>> annotationClasses) {
+		return AccessibleObjectUtils.containAnnotationClasses(method, annotationClasses);
 	}
 
 	/**

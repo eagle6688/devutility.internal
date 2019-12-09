@@ -58,15 +58,31 @@ public class EntityField {
 	}
 
 	public boolean containAnnotations(List<Annotation> annotations) {
-		if (FieldUtils.contain(field, annotations)) {
+		if (FieldUtils.containAnnotations(field, annotations)) {
 			return true;
 		}
 
-		if (MethodUtils.contain(setter, annotations)) {
+		if (MethodUtils.containAnnotations(setter, annotations)) {
 			return true;
 		}
 
-		if (MethodUtils.contain(getter, annotations)) {
+		if (MethodUtils.containAnnotations(getter, annotations)) {
+			return true;
+		}
+
+		return false;
+	}
+
+	public boolean containAnnotationClasses(List<Class<? extends Annotation>> annotationClasses) {
+		if (FieldUtils.containAnnotationClasses(field, annotationClasses)) {
+			return true;
+		}
+
+		if (MethodUtils.containAnnotationClasses(setter, annotationClasses)) {
+			return true;
+		}
+
+		if (MethodUtils.containAnnotationClasses(getter, annotationClasses)) {
 			return true;
 		}
 

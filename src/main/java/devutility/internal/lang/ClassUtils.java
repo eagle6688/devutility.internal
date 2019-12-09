@@ -111,53 +111,6 @@ public class ClassUtils {
 	}
 
 	/**
-	 * Get EntityFields and include specified fields.
-	 * @param includeFields: Fields want to include.
-	 * @param clazz: Class object
-	 * @return {@code List<EntityField>}
-	 */
-	public static List<EntityField> getIncludedEntityFields(List<String> includeFields, Class<?> clazz) {
-		List<EntityField> list = getEntityFields(clazz);
-		return EntityFieldUtils.includeEntityFields(list, includeFields);
-	}
-
-	/**
-	 * Get EntityFields and exclude specified fields.
-	 * @param clazz: Class object
-	 * @param excludeFields: Fields want to exclude.
-	 * @return {@code List<EntityField>}
-	 */
-	public static List<EntityField> getNonExcludedEntityFields(List<String> excludeFields, Class<?> clazz) {
-		List<EntityField> list = getEntityFields(clazz);
-		return EntityFieldUtils.excludeEntityFields(list, excludeFields);
-	}
-
-	/**
-	 * Get sorted EntityField list and exclude specified fields.
-	 * @param excludeFields EntityField list.
-	 * @param clazz Class object.
-	 * @return {@code List<EntityField>}
-	 */
-	public static List<EntityField> getSortedAndNonExcludedEntityFields(List<String> excludeFields, Class<?> clazz) {
-		List<EntityField> list = getEntityFields(clazz);
-		list = EntityFieldUtils.excludeEntityFields(list, excludeFields);
-		list.sort(Comparator.comparingInt(EntityField::getOrder));
-		return list;
-	}
-
-	/**
-	 * Get EntityFields and exclude specified annotations.
-	 * @param clazz: Class object
-	 * @param excludeAnnotations: Annotations want to be excluded.
-	 * @return {@code List<EntityField>}
-	 */
-	public static List<EntityField> getNonExcludedEntityFields(Annotation[] excludeAnnotations, Class<?> clazz) {
-		List<EntityField> list = getEntityFields(clazz);
-		List<Annotation> annotations = Arrays.asList(excludeAnnotations);
-		return CollectionUtils.list(list, i -> i.containAnnotations(annotations));
-	}
-
-	/**
 	 * Get EntityField list.
 	 * @param clazz Class object.
 	 * @return {@code List<EntityField>}
@@ -191,50 +144,64 @@ public class ClassUtils {
 	}
 
 	/**
-	 * TODO Get EntityField list.
-	 * @param clazz Class object.
-	 * @param excludeAnnotationClasses {@code Class<? extends Annotation> objects that need to be excluded}
-	 * @return {@code List<EntityField>}
-	 */
-	public static List<EntityField> getEntityFields(Class<?> clazz, List<Class<? extends Annotation>> excludeAnnotationClasses) {
-		if (clazz == null) {
-			throw new IllegalArgumentException("Illegal parameter!");
-		}
-
-		List<Field> declaredFields = getAllDeclaredFields(clazz);
-		List<Method> declaredMethods = getAllDeclaredMethods(clazz);
-		List<EntityField> list = new ArrayList<>(declaredFields.size());
-
-		for (Field declaredField : declaredFields) {
-			if (FieldUtils.contain(declaredField, excludeAnnotationClasses)) {
-				continue;
-			}
-
-			Method getter = MethodUtils.getter(declaredField, declaredMethods);
-			Method setter = MethodUtils.setter(declaredField.getName(), declaredMethods);
-
-			if (setter == null || getter == null) {
-				continue;
-			}
-
-			EntityField entityField = new EntityField();
-			entityField.setField(declaredField);
-			entityField.setSetter(setter);
-			entityField.setGetter(getter);
-			entityField.setOrder(FieldUtils.getOrder(declaredField));
-			list.add(entityField);
-		}
-
-		return list;
-	}
-
-	/**
 	 * Get sorted EntityField list.
 	 * @param clazz Class object.
 	 * @return {@code List<EntityField>}
 	 */
 	public static List<EntityField> getSortedEntityFields(Class<?> clazz) {
 		List<EntityField> list = getEntityFields(clazz);
+		list.sort(Comparator.comparingInt(EntityField::getOrder));
+		return list;
+	}
+
+	/**
+	 * Get EntityFields and include specified fields.
+	 * @param includeFields: Fields want to include.
+	 * @param clazz: Class object
+	 * @return {@code List<EntityField>}
+	 */
+	public static List<EntityField> getIncludedEntityFields(List<String> includeFields, Class<?> clazz) {
+		List<EntityField> list = getEntityFields(clazz);
+		return EntityFieldUtils.includeEntityFields(list, includeFields);
+	}
+
+	/**
+	 * Get EntityFields and exclude specified fields.
+	 * @param clazz: Class object
+	 * @param excludeFields: Fields want to exclude.
+	 * @return {@code List<EntityField>}
+	 */
+	public static List<EntityField> getNonExcludedEntityFields(List<String> excludeFields, Class<?> clazz) {
+		List<EntityField> list = getEntityFields(clazz);
+		return EntityFieldUtils.excludeEntityFields(list, excludeFields);
+	}
+
+	/**
+	 * Get EntityFields and exclude fields with specified annotations.
+	 * @param clazz Class object.
+	 * @param excludeAnnotations Annotations want to be excluded.
+	 * @return {@code List<EntityField>}
+	 */
+	public static List<EntityField> getNonExcludedEntityFields(Annotation[] excludeAnnotations, Class<?> clazz) {
+		List<EntityField> list = getEntityFields(clazz);
+		List<Annotation> annotations = Arrays.asList(excludeAnnotations);
+		return CollectionUtils.list(list, i -> !i.containAnnotations(annotations));
+	}
+
+	public static List<EntityField> getNonAnnotationClassesEntityFields(List<Class<? extends Annotation>> annotationClasses, Class<?> clazz) {
+		List<EntityField> list = getEntityFields(clazz);
+		return CollectionUtils.list(list, i -> !i.containAnnotationClasses(annotationClasses));
+	}
+
+	/**
+	 * Get sorted EntityField list and exclude specified fields.
+	 * @param excludeFields EntityField list.
+	 * @param clazz Class object.
+	 * @return {@code List<EntityField>}
+	 */
+	public static List<EntityField> getSortedAndNonExcludedEntityFields(List<String> excludeFields, Class<?> clazz) {
+		List<EntityField> list = getEntityFields(clazz);
+		list = EntityFieldUtils.excludeEntityFields(list, excludeFields);
 		list.sort(Comparator.comparingInt(EntityField::getOrder));
 		return list;
 	}

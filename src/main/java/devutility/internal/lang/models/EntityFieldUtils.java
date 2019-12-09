@@ -4,6 +4,13 @@ import java.util.List;
 
 import devutility.internal.util.CollectionUtils;
 
+/**
+ * 
+ * EntityFieldUtils
+ * 
+ * @author: Aldwin Su
+ * @version: 2019-12-09 23:33:45
+ */
 public class EntityFieldUtils {
 	public static List<EntityField> includeEntityFields(List<EntityField> entityFields, List<String> includeFields) {
 		if (CollectionUtils.isNullOrEmpty(entityFields) || CollectionUtils.isNullOrEmpty(includeFields)) {

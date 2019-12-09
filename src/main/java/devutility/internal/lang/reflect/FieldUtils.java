@@ -2,42 +2,42 @@ package devutility.internal.lang.reflect;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.util.Arrays;
 import java.util.List;
 
-import devutility.internal.annotations.Order;
-import devutility.internal.util.CollectionUtils;
-
+/**
+ * 
+ * FieldUtils
+ * 
+ * @author: Aldwin Su
+ * @version: 2019-12-09 23:32:11
+ */
 public class FieldUtils {
 	/**
-	 * Check whether the provided Field object contains annotations or not?
-	 * @param field Field object.
-	 * @param annotations Annotations want to check.
-	 * @return boolean
-	 */
-	public static boolean contain(Field field, List<Annotation> annotations) {
-		if (field == null || CollectionUtils.isNullOrEmpty(annotations)) {
-			return false;
-		}
-
-		List<Annotation> fieldAnnotations = Arrays.asList(field.getAnnotations());
-		return CollectionUtils.exist(annotations, i -> fieldAnnotations.contains(i));
-	}
-
-	
-
-	/**
-	 * Return Order value by provided Field object. 0 if no Order setting.
+	 * Return Order value by provided Field object. If no Order setting, 0 will return.
 	 * @param field Field object.
 	 * @return int
 	 */
 	public static int getOrder(Field field) {
-		Order order = field.getAnnotation(Order.class);
+		return AccessibleObjectUtils.getOrder(field);
+	}
 
-		if (order == null) {
-			return 0;
-		}
+	/**
+	 * Check whether provided Field object contains annotations or not?
+	 * @param field Field object.
+	 * @param annotations Annotations want to check.
+	 * @return boolean
+	 */
+	public static boolean containAnnotations(Field field, List<Annotation> annotations) {
+		return AccessibleObjectUtils.containAnnotations(field, annotations);
+	}
 
-		return order.value();
+	/**
+	 * Check whether provided Field object contains annotations or not?
+	 * @param field Field object.
+	 * @param annotations Class objects of Annotations want to check.
+	 * @return boolean
+	 */
+	public static boolean containAnnotationClasses(Field field, List<Class<? extends Annotation>> annotationClasses) {
+		return AccessibleObjectUtils.containAnnotationClasses(field, annotationClasses);
 	}
 }
