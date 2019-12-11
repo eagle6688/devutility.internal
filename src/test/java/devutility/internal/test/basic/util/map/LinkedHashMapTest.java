@@ -13,6 +13,7 @@ public class LinkedHashMapTest extends BaseTest {
 		linkedHashMap.put("1", "aa");
 		linkedHashMap.put("2", "bb");
 		linkedHashMap.put("3", "cc");
+		linkedHashMap.put(null, "asd");
 
 		for (Entry<String, String> entry : linkedHashMap.entrySet()) {
 			String message = String.format("key: %s, value: %s", entry.getKey(), entry.getValue());
