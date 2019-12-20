@@ -292,9 +292,9 @@ public class PropertiesUtils {
 
 	/**
 	 * Convert Properties to model.
-	 * @param propertiesFile: Properties file.
-	 * @param prefix: Prefix of property key.
-	 * @param clazz: Model Class object.
+	 * @param file Properties file.
+	 * @param prefix Prefix of property key.
+	 * @param clazz Model Class object.
 	 * @return {@code T}
 	 * @throws NumberFormatException
 	 * @throws IllegalAccessException

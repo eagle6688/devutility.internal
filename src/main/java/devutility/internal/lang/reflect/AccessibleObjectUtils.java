@@ -49,7 +49,7 @@ public class AccessibleObjectUtils {
 	/**
 	 * Check whether provided Field object contains annotations or not?
 	 * @param accessibleObject AccessibleObject object.
-	 * @param annotations Class objects of Annotations want to check.
+	 * @param annotationClasses Class objects of Annotations want to check.
 	 * @return boolean
 	 */
 	public static boolean containAnnotationClasses(AccessibleObject accessibleObject, List<Class<? extends Annotation>> annotationClasses) {

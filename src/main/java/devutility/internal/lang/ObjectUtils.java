@@ -14,7 +14,7 @@ import devutility.internal.lang.models.EntityField;
  */
 public class ObjectUtils {
 	/**
-	 * Convert to http request parameter string. Such as asd=xxx&qwe=xxx
+	 * Convert to http request parameter string. Such as {@literal asd=xxx&qwe=xxx}
 	 * @param object Object need to convert.
 	 * @return String Http request parameters.
 	 * @throws InvocationTargetException from invoke method.

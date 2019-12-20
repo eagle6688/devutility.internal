@@ -28,8 +28,8 @@ public class MethodUtils {
 
 	/**
 	 * Check whether provided Field object contains annotations?
-	 * @param field Field object.
-	 * @param annotations Class objects of Annotations want to check.
+	 * @param method Method object.
+	 * @param annotationClasses Class objects of Annotations want to check.
 	 * @return boolean
 	 */
 	public static boolean containAnnotationClasses(Method method, List<Class<? extends Annotation>> annotationClasses) {

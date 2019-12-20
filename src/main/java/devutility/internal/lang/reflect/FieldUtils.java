@@ -34,7 +34,7 @@ public class FieldUtils {
 	/**
 	 * Check whether provided Field object contains annotations or not?
 	 * @param field Field object.
-	 * @param annotations Class objects of Annotations want to check.
+	 * @param annotationClasses Class objects of Annotations want to check.
 	 * @return boolean
 	 */
 	public static boolean containAnnotationClasses(Field field, List<Class<? extends Annotation>> annotationClasses) {
