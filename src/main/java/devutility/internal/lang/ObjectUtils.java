@@ -34,7 +34,7 @@ public class ObjectUtils {
 		}
 
 		if (buffer.length() > 0) {
-
+			buffer = buffer.deleteCharAt(buffer.length() - 1);
 		}
 
 		return buffer.toString();
