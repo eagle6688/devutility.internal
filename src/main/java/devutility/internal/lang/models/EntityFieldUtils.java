@@ -1,5 +1,8 @@
 package devutility.internal.lang.models;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 import devutility.internal.util.CollectionUtils;
@@ -12,19 +15,59 @@ import devutility.internal.util.CollectionUtils;
  * @version: 2019-12-09 23:33:45
  */
 public class EntityFieldUtils {
-	public static List<EntityField> includeEntityFields(List<EntityField> entityFields, List<String> includeFields) {
-		if (CollectionUtils.isNullOrEmpty(entityFields) || CollectionUtils.isNullOrEmpty(includeFields)) {
+	/**
+	 * Filtering EntityField objects with provided includeFields.
+	 * @param entityFields EntityField objects.
+	 * @param includeFields Fields need include.
+	 * @return List<EntityField>
+	 */
+	public static List<EntityField> includeEntityFields(List<EntityField> entityFields, Collection<String> includeFields) {
+		if (CollectionUtils.isNullOrEmpty(includeFields)) {
 			return entityFields;
 		}
 
 		return CollectionUtils.list(entityFields, i -> i.getField() != null && includeFields.contains(i.getField().getName()));
 	}
 
-	public static List<EntityField> excludeEntityFields(List<EntityField> entityFields, List<String> excludeFields) {
-		if (CollectionUtils.isNullOrEmpty(entityFields) || CollectionUtils.isNullOrEmpty(excludeFields)) {
+	/**
+	 * Filtering EntityField objects with provided includeFields.
+	 * @param entityFields
+	 * @param includeFields
+	 * @return List<EntityField>
+	 */
+	public static List<EntityField> includeEntityFields(List<EntityField> entityFields, String[] includeFields) {
+		if (includeFields == null || includeFields.length == 0) {
+			return entityFields;
+		}
+
+		return includeEntityFields(entityFields, new HashSet<String>(Arrays.asList(includeFields)));
+	}
+
+	/**
+	 * Filtering EntityField objects with provided excludeFields.
+	 * @param entityFields EntityField objects.
+	 * @param excludeFields Fields need exclude.
+	 * @return List<EntityField>
+	 */
+	public static List<EntityField> excludeEntityFields(List<EntityField> entityFields, Collection<String> excludeFields) {
+		if (CollectionUtils.isNullOrEmpty(excludeFields)) {
 			return entityFields;
 		}
 
 		return CollectionUtils.list(entityFields, i -> i.getField() != null && !excludeFields.contains(i.getField().getName()));
+	}
+
+	/**
+	 * Filtering EntityField objects with provided excludeFields.
+	 * @param entityFields EntityField objects.
+	 * @param excludeFields Fields need exclude.
+	 * @return List<EntityField>
+	 */
+	public static List<EntityField> excludeEntityFields(List<EntityField> entityFields, String[] excludeFields) {
+		if (excludeFields == null || excludeFields.length == 0) {
+			return entityFields;
+		}
+
+		return excludeEntityFields(entityFields, new HashSet<String>(Arrays.asList(excludeFields)));
 	}
 }
