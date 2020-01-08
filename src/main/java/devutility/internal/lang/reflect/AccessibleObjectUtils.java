@@ -3,6 +3,7 @@ package devutility.internal.lang.reflect;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AccessibleObject;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import devutility.internal.annotations.Order;
@@ -34,10 +35,10 @@ public class AccessibleObjectUtils {
 	/**
 	 * Check whether provided AccessibleObject object contains annotations or not?
 	 * @param accessibleObject AccessibleObject object.
-	 * @param annotations Annotations want to check.
+	 * @param annotations Annotations need check.
 	 * @return boolean
 	 */
-	public static boolean containAnnotations(AccessibleObject accessibleObject, List<Annotation> annotations) {
+	public static boolean containAnnotations(AccessibleObject accessibleObject, Collection<Annotation> annotations) {
 		if (accessibleObject == null || CollectionUtils.isNullOrEmpty(annotations)) {
 			return false;
 		}
@@ -49,10 +50,10 @@ public class AccessibleObjectUtils {
 	/**
 	 * Check whether provided Field object contains annotations or not?
 	 * @param accessibleObject AccessibleObject object.
-	 * @param annotationClasses Class objects of Annotations want to check.
+	 * @param annotationClasses Class objects of annotations need check.
 	 * @return boolean
 	 */
-	public static boolean containAnnotationClasses(AccessibleObject accessibleObject, List<Class<? extends Annotation>> annotationClasses) {
+	public static boolean containAnnotationClasses(AccessibleObject accessibleObject, Collection<Class<? extends Annotation>> annotationClasses) {
 		if (accessibleObject == null || CollectionUtils.isNullOrEmpty(annotationClasses)) {
 			return false;
 		}

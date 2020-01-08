@@ -7,9 +7,12 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import devutility.internal.lang.models.EntityField;
 import devutility.internal.lang.models.EntityFieldUtils;
@@ -22,13 +25,14 @@ import devutility.internal.util.CollectionUtils;
  * ClassUtils
  * 
  * @author: Aldwin Su
+ * @version: 2020-01-08 10:53:19
  */
 public class ClassUtils {
 	/**
 	 * Create a new instance.
-	 * @param clazz: Class object
-	 * @return {@code  T}
-	 * @throws ReflectiveOperationException
+	 * @param clazz Class object.
+	 * @return {@code T}
+	 * @throws ReflectiveOperationException from newInstance().
 	 */
 	public static <T> T newInstance(Class<T> clazz) throws ReflectiveOperationException {
 		return clazz.getDeclaredConstructor().newInstance();
@@ -36,8 +40,8 @@ public class ClassUtils {
 
 	/**
 	 * Create a new instance.
-	 * @param clazz: Class object
-	 * @return {@code  T}
+	 * @param clazz Class object.
+	 * @return {@code T}
 	 */
 	public static <T> T instance(Class<T> clazz) {
 		try {
@@ -144,42 +148,53 @@ public class ClassUtils {
 	}
 
 	/**
-	 * Get sorted EntityField list.
-	 * @param clazz Class object.
-	 * @return {@code List<EntityField>}
-	 */
-	public static List<EntityField> getSortedEntityFields(Class<?> clazz) {
-		List<EntityField> list = getEntityFields(clazz);
-		list.sort(Comparator.comparingInt(EntityField::getOrder));
-		return list;
-	}
-
-	/**
 	 * Get EntityFields and include specified fields.
-	 * @param includeFields: Fields want to include.
-	 * @param clazz: Class object
+	 * @param includeFields Fields need include.
+	 * @param clazz Class object
 	 * @return {@code List<EntityField>}
 	 */
-	public static List<EntityField> getIncludedEntityFields(List<String> includeFields, Class<?> clazz) {
+	public static List<EntityField> getIncludedEntityFields(Collection<String> includeFields, Class<?> clazz) {
 		List<EntityField> list = getEntityFields(clazz);
 		return EntityFieldUtils.includeEntityFields(list, includeFields);
 	}
 
 	/**
-	 * Get EntityFields and exclude specified fields.
-	 * @param clazz: Class object
-	 * @param excludeFields: Fields want to exclude.
+	 * Get EntityFields and include specified fields.
+	 * @param includeFields Fields need include.
+	 * @param clazz Class object
 	 * @return {@code List<EntityField>}
 	 */
-	public static List<EntityField> getNonExcludedEntityFields(List<String> excludeFields, Class<?> clazz) {
+	public static List<EntityField> getIncludedEntityFields(String[] includeFields, Class<?> clazz) {
+		Set<String> fields = new HashSet<>(Arrays.asList(includeFields));
+		return getIncludedEntityFields(fields, clazz);
+	}
+
+	/**
+	 * Get EntityFields and exclude specified fields.
+	 * @param clazz Class object
+	 * @param excludeFields Fields need exclude.
+	 * @return {@code List<EntityField>}
+	 */
+	public static List<EntityField> getNonExcludedEntityFields(Collection<String> excludeFields, Class<?> clazz) {
 		List<EntityField> list = getEntityFields(clazz);
 		return EntityFieldUtils.excludeEntityFields(list, excludeFields);
 	}
 
 	/**
+	 * Get EntityFields and exclude specified fields.
+	 * @param clazz Class object
+	 * @param excludeFields Fields need exclude.
+	 * @return {@code List<EntityField>}
+	 */
+	public static List<EntityField> getNonExcludedEntityFields(String[] excludeFields, Class<?> clazz) {
+		Set<String> fields = new HashSet<>(Arrays.asList(excludeFields));
+		return getNonExcludedEntityFields(fields, clazz);
+	}
+
+	/**
 	 * Get EntityFields and exclude fields with specified annotations.
 	 * @param clazz Class object.
-	 * @param excludeAnnotations Annotations want to be excluded.
+	 * @param excludeAnnotations Annotations need exclude.
 	 * @return {@code List<EntityField>}
 	 */
 	public static List<EntityField> getNonExcludedEntityFields(Annotation[] excludeAnnotations, Class<?> clazz) {
@@ -188,9 +203,36 @@ public class ClassUtils {
 		return CollectionUtils.list(list, i -> !i.containAnnotations(annotations));
 	}
 
+	/**
+	 * Get EntityFields which without provided annotation Class objects.
+	 * @param annotationClasses Class objects of annotations.
+	 * @param clazz Class object.
+	 * @return List<EntityField>
+	 */
 	public static List<EntityField> getNonAnnotationClassesEntityFields(List<Class<? extends Annotation>> annotationClasses, Class<?> clazz) {
 		List<EntityField> list = getEntityFields(clazz);
 		return CollectionUtils.list(list, i -> !i.containAnnotationClasses(annotationClasses));
+	}
+
+	/**
+	 * Get EntityFields which without provided annotation Class objects.
+	 * @param annotationClasses Class objects of annotations.
+	 * @param clazz Class object.
+	 * @return List<EntityField>
+	 */
+	public static List<EntityField> getNonAnnotationClassesEntityFields(Class<? extends Annotation>[] annotationClasses, Class<?> clazz) {
+		return getNonAnnotationClassesEntityFields(Arrays.asList(annotationClasses), clazz);
+	}
+
+	/**
+	 * Get sorted EntityField list.
+	 * @param clazz Class object.
+	 * @return {@code List<EntityField>}
+	 */
+	public static List<EntityField> getSortedEntityFields(Class<?> clazz) {
+		List<EntityField> list = getEntityFields(clazz);
+		list.sort(Comparator.comparingInt(EntityField::getOrder));
+		return list;
 	}
 
 	/**
@@ -208,8 +250,8 @@ public class ClassUtils {
 
 	/**
 	 * Get Method object by provided name and clazz.
-	 * @param name: Method name.
-	 * @param clazz: Class object.
+	 * @param name Method name.
+	 * @param clazz Class object.
 	 * @return Method
 	 */
 	public static Method getMethod(String name, Class<?> clazz) {
@@ -233,8 +275,8 @@ public class ClassUtils {
 
 	/**
 	 * Check whether object is instance of clazz?
-	 * @param object: Object need check.
-	 * @param clazz: Target Class object.
+	 * @param object Object need check.
+	 * @param clazz Target Class object.
 	 * @return boolean
 	 */
 	public static boolean isInstanceOf(Object object, Class<?> clazz) {
@@ -243,7 +285,7 @@ public class ClassUtils {
 
 	/**
 	 * Whether clazz is Jave class
-	 * @param clazz: Class object need check
+	 * @param clazz Class object need check.
 	 * @return boolean
 	 */
 	public static boolean isJaveClass(Class<?> clazz) {

@@ -3,12 +3,14 @@ package devutility.internal.lang.reflect;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.List;
+import java.util.Collection;
+
+import devutility.internal.util.CollectionUtils;
 
 public class GenericTypeUtils {
 	/**
 	 * Convert Type to ParameterizedType.
-	 * @param type: Type object.
+	 * @param type Type object.
 	 * @return ParameterizedType
 	 */
 	public static ParameterizedType typeToParameterizedType(Type type) {
@@ -21,7 +23,7 @@ public class GenericTypeUtils {
 
 	/**
 	 * Convert type to Class.
-	 * @param type: Type object.
+	 * @param type Type object.
 	 * @return {@code Class<?>}
 	 * @throws ClassNotFoundException When type not found.
 	 */
@@ -35,7 +37,7 @@ public class GenericTypeUtils {
 
 	/**
 	 * Get generic type.
-	 * @param parameterizedType: ParameterizedType object.
+	 * @param parameterizedType ParameterizedType object.
 	 * @return Type
 	 */
 	public static Type getGenericType(ParameterizedType parameterizedType) {
@@ -54,7 +56,7 @@ public class GenericTypeUtils {
 
 	/**
 	 * Get actual generic type by field's parameterized type.
-	 * @param field: Field object.
+	 * @param field Field object.
 	 * @return Type
 	 */
 	public static Type getGenericType(Field field) {
@@ -65,7 +67,7 @@ public class GenericTypeUtils {
 
 	/**
 	 * Get actual generic Class object by field's parameterized type.
-	 * @param field: Field object.
+	 * @param field Field object.
 	 * @return {@code Class<?>}
 	 * @throws ClassNotFoundException When type not found.
 	 */
@@ -76,7 +78,7 @@ public class GenericTypeUtils {
 
 	/**
 	 * Get actual generic Class object by type.
-	 * @param type: Type object.
+	 * @param type Type object.
 	 * @return {@code Class<?>}
 	 * @throws ClassNotFoundException When type not found.
 	 */
@@ -87,15 +89,15 @@ public class GenericTypeUtils {
 	}
 
 	/**
-	 * Get Class object of List.
-	 * @param list: List object.
+	 * Get generic Class object of List.
+	 * @param list List object.
 	 * @return {@code Class<?>}
 	 */
-	public static Class<?> getGenericClass(List<?> list) {
-		if (list == null || list.isEmpty()) {
+	public static Class<?> getGenericClass(Collection<?> list) {
+		if (CollectionUtils.isNullOrEmpty(list)) {
 			return null;
 		}
 
-		return list.get(0).getClass();
+		return list.iterator().next().getClass();
 	}
 }

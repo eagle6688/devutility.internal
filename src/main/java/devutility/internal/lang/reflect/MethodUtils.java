@@ -5,7 +5,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.List;
+import java.util.Collection;
 
 import devutility.internal.lang.StringUtils;
 
@@ -19,20 +19,20 @@ public class MethodUtils {
 	/**
 	 * Check whether provided Method object contains provided annotations?
 	 * @param method Method object.
-	 * @param annotations Annotations want to check.
+	 * @param annotations Annotations need check.
 	 * @return boolean
 	 */
-	public static boolean containAnnotations(Method method, List<Annotation> annotations) {
+	public static boolean containAnnotations(Method method, Collection<Annotation> annotations) {
 		return AccessibleObjectUtils.containAnnotations(method, annotations);
 	}
 
 	/**
 	 * Check whether provided Field object contains annotations?
 	 * @param method Method object.
-	 * @param annotationClasses Class objects of Annotations want to check.
+	 * @param annotationClasses Class objects of Annotations need check.
 	 * @return boolean
 	 */
-	public static boolean containAnnotationClasses(Method method, List<Class<? extends Annotation>> annotationClasses) {
+	public static boolean containAnnotationClasses(Method method, Collection<Class<? extends Annotation>> annotationClasses) {
 		return AccessibleObjectUtils.containAnnotationClasses(method, annotationClasses);
 	}
 
@@ -42,7 +42,7 @@ public class MethodUtils {
 	 * @param methods Methods object.
 	 * @return Method
 	 */
-	public static Method find(String name, List<Method> methods) {
+	public static Method find(String name, Collection<Method> methods) {
 		for (Method method : methods) {
 			if (name.equals(method.getName())) {
 				return method;
@@ -98,7 +98,7 @@ public class MethodUtils {
 	 * @param methods Names of methods.
 	 * @return boolean
 	 */
-	public static boolean hasGetter(Field field, List<String> methods) {
+	public static boolean hasGetter(Field field, Collection<String> methods) {
 		String name = getterName(field);
 		return methods.contains(name);
 	}
@@ -109,7 +109,7 @@ public class MethodUtils {
 	 * @param methods Names of methods.
 	 * @return boolean
 	 */
-	public static boolean hasSetter(String field, List<String> methods) {
+	public static boolean hasSetter(String field, Collection<String> methods) {
 		String name = setterName(field);
 		return methods.contains(name);
 	}
@@ -120,7 +120,7 @@ public class MethodUtils {
 	 * @param methods Method objects.
 	 * @return Method
 	 */
-	public static Method setter(String field, List<Method> methods) {
+	public static Method setter(String field, Collection<Method> methods) {
 		String name = setterName(field);
 		return find(name, methods);
 	}
@@ -131,7 +131,7 @@ public class MethodUtils {
 	 * @param methods Method objects.
 	 * @return Method
 	 */
-	public static Method getter(Field field, List<Method> methods) {
+	public static Method getter(Field field, Collection<Method> methods) {
 		String name = getterName(field);
 		return find(name, methods);
 	}

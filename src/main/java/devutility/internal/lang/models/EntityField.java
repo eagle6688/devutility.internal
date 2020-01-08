@@ -3,7 +3,7 @@ package devutility.internal.lang.models;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.List;
+import java.util.Collection;
 
 import devutility.internal.lang.reflect.FieldUtils;
 import devutility.internal.lang.reflect.MethodUtils;
@@ -57,7 +57,12 @@ public class EntityField {
 		return getter.invoke(model);
 	}
 
-	public boolean containAnnotations(List<Annotation> annotations) {
+	/**
+	 * Whether the current field, setter or getter contain provided annotations?
+	 * @param annotations Annotation collection.
+	 * @return boolean
+	 */
+	public boolean containAnnotations(Collection<Annotation> annotations) {
 		if (FieldUtils.containAnnotations(field, annotations)) {
 			return true;
 		}
@@ -73,7 +78,12 @@ public class EntityField {
 		return false;
 	}
 
-	public boolean containAnnotationClasses(List<Class<? extends Annotation>> annotationClasses) {
+	/**
+	 * Whether the current field, setter or getter contain provided annotation Class objects?
+	 * @param annotationClasses Class objects of annotations.
+	 * @return boolean
+	 */
+	public boolean containAnnotationClasses(Collection<Class<? extends Annotation>> annotationClasses) {
 		if (FieldUtils.containAnnotationClasses(field, annotationClasses)) {
 			return true;
 		}

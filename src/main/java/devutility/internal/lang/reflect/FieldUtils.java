@@ -2,7 +2,7 @@ package devutility.internal.lang.reflect;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.util.List;
+import java.util.Collection;
 
 /**
  * 
@@ -24,20 +24,20 @@ public class FieldUtils {
 	/**
 	 * Check whether provided Field object contains annotations or not?
 	 * @param field Field object.
-	 * @param annotations Annotations want to check.
+	 * @param annotations Annotations need check.
 	 * @return boolean
 	 */
-	public static boolean containAnnotations(Field field, List<Annotation> annotations) {
+	public static boolean containAnnotations(Field field, Collection<Annotation> annotations) {
 		return AccessibleObjectUtils.containAnnotations(field, annotations);
 	}
 
 	/**
 	 * Check whether provided Field object contains annotations or not?
 	 * @param field Field object.
-	 * @param annotationClasses Class objects of Annotations want to check.
+	 * @param annotationClasses Class objects of Annotations need check.
 	 * @return boolean
 	 */
-	public static boolean containAnnotationClasses(Field field, List<Class<? extends Annotation>> annotationClasses) {
+	public static boolean containAnnotationClasses(Field field, Collection<Class<? extends Annotation>> annotationClasses) {
 		return AccessibleObjectUtils.containAnnotationClasses(field, annotationClasses);
 	}
 }
