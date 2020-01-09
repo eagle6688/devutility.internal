@@ -62,45 +62,6 @@ public class PropertiesUtils {
 	}
 
 	/**
-	 * Check whether provided Properties object contains the provided prefix or not.
-	 * @param properties Properties object.
-	 * @param prefix Prefix of property key.
-	 * @return boolean
-	 */
-	public static boolean containsPrefixKey(Properties properties, String prefix) {
-		List<Object> keys = Collections.list(properties.keys());
-
-		for (Object key : keys) {
-			if (key.toString().indexOf(prefix) == 0) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	/**
-	 * Check whether provided properties file contains prefix or not.
-	 * @param file Properties file in resources folder.
-	 * @param prefix Prefix of property key.
-	 * @return boolean
-	 */
-	public static boolean containsPrefixKeyFromResource(String file, String prefix) {
-		Properties properties = getPropertiesFromResource(file);
-		return containsPrefixKey(properties, prefix);
-	}
-
-	/**
-	 * Check whether provided Properties object contains key or not.
-	 * @param properties Properties object.
-	 * @param key Properties key.
-	 * @return boolean
-	 */
-	public static boolean containsKey(Properties properties, String key) {
-		return properties.containsKey(key);
-	}
-
-	/**
 	 * Check whether provided properties file contains key or not.
 	 * @param file Properties file in resources folder.
 	 * @param key Properties key.
@@ -195,6 +156,45 @@ public class PropertiesUtils {
 		}
 
 		return String.format("%s.%s", prefix, fieldName);
+	}
+
+	/**
+	 * Check whether provided Properties object contains the provided prefix or not.
+	 * @param properties Properties object.
+	 * @param prefix Prefix of property key.
+	 * @return boolean
+	 */
+	public static boolean containsPrefixKey(Properties properties, String prefix) {
+		List<Object> keys = Collections.list(properties.keys());
+
+		for (Object key : keys) {
+			if (key.toString().indexOf(prefix) == 0) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Check whether provided properties file contains prefix or not.
+	 * @param file Properties file in resources folder.
+	 * @param prefix Prefix of property key.
+	 * @return boolean
+	 */
+	public static boolean containsPrefixKeyFromResource(String file, String prefix) {
+		Properties properties = getPropertiesFromResource(file);
+		return containsPrefixKey(properties, prefix);
+	}
+
+	/**
+	 * Check whether provided Properties object contains key or not.
+	 * @param properties Properties object.
+	 * @param key Properties key.
+	 * @return boolean
+	 */
+	public static boolean containsKey(Properties properties, String key) {
+		return properties.containsKey(key);
 	}
 
 	/**
