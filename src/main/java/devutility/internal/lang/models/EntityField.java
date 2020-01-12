@@ -2,6 +2,7 @@ package devutility.internal.lang.models;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Collection;
 
@@ -53,8 +54,20 @@ public class EntityField {
 		this.order = order;
 	}
 
-	public Object getValue(Object model) throws ReflectiveOperationException {
-		return getter.invoke(model);
+	/**
+	 * Get value by calling getter method.
+	 * @param obj Object.
+	 * @return Object
+	 * @throws IllegalAccessException from invoke.
+	 * @throws IllegalArgumentException from invoke.
+	 * @throws InvocationTargetException from invoke.
+	 */
+	public Object getValue(Object obj) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		if (getter == null) {
+			return null;
+		}
+
+		return getter.invoke(obj);
 	}
 
 	/**

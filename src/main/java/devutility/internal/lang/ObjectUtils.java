@@ -26,7 +26,7 @@ public class ObjectUtils {
 		List<EntityField> entityFields = ClassUtils.getEntityFields(object.getClass());
 
 		for (EntityField entityField : entityFields) {
-			Object value = entityField.getGetter().invoke(object);
+			Object value = entityField.getValue(object);
 
 			if (value != null) {
 				buffer.append(String.format("%s=%s&", entityField.getField().getName(), value.toString()));
