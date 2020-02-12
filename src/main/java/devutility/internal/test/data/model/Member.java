@@ -26,6 +26,8 @@ public class Member {
 	@Order(4)
 	private int age;
 
+	private Long longValue;
+
 	public int getId() {
 		return id;
 	}
@@ -56,6 +58,14 @@ public class Member {
 
 	public void setAge(int age) {
 		this.age = age;
+	}
+
+	public Long getLongValue() {
+		return longValue;
+	}
+
+	public void setLongValue(Long longValue) {
+		this.longValue = longValue;
 	}
 
 	public static List<Member> list(int count) {

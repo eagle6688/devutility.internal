@@ -13,6 +13,7 @@ public class ToHttpRequestParamsTest extends BaseTest {
 		Member member = new Member();
 		member.setAge(10);
 		member.setName("name1");
+		member.setLongValue(100L);
 
 		try {
 			println(ObjectUtils.toHttpRequestParams(member));
