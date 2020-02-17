@@ -24,20 +24,20 @@ import java.util.stream.Stream;
  */
 public class CollectionUtils {
 	/**
-	 * If collection does null or empty?
+	 * Whether collection null or empty?
 	 * @param collection Elements collection.
 	 * @return boolean
 	 */
-	public static <E> boolean isNullOrEmpty(Collection<E> collection) {
+	public static boolean isNullOrEmpty(Collection<?> collection) {
 		return collection == null || collection.size() == 0;
 	}
 
 	/**
-	 * If collection does not empty?
+	 * Whether collection not empty?
 	 * @param collection Elements collection.
 	 * @return boolean
 	 */
-	public static <E> boolean isNotEmpty(Collection<E> collection) {
+	public static boolean isNotEmpty(Collection<?> collection) {
 		return collection != null && collection.size() > 0;
 	}
 

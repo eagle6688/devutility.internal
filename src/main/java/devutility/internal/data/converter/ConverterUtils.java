@@ -1,8 +1,6 @@
 package devutility.internal.data.converter;
 
 import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.time.LocalDate;
@@ -17,6 +15,7 @@ import java.util.List;
 
 import devutility.internal.annotations.Convertor;
 import devutility.internal.base.SingletonFactory;
+import devutility.internal.lang.ArrayUtils;
 import devutility.internal.lang.StringUtils;
 import devutility.internal.lang.reflect.MethodUtils;
 
@@ -28,44 +27,24 @@ import devutility.internal.lang.reflect.MethodUtils;
  */
 public class ConverterUtils {
 	/**
-	 * Cache key format for converter.
+	 * Get Converter object with provided source and target Class objects.
+	 * @param sClazz Class object for source type.
+	 * @param tClazz Class object for target type.
+	 * @return {@code Converter<S,T>}
 	 */
-	private final static String CACHEKEYFORMAT_CONVERTER = "Converter-%s-%s";
-
-	/**
-	 * Cache key format for converter method.
-	 */
-	private final static String CACHEKEYFORMAT_CONVERTER_METHOD = "Converter-Method-%s-%s";
-
-	/**
-	 * Get cache key for Converter object.
-	 * @param sName Name of source Class object.
-	 * @param tName Name of target Class object.
-	 * @return String
-	 */
-	public static String getCacheKeyForConverter(String sName, String tName) {
-		return String.format(CACHEKEYFORMAT_CONVERTER, sName, tName);
+	public static <S, T> Converter<S, T> getConverter(Class<S> sClazz, Class<T> tClazz) {
+		return getConverterFromCache(sClazz, tClazz);
 	}
 
 	/**
-	 * Get cache key for converter method object.
-	 * @param sName Name of source Class object.
-	 * @param tName Name of target Class object.
-	 * @return String
-	 */
-	public static String getCacheKeyForConverterMethod(String sName, String tName) {
-		return String.format(CACHEKEYFORMAT_CONVERTER_METHOD, sName, tName);
-	}
-
-	/**
-	 * Get converter from memory by Class object.
-	 * @param sClazz: Class object for source type.
-	 * @param tClazz: Class object for target type.
+	 * Get Converter object from memory with provided source and target Class objects.
+	 * @param sClazz Class object for source type.
+	 * @param tClazz Class object for target type.
 	 * @return {@code Converter<S,T>}
 	 */
 	@SuppressWarnings("unchecked")
-	public static <S, T> Converter<S, T> getConverter(Class<S> sClazz, Class<T> tClazz) {
-		String key = getCacheKeyForConverter(sClazz.getName(), tClazz.getName());
+	public static <S, T> Converter<S, T> getConverterFromCache(Class<S> sClazz, Class<T> tClazz) {
+		String key = ConverterCacheUtils.getCacheKeyForConverter(sClazz.getName(), tClazz.getName());
 		return SingletonFactory.get(key, Converter.class);
 	}
 
@@ -76,52 +55,39 @@ public class ConverterUtils {
 	 * @return Method
 	 */
 	public static <S, T> Method getConvertorMethod(Class<S> sClazz, Class<T> tClazz) {
-		String key = getCacheKeyForConverterMethod(sClazz.getName(), tClazz.getName());
-		Method method = SingletonFactory.get(key, Method.class);
+		String key = ConverterCacheUtils.getCacheKeyForConvertorMethod(sClazz.getName(), tClazz.getName());
+		Method convertorMethod = SingletonFactory.get(key, Method.class);
 
-		if (method != null) {
-			return method;
+		if (convertorMethod != null) {
+			return convertorMethod;
 		}
 
 		List<Method> methods = new LinkedList<>();
 		methods.addAll(Arrays.asList(sClazz.getDeclaredMethods()));
 		methods.addAll(Arrays.asList(tClazz.getDeclaredMethods()));
 
-		for (Method convertorMethod : methods) {
-			if (convertorMethod.isAnnotationPresent(Convertor.class)) {
-				Class<?>[] parameterTypes = convertorMethod.getParameterTypes();
-				Class<?> returnType = convertorMethod.getReturnType();
+		for (Method method : methods) {
+			if (method.isAnnotationPresent(Convertor.class)) {
+				Class<?>[] parameterTypes = method.getParameterTypes();
+				Class<?> returnType = method.getReturnType();
 
 				if (parameterTypes != null && parameterTypes.length == 1 && parameterTypes[0].equals(sClazz) && returnType != null && returnType.equals(tClazz)) {
-					method = convertorMethod;
+					convertorMethod = method;
 					break;
 				}
 			}
 		}
 
-		if (method != null) {
-			SingletonFactory.save(key, method);
+		if (convertorMethod != null) {
+			SingletonFactory.save(key, convertorMethod);
 		}
 
-		return method;
-	}
-
-	/**
-	 * Register a converter in System.
-	 * @param converter: Converter object.
-	 */
-	public static <S, T> void register(Converter<S, T> converter) {
-		Type[] types = converter.getClass().getGenericInterfaces();
-		ParameterizedType parameterizedType = (ParameterizedType) types[0];
-		Type[] actualTypes = parameterizedType.getActualTypeArguments();
-
-		String key = getCacheKeyForConverter(actualTypes[0].getTypeName(), actualTypes[1].getTypeName());
-		SingletonFactory.save(key, converter);
+		return convertorMethod;
 	}
 
 	/**
 	 * int to byte
-	 * @param value: int value
+	 * @param value int value
 	 * @return byte
 	 */
 	public static byte intToByte(int value) {
@@ -130,7 +96,7 @@ public class ConverterUtils {
 
 	/**
 	 * int to bytes
-	 * @param value: int value.
+	 * @param value int value.
 	 * @return byte[]
 	 */
 	public static byte[] intToBytes(int value) {
@@ -144,7 +110,7 @@ public class ConverterUtils {
 
 	/**
 	 * byte to int
-	 * @param value: byte value
+	 * @param value byte value
 	 * @return int
 	 */
 	public static int byteToInt(byte value) {
@@ -153,8 +119,8 @@ public class ConverterUtils {
 
 	/**
 	 * bytes to long
-	 * @param bytes: bytes array
-	 * @param littleEndian: whether need little endian or not?
+	 * @param bytes bytes array
+	 * @param littleEndian whether need little endian or not?
 	 * @return long
 	 */
 	public static long bytesToLong(byte[] bytes, boolean littleEndian) {
@@ -169,7 +135,7 @@ public class ConverterUtils {
 
 	/**
 	 * bytes to long
-	 * @param bytes: bytes array
+	 * @param bytes bytes array
 	 * @return long
 	 */
 	public static long bytesToLong(byte[] bytes) {
@@ -178,7 +144,7 @@ public class ConverterUtils {
 
 	/**
 	 * bytes to hex
-	 * @param bytes: bytes array
+	 * @param bytes bytes array
 	 * @return String
 	 */
 	public static String bytesToHex(byte[] bytes) {
@@ -194,27 +160,6 @@ public class ConverterUtils {
 		}
 
 		return stringBuffer.toString();
-	}
-
-	/**
-	 * array to string
-	 * @param array: Object array
-	 * @param componentType: array component type
-	 * @return String
-	 */
-	public static String arrayToString(Object[] array, Class<?> componentType) {
-		if (componentType == String.class) {
-			return String.join(",", (String[]) array);
-		}
-
-		StringBuilder stringBuilder = new StringBuilder();
-
-		for (Object object : array) {
-			stringBuilder.append(object.toString());
-			stringBuilder.append(",");
-		}
-
-		return stringBuilder.substring(0, stringBuilder.length() - 2);
 	}
 
 	/**
@@ -363,7 +308,7 @@ public class ConverterUtils {
 	}
 
 	/**
-	 * object to string
+	 * Convert object to string
 	 * @param value: Object value
 	 * @return String
 	 */
@@ -375,7 +320,7 @@ public class ConverterUtils {
 		Class<?> clazz = value.getClass();
 
 		if (clazz.isArray()) {
-			return arrayToString((Object[]) value, clazz.getComponentType());
+			return ArrayUtils.join(",", (Object[]) value);
 		}
 
 		if (clazz == Date.class) {
@@ -451,10 +396,10 @@ public class ConverterUtils {
 	}
 
 	/**
-	 * Convert S value to T value.
-	 * @param value: S type value.
-	 * @param converter: Convert.
-	 * @return {@code T}
+	 * Convert value with source type to value with target type.
+	 * @param value Source type value.
+	 * @param converter Converter object.
+	 * @return {@code T Target value}
 	 */
 	public static <T, S> T convert(S value, Converter<S, T> converter) {
 		return converter.convert(value);

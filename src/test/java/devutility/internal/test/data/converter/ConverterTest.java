@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import devutility.internal.data.BeanUtils;
-import devutility.internal.data.converter.ConverterUtils;
+import devutility.internal.data.converter.ConverterCacheUtils;
 import devutility.internal.lang.ClassUtils;
 import devutility.internal.lang.models.EntityField;
 import devutility.internal.test.BaseTest;
@@ -21,7 +21,7 @@ public class ConverterTest extends BaseTest {
 		Person person = Person.get();
 		person.setGender(Gender.FEMALE);
 
-		ConverterUtils.register(new GenderConverter());
+		ConverterCacheUtils.register(new GenderConverter());
 
 		try {
 			String[] array = BeanUtils.toArray(person, entityFields);

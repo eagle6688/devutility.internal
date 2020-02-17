@@ -2,7 +2,7 @@ package devutility.internal.data.converter;
 
 /**
  * 
- * Converter.
+ * Converter interface.
  * 
  * @author: Aldwin Su
  */
