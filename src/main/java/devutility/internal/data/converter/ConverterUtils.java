@@ -299,22 +299,21 @@ public class ConverterUtils {
 	}
 
 	/**
-	 * string to int
-	 * @param value: String value
+	 * Convert string to int value.
+	 * @param value String value.
 	 * @return int
 	 */
 	public static int stringToInt(String value) {
 		try {
 			return Integer.parseInt(value);
 		} catch (Exception e) {
-			e.printStackTrace();
 			return 0;
 		}
 	}
 
 	/**
 	 * Convert object to string
-	 * @param value: Object value
+	 * @param value Object value.
 	 * @return String
 	 */
 	public static String objectToString(Object value) {
