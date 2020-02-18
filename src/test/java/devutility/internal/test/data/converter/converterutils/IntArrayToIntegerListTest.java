@@ -1,6 +1,6 @@
 package devutility.internal.test.data.converter.converterutils;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import devutility.internal.data.converter.ConverterUtils;
 import devutility.internal.test.BaseTest;
@@ -10,7 +10,7 @@ public class IntArrayToIntegerListTest extends BaseTest {
 	@Override
 	public void run() {
 		int[] array = { 1, 2, 3 };
-		ArrayList<Integer> list = ConverterUtils.intArrayToIntegerList(array);
+		List<Integer> list = ConverterUtils.intArrayToIntegerList(array);
 		System.out.println(list.toString());
 	}
 

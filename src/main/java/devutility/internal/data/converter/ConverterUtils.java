@@ -9,6 +9,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,6 +19,7 @@ import devutility.internal.base.SingletonFactory;
 import devutility.internal.lang.ArrayUtils;
 import devutility.internal.lang.StringUtils;
 import devutility.internal.lang.reflect.MethodUtils;
+import devutility.internal.util.CollectionUtils;
 
 /**
  * 
@@ -27,25 +29,46 @@ import devutility.internal.lang.reflect.MethodUtils;
  */
 public class ConverterUtils {
 	/**
+	 * Convert value with source type to value with target type.
+	 * @param value Source type value.
+	 * @param converter Converter object.
+	 * @return {@code T Target value}
+	 */
+	public static <S, T> T convert(S value, Converter<S, T> converter) {
+		return converter.convert(value);
+	}
+
+	/**
+	 * Convert value with source type to value with target type.
+	 * @param value Source type value.
+	 * @param sClass Class object for source type.
+	 * @param tClass Class object for target type.
+	 * @return T
+	 */
+	public static <S, T> T convert(S value, Class<S> sClass, Class<T> tClass) {
+		Converter<S, T> converter = getConverter(sClass, tClass);
+
+		if (converter != null) {
+			return converter.convert(value);
+		}
+
+		Method convertorMethod = getConvertorMethod(sClass, tClass);
+
+		if (convertorMethod != null) {
+			return MethodUtils.<T>quietCall(convertorMethod, value);
+		}
+
+		return null;
+	}
+
+	/**
 	 * Get Converter object with provided source and target Class objects.
 	 * @param sClazz Class object for source type.
 	 * @param tClazz Class object for target type.
 	 * @return {@code Converter<S,T>}
 	 */
 	public static <S, T> Converter<S, T> getConverter(Class<S> sClazz, Class<T> tClazz) {
-		return getConverterFromCache(sClazz, tClazz);
-	}
-
-	/**
-	 * Get Converter object from memory with provided source and target Class objects.
-	 * @param sClazz Class object for source type.
-	 * @param tClazz Class object for target type.
-	 * @return {@code Converter<S,T>}
-	 */
-	@SuppressWarnings("unchecked")
-	public static <S, T> Converter<S, T> getConverterFromCache(Class<S> sClazz, Class<T> tClazz) {
-		String key = ConverterCacheUtils.getCacheKeyForConverter(sClazz.getName(), tClazz.getName());
-		return SingletonFactory.get(key, Converter.class);
+		return ConverterCacheUtils.getConverterFromCache(sClazz, tClazz);
 	}
 
 	/**
@@ -86,8 +109,8 @@ public class ConverterUtils {
 	}
 
 	/**
-	 * int to byte
-	 * @param value int value
+	 * Convert int value to byte value.
+	 * @param value int value.
 	 * @return byte
 	 */
 	public static byte intToByte(int value) {
@@ -95,7 +118,7 @@ public class ConverterUtils {
 	}
 
 	/**
-	 * int to bytes
+	 * Convert int value to byte array.
 	 * @param value int value.
 	 * @return byte[]
 	 */
@@ -109,8 +132,8 @@ public class ConverterUtils {
 	}
 
 	/**
-	 * byte to int
-	 * @param value byte value
+	 * Convert byte value to int value.
+	 * @param value byte value.
 	 * @return int
 	 */
 	public static int byteToInt(byte value) {
@@ -118,8 +141,8 @@ public class ConverterUtils {
 	}
 
 	/**
-	 * bytes to long
-	 * @param bytes bytes array
+	 * Convert byte array to long value.
+	 * @param bytes bytes array.
 	 * @param littleEndian whether need little endian or not?
 	 * @return long
 	 */
@@ -134,8 +157,8 @@ public class ConverterUtils {
 	}
 
 	/**
-	 * bytes to long
-	 * @param bytes bytes array
+	 * Convert byte array to long value.
+	 * @param bytes bytes array.
 	 * @return long
 	 */
 	public static long bytesToLong(byte[] bytes) {
@@ -143,8 +166,8 @@ public class ConverterUtils {
 	}
 
 	/**
-	 * bytes to hex
-	 * @param bytes bytes array
+	 * Convert byte array to hex string.
+	 * @param bytes bytes array.
 	 * @return String
 	 */
 	public static String bytesToHex(byte[] bytes) {
@@ -163,16 +186,16 @@ public class ConverterUtils {
 	}
 
 	/**
-	 * int array to integer list
-	 * @param array: int array
-	 * @return ArrayList
+	 * Convert int array to integer list.
+	 * @param array int array.
+	 * @return List
 	 */
-	public static ArrayList<Integer> intArrayToIntegerList(int[] array) {
+	public static List<Integer> intArrayToIntegerList(int[] array) {
 		if (array == null || array.length == 0) {
 			return null;
 		}
 
-		ArrayList<Integer> list = new ArrayList<>(array.length);
+		List<Integer> list = new ArrayList<>(array.length);
 
 		for (int i : array) {
 			list.add(i);
@@ -182,35 +205,29 @@ public class ConverterUtils {
 	}
 
 	/**
-	 * list to int array
-	 * @param <T>: Generic type
-	 * @param list: Integer list
-	 * @return int[]
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException int[]
+	 * Convert collection to int array
+	 * @return int[] array with int elements.
 	 */
-	public static <T> int[] listToIntArray(ArrayList<T> list) throws InstantiationException, IllegalAccessException {
-		if (list == null || list.size() == 0 || !(list.get(0) instanceof Integer)) {
-			return new int[0];
+	public static int[] listToIntArray(Collection<? extends Integer> collection) {
+		if (CollectionUtils.isNullOrEmpty(collection)) {
+			return null;
 		}
 
-		Integer[] integers = list.toArray(new Integer[0]);
-		int[] array = new int[list.size()];
 		int index = 0;
+		int[] array = new int[collection.size()];
 
-		for (index = 0; index < list.size(); index++) {
-			array[index] = integers[index];
+		for (int element : collection) {
+			array[index++] = element;
 		}
 
 		return array;
 	}
 
 	/**
-	 * string to type
-	 * @param <T>: Generic type
-	 * @param value: string value
-	 * @param clazz: target class
-	 * @return T
+	 * Convert string value to specific type.
+	 * @param value string value.
+	 * @param clazz target class.
+	 * @return {@code T}
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T stringToType(String value, Class<T> clazz) {
@@ -259,19 +276,7 @@ public class ConverterUtils {
 			return (T) new Date(time);
 		}
 
-		Converter<String, T> converter = getConverter(String.class, clazz);
-
-		if (converter != null) {
-			return converter.convert(value);
-		}
-
-		Method convertorMethod = getConvertorMethod(String.class, clazz);
-
-		if (convertorMethod != null) {
-			return MethodUtils.<T>quietCall(convertorMethod, value);
-		}
-
-		return null;
+		return convert(value, String.class, clazz);
 	}
 
 	/**
@@ -393,16 +398,6 @@ public class ConverterUtils {
 		default:
 			return 0;
 		}
-	}
-
-	/**
-	 * Convert value with source type to value with target type.
-	 * @param value Source type value.
-	 * @param converter Converter object.
-	 * @return {@code T Target value}
-	 */
-	public static <T, S> T convert(S value, Converter<S, T> converter) {
-		return converter.convert(value);
 	}
 
 	/**

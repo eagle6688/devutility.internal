@@ -52,7 +52,19 @@ public class ConverterCacheUtils {
 		ParameterizedType parameterizedType = (ParameterizedType) types[0];
 		Type[] actualTypes = parameterizedType.getActualTypeArguments();
 
-		String key = ConverterCacheUtils.getCacheKeyForConverter(actualTypes[0].getTypeName(), actualTypes[1].getTypeName());
+		String key = getCacheKeyForConverter(actualTypes[0].getTypeName(), actualTypes[1].getTypeName());
 		SingletonFactory.save(key, converter);
+	}
+
+	/**
+	 * Get Converter object from memory with provided source and target Class objects.
+	 * @param sClazz Class object for source type.
+	 * @param tClazz Class object for target type.
+	 * @return {@code Converter<S,T>}
+	 */
+	@SuppressWarnings("unchecked")
+	public static <S, T> Converter<S, T> getConverterFromCache(Class<S> sClazz, Class<T> tClazz) {
+		String key = ConverterCacheUtils.getCacheKeyForConverter(sClazz.getName(), tClazz.getName());
+		return SingletonFactory.get(key, Converter.class);
 	}
 }
