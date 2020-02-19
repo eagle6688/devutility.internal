@@ -292,7 +292,7 @@ public class ConverterUtils {
 		List<T> list = new ArrayList<>(array.length);
 
 		for (String item : array) {
-			list.add(ConverterUtils.stringToType(item, clazz));
+			list.add(stringToType(item, clazz));
 		}
 
 		return list;
@@ -323,13 +323,13 @@ public class ConverterUtils {
 
 		Class<?> clazz = value.getClass();
 
-		if (clazz.isArray()) {
-			return ArrayUtils.join(",", (Object[]) value);
-		}
-
 		if (clazz == Date.class) {
 			long time = ((Date) value).getTime();
 			return String.valueOf(time);
+		}
+
+		if (clazz.isArray()) {
+			return ArrayUtils.join(",", (Object[]) value);
 		}
 
 		return value.toString();
