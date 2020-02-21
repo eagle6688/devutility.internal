@@ -205,10 +205,10 @@ public class ConverterUtils {
 	}
 
 	/**
-	 * Convert collection to int array
+	 * Convert int collection to array.
 	 * @return int[] array with int elements.
 	 */
-	public static int[] listToIntArray(Collection<? extends Integer> collection) {
+	public static int[] intCollectionToArray(Collection<? extends Integer> collection) {
 		if (CollectionUtils.isNullOrEmpty(collection)) {
 			return null;
 		}
@@ -329,7 +329,7 @@ public class ConverterUtils {
 		}
 
 		if (clazz.isArray()) {
-			return ArrayUtils.join(",", (Object[]) value);
+			return ArrayUtils.join((Object[]) value, ",");
 		}
 
 		return value.toString();

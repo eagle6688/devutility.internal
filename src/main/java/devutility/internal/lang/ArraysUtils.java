@@ -1,4 +1,4 @@
-package devutility.internal.util;
+package devutility.internal.lang;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 public class ArraysUtils {
 	/**
 	 * If the arrays is null or empty.
-	 * @param arrays: String arrays.
+	 * @param arrays String arrays.
 	 * @return boolean
 	 */
 	public static boolean isNullOrEmpty(String[][] arrays) {
@@ -15,9 +15,9 @@ public class ArraysUtils {
 
 	/**
 	 * Page array
-	 * @param arrays: Arrays
-	 * @param pageIndex: Page index, from 1
-	 * @param pageSize: Page size
+	 * @param arrays Arrays
+	 * @param pageIndex Page index, from 1.
+	 * @param pageSize Page size
 	 * @return String[][]
 	 */
 	public static String[][] pageArray(String[][] arrays, int pageIndex, int pageSize) {

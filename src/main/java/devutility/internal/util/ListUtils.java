@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import devutility.internal.data.BeanUtils;
+import devutility.internal.lang.ArraysUtils;
 import devutility.internal.lang.ClassUtils;
 import devutility.internal.lang.models.EntityField;
 
