@@ -596,4 +596,47 @@ public class CollectionUtils {
 
 		return collection.stream().limit(count).collect(Collectors.toList());
 	}
+
+	/**
+	 * Convert each of element of array to String type and join them together into one string. \ is escape character, it
+	 * will be added before each delimiter and special object such as null.
+	 * @param collection Collection need to join together.
+	 * @param delimiter the delimiter that separate each element.
+	 * @param prefix Prefix of each element.
+	 * @param suffix Suffix of each element.
+	 * @return String
+	 */
+	public static String join(Collection<?> collection, String delimiter, String prefix, String suffix) {
+		if (isNullOrEmpty(collection)) {
+			return null;
+		}
+
+		if (delimiter == null) {
+			delimiter = "";
+		}
+
+		String replacement = "\\" + delimiter;
+		String _prefix = prefix != null ? prefix : "";
+		String _suffix = suffix != null ? suffix : "";
+		StringBuilder stringBuilder = new StringBuilder();
+
+		for (Object item : collection) {
+			String itemStr = null;
+
+			if (item != null) {
+				itemStr = item.toString().replace(delimiter, replacement);
+
+				if (itemStr.equals("null")) {
+					itemStr = "\\null";
+				}
+			}
+
+			stringBuilder.append(_prefix);
+			stringBuilder.append(itemStr);
+			stringBuilder.append(_suffix);
+			stringBuilder.append(delimiter);
+		}
+
+		return stringBuilder.substring(0, stringBuilder.length() - delimiter.length());
+	}
 }

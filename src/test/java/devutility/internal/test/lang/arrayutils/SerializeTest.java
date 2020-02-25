@@ -7,7 +7,7 @@ import devutility.internal.test.TestExecutor;
 public class SerializeTest extends BaseTest {
 	@Override
 	public void run() {
-		String[] array = { "asd\",\"123", "qwe" };
+		String[] array = { "asd\",\"123", "qwe", null, "null" };
 		println(ArrayUtils.serialize((Object[]) array));
 	}
 

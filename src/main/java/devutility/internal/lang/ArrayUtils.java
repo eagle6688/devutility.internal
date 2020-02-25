@@ -1,5 +1,9 @@
 package devutility.internal.lang;
 
+import java.util.Arrays;
+
+import devutility.internal.util.CollectionUtils;
+
 /**
  * 
  * ArrayUtils
@@ -35,22 +39,11 @@ public class ArrayUtils {
 	 * @return String
 	 */
 	public static String join(Object[] array, String delimiter, String prefix, String suffix) {
-		if (array == null || array.length == 0) {
+		if (isNullOrEmpty(array)) {
 			return null;
 		}
 
-		String _prefix = prefix != null ? prefix : "";
-		String _suffix = suffix != null ? suffix : "";
-		StringBuilder stringBuilder = new StringBuilder();
-
-		for (Object object : array) {
-			stringBuilder.append(_prefix);
-			stringBuilder.append(object.toString());
-			stringBuilder.append(_suffix);
-			stringBuilder.append(delimiter);
-		}
-
-		return stringBuilder.substring(0, stringBuilder.length() - delimiter.length());
+		return CollectionUtils.join(Arrays.asList(array), delimiter, prefix, suffix);
 	}
 
 	/**
@@ -69,6 +62,6 @@ public class ArrayUtils {
 	 * @return String
 	 */
 	public static String serialize(Object[] array) {
-		return join(array, ",", "\"", "\"");
+		return join(array, ",");
 	}
 }
