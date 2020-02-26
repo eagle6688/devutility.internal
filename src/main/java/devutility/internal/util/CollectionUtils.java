@@ -15,6 +15,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import devutility.internal.com.Config;
 import devutility.internal.lang.StringUtils;
 
 /**
@@ -604,19 +605,15 @@ public class CollectionUtils {
 	 * will be added before each delimiter and special object such as null.
 	 * @param collection Collection need to join together.
 	 * @param delimiter the delimiter that separate each element.
-	 * @param prefix Prefix of each element.
-	 * @param suffix Suffix of each element.
 	 * @return String
 	 */
-	public static String join(Collection<?> collection, String delimiter, String prefix, String suffix) {
+	public static String join(Collection<?> collection, String delimiter) {
 		if (isNullOrEmpty(collection) || StringUtils.isNullOrEmpty(delimiter)) {
 			return null;
 		}
 
-		String replacement = "\\" + delimiter;
-		String replacementForNull = "\\null";
-		String _prefix = prefix != null ? prefix : "";
-		String _suffix = suffix != null ? suffix : "";
+		String replacement = Config.ESCAPECHARACTER + delimiter;
+		String replacementForNullStr = Config.ESCAPECHARACTER + "null";
 		StringBuilder stringBuilder = new StringBuilder();
 
 		for (Object item : collection) {
@@ -625,19 +622,61 @@ public class CollectionUtils {
 			if (item != null) {
 				itemStr = item.toString();
 
+				if (itemStr.endsWith(Config.ESCAPECHARACTER)) {
+					throw new IllegalArgumentException("Element can't end with escape character %s" + Config.ESCAPECHARACTER);
+				}
+
 				if ("null".equals(itemStr)) {
-					itemStr = replacementForNull;
+					itemStr = replacementForNullStr;
 				} else {
 					itemStr = itemStr.replace(delimiter, replacement);
 				}
 			}
 
-			stringBuilder.append(_prefix);
 			stringBuilder.append(itemStr);
-			stringBuilder.append(_suffix);
 			stringBuilder.append(delimiter);
 		}
 
 		return stringBuilder.substring(0, stringBuilder.length() - delimiter.length());
+	}
+
+	public static List<String> reverseJoin(String value, String delimiter) {
+		List<String> list = new LinkedList<>();
+		String[] array = value.split(delimiter);
+		String replacementForNullStr = Config.ESCAPECHARACTER + "null";
+
+		for (int i = 0; i < array.length; i++) {
+			String item = array[i];
+
+			if ("null".equals(item)) {
+				list.add(null);
+				continue;
+			}
+
+			if (replacementForNullStr.equals(item)) {
+				item = "null";
+			}
+
+			if (array[i].endsWith(Config.ESCAPECHARACTER)) {
+				item = item + delimiter + array[++i];
+			}
+
+			list.add(item);
+		}
+
+		return list;
+	}
+
+	/**
+	 * Serialize provide collection to String.
+	 * @param collection Collection need to serialize.
+	 * @return String
+	 */
+	public static String serialize(Collection<?> collection) {
+		return join(collection, ",");
+	}
+
+	public static List<?> deserialize(String value) {
+		return null;
 	}
 }

@@ -34,26 +34,14 @@ public class ArrayUtils {
 	 * Convert each of element of array to String type and join them together into one string.
 	 * @param array Array need to join together.
 	 * @param delimiter the delimiter that separates each element.
-	 * @param prefix Prefix of each element.
-	 * @param suffix Suffix of each element.
 	 * @return String
 	 */
-	public static String join(Object[] array, String delimiter, String prefix, String suffix) {
+	public static String join(Object[] array, String delimiter) {
 		if (isNullOrEmpty(array)) {
 			return null;
 		}
 
-		return CollectionUtils.join(Arrays.asList(array), delimiter, prefix, suffix);
-	}
-
-	/**
-	 * Convert each of element to String type and join them together into one string.
-	 * @param array Array need to join together.
-	 * @param delimiter the delimiter that separates each element.
-	 * @return String
-	 */
-	public static String join(Object[] array, String delimiter) {
-		return join(array, delimiter, null, null);
+		return CollectionUtils.join(Arrays.asList(array), delimiter);
 	}
 
 	/**
