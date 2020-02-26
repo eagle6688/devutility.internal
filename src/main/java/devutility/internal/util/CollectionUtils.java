@@ -15,6 +15,8 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import devutility.internal.lang.StringUtils;
+
 /**
  * 
  * CollectionUtils
@@ -607,15 +609,12 @@ public class CollectionUtils {
 	 * @return String
 	 */
 	public static String join(Collection<?> collection, String delimiter, String prefix, String suffix) {
-		if (isNullOrEmpty(collection)) {
+		if (isNullOrEmpty(collection) || StringUtils.isNullOrEmpty(delimiter)) {
 			return null;
 		}
 
-		if (delimiter == null) {
-			delimiter = "";
-		}
-
 		String replacement = "\\" + delimiter;
+		String replacementForNull = "\\null";
 		String _prefix = prefix != null ? prefix : "";
 		String _suffix = suffix != null ? suffix : "";
 		StringBuilder stringBuilder = new StringBuilder();
@@ -624,10 +623,12 @@ public class CollectionUtils {
 			String itemStr = null;
 
 			if (item != null) {
-				itemStr = item.toString().replace(delimiter, replacement);
+				itemStr = item.toString();
 
-				if (itemStr.equals("null")) {
-					itemStr = "\\null";
+				if ("null".equals(itemStr)) {
+					itemStr = replacementForNull;
+				} else {
+					itemStr = itemStr.replace(delimiter, replacement);
 				}
 			}
 
