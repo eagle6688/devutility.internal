@@ -725,8 +725,7 @@ public class CollectionUtils {
 		List<E> list = new ArrayList<>(strList.size());
 
 		for (String str : strList) {
-			E item = MethodUtils.<E>quietCall(convertorMethod, str);
-			list.add(item);
+			list.add(MethodUtils.<E>quietCall(convertorMethod, str));
 		}
 
 		return list;
