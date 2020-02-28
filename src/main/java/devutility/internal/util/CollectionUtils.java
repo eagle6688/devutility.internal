@@ -1,5 +1,6 @@
 package devutility.internal.util;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
@@ -16,7 +17,10 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import devutility.internal.com.Config;
+import devutility.internal.data.converter.Converter;
+import devutility.internal.data.converter.ConverterUtils;
 import devutility.internal.lang.StringUtils;
+import devutility.internal.lang.reflect.MethodUtils;
 
 /**
  * 
@@ -640,6 +644,12 @@ public class CollectionUtils {
 		return stringBuilder.substring(0, stringBuilder.length() - delimiter.length());
 	}
 
+	/**
+	 * Reverse join operation for provide string value.
+	 * @param value String has been executed join method.
+	 * @param delimiter delimiter string used in join method.
+	 * @return {@code List<String>}
+	 */
 	public static List<String> reverseJoin(String value, String delimiter) {
 		List<String> list = new LinkedList<>();
 		String[] array = value.split(delimiter);
@@ -658,7 +668,7 @@ public class CollectionUtils {
 			}
 
 			if (array[i].endsWith(Config.ESCAPECHARACTER)) {
-				item = item + delimiter + array[++i];
+				item = item.substring(0, item.length() - 1) + delimiter + array[++i];
 			}
 
 			list.add(item);
@@ -676,7 +686,72 @@ public class CollectionUtils {
 		return join(collection, ",");
 	}
 
-	public static List<?> deserialize(String value) {
-		return null;
+	/**
+	 * Deserialize string value to string list.
+	 * @param value string value.
+	 * @return {@code List<String>}
+	 */
+	public static List<String> deserialize(String value) {
+		return reverseJoin(value, ",");
+	}
+
+	/**
+	 * Deserialize string value to elements with E.
+	 * @param <E> type for element.
+	 * @param value string value.
+	 * @param converter {@code Converter<String, E>} object.
+	 * @return {@code List<E>}
+	 */
+	public static <E> List<E> deserialize(String value, Converter<String, E> converter) {
+		List<String> strList = reverseJoin(value, ",");
+		List<E> list = new ArrayList<>(strList.size());
+
+		for (String str : strList) {
+			list.add(converter.convert(str));
+		}
+
+		return list;
+	}
+
+	/**
+	 * Deserialize string value to elements with E.
+	 * @param <E> type for element.
+	 * @param value string value.
+	 * @param convertorMethod convertor Method object.
+	 * @return {@code List<E>}
+	 */
+	public static <E> List<E> deserialize(String value, Method convertorMethod) {
+		List<String> strList = reverseJoin(value, ",");
+		List<E> list = new ArrayList<>(strList.size());
+
+		for (String str : strList) {
+			E item = MethodUtils.<E>quietCall(convertorMethod, str);
+			list.add(item);
+		}
+
+		return list;
+	}
+
+	/**
+	 * Deserialize string value to elements with E.
+	 * @param <E> type for element.
+	 * @param value string value.
+	 * @param tClass target Class object.
+	 * @return {@code List<E>}
+	 */
+	public static <E> List<E> deserialize(String value, Class<E> tClass) {
+		Converter<String, E> converter = ConverterUtils.getConverter(String.class, tClass);
+
+		if (converter != null) {
+			return deserialize(value, converter);
+		}
+
+		Method convertorMethod = ConverterUtils.getConvertorMethod(String.class, tClass);
+
+		if (convertorMethod != null) {
+			return deserialize(value, convertorMethod);
+		}
+
+		return new LinkedList<>();
 	}
 }
