@@ -9,10 +9,16 @@ import devutility.internal.lang.ClassUtils;
 import devutility.internal.util.concurrent.CompletionServiceUtils;
 import devutility.internal.util.concurrent.ExecutorServiceUtils;
 
+/**
+ * 
+ * TestExecutor
+ * 
+ * @author: Aldwin Su
+ */
 public class TestExecutor {
 	/**
 	 * Run BaseTest instance
-	 * @param instance: BaseTest instance
+	 * @param instance BaseTest instance
 	 */
 	public static void run(BaseTest instance) {
 		if (instance == null) {
@@ -29,7 +35,7 @@ public class TestExecutor {
 
 	/**
 	 * Create a BaseTest instance and run it.
-	 * @param clazz: BaseTest instance
+	 * @param clazz BaseTest instance
 	 */
 	public static <T extends BaseTest> void run(Class<T> clazz) {
 		if (clazz == null) {
@@ -53,7 +59,7 @@ public class TestExecutor {
 
 	/**
 	 * Create a BaseTest instance and concurrently run it.
-	 * @param clazz: BaseTest instance
+	 * @param clazz BaseTest instance
 	 */
 	public static <T extends BaseTest> void concurrentRun(Class<T> clazz) {
 		if (clazz == null) {
@@ -80,8 +86,8 @@ public class TestExecutor {
 
 	/**
 	 * Running instance list concurrently.
-	 * @param instances: Instance list
-	 * @param clazz: BaseTest instance
+	 * @param instances Instance list
+	 * @param clazz BaseTest instance
 	 */
 	public static <T extends BaseTest> void concurrentRun(List<T> instances, Class<T> clazz) {
 		concurrentRun(instances, clazz, null);
@@ -89,8 +95,8 @@ public class TestExecutor {
 
 	/**
 	 * Running {@code count} instances with class {@code clazz} concurrently.
-	 * @param count: The amount of instances.
-	 * @param clazz: BaseTest instance
+	 * @param count The amount of instances.
+	 * @param clazz BaseTest instance
 	 * @param callback
 	 */
 	public static <T extends BaseTest> void concurrentRun(int count, Class<T> clazz, Callback callback) {
@@ -110,8 +116,8 @@ public class TestExecutor {
 
 	/**
 	 * Running instances concurrently.
-	 * @param instances: Instance list
-	 * @param clazz: BaseTest instance
+	 * @param instances Instance list
+	 * @param clazz BaseTest instance
 	 * @param callback
 	 */
 	public static <T extends BaseTest> void concurrentRun(List<T> instances, Class<T> clazz, Callback callback) {
@@ -147,7 +153,7 @@ public class TestExecutor {
 
 	/**
 	 * Event pre execute
-	 * @param clazz: Class of executing object.
+	 * @param clazz Class of executing object.
 	 */
 	private static void preExecute(Class<?> clazz) {
 		System.out.println(String.format("Start executing  %s:", clazz.getSimpleName()));
@@ -155,8 +161,8 @@ public class TestExecutor {
 
 	/**
 	 * Post execute
-	 * @param startTime: Start time of execution.
-	 * @param clazz: Class of executing object.
+	 * @param startTime Start time of execution.
+	 * @param clazz Class of executing object.
 	 */
 	private static void postExecute(long startTime, Class<?> clazz) {
 		long endTime = System.currentTimeMillis();

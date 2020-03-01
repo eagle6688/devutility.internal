@@ -2,6 +2,12 @@ package devutility.internal.test;
 
 import java.util.Arrays;
 
+/**
+ * 
+ * BaseTest
+ * 
+ * @author: Aldwin Su
+ */
 public abstract class BaseTest {
 	/**
 	 * Print string in a new line.

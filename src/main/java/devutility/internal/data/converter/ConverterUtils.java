@@ -132,6 +132,44 @@ public class ConverterUtils {
 	}
 
 	/**
+	 * Convert int array to integer list.
+	 * @param array int array.
+	 * @return List
+	 */
+	public static List<Integer> intArrayToIntegerList(int[] array) {
+		if (array == null || array.length == 0) {
+			return null;
+		}
+
+		List<Integer> list = new ArrayList<>(array.length);
+
+		for (int i : array) {
+			list.add(i);
+		}
+
+		return list;
+	}
+
+	/**
+	 * Convert int collection to array.
+	 * @return int[] array with int elements.
+	 */
+	public static int[] intCollectionToArray(Collection<? extends Integer> collection) {
+		if (CollectionUtils.isNullOrEmpty(collection)) {
+			return null;
+		}
+
+		int index = 0;
+		int[] array = new int[collection.size()];
+
+		for (int element : collection) {
+			array[index++] = element;
+		}
+
+		return array;
+	}
+
+	/**
 	 * Convert byte value to int value.
 	 * @param value byte value.
 	 * @return int
@@ -183,44 +221,6 @@ public class ConverterUtils {
 		}
 
 		return stringBuffer.toString();
-	}
-
-	/**
-	 * Convert int array to integer list.
-	 * @param array int array.
-	 * @return List
-	 */
-	public static List<Integer> intArrayToIntegerList(int[] array) {
-		if (array == null || array.length == 0) {
-			return null;
-		}
-
-		List<Integer> list = new ArrayList<>(array.length);
-
-		for (int i : array) {
-			list.add(i);
-		}
-
-		return list;
-	}
-
-	/**
-	 * Convert int collection to array.
-	 * @return int[] array with int elements.
-	 */
-	public static int[] intCollectionToArray(Collection<? extends Integer> collection) {
-		if (CollectionUtils.isNullOrEmpty(collection)) {
-			return null;
-		}
-
-		int index = 0;
-		int[] array = new int[collection.size()];
-
-		for (int element : collection) {
-			array[index++] = element;
-		}
-
-		return array;
 	}
 
 	/**
@@ -280,11 +280,11 @@ public class ConverterUtils {
 	}
 
 	/**
-	 * string to list
-	 * @param <T>: Generic type
-	 * @param value: String value
-	 * @param separator: separator for String value
-	 * @param clazz: List generic class
+	 * Convert string to list.
+	 * @param <T> Generic type for element.
+	 * @param value string value.
+	 * @param separator separator for String value.
+	 * @param clazz Class object for element.
 	 * @return List
 	 */
 	public static <T> List<T> stringToList(String value, String separator, Class<T> clazz) {
