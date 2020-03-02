@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
-import devutility.internal.test.data.constants.Gender;
+import devutility.internal.test.model.constant.Gender;
 
 public class EnumTest extends BaseTest {
 	@Override

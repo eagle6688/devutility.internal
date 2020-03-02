@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
-import devutility.internal.test.data.model.Student;
+import devutility.internal.test.model.Student;
 
 public class GetFieldsTest extends BaseTest {
 	@Override

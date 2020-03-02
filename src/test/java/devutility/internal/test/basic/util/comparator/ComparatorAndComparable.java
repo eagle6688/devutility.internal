@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import devutility.internal.test.data.model.Person;
+import devutility.internal.test.model.Person;
 
 public class ComparatorAndComparable {
 	public static void main(String[] args) {

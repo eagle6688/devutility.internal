@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 import devutility.internal.lang.reflect.MethodUtils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
-import devutility.internal.test.data.constants.Gender;
+import devutility.internal.test.model.constant.Gender;
 
 public class QuietCallTest extends BaseTest {
 	@Override

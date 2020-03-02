@@ -1,8 +1,8 @@
 package devutility.internal.test.basic.lang.objects;
 
-import devutility.internal.test.data.model.Person;
-import devutility.internal.test.data.model.Postgraduate;
-import devutility.internal.test.data.model.Student;
+import devutility.internal.test.model.Person;
+import devutility.internal.test.model.Postgraduate;
+import devutility.internal.test.model.Student;
 
 /**
  * @Description: InstanceofTest

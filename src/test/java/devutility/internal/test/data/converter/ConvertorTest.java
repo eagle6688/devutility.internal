@@ -9,8 +9,8 @@ import devutility.internal.lang.ClassUtils;
 import devutility.internal.lang.models.EntityField;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
-import devutility.internal.test.data.constants.Gender;
-import devutility.internal.test.data.model.Person;
+import devutility.internal.test.model.Person;
+import devutility.internal.test.model.constant.Gender;
 
 public class ConvertorTest extends BaseTest {
 	@Override

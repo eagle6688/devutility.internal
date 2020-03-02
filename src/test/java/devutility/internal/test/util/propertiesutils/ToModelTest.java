@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
-import devutility.internal.test.data.model.PropertiesModel;
+import devutility.internal.test.model.PropertiesModel;
 import devutility.internal.util.PropertiesUtils;
 
 public class ToModelTest extends BaseTest {

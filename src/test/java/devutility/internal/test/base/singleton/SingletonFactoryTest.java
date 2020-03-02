@@ -3,7 +3,7 @@ package devutility.internal.test.base.singleton;
 import devutility.internal.base.SingletonFactory;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
-import devutility.internal.test.data.model.Person;
+import devutility.internal.test.model.Person;
 
 public class SingletonFactoryTest extends BaseTest {
 	@Override

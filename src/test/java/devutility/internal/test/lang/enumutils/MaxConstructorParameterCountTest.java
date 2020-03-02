@@ -3,8 +3,8 @@ package devutility.internal.test.lang.enumutils;
 import devutility.internal.lang.EnumUtils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
-import devutility.internal.test.data.constants.Gender;
 import devutility.internal.test.enums.MyEnum;
+import devutility.internal.test.model.constant.Gender;
 
 /**
  * 

@@ -7,7 +7,7 @@ import devutility.internal.lang.ClassUtils;
 import devutility.internal.lang.models.EntityField;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
-import devutility.internal.test.data.model.Student;
+import devutility.internal.test.model.Student;
 
 public class GetEntityFieldsTest extends BaseTest {
 	@Override

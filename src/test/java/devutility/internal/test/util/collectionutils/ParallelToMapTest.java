@@ -5,7 +5,7 @@ import java.util.Map;
 
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
-import devutility.internal.test.data.model.Member;
+import devutility.internal.test.model.Member;
 import devutility.internal.util.CollectionUtils;
 
 public class ParallelToMapTest extends BaseTest {

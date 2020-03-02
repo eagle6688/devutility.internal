@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 import devutility.internal.annotations.NeedToken;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
-import devutility.internal.test.data.model.StudentSearchParam;
+import devutility.internal.test.model.StudentSearchParam;
 
 public class IsAnnotationPresentTest extends BaseTest {
 	@Override

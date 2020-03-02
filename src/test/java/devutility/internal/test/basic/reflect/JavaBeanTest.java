@@ -5,7 +5,7 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.time.LocalDateTime;
 
-import devutility.internal.test.data.model.Student;
+import devutility.internal.test.model.Student;
 
 public class JavaBeanTest {
 	public static void main(String[] args) throws Exception {

@@ -3,7 +3,7 @@ package devutility.internal.test.data.converter.converterutils;
 import devutility.internal.data.converter.ConverterUtils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
-import devutility.internal.test.data.constants.Gender;
+import devutility.internal.test.model.constant.Gender;
 
 public class StringToTypeTest extends BaseTest {
 	@Override

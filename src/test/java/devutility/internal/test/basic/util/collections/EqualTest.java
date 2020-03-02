@@ -4,7 +4,7 @@ import java.util.List;
 
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
-import devutility.internal.test.data.model.Member;
+import devutility.internal.test.model.Member;
 
 public class EqualTest extends BaseTest {
 	private List<Member> list = Member.list(5);

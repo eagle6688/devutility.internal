@@ -2,7 +2,7 @@ package devutility.internal.test.basic.lang.clazz;
 
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
-import devutility.internal.test.data.model.Student;
+import devutility.internal.test.model.Student;
 
 public class GetSuperclassTest extends BaseTest {
 	@Override

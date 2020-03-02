@@ -20,13 +20,4 @@
 		<tag>v${project.version}</tag>
 	</scm>
 	<!-- scm end -->
-
-	<!-- dependencies -->
-	<dependencies>
-		<dependency>
-			<groupId>com.github.eagle6688</groupId>
-			<artifactId>devutility.test</artifactId>
-		</dependency>
-	</dependencies>
-	<!-- dependencies end -->
 </project>

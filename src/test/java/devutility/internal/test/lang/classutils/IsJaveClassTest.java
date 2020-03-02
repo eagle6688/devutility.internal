@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import devutility.internal.lang.ClassUtils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
-import devutility.internal.test.data.model.Person;
+import devutility.internal.test.model.Person;
 
 public class IsJaveClassTest extends BaseTest {
 	@Override

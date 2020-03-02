@@ -6,7 +6,7 @@ import java.util.List;
 
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
-import devutility.internal.test.data.model.Person;
+import devutility.internal.test.model.Person;
 import devutility.internal.util.CollectionUtils;
 import devutility.internal.util.function.PredicateBuilder;
 

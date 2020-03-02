@@ -3,7 +3,7 @@ package devutility.internal.test.lang.classutils;
 import devutility.internal.lang.ClassUtils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
-import devutility.internal.test.data.model.Student;
+import devutility.internal.test.model.Student;
 
 public class NewInstanceTest extends BaseTest {
 	@Override

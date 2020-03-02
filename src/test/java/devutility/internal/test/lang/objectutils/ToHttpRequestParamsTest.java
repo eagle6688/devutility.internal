@@ -5,7 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import devutility.internal.lang.ObjectUtils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
-import devutility.internal.test.data.model.Member;
+import devutility.internal.test.model.Member;
 
 public class ToHttpRequestParamsTest extends BaseTest {
 	@Override

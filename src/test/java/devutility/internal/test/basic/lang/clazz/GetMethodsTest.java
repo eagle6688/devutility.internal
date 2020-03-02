@@ -4,7 +4,7 @@ import java.lang.reflect.Method;
 
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
-import devutility.internal.test.data.model.Student;
+import devutility.internal.test.model.Student;
 
 public class GetMethodsTest extends BaseTest {
 	@Override

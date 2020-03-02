@@ -5,7 +5,7 @@ import java.util.List;
 import devutility.internal.cache.MemoryCache;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
-import devutility.internal.test.data.model.IntegerData;
+import devutility.internal.test.model.data.IntegerData;
 
 public class GetTest extends BaseTest {
 	@Override
