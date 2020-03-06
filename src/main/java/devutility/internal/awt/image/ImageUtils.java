@@ -121,7 +121,7 @@ public class ImageUtils {
 	 * @throws IOException Throw when File not found or writed failed.
 	 */
 	public static void drawString(BufferedImage image, String text, int slopeAngle, Font font, Color color, Positioner positioner, RenderingHints renderingHints, AlphaComposite alphaComposite, String imagePath) throws IOException {
-		BufferedImage bufferedImage = ImageUtils.drawString(image, text, 0, font, color, positioner, renderingHints, alphaComposite);
+		BufferedImage bufferedImage = ImageUtils.drawString(image, text, slopeAngle, font, color, positioner, renderingHints, alphaComposite);
 		File file = new File(imagePath);
 		String extension = FileUtils.getExtension(imagePath).substring(1);
 

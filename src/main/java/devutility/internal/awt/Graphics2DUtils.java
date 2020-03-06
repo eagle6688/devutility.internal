@@ -5,6 +5,13 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 
+/**
+ * 
+ * Graphics2DUtils
+ * 
+ * @author: Aldwin Su
+ * @version: 2019-03-18 20:05:20
+ */
 public class Graphics2DUtils {
 	public static void drawString(Graphics2D graphics, Font font, Color color, AlphaComposite alphaComposite, String text, float positionX, float positionY) {
 		graphics.setFont(font);

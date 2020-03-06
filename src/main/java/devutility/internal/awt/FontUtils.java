@@ -6,13 +6,13 @@ import java.awt.Graphics2D;
 
 public class FontUtils {
 	/**
-	 * Return string width use Font object.
+	 * Return text width use Font object.
 	 * @param graphics Graphics2D object.
 	 * @param font Font object.
 	 * @param value String value need display in Graphics2D object.
 	 * @return int
 	 */
-	public static int getStringWidth(Graphics2D graphics, Font font, String value) {
+	public static int getTextWidth(Graphics2D graphics, Font font, String value) {
 		FontMetrics fontMetrics = graphics.getFontMetrics(font);
 		return fontMetrics.stringWidth(value);
 	}
@@ -37,7 +37,7 @@ public class FontUtils {
 	 * @return float
 	 */
 	public static float getCentricXOffset(int imageWidth, Graphics2D graphics, Font font, String value) {
-		int width = FontUtils.getStringWidth(graphics, font, value);
+		int width = FontUtils.getTextWidth(graphics, font, value);
 		return (imageWidth - width) / 2;
 	}
 

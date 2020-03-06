@@ -23,7 +23,7 @@ public class WatermarkUtils {
 	 * @param imagePath Path for new image.
 	 * @throws IOException Throw when File not found or writed failed.
 	 */
-	public static void bottomRightString(BufferedImage image, String text, Font font, Color color, RenderingHints renderingHints, AlphaComposite alphaComposite, String imagePath) throws IOException {
+	public static void bottomRightText(BufferedImage image, String text, Font font, Color color, RenderingHints renderingHints, AlphaComposite alphaComposite, String imagePath) throws IOException {
 		Positioner positioner = new StringBottomRightPosition(15f, 15f);
 		ImageUtils.drawString(image, text, 0, font, color, positioner, renderingHints, alphaComposite, imagePath);
 	}
@@ -39,8 +39,8 @@ public class WatermarkUtils {
 	 * @param imagePath Path for new image.
 	 * @throws IOException Throw when File not found or writed failed.
 	 */
-	public static void bottomRightString(BufferedImage image, String text, Font font, Color color, RenderingHints renderingHints, float alpha, String imagePath) throws IOException {
-		bottomRightString(image, text, font, color, renderingHints, AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha), imagePath);
+	public static void bottomRightText(BufferedImage image, String text, Font font, Color color, RenderingHints renderingHints, float alpha, String imagePath) throws IOException {
+		bottomRightText(image, text, font, color, renderingHints, AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha), imagePath);
 	}
 
 	/**
@@ -53,7 +53,11 @@ public class WatermarkUtils {
 	 * @param imagePath Path for new image.
 	 * @throws IOException Throw when File not found or writed failed.
 	 */
-	public static void bottomRightString(BufferedImage image, String text, Font font, Color color, float alpha, String imagePath) throws IOException {
-		bottomRightString(image, text, font, color, RenderingHintsUtils.highQuality(), alpha, imagePath);
+	public static void bottomRightText(BufferedImage image, String text, Font font, Color color, float alpha, String imagePath) throws IOException {
+		bottomRightText(image, text, font, color, RenderingHintsUtils.highQuality(), alpha, imagePath);
+	}
+
+	public static void centerText(BufferedImage image, String text, Font font, Color color, RenderingHints renderingHints, AlphaComposite alphaComposite, String imagePath) {
+
 	}
 }

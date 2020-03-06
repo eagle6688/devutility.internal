@@ -8,6 +8,13 @@ import devutility.internal.awt.FontUtils;
 import devutility.internal.awt.position.Positioner;
 import devutility.internal.models.Position;
 
+/**
+ * 
+ * StringBottomRightPosition
+ * 
+ * @author: Aldwin Su
+ * @version: 2019-03-19 15:10:12
+ */
 public class StringBottomRightPosition implements Positioner {
 	private float xRightOffset;
 	private float yBottomOffset;
@@ -21,17 +28,11 @@ public class StringBottomRightPosition implements Positioner {
 	}
 
 	@Override
-	public Position calculate(BufferedImage image, Graphics2D graphics2d, Object... params) {
-		if (params.length != 2) {
-			throw new IllegalArgumentException("Illegal paramters!");
-		}
-
-		Font font = (Font) params[0];
-		String text = (String) params[1];
-		int stringWidth = FontUtils.getStringWidth(graphics2d, font, text);
+	public Position calculate(BufferedImage image, Graphics2D graphics2d, Font font, String text) {
+		int textWidth = FontUtils.getTextWidth(graphics2d, font, text);
 
 		Position position = new Position();
-		position.setX(image.getWidth() - stringWidth - xRightOffset);
+		position.setX(image.getWidth() - textWidth - xRightOffset);
 		position.setY(image.getHeight() - yBottomOffset);
 		return position;
 	}
