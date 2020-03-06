@@ -16,7 +16,7 @@ import devutility.internal.io.FileUtils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
-public class DrawStringTest extends BaseTest {
+public class DrawTextTest extends BaseTest {
 	@Override
 	public void run() {
 		test("E:\\Downloads\\Test\\1.jpg");
@@ -34,13 +34,13 @@ public class DrawStringTest extends BaseTest {
 		}
 
 		try {
-			ImageUtils.drawString(image, "Hello world!", 0, new Font(null, Font.BOLD, 26), Color.GRAY, 0, 26, RenderingHintsUtils.highQuality(), AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f), imagePath);
+			ImageUtils.drawText(image, "Hello world!", 0, new Font(null, Font.BOLD, 26), Color.GRAY, 0, 26, RenderingHintsUtils.highQuality(), AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f), imagePath);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
 	public static void main(String[] args) {
-		TestExecutor.run(DrawStringTest.class);
+		TestExecutor.run(DrawTextTest.class);
 	}
 }

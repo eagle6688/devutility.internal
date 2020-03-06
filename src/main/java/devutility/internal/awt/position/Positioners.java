@@ -21,9 +21,9 @@ public interface Positioners {
 	 * @param graphics2D Graphics2D object.s
 	 * @param font Font object.
 	 * @param text Text need write in image.
-	 * @param xRightOffset Offset in horizontal direction.
-	 * @param yBottomOffset Offset in vertical direction.
+	 * @param xOffset Offset in horizontal direction.
+	 * @param yOffset Offset in vertical direction.
 	 * @return {@code List<Position>}
 	 */
-	public abstract List<Position> calculate(BufferedImage image, Graphics2D graphics2D, Font font, String text, float xRightOffset, float yBottomOffset);
+	public abstract List<Position> calculate(BufferedImage image, Graphics2D graphics2D, Font font, String text, float xOffset, float yOffset);
 }

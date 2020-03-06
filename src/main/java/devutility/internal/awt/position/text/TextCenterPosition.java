@@ -1,4 +1,4 @@
-package devutility.internal.awt.position.string;
+package devutility.internal.awt.position.text;
 
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -10,12 +10,12 @@ import devutility.internal.models.Position;
 
 /**
  * 
- * StringCenterPosition
+ * TextCenterPosition
  * 
  * @author: Aldwin Su
  * @version: 2020-03-06 16:49:22
  */
-public class StringCenterPosition implements Positioner {
+public class TextCenterPosition implements Positioner {
 	@Override
 	public Position calculate(BufferedImage image, Graphics2D graphics2d, Font font, String text) {
 		Position position = new Position();

@@ -1,4 +1,4 @@
-package devutility.internal.awt.position.string;
+package devutility.internal.awt.position.text;
 
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -10,19 +10,19 @@ import devutility.internal.models.Position;
 
 /**
  * 
- * StringBottomRightPosition
+ * TextBottomRightPosition
  * 
  * @author: Aldwin Su
  * @version: 2019-03-19 15:10:12
  */
-public class StringBottomRightPosition implements Positioner {
+public class TextBottomRightPosition implements Positioner {
 	private float xRightOffset;
 	private float yBottomOffset;
 
-	public StringBottomRightPosition() {
+	public TextBottomRightPosition() {
 	}
 
-	public StringBottomRightPosition(float xRightOffset, float yBottomOffset) {
+	public TextBottomRightPosition(float xRightOffset, float yBottomOffset) {
 		this.xRightOffset = xRightOffset;
 		this.yBottomOffset = yBottomOffset;
 	}

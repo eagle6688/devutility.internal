@@ -14,7 +14,7 @@ import devutility.internal.io.FileUtils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
-public class BottomRightWatermarkTest extends BaseTest {
+public class BottomRightTextTest extends BaseTest {
 	@Override
 	public void run() {
 		test("E:\\Downloads\\Test\\1.jpg");
@@ -41,6 +41,6 @@ public class BottomRightWatermarkTest extends BaseTest {
 	}
 
 	public static void main(String[] args) {
-		TestExecutor.run(BottomRightWatermarkTest.class);
+		TestExecutor.run(BottomRightTextTest.class);
 	}
 }

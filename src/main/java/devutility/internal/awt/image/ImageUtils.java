@@ -38,7 +38,7 @@ public class ImageUtils {
 	}
 
 	/**
-	 * Write string in image, return BufferedImage object with string.
+	 * Write text in image, return BufferedImage object with string.
 	 * @param image Original BufferedImage object.
 	 * @param text String value.
 	 * @param slopeAngle String slope angle, for example 45.
@@ -50,7 +50,7 @@ public class ImageUtils {
 	 * @param alphaComposite AlphaComposite object.
 	 * @return BufferedImage
 	 */
-	public static BufferedImage drawString(BufferedImage image, String text, int slopeAngle, Font font, Color color, float positionX, float positionY, RenderingHints renderingHints, AlphaComposite alphaComposite) {
+	public static BufferedImage drawText(BufferedImage image, String text, int slopeAngle, Font font, Color color, float positionX, float positionY, RenderingHints renderingHints, AlphaComposite alphaComposite) {
 		Graphics2D graphics = image.createGraphics();
 		graphics.setRenderingHints(renderingHints);
 
@@ -61,7 +61,7 @@ public class ImageUtils {
 	}
 
 	/**
-	 * Write string in image, save the new image to provided imagePath.
+	 * Write text in image, save the new image to provided imagePath.
 	 * @param image Original BufferedImage object.
 	 * @param text String value.
 	 * @param slopeAngle String slope angle, for example 45.
@@ -74,8 +74,8 @@ public class ImageUtils {
 	 * @param imagePath Path for new image.
 	 * @throws IOException Throw when File not found or writed failed.
 	 */
-	public static void drawString(BufferedImage image, String text, int slopeAngle, Font font, Color color, float positionX, float positionY, RenderingHints renderingHints, AlphaComposite alphaComposite, String imagePath) throws IOException {
-		BufferedImage bufferedImage = drawString(image, text, 0, font, color, positionX, positionY, renderingHints, alphaComposite);
+	public static void drawText(BufferedImage image, String text, int slopeAngle, Font font, Color color, float positionX, float positionY, RenderingHints renderingHints, AlphaComposite alphaComposite, String imagePath) throws IOException {
+		BufferedImage bufferedImage = drawText(image, text, 0, font, color, positionX, positionY, renderingHints, alphaComposite);
 		File file = new File(imagePath);
 		String extension = FileUtils.getExtension(imagePath).substring(1);
 
@@ -85,7 +85,7 @@ public class ImageUtils {
 	}
 
 	/**
-	 * Write string in image, return BufferedImage object with string.
+	 * Write text in image, return BufferedImage object with string.
 	 * @param image Original BufferedImage object.
 	 * @param text String value.
 	 * @param slopeAngle String slope angle, for example 45.
@@ -96,7 +96,7 @@ public class ImageUtils {
 	 * @param alphaComposite AlphaComposite object.
 	 * @return BufferedImage
 	 */
-	public static BufferedImage drawString(BufferedImage image, String text, int slopeAngle, Font font, Color color, Positioner positioner, RenderingHints renderingHints, AlphaComposite alphaComposite) {
+	public static BufferedImage drawText(BufferedImage image, String text, int slopeAngle, Font font, Color color, Positioner positioner, RenderingHints renderingHints, AlphaComposite alphaComposite) {
 		Graphics2D graphics = image.createGraphics();
 		graphics.setRenderingHints(renderingHints);
 
@@ -108,7 +108,7 @@ public class ImageUtils {
 	}
 
 	/**
-	 * Write string in image, save the new image to provided imagePath.
+	 * Write text in image, save the new image to provided imagePath.
 	 * @param image Original BufferedImage object.
 	 * @param text String value.
 	 * @param slopeAngle String slope angle, for example 45.
@@ -120,8 +120,8 @@ public class ImageUtils {
 	 * @param imagePath Path for new image.
 	 * @throws IOException Throw when File not found or writed failed.
 	 */
-	public static void drawString(BufferedImage image, String text, int slopeAngle, Font font, Color color, Positioner positioner, RenderingHints renderingHints, AlphaComposite alphaComposite, String imagePath) throws IOException {
-		BufferedImage bufferedImage = ImageUtils.drawString(image, text, slopeAngle, font, color, positioner, renderingHints, alphaComposite);
+	public static void drawText(BufferedImage image, String text, int slopeAngle, Font font, Color color, Positioner positioner, RenderingHints renderingHints, AlphaComposite alphaComposite, String imagePath) throws IOException {
+		BufferedImage bufferedImage = ImageUtils.drawText(image, text, slopeAngle, font, color, positioner, renderingHints, alphaComposite);
 		File file = new File(imagePath);
 		String extension = FileUtils.getExtension(imagePath).substring(1);
 
