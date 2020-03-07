@@ -82,6 +82,7 @@ public class AlphaCompositeTest extends BaseTest {
 		jFrame.setBounds(200, 200, 500, 500);
 		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jFrame.setVisible(true);
+		jFrame.setLocationRelativeTo(null);
 
 		DrawingPanel drawPanel = new DrawingPanel();
 		drawPanel.setBounds(0, 35, 500, 440);
@@ -117,6 +118,10 @@ public class AlphaCompositeTest extends BaseTest {
 		jFrame.addWindowStateListener(e -> {
 			System.out.println("window state:" + e.paramString());
 		});
+	}
+
+	public static void main(String[] args) {
+		TestExecutor.run(AlphaCompositeTest.class);
 	}
 
 	static class DrawingPanel extends JPanel {
@@ -165,9 +170,5 @@ public class AlphaCompositeTest extends BaseTest {
 			graphics2d.drawImage(image, 100, 100, null);
 			graphics2d.dispose();
 		}
-	}
-
-	public static void main(String[] args) {
-		TestExecutor.run(AlphaCompositeTest.class);
 	}
 }

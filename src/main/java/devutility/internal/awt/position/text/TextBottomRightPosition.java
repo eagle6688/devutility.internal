@@ -29,7 +29,7 @@ public class TextBottomRightPosition implements Positioner {
 
 	@Override
 	public Position calculate(BufferedImage image, Graphics2D graphics2d, Font font, String text) {
-		int textWidth = FontUtils.getTextWidth(graphics2d, font, text);
+		float textWidth = FontUtils.getWidth(graphics2d, font, text);
 
 		Position position = new Position();
 		position.setX(image.getWidth() - textWidth - xRightOffset);

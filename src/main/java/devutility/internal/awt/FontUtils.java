@@ -11,9 +11,9 @@ public class FontUtils {
 	 * @param graphics Graphics2D object.
 	 * @param font Font object.
 	 * @param value String value need display in Graphics2D object.
-	 * @return int
+	 * @return float
 	 */
-	public static int getTextWidth(Graphics2D graphics, Font font, String value) {
+	public static float getWidth(Graphics2D graphics, Font font, String value) {
 		FontMetrics fontMetrics = graphics.getFontMetrics(font);
 		return fontMetrics.stringWidth(value);
 	}
@@ -22,11 +22,12 @@ public class FontUtils {
 	 * Return height of Font object.
 	 * @param graphics Graphics2D object.
 	 * @param font Font object.
-	 * @return int
+	 * @param text text content.
+	 * @return float
 	 */
-	public static int getHeight(Graphics2D graphics, Font font) {
-		FontMetrics fontMetrics = graphics.getFontMetrics(font);
-		return fontMetrics.getHeight();
+	public static float getHeight(Graphics2D graphics, Font font, String text) {
+		LineMetrics lineMetrics = font.getLineMetrics(text, graphics.getFontRenderContext());
+		return lineMetrics.getHeight();
 	}
 
 	/**
@@ -38,7 +39,7 @@ public class FontUtils {
 	 * @return float
 	 */
 	public static float getCentricXOffset(int imageWidth, Graphics2D graphics, Font font, String value) {
-		int width = FontUtils.getTextWidth(graphics, font, value);
+		float width = FontUtils.getWidth(graphics, font, value);
 		return (imageWidth - width) / 2;
 	}
 
