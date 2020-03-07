@@ -3,6 +3,7 @@ package devutility.internal.awt;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
+import java.awt.font.LineMetrics;
 
 public class FontUtils {
 	/**
@@ -46,11 +47,12 @@ public class FontUtils {
 	 * @param imageHeight Image height.
 	 * @param graphics Graphics2D object.
 	 * @param font Font object.
+	 * @param text text content.
 	 * @return float
 	 */
-	public static float getCentricYOffset(int imageHeight, Graphics2D graphics, Font font) {
-		FontMetrics fontMetrics = graphics.getFontMetrics(font);
-		int height = fontMetrics.getHeight();
-		return (imageHeight - height) / 2 + fontMetrics.getAscent();
+	public static float getCentricYOffset(int imageHeight, Graphics2D graphics, Font font, String text) {
+		LineMetrics lineMetrics = font.getLineMetrics(text, graphics.getFontRenderContext());
+		float height = lineMetrics.getHeight();
+		return (imageHeight - height) / 2 + lineMetrics.getAscent();
 	}
 }

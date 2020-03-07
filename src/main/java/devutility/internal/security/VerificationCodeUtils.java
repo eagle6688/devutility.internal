@@ -34,7 +34,7 @@ public class VerificationCodeUtils {
 		graphics2d.setColor(reverseColor);
 
 		float xOffset = FontUtils.getCentricXOffset(width, graphics2d, font, code);
-		float yOffset = FontUtils.getCentricYOffset(height, graphics2d, font);
+		float yOffset = FontUtils.getCentricYOffset(height, graphics2d, font, code);
 		graphics2d.drawString(code, xOffset, yOffset);
 
 		int obstacleCount = RANDOM.nextInt(getMaxObstacleCount(width, height));

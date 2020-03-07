@@ -34,7 +34,7 @@ public class CenterTextTest extends BaseTest {
 		}
 
 		try {
-			WatermarkUtils.centerText(image, "Hello world!", new Font(null, Font.BOLD, 26), Color.BLACK, 0.5f, imagePath);
+			WatermarkUtils.centerText(image, "Hello world!", new Font(null, Font.BOLD, 200), Color.BLACK, 0.5f, imagePath);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
