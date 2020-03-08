@@ -1,6 +1,6 @@
 package devutility.internal.test.model.constant;
 
-import devutility.internal.annotations.Convertor;
+import devutility.internal.annotation.Convertor;
 
 /**
  * 

@@ -3,7 +3,7 @@ package devutility.internal.test.data.dbinstanceutils;
 import java.io.InputStream;
 
 import devutility.internal.data.DbInstanceUtils;
-import devutility.internal.models.DbInstance;
+import devutility.internal.model.DbInstance;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 

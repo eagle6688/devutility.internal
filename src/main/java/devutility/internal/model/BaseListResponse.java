@@ -1,4 +1,4 @@
-package devutility.internal.models;
+package devutility.internal.model;
 
 import java.util.List;
 

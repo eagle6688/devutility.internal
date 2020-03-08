@@ -1,4 +1,4 @@
-package devutility.internal.annotations;
+package devutility.internal.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

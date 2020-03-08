@@ -3,11 +3,10 @@ package devutility.internal.awt.position.text;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.font.LineMetrics;
-import java.awt.image.BufferedImage;
 
 import devutility.internal.awt.FontUtils;
+import devutility.internal.awt.position.Position;
 import devutility.internal.awt.position.Positioner;
-import devutility.internal.models.Position;
 
 /**
  * 
@@ -18,10 +17,7 @@ import devutility.internal.models.Position;
  */
 public class TextSlopeCenterPositioner implements Positioner {
 	@Override
-	public Position calculate(BufferedImage image, Graphics2D graphics2d, Font font, String text) {
-		Position position = new Position();
-		int width = image.getWidth();
-		int height = image.getHeight();
+	public Position calculate(int width, int height, Graphics2D graphics2d, Font font, String text) {
 		double widthSquare = Math.pow(width, 2);
 		double heightSquare = Math.pow(height, 2);
 		double squareSum = widthSquare + heightSquare;
@@ -49,6 +45,7 @@ public class TextSlopeCenterPositioner implements Positioner {
 		double baselinePointX = xMidPoint - edgeXForBaselineMidPointTriangle;
 		double baselinePointY = yMidPoint + edgeYForBaselineMidPointTriangle;
 
+		Position position = new Position();
 		position.setX((float) baselinePointX);
 		position.setY((float) baselinePointY);
 		return position;

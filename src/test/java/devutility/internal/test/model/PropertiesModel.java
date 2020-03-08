@@ -1,6 +1,6 @@
 package devutility.internal.test.model;
 
-import devutility.internal.annotations.PropertiesKey;
+import devutility.internal.annotation.PropertiesKey;
 
 public class PropertiesModel {
 	@PropertiesKey("test.loginName")

@@ -2,11 +2,10 @@ package devutility.internal.awt.position.text;
 
 import java.awt.Font;
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
 
 import devutility.internal.awt.FontUtils;
+import devutility.internal.awt.position.Position;
 import devutility.internal.awt.position.Positioner;
-import devutility.internal.models.Position;
 
 /**
  * 
@@ -28,12 +27,13 @@ public class TextBottomRightPosition implements Positioner {
 	}
 
 	@Override
-	public Position calculate(BufferedImage image, Graphics2D graphics2d, Font font, String text) {
+	public Position calculate(int width, int height, Graphics2D graphics2d, Font font, String text) {
 		float textWidth = FontUtils.getWidth(graphics2d, font, text);
+		float textDescent = FontUtils.getDescent(graphics2d, font, text);
 
 		Position position = new Position();
-		position.setX(image.getWidth() - textWidth - xRightOffset);
-		position.setY(image.getHeight() - yBottomOffset);
+		position.setX(width - textWidth - xRightOffset);
+		position.setY(height - textDescent - yBottomOffset);
 		return position;
 	}
 }

@@ -1,4 +1,4 @@
-package devutility.internal.models;
+package devutility.internal.model;
 
 public class DbInstance {
 	private String uri = "";

@@ -2,7 +2,7 @@ package devutility.internal.test.basic.reflect.method;
 
 import java.lang.reflect.Method;
 
-import devutility.internal.annotations.NeedToken;
+import devutility.internal.annotation.NeedToken;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 import devutility.internal.test.model.StudentSearchParam;

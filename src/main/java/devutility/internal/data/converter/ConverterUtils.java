@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import devutility.internal.annotations.Convertor;
+import devutility.internal.annotation.Convertor;
 import devutility.internal.base.SingletonFactory;
 import devutility.internal.lang.ArrayUtils;
 import devutility.internal.lang.StringUtils;

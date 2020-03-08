@@ -1,4 +1,4 @@
-package devutility.internal.models;
+package devutility.internal.model;
 
 public class BaseResponseWithToken<T> extends BaseResponse<T> {
 	private String token;

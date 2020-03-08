@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import devutility.internal.annotations.PropertiesKey;
+import devutility.internal.annotation.PropertiesKey;
 import devutility.internal.data.BeanUtils;
 import devutility.internal.lang.ClassUtils;
 import devutility.internal.lang.StringUtils;

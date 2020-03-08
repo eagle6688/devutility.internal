@@ -2,8 +2,8 @@ package devutility.internal.test.model;
 
 import java.util.Arrays;
 
-import devutility.internal.annotations.NeedToken;
-import devutility.internal.models.BaseSearchParam;
+import devutility.internal.annotation.NeedToken;
+import devutility.internal.model.BaseSearchParam;
 
 public class StudentSearchParam extends BaseSearchParam<Student> {
 	private String[] numbers;

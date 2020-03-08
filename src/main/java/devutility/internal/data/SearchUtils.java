@@ -2,7 +2,7 @@ package devutility.internal.data;
 
 import java.util.List;
 
-import devutility.internal.models.BaseSearchParam;
+import devutility.internal.model.BaseSearchParam;
 import devutility.internal.util.CollectionUtils;
 import devutility.internal.util.function.PredicateBuilder;
 

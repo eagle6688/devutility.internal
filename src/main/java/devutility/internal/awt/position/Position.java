@@ -1,4 +1,4 @@
-package devutility.internal.models;
+package devutility.internal.awt.position;
 
 public class Position {
 	private float x;

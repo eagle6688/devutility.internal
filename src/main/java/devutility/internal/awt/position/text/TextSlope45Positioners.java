@@ -5,8 +5,8 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
+import devutility.internal.awt.position.Position;
 import devutility.internal.awt.position.Positioners;
-import devutility.internal.models.Position;
 
 /**
  * 

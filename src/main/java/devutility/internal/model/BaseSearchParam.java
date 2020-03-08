@@ -1,4 +1,4 @@
-package devutility.internal.models;
+package devutility.internal.model;
 
 import devutility.internal.util.function.PredicateBuilder;
 

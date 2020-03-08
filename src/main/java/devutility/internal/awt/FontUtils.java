@@ -30,6 +30,11 @@ public class FontUtils {
 		return lineMetrics.getHeight();
 	}
 
+	public static float getDescent(Graphics2D graphics, Font font, String text) {
+		LineMetrics lineMetrics = font.getLineMetrics(text, graphics.getFontRenderContext());
+		return lineMetrics.getDescent();
+	}
+
 	/**
 	 * Return X offset of centric position for string.
 	 * @param imageWidth Image width.

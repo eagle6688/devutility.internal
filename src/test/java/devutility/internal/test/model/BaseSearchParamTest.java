@@ -1,8 +1,7 @@
-package devutility.internal.test.models;
+package devutility.internal.test.model;
 
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
-import devutility.internal.test.model.StudentSearchParam;
 
 public class BaseSearchParamTest extends BaseTest {
 	@Override

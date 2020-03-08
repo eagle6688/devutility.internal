@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import devutility.internal.annotations.Order;
+import devutility.internal.annotation.Order;
 import devutility.internal.util.CollectionUtils;
 
 /**

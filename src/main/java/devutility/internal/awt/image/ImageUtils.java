@@ -12,31 +12,11 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import devutility.internal.awt.Graphics2DUtils;
+import devutility.internal.awt.position.Position;
 import devutility.internal.awt.position.Positioner;
 import devutility.internal.io.FileUtils;
-import devutility.internal.models.Position;
 
 public class ImageUtils {
-	/**
-	 * Create a new image workspace.
-	 * @param image BufferedImage object。
-	 * @param renderingHints RenderingHints object.
-	 * @return ImageSpace
-	 */
-	public static ImageSpace createImageSpace(BufferedImage image, RenderingHints renderingHints) {
-		BufferedImage bufferedImage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImageUtils.getImageType(image));
-
-		ImageSpace imageSpace = new ImageSpace();
-		imageSpace.setImage(bufferedImage);
-
-		Graphics2D graphics = bufferedImage.createGraphics();
-		graphics.setRenderingHints(renderingHints);
-		graphics.drawImage(image, 0, 0, null);
-		imageSpace.setGraphics2D(graphics);
-
-		return imageSpace;
-	}
-
 	/**
 	 * Write text in image, return BufferedImage object with string.
 	 * @param image Original BufferedImage object.
@@ -101,7 +81,7 @@ public class ImageUtils {
 		graphics.setRenderingHints(renderingHints);
 
 		Graphics2DUtils.rotate(graphics, image.getWidth(), image.getHeight(), slopeAngle);
-		Position position = positioner.calculate(image, graphics, font, text);
+		Position position = positioner.calculate(image.getWidth(), image.getHeight(), graphics, font, text);
 		Graphics2DUtils.drawString(graphics, font, color, alphaComposite, text, position.getX(), position.getY());
 		graphics.dispose();
 		return image;
