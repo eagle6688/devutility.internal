@@ -16,16 +16,8 @@ import devutility.internal.models.Position;
  * @version: 2020-03-06 15:41:58
  */
 public class TextSlope45Positioners implements Positioners {
-	private float xOffset;
-
-	private float yOffset;
-
 	@Override
 	public List<Position> calculate(BufferedImage image, Graphics2D graphics2d, Font font, String text, float xOffset, float yOffset) {
-		int imageWidth = image.getWidth();
-		int imageHeight = image.getHeight();
-		double diagonalLength = Math.sqrt(Math.pow(imageWidth, 2) + Math.pow(imageHeight, 2));
-
 		return null;
 	}
 }

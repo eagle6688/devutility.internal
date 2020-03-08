@@ -11,6 +11,7 @@ import devutility.internal.awt.RenderingHintsUtils;
 import devutility.internal.awt.position.Positioner;
 import devutility.internal.awt.position.text.TextBottomRightPosition;
 import devutility.internal.awt.position.text.TextCenterPosition;
+import devutility.internal.awt.position.text.TextSlopeCenterPositioner;
 
 public class WatermarkUtils {
 	/**
@@ -101,5 +102,18 @@ public class WatermarkUtils {
 	 */
 	public static void centerText(BufferedImage image, String text, Font font, Color color, float alpha, String imagePath) throws IOException {
 		centerText(image, text, font, color, RenderingHintsUtils.highQuality(), alpha, imagePath);
+	}
+
+	public static void slopeCenterText(BufferedImage image, String text, Font font, Color color, RenderingHints renderingHints, AlphaComposite alphaComposite, String imagePath) throws IOException {
+		Positioner positioner = new TextSlopeCenterPositioner();
+		ImageUtils.drawText(image, text, 0, font, color, positioner, renderingHints, alphaComposite, imagePath);
+	}
+
+	public static void slopeCenterText(BufferedImage image, String text, Font font, Color color, RenderingHints renderingHints, float alpha, String imagePath) throws IOException {
+		slopeCenterText(image, text, font, color, renderingHints, AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha), imagePath);
+	}
+
+	public static void slopeCenterText(BufferedImage image, String text, Font font, Color color, float alpha, String imagePath) throws IOException {
+		slopeCenterText(image, text, font, color, RenderingHintsUtils.highQuality(), alpha, imagePath);
 	}
 }

@@ -61,6 +61,9 @@ public class AffineTransformTest extends BaseTest {
 			graphics2d.drawString(text, 0, 0);
 		}
 
+		/**
+		 * Not really center.
+		 */
 		void rotateFontCenter1(Graphics2D graphics2d, Font font, String text) {
 			AffineTransform affineTransform = new AffineTransform();
 			affineTransform.rotate(Math.toRadians(45), 0, 0);
@@ -74,6 +77,9 @@ public class AffineTransformTest extends BaseTest {
 			graphics2d.drawString(text, (int) centerPoint, (int) centerPoint);
 		}
 
+		/**
+		 * Not really center.
+		 */
 		void rotateFontCenter2(Graphics2D graphics2d, Font font, String text) {
 			AffineTransform affineTransform = new AffineTransform();
 			affineTransform.rotate(Math.toRadians(45), 0, 0);
