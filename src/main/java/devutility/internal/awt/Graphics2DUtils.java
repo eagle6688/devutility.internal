@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 
 import devutility.internal.awt.position.Position;
+import devutility.internal.awt.rotation.Rotation;
 
 /**
  * 
@@ -50,5 +51,18 @@ public class Graphics2DUtils {
 		if (slopeAngle > 0) {
 			graphics.rotate(Math.toRadians(slopeAngle), width / 2, height / 2);
 		}
+	}
+
+	/**
+	 * Rotate provide Graphics2D object.
+	 * @param graphics Graphics2D object.
+	 * @param rotation Rotation object.
+	 */
+	public static void rotate(Graphics2D graphics, Rotation rotation) {
+		if (rotation.getRadians() == 0) {
+			return;
+		}
+
+		graphics.rotate(rotation.getRadians(), rotation.getAnchorX(), rotation.getAnchorY());
 	}
 }

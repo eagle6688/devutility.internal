@@ -16,6 +16,13 @@ import devutility.internal.awt.position.Position;
 import devutility.internal.awt.position.Positioner;
 import devutility.internal.io.FileUtils;
 
+/**
+ * 
+ * ImageUtils
+ * 
+ * @author: Aldwin Su
+ * @version: 2019-03-19 15:57:33
+ */
 public class ImageUtils {
 	/**
 	 * Write text in image, return BufferedImage object with string.
@@ -56,8 +63,8 @@ public class ImageUtils {
 	 */
 	public static void drawText(BufferedImage image, String text, int slopeAngle, Font font, Color color, float positionX, float positionY, RenderingHints renderingHints, AlphaComposite alphaComposite, String imagePath) throws IOException {
 		BufferedImage bufferedImage = drawText(image, text, 0, font, color, positionX, positionY, renderingHints, alphaComposite);
-		File file = new File(imagePath);
 		String extension = FileUtils.getExtension(imagePath).substring(1);
+		File file = new File(imagePath);
 
 		if (!ImageIO.write(bufferedImage, extension, file)) {
 			throw new IOException(String.format("Write image failed! %s", imagePath));
@@ -101,9 +108,9 @@ public class ImageUtils {
 	 * @throws IOException Throw when File not found or writed failed.
 	 */
 	public static void drawText(BufferedImage image, String text, int slopeAngle, Font font, Color color, Positioner positioner, RenderingHints renderingHints, AlphaComposite alphaComposite, String imagePath) throws IOException {
-		BufferedImage bufferedImage = ImageUtils.drawText(image, text, slopeAngle, font, color, positioner, renderingHints, alphaComposite);
-		File file = new File(imagePath);
+		BufferedImage bufferedImage = drawText(image, text, slopeAngle, font, color, positioner, renderingHints, alphaComposite);
 		String extension = FileUtils.getExtension(imagePath).substring(1);
+		File file = new File(imagePath);
 
 		if (!ImageIO.write(bufferedImage, extension, file)) {
 			throw new IOException(String.format("Write image failed! %s", imagePath));

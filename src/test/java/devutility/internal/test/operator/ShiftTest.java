@@ -1,4 +1,4 @@
-package devutility.internal.test.operators;
+package devutility.internal.test.operator;
 
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
