@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 
 import devutility.internal.awt.FontUtils;
+import devutility.internal.awt.image.ImageFactor;
 import devutility.internal.awt.position.Position;
 import devutility.internal.awt.position.Positioner;
 
@@ -16,10 +17,13 @@ import devutility.internal.awt.position.Positioner;
  */
 public class TextCenterPosition implements Positioner {
 	@Override
-	public Position calculate(int width, int height, Graphics2D graphics2d, Font font, String text) {
+	public Position calculate(ImageFactor imageFactor, Graphics2D graphics2d, Object... args) {
+		Font font = (Font) args[0];
+		String text = (String) args[1];
+
 		Position position = new Position();
-		position.setX(FontUtils.getCentricXOffset(width, graphics2d, font, text));
-		position.setY(FontUtils.getCentricYOffset(height, graphics2d, font, text));
+		position.setX(FontUtils.getCentricXOffset(imageFactor.getWidth(), graphics2d, font, text));
+		position.setY(FontUtils.getCentricYOffset(imageFactor.getHeight(), graphics2d, font, text));
 		return position;
 	}
 }

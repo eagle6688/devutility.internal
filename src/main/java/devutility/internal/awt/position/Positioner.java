@@ -1,7 +1,8 @@
 package devutility.internal.awt.position;
 
-import java.awt.Font;
 import java.awt.Graphics2D;
+
+import devutility.internal.awt.image.ImageFactor;
 
 /**
  * 
@@ -12,13 +13,11 @@ import java.awt.Graphics2D;
  */
 public interface Positioner {
 	/**
-	 * Calculate Positioner object for provide parameters.
-	 * @param width image object width.
-	 * @param height image object height.
-	 * @param graphics2D Graphics2D object.
-	 * @param font Font object.
-	 * @param text Text need write in image.
+	 * Calculate Position object by provide parameters.
+	 * @param imageFactor ImageFactor object.
+	 * @param graphics Graphics2D object.
+	 * @param args Other parameters used for calculate.
 	 * @return Position
 	 */
-	Position calculate(int width, int height, Graphics2D graphics2D, Font font, String text);
+	Position calculate(ImageFactor imageFactor, Graphics2D graphics, Object... args);
 }

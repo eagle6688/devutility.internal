@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 
 import devutility.internal.awt.FontUtils;
+import devutility.internal.awt.image.ImageFactor;
 import devutility.internal.awt.position.Position;
 import devutility.internal.awt.position.Positioner;
 
@@ -27,13 +28,15 @@ public class TextBottomRightPosition implements Positioner {
 	}
 
 	@Override
-	public Position calculate(int width, int height, Graphics2D graphics2d, Font font, String text) {
-		float textWidth = FontUtils.getWidth(graphics2d, font, text);
-		float textDescent = FontUtils.getDescent(graphics2d, font, text);
+	public Position calculate(ImageFactor imageFactor, Graphics2D graphics, Object... args) {
+		Font font = (Font) args[0];
+		String text = (String) args[1];
+		float textWidth = FontUtils.getWidth(graphics, font, text);
+		float textDescent = FontUtils.getDescent(graphics, font, text);
 
 		Position position = new Position();
-		position.setX(width - textWidth - xRightOffset);
-		position.setY(height - textDescent - yBottomOffset);
+		position.setX(imageFactor.getWidth() - textWidth - xRightOffset);
+		position.setY(imageFactor.getHeight() - textDescent - yBottomOffset);
 		return position;
 	}
 }

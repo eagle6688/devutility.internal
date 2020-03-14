@@ -117,7 +117,7 @@ public class ImageUtils {
 			rotation = rotator.calculate(imageFactor);
 		}
 
-		Position position = positioner.calculate(imageFactor.getWidth(), imageFactor.getHeight(), graphics, font, text);
+		Position position = positioner.calculate(imageFactor, graphics, font, text);
 		Graphics2DUtils.drawString(graphics, font, color, alphaComposite, renderingHints, rotation, position, text);
 		graphics.dispose();
 		return image;
