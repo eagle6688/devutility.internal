@@ -34,7 +34,7 @@ public class DrawTextTest extends BaseTest {
 		}
 
 		try {
-			ImageUtils.drawText(image, "Hello world!", 0, new Font(null, Font.BOLD, 26), Color.GRAY, 0, 26, RenderingHintsUtils.highQuality(), AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f), imagePath);
+			ImageUtils.drawText(image, new Font(null, Font.BOLD, 26), Color.GRAY, AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f), RenderingHintsUtils.highQuality(), null, 0, 26, "Hello world!", imagePath);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -82,7 +82,8 @@ public class AffineTransformTest extends BaseTest {
 		 */
 		void rotateFontCenter2(Graphics2D graphics2d, Font font, String text) {
 			AffineTransform affineTransform = new AffineTransform();
-			affineTransform.rotate(Math.toRadians(45), 0, 0);
+			double radians = Math.toRadians(45);
+			affineTransform.rotate(radians, 0, 0);
 			Font rotatedFont = font.deriveFont(affineTransform);
 			graphics2d.setFont(rotatedFont);
 

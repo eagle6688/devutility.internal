@@ -53,7 +53,12 @@ public class Graphics2DUtils {
 	 * @param text text need draw in Graphics2D.
 	 */
 	public static void drawString(Graphics2D graphics, Font font, Color color, AlphaComposite alphaComposite, RenderingHints renderingHints, Rotation rotation, Position position, String text) {
-		RotationUtils.rotate(graphics, font, rotation);
+		font = RotationUtils.rotate(graphics, font, rotation);
+
+		if (position == null) {
+			position = new Position();
+		}
+
 		drawString(graphics, font, color, alphaComposite, renderingHints, position.getX(), position.getY(), text);
 	}
 }

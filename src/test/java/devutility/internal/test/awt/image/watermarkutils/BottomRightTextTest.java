@@ -34,7 +34,7 @@ public class BottomRightTextTest extends BaseTest {
 		}
 
 		try {
-			WatermarkUtils.bottomRightText(image, "Hello world!", new Font(null, Font.BOLD, 26), Color.BLACK, 0.5f, imagePath);
+			WatermarkUtils.bottomRightText(image, new Font(null, Font.BOLD, 26), Color.BLACK, 0.5f, "Hello world!", imagePath);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

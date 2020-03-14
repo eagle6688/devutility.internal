@@ -13,30 +13,29 @@ import java.awt.geom.AffineTransform;
  */
 public class RotationUtils {
 	/**
-	 * Rotate provide Graphics2D object or Font object. You can get rotated Font object by invoke getFont method.
+	 * Rotate provide Graphics2D object or Font object and return new Font object.
 	 * @param graphics Graphics2D object.
-	 * @param font Font object.
+	 * @param font Font object maybe need rotate to a new Font object.
 	 * @param rotation Rotation object.
+	 * @return Font
 	 */
-	public static void rotate(Graphics2D graphics, Font font, Rotation rotation) {
-		if (rotation.getRadians() == 0) {
-			return;
+	public static Font rotate(Graphics2D graphics, Font font, Rotation rotation) {
+		if (rotation == null || rotation.getRadians() == 0) {
+			return font;
 		}
 
 		switch (rotation.getType()) {
 		case GRAPHICS:
 			graphics.rotate(rotation.getRadians(), rotation.getAnchorX(), rotation.getAnchorY());
-			break;
+			return font;
 
 		case PAINT:
 			AffineTransform affineTransform = new AffineTransform();
 			affineTransform.rotate(rotation.getRadians(), rotation.getAnchorX(), rotation.getAnchorY());
-			Font rotatedFont = font.deriveFont(affineTransform);
-			graphics.setFont(rotatedFont);
-			break;
+			return font.deriveFont(affineTransform);
 
 		default:
-			break;
+			return font;
 		}
 	}
 }

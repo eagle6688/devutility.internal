@@ -34,7 +34,7 @@ public class SlopeCenterTextTest extends BaseTest {
 		}
 
 		try {
-			WatermarkUtils.slopeCenterText(image, "Hello world!", new Font(null, Font.BOLD, 40), Color.BLACK, 0.5f, imagePath);
+			WatermarkUtils.slopeCenterText(image, new Font(null, Font.BOLD, 40), Color.BLACK, 0.5f, "Hello world!", imagePath);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

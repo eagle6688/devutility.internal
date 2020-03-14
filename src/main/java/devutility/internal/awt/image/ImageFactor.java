@@ -30,10 +30,8 @@ public class ImageFactor {
 		this.diagonal = Math.sqrt(this.widthAndHeightSquareSum);
 		this.diagonalSquare = Math.pow(diagonal, 2);
 
-		double numerator = diagonalSquare + widthSquare - heightSquare;
-		double denominator = 2 * diagonal * width;
-		double fraction = numerator / denominator;
-		this.diagonalRadians = Math.acos(fraction);
+		double fraction = height / diagonal;
+		this.diagonalRadians = Math.asin(fraction);
 		this.diagonalAnotherRadians = Math.PI / 2 - this.diagonalRadians;
 	}
 
