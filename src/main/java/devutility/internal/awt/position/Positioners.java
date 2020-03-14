@@ -5,6 +5,8 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
+import devutility.internal.awt.image.ImageFactor;
+
 /**
  * 
  * Positioners
@@ -23,5 +25,14 @@ public interface Positioners {
 	 * @param yOffset Offset in vertical direction.
 	 * @return {@code List<Position>}
 	 */
-	public abstract List<Position> calculate(BufferedImage image, Graphics2D graphics2D, Font font, String text, float xOffset, float yOffset);
+	List<Position> calculate(BufferedImage image, Graphics2D graphics2D, Font font, String text, float xOffset, float yOffset);
+
+	/**
+	 * Calculate Position objects by provide parameters.
+	 * @param imageFactor ImageFactor object.
+	 * @param graphics Graphics2D object.
+	 * @param args Other parameters.
+	 * @return {@code List<Position>}
+	 */
+	List<Position> calculate(ImageFactor imageFactor, Graphics2D graphics, Object... args);
 }
