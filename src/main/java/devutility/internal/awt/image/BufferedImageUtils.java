@@ -2,6 +2,12 @@ package devutility.internal.awt.image;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
+import devutility.internal.io.FileUtils;
 
 public class BufferedImageUtils {
 	/**
@@ -25,5 +31,20 @@ public class BufferedImageUtils {
 	public static byte[] toBytes(BufferedImage bufferedImage) {
 		DataBufferByte dataBuffer = (DataBufferByte) bufferedImage.getRaster().getDataBuffer();
 		return dataBuffer.getData();
+	}
+
+	/**
+	 * Write BufferedImage object to local path.
+	 * @param image BufferedImage object.
+	 * @param path Path for saving new image.
+	 * @throws IOException from ImageIO.write
+	 */
+	public static void write(BufferedImage image, String path) throws IOException {
+		String extension = FileUtils.getExtension(path).substring(1);
+		File file = new File(path);
+
+		if (!ImageIO.write(image, extension, file)) {
+			throw new IOException(String.format("Failed write image to %s", path));
+		}
 	}
 }
