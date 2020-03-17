@@ -7,10 +7,10 @@ import devutility.internal.test.TestExecutor;
 public class GetDateDirectoryTest extends BaseTest {
 	@Override
 	public void run() {
-println(DirectoryUtils.getDateDirectory());
+		println(DirectoryUtils.getDateDirectory());
 	}
 
 	public static void main(String[] args) {
-TestExecutor.run(GetDateDirectoryTest.class);
+		TestExecutor.run(GetDateDirectoryTest.class);
 	}
 }
