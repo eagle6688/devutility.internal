@@ -1,10 +1,11 @@
-package devutility.internal.lang.models;
+package devutility.internal.lang;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
+import devutility.internal.model.EntityField;
 import devutility.internal.util.CollectionUtils;
 
 /**

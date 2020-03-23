@@ -7,7 +7,7 @@ import java.util.List;
 import devutility.internal.data.BeanUtils;
 import devutility.internal.lang.ArraysUtils;
 import devutility.internal.lang.ClassUtils;
-import devutility.internal.lang.models.EntityField;
+import devutility.internal.model.EntityField;
 
 public class ListUtils {
 	/**

@@ -7,7 +7,7 @@ import java.util.List;
 import devutility.internal.data.BeanUtils;
 import devutility.internal.data.converter.ConverterCacheUtils;
 import devutility.internal.lang.ClassUtils;
-import devutility.internal.lang.models.EntityField;
+import devutility.internal.model.EntityField;
 import devutility.internal.model.Person;
 import devutility.internal.model.constant.Gender;
 import devutility.internal.model.converter.GenderConverter;

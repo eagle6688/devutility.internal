@@ -1,4 +1,4 @@
-package devutility.internal.lang.models;
+package devutility.internal.model;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;

@@ -14,10 +14,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import devutility.internal.lang.models.EntityField;
-import devutility.internal.lang.models.EntityFieldUtils;
 import devutility.internal.lang.reflect.FieldUtils;
 import devutility.internal.lang.reflect.MethodUtils;
+import devutility.internal.model.EntityField;
 import devutility.internal.util.CollectionUtils;
 
 /**

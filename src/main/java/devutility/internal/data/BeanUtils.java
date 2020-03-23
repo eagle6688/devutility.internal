@@ -10,7 +10,7 @@ import devutility.internal.data.converter.ConverterUtils;
 import devutility.internal.lang.ClassUtils;
 import devutility.internal.lang.EnumUtils;
 import devutility.internal.lang.StringUtils;
-import devutility.internal.lang.models.EntityField;
+import devutility.internal.model.EntityField;
 import devutility.internal.util.CollectionUtils;
 
 /**

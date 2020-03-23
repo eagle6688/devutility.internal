@@ -15,7 +15,7 @@ import devutility.internal.annotation.PropertiesKey;
 import devutility.internal.data.BeanUtils;
 import devutility.internal.lang.ClassUtils;
 import devutility.internal.lang.StringUtils;
-import devutility.internal.lang.models.EntityField;
+import devutility.internal.model.EntityField;
 
 /**
  * 

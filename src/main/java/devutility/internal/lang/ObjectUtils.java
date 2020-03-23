@@ -3,7 +3,7 @@ package devutility.internal.lang;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-import devutility.internal.lang.models.EntityField;
+import devutility.internal.model.EntityField;
 
 /**
  * 

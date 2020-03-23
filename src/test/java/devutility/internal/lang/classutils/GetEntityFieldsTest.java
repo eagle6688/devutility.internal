@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import devutility.internal.lang.ClassUtils;
-import devutility.internal.lang.models.EntityField;
+import devutility.internal.model.EntityField;
 import devutility.internal.model.Student;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
