@@ -174,7 +174,7 @@ public class PropertiesUtils {
 	 * @param key Properties key.
 	 * @return int
 	 */
-	public static int getIntProperty(Properties properties, String key) {
+	public static int getIntValue(Properties properties, String key) {
 		String value = getValue(properties, key);
 
 		if (value == null) {
