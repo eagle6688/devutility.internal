@@ -159,6 +159,22 @@ public class PropertiesUtils {
 	}
 
 	/**
+	 * Get property key.
+	 * @param prefix: Prefix of property key.
+	 * @param field: Field object in model.
+	 * @return String
+	 */
+	public static String getPropertyKey(String prefix, Field field) {
+		String propertyKey = getPropertyKey(field);
+
+		if (StringUtils.isNotEmpty(propertyKey)) {
+			return propertyKey;
+		}
+
+		return getPropertyKey(prefix, field.getName());
+	}
+
+	/**
 	 * Check whether provided Properties object contains the provided prefix or not.
 	 * @param properties Properties object.
 	 * @param prefix Prefix of property key.
@@ -319,22 +335,6 @@ public class PropertiesUtils {
 	public static <T> T toModel(String propertiesFile, Class<T> clazz) throws NumberFormatException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		Properties properties = getPropertiesFromResource(propertiesFile);
 		return toModel(properties, clazz);
-	}
-
-	/**
-	 * Get property key.
-	 * @param prefix: Prefix of property key.
-	 * @param field: Field object in model.
-	 * @return String
-	 */
-	public static String getPropertyKey(String prefix, Field field) {
-		String propertyKey = getPropertyKey(field);
-
-		if (StringUtils.isNotEmpty(propertyKey)) {
-			return propertyKey;
-		}
-
-		return getPropertyKey(prefix, field.getName());
 	}
 
 	/**
