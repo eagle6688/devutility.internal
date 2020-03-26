@@ -5,10 +5,6 @@ import java.util.Map;
 
 import javax.naming.NamingException;
 
-import devutility.internal.ldap.LdapEntry;
-import devutility.internal.ldap.LdapHelper;
-import devutility.internal.ldap.LdapProperties;
-import devutility.internal.ldap.LdapUtils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 

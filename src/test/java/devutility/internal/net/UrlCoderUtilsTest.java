@@ -1,6 +1,5 @@
 package devutility.internal.net;
 
-import devutility.internal.net.UrlCoderUtils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 

@@ -3,7 +3,6 @@ package devutility.internal.cache;
 import java.util.ArrayList;
 import java.util.List;
 
-import devutility.internal.cache.MemoryCache;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 

@@ -2,7 +2,6 @@ package devutility.internal.cache;
 
 import java.util.List;
 
-import devutility.internal.cache.MemoryCache;
 import devutility.internal.model.data.IntegerData;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;

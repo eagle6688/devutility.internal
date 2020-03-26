@@ -2,7 +2,6 @@ package devutility.internal.nio.pipe;
 
 import java.nio.charset.Charset;
 
-import devutility.internal.nio.pipe.ReversePipeThread;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 

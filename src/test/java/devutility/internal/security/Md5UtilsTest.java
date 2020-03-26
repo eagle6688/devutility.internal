@@ -4,7 +4,6 @@ import java.io.UnsupportedEncodingException;
 
 import devutility.internal.data.codec.Utf8Utils;
 import devutility.internal.data.converter.ConverterUtils;
-import devutility.internal.security.Md5Utils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 

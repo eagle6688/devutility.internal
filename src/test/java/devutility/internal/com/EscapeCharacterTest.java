@@ -1,6 +1,5 @@
 package devutility.internal.com;
 
-import devutility.internal.com.Config;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 

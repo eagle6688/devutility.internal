@@ -4,7 +4,6 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import devutility.internal.security.Sha256Utils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
@@ -34,17 +33,17 @@ public class Sha256UtilsTest extends BaseTest {
 	private static String byte2Hex(byte[] bytes) {
 		StringBuffer stringBuffer = new StringBuffer();
 		String temp = null;
-		
+
 		for (int i = 0; i < bytes.length; i++) {
 			temp = Integer.toHexString(bytes[i] & 0xFF);
-			
+
 			if (temp.length() == 1) {
 				stringBuffer.append("0");
 			}
-			
+
 			stringBuffer.append(temp);
 		}
-		
+
 		return stringBuffer.toString();
 	}
 

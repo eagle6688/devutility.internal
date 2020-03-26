@@ -1,7 +1,5 @@
 package devutility.internal.data.uri;
 
-import devutility.internal.data.uri.UriHeader;
-import devutility.internal.data.uri.UriUtils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 

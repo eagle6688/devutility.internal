@@ -8,7 +8,6 @@ import devutility.internal.model.Person;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 import devutility.internal.util.CollectionUtils;
-import devutility.internal.util.function.PredicateBuilder;
 
 public class PredicateBuilderTest extends BaseTest {
 	@Override

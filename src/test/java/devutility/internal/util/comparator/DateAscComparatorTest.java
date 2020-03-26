@@ -8,7 +8,6 @@ import devutility.internal.lang.ClassUtils;
 import devutility.internal.model.Person;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
-import devutility.internal.util.comparator.ComparatorUtils;
 
 public class DateAscComparatorTest extends BaseTest {
 	@Override

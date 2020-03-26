@@ -1,6 +1,5 @@
 package devutility.internal.ldap;
 
-import devutility.internal.ldap.LdapUtils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
