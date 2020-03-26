@@ -1,5 +1,6 @@
 package devutility.internal.util.propertiesutils;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
 import devutility.internal.model.PropertiesModel;
@@ -15,7 +16,7 @@ public class ToModelTest extends BaseTest {
 			println(model.getLoginName());
 			println(model.getPassword());
 			println(model.getTimeout());
-		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | IOException e) {
 			e.printStackTrace();
 		}
 	}

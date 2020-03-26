@@ -1,5 +1,6 @@
 package devutility.internal.util.propertiesutils;
 
+import java.io.IOException;
 import java.util.Properties;
 
 import devutility.internal.test.BaseTest;
@@ -9,7 +10,14 @@ import devutility.internal.util.PropertiesUtils;
 public class GetPropertiesTest extends BaseTest {
 	@Override
 	public void run() {
-		Properties properties = PropertiesUtils.getPropertiesFromResource("system.properties");
+		Properties properties = null;
+
+		try {
+			properties = PropertiesUtils.getPropertiesFromResource("system.properties");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		println(properties.getProperty("test"));
 	}
 

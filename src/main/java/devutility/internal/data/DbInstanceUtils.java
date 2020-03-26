@@ -1,5 +1,6 @@
 package devutility.internal.data;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Properties;
@@ -36,8 +37,9 @@ public class DbInstanceUtils {
 	 * @param inputStream Properties inputStream.
 	 * @param prefix Prefix of properties key.
 	 * @return DbInstance
+	 * @throws IOException from getProperties method.
 	 */
-	public static DbInstance getInstance(InputStream inputStream, String prefix) {
+	public static DbInstance getInstance(InputStream inputStream, String prefix) throws IOException {
 		if (inputStream == null) {
 			return null;
 		}
@@ -51,8 +53,9 @@ public class DbInstanceUtils {
 	 * @param propertiesFile Properties file name.
 	 * @param prefix Prefix of properties key.
 	 * @return DbInstance
+	 * @throws IOException from getPropertiesFromResource method.
 	 */
-	public static DbInstance getInstance(String propertiesFile, String prefix) {
+	public static DbInstance getInstance(String propertiesFile, String prefix) throws IOException {
 		if (StringUtils.isNullOrEmpty(propertiesFile)) {
 			return null;
 		}
