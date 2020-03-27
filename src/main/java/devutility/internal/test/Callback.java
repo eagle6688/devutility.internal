@@ -1,4 +1,4 @@
-package devutility.internal.base;
+package devutility.internal.test;
 
 public interface Callback {
 	/**

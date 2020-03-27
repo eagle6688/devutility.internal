@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import devutility.internal.base.Callback;
 import devutility.internal.lang.ClassUtils;
 import devutility.internal.util.concurrent.CompletionServiceUtils;
 import devutility.internal.util.concurrent.ExecutorServiceUtils;
