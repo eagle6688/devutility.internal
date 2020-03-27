@@ -12,7 +12,7 @@ public class ToModelTest extends BaseTest {
 	@Override
 	public void run() {
 		try {
-			PropertiesModel model = PropertiesUtils.toModel("database.properties", PropertiesModel.class);
+			PropertiesModel model = PropertiesUtils.toObjectFromResource("database.properties", PropertiesModel.class);
 			println(model.getLoginName());
 			println(model.getPassword());
 			println(model.getTimeout());
