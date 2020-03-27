@@ -1,5 +1,7 @@
 package devutility.internal.lang;
 
+import devutility.internal.model.IntegerConvertResult;
+
 public class IntegerUtils {
 	public static boolean isNumberic(String value) {
 		for (int i = 0; i < value.length(); i++) {

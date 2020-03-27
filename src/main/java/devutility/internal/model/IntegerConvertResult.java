@@ -1,4 +1,4 @@
-package devutility.internal.lang;
+package devutility.internal.model;
 
 public class IntegerConvertResult {
 	private boolean succeeded = false;

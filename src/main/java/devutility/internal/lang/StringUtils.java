@@ -1,6 +1,18 @@
 package devutility.internal.lang;
 
+/**
+ * 
+ * StringUtils
+ * 
+ * @author: Aldwin Su
+ * @version: 2017-05-31 23:31:38
+ */
 public class StringUtils {
+	/**
+	 * Check provided String value is null or empty?
+	 * @param value String value.
+	 * @return boolean
+	 */
 	public static boolean isNullOrEmpty(String value) {
 		return value == null || value.length() == 0 || value.trim().length() == 0;
 	}
