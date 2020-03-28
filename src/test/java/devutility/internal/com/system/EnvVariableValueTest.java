@@ -1,6 +1,6 @@
-package devutility.internal.base.system;
+package devutility.internal.com.system;
 
-import devutility.internal.base.SystemUtils;
+import devutility.internal.com.SystemUtils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 

@@ -3,7 +3,7 @@ package devutility.internal.lang;
 import java.util.ArrayList;
 import java.util.List;
 
-import devutility.internal.base.SystemUtils;
+import devutility.internal.com.SystemUtils;
 
 public class ExceptionUtils {
 	public static String toString(Exception exception) {

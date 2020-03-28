@@ -9,7 +9,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import devutility.internal.base.SystemUtils;
+import devutility.internal.com.SystemUtils;
 import devutility.internal.data.codec.Utf8Utils;
 import devutility.internal.nio.RandomAccessFileUtils;
 

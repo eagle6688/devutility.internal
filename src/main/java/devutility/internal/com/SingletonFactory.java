@@ -1,4 +1,4 @@
-package devutility.internal.base;
+package devutility.internal.com;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -13,7 +13,7 @@ public class SingletonFactory {
 
 	/**
 	 * Get or create a singleton object.
-	 * @param clazz: Class of singleton object.
+	 * @param clazz Class of singleton object.
 	 * @return {@code T}
 	 */
 	public static <T> T get(Class<T> clazz) {

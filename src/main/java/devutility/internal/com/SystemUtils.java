@@ -1,4 +1,4 @@
-package devutility.internal.base;
+package devutility.internal.com;
 
 import java.util.UUID;
 import java.util.regex.Matcher;

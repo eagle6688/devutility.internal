@@ -5,7 +5,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import devutility.internal.base.SystemUtils;
+import devutility.internal.com.SystemUtils;
 
 public class ExecutorServiceUtils {
 	/**

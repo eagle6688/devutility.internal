@@ -3,7 +3,7 @@ package devutility.internal.data.converter;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
-import devutility.internal.base.SingletonFactory;
+import devutility.internal.com.SingletonFactory;
 
 /**
  * 
