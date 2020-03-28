@@ -1,4 +1,4 @@
-package devutility.internal.math.arithhelper;
+package devutility.internal.math.arithutils;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

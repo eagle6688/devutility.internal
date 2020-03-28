@@ -1,6 +1,6 @@
-package devutility.internal.awt.triangle;
+package devutility.internal.math.triangle;
 
-import devutility.internal.awt.TriangleUtils;
+import devutility.internal.math.TriangleUtils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 

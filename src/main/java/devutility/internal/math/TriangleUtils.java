@@ -1,4 +1,4 @@
-package devutility.internal.awt;
+package devutility.internal.math;
 
 /**
  * 
