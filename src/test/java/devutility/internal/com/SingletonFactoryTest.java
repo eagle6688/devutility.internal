@@ -1,6 +1,5 @@
 package devutility.internal.com;
 
-import devutility.internal.com.SingletonFactory;
 import devutility.internal.model.Person;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
