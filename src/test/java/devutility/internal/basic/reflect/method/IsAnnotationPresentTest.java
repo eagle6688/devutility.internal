@@ -2,7 +2,7 @@ package devutility.internal.basic.reflect.method;
 
 import java.lang.reflect.Method;
 
-import devutility.internal.annotation.NeedToken;
+import devutility.internal.annotation.Ignore;
 import devutility.internal.model.StudentSearchParam;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
@@ -14,7 +14,7 @@ public class IsAnnotationPresentTest extends BaseTest {
 		Method target = null;
 
 		for (Method method : methods) {
-			if (method.getName().equals("testNeetToken")) {
+			if (method.getName().equals("testAnnotatedMethod")) {
 				target = method;
 				break;
 			}
@@ -25,7 +25,7 @@ public class IsAnnotationPresentTest extends BaseTest {
 			return;
 		}
 
-		if (target.isAnnotationPresent(NeedToken.class)) {
+		if (target.isAnnotationPresent(Ignore.class)) {
 			println("isAnnotationPresent true!");
 		}
 	}

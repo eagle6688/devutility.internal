@@ -2,8 +2,7 @@ package devutility.internal.model;
 
 import java.util.Arrays;
 
-import devutility.internal.annotation.NeedToken;
-import devutility.internal.model.BaseSearchParam;
+import devutility.internal.annotation.Ignore;
 
 public class StudentSearchParam extends BaseSearchParam<Student> {
 	private String[] numbers;
@@ -16,8 +15,8 @@ public class StudentSearchParam extends BaseSearchParam<Student> {
 		this.numbers = numbers;
 	}
 
-	@NeedToken
-	public String testNeetToken() {
+	@Ignore
+	public String testAnnotatedMethod() {
 		return null;
 	}
 

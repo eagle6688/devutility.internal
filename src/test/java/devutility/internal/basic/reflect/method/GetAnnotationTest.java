@@ -3,7 +3,7 @@ package devutility.internal.basic.reflect.method;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
-import devutility.internal.annotation.NeedToken;
+import devutility.internal.annotation.Ignore;
 import devutility.internal.model.StudentSearchParam;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
@@ -26,7 +26,7 @@ public class GetAnnotationTest extends BaseTest {
 			return;
 		}
 
-		Annotation annotation = target.getAnnotation(NeedToken.class);
+		Annotation annotation = target.getAnnotation(Ignore.class);
 
 		if (annotation == null) {
 			println("Annotation not found!");

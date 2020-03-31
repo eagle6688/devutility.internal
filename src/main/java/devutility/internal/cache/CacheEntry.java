@@ -1,5 +1,12 @@
 package devutility.internal.cache;
 
+/**
+ * 
+ * CacheEntry
+ * 
+ * @author: Aldwin Su
+ * @version: 2017-11-22 17:40:28
+ */
 public class CacheEntry {
 	private String key;
 	private Object value;
@@ -24,7 +31,7 @@ public class CacheEntry {
 	}
 
 	/**
-	 * Whether current cache object is expired or not?
+	 * Check whether current cache object is expired or not?
 	 * @return boolean
 	 */
 	public boolean expired() {
@@ -36,7 +43,7 @@ public class CacheEntry {
 	}
 
 	/**
-	 * Whether current cache object is latest version or not?
+	 * Check whether current cache object is latest version or not?
 	 * @param timestamp Timestamp for the latest cache data.
 	 * @return boolean
 	 */

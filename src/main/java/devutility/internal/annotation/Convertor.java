@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 /**
  * 
- * Convertor
+ * Convertor, add on convertor methods.
  * 
  * @author: Aldwin Su
  * @version: 2019-03-05 18:32:27

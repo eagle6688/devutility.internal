@@ -9,6 +9,13 @@ import javax.imageio.ImageIO;
 
 import devutility.internal.io.FileUtils;
 
+/**
+ * 
+ * BufferedImageUtils
+ * 
+ * @author: Aldwin Su
+ * @version: 2019-03-17 16:26:05
+ */
 public class BufferedImageUtils {
 	/**
 	 * Get suitable ImageType for drawing.
