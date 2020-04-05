@@ -3,6 +3,13 @@ package devutility.internal.awt;
 import java.awt.Color;
 import java.util.Random;
 
+/**
+ * 
+ * ColorUtils
+ * 
+ * @author: Aldwin Su
+ * @version: 2017-10-21 17:15:07
+ */
 public class ColorUtils {
 	private static final Random RANDOM = new Random();
 

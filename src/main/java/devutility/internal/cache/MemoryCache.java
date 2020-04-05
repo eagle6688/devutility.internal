@@ -1,66 +1,61 @@
 package devutility.internal.cache;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
-import devutility.internal.lang.StringUtils;
-import devutility.internal.util.CollectionUtils;
-
+/**
+ * 
+ * MemoryCache
+ * 
+ * @author: Aldwin Su
+ * @version: 2017-11-22 17:40:28
+ */
 public class MemoryCache {
 	/**
 	 * Container
 	 */
-	private static volatile Map<String, CacheEntry> container = new HashMap<>();
+	private static volatile Map<String, CacheEntry<?>> CONTAINER = new LinkedHashMap<>();
 
 	/**
-	 * Set entry in memory.
-	 * @param entry Entry object.
+	 * Set CacheEntry object in container.
+	 * @param entry CacheEntry object.
 	 * @return boolean
 	 */
-	public static boolean set(CacheEntry entry) {
-		if (entry == null || StringUtils.isNullOrEmpty(entry.getKey()) || entry.getValue() == null) {
+	public static boolean set(CacheEntry<?> entry) {
+		if (entry == null) {
 			return false;
 		}
 
-		if (entry.getValue() instanceof Collection) {
-			Collection<?> collection = Collection.class.cast(entry.getValue());
-
-			if (CollectionUtils.isNullOrEmpty(collection)) {
-				return false;
-			}
-		}
-
-		synchronized (MemoryCache.class) {
-			container.put(entry.getKey(), entry);
+		synchronized (CONTAINER) {
+			CONTAINER.put(entry.getKey(), entry);
 		}
 
 		return true;
 	}
 
 	/**
-	 * Set value in memory.
-	 * @param key Cache key for value.
-	 * @param value Cache value need to be saved in memory.
-	 * @param expireSeconds Expire time in seconds.
+	 * Set cache data in container.
+	 * @param key Key of CacheEntry object in cache container.
+	 * @param value Cache value.
+	 * @param expirationMillis Expiration time in milliseconds, default 0 means no expiration.
 	 * @return boolean
 	 */
-	public static boolean set(String key, Object value, int expireSeconds) {
-		return set(new CacheEntry(key, value, expireSeconds));
+	public static <T> boolean set(String key, T value, long expirationMillis) {
+		return set(new CacheEntry<T>(key, value, expirationMillis));
 	}
 
 	/**
-	 * Set value in memory.
-	 * @param key Cache key for value.
-	 * @param value Cache value need to be saved in memory.
+	 * Set cache data in memory.
+	 * @param key Key of CacheEntry object in cache container.
+	 * @param value Cache value.
 	 * @return boolean
 	 */
-	public static boolean set(String key, Object value) {
-		return set(key, value, 0);
+	public static <T> boolean set(String key, T value) {
+		return set(new CacheEntry<T>(key, value));
 	}
 
 	/**
@@ -70,13 +65,13 @@ public class MemoryCache {
 	 * @return Object
 	 */
 	public static Object get(String key, long timestamp) {
-		CacheEntry entry = container.get(key);
+		CacheEntry<?> entry = CONTAINER.get(key);
 
 		if (entry == null) {
 			return null;
 		}
 
-		if (entry.expired() || !entry.latestVersion(timestamp)) {
+		if (entry.isExpired() || !entry.isLatest(timestamp)) {
 			del(key);
 			return null;
 		}
@@ -179,8 +174,8 @@ public class MemoryCache {
 	 */
 	public static void del(String key) {
 		synchronized (MemoryCache.class) {
-			if (container.containsKey(key)) {
-				container.remove(key);
+			if (CONTAINER.containsKey(key)) {
+				CONTAINER.remove(key);
 			}
 		}
 	}
