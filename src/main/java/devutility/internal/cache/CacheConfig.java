@@ -23,6 +23,6 @@ public class CacheConfig {
 			return null;
 		}
 
-		return String.format(KEY_FORMAT, value.getClass().getName().toUpperCase());
+		return String.format(KEY_FORMAT, value.getClass().getName()).toUpperCase();
 	}
 }

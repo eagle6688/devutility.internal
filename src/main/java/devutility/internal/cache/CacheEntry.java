@@ -15,6 +15,7 @@ public class CacheEntry<T> {
 	private String key;
 	private T value;
 	private long creationTime;
+	private long lastUseTime;
 	private long expirationMillis;
 	private long expirationTime;
 
@@ -91,7 +92,7 @@ public class CacheEntry<T> {
 			return false;
 		}
 
-		return System.currentTimeMillis() >= this.expirationMillis;
+		return System.currentTimeMillis() >= this.expirationTime;
 	}
 
 	/**
@@ -112,6 +113,7 @@ public class CacheEntry<T> {
 	}
 
 	public Object getValue() {
+		this.lastUseTime = System.currentTimeMillis();
 		return value;
 	}
 
@@ -121,6 +123,10 @@ public class CacheEntry<T> {
 
 	public long getCreationTime() {
 		return creationTime;
+	}
+
+	public long getLastUseTime() {
+		return lastUseTime;
 	}
 
 	public long getExpirationMillis() {
