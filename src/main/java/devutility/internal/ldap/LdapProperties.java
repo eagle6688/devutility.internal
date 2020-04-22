@@ -13,6 +13,11 @@ public class LdapProperties {
 	private String principalPattern;
 	private String filterPattern;
 
+	/**
+	 * Need validate certificate?
+	 */
+	private boolean validateCert;
+
 	public LdapProperties() {
 	}
 
@@ -59,5 +64,13 @@ public class LdapProperties {
 
 	public String filter(Object... args) {
 		return String.format(filterPattern, args);
+	}
+
+	public boolean isValidateCert() {
+		return validateCert;
+	}
+
+	public void setValidateCert(boolean validateCert) {
+		this.validateCert = validateCert;
 	}
 }

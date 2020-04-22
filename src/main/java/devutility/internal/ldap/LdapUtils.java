@@ -13,6 +13,8 @@ import javax.naming.directory.SearchResult;
 import javax.naming.ldap.InitialLdapContext;
 import javax.naming.ldap.LdapContext;
 
+import devutility.internal.security.DUSocketFactory;
+
 /**
  * 
  * LdapUtils
@@ -79,23 +81,6 @@ public class LdapUtils {
 	}
 
 	/**
-	 * Get attribute value.
-	 * @param attribute Attribute object.
-	 * @return {@code List<String>}
-	 * @throws NamingException From NamingEnumeration.
-	 */
-	public static List<String> getAttributeValue(Attribute attribute) throws NamingException {
-		List<String> list = new LinkedList<>();
-		NamingEnumeration<?> namingEnumeration = attribute.getAll();
-
-		while (namingEnumeration.hasMore()) {
-			list.add(namingEnumeration.next().toString());
-		}
-
-		return list;
-	}
-
-	/**
 	 * Return a default SearchControls object.
 	 * @return SearchControls
 	 */
@@ -116,6 +101,40 @@ public class LdapUtils {
 	}
 
 	/**
+	 * Create a Hashtable object as environment for LdapContext object.
+	 * @param providerUrl Provider url for LDAP with format ldap://host:port.
+	 * @param principal Principal in LDAP system, sometimes its a login name.
+	 * @param credentials Password for specific entry in LDAP.
+	 * @return Hashtable<String,String>
+	 */
+	public static Hashtable<String, String> ldapContextEnvironment(String providerUrl, String principal, String credentials) {
+		Hashtable<String, String> environment = new Hashtable<>();
+		environment.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
+		environment.put(Context.SECURITY_AUTHENTICATION, "simple");
+		environment.put(Context.PROVIDER_URL, providerUrl);
+		environment.put(Context.SECURITY_PRINCIPAL, principal);
+		environment.put(Context.SECURITY_CREDENTIALS, credentials);
+		return environment;
+	}
+
+	/**
+	 * Create a Hashtable object as environment for LdapContext object.
+	 * @param ldapProperties LdapProperties object.
+	 * @param principal Principal in LDAP system, sometimes its a login name.
+	 * @param password Password for specific entry in LDAP.
+	 * @return Hashtable<String,String>
+	 */
+	public static Hashtable<String, String> ldapContextEnvironment(LdapProperties ldapProperties, String principal, String password) {
+		Hashtable<String, String> environment = ldapContextEnvironment(ldapProperties.getUrl(), principal, password);
+
+		if (ldapProperties.getUrl().startsWith("ldaps://") && !ldapProperties.isValidateCert()) {
+			environment.put("java.naming.ldap.factory.socket", DUSocketFactory.class.getName());
+		}
+
+		return environment;
+	}
+
+	/**
 	 * Initializing a LdapContext instance.
 	 * @param providerUrl Provider url for LDAP with format ldap://host:port.
 	 * @param principal Principal in LDAP system, sometimes its a login name.
@@ -124,12 +143,7 @@ public class LdapUtils {
 	 * @throws NamingException
 	 */
 	public static LdapContext ldapContext(String providerUrl, String principal, String credentials) throws NamingException {
-		Hashtable<String, String> environment = new Hashtable<>();
-		environment.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
-		environment.put(Context.SECURITY_AUTHENTICATION, "simple");
-		environment.put(Context.PROVIDER_URL, providerUrl);
-		environment.put(Context.SECURITY_PRINCIPAL, principal);
-		environment.put(Context.SECURITY_CREDENTIALS, credentials);
+		Hashtable<String, String> environment = ldapContextEnvironment(providerUrl, principal, credentials);
 		return new InitialLdapContext(environment, null);
 	}
 
@@ -226,6 +240,23 @@ public class LdapUtils {
 			}
 
 			list.add(entry);
+		}
+
+		return list;
+	}
+
+	/**
+	 * Get attribute value.
+	 * @param attribute Attribute object.
+	 * @return {@code List<String>}
+	 * @throws NamingException From NamingEnumeration.
+	 */
+	public static List<String> getAttributeValue(Attribute attribute) throws NamingException {
+		List<String> list = new LinkedList<>();
+		NamingEnumeration<?> namingEnumeration = attribute.getAll();
+
+		while (namingEnumeration.hasMore()) {
+			list.add(namingEnumeration.next().toString());
 		}
 
 		return list;

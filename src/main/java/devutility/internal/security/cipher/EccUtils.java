@@ -1,4 +1,4 @@
-package devutility.internal.security;
+package devutility.internal.security.cipher;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;

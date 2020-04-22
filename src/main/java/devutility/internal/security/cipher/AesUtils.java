@@ -1,4 +1,4 @@
-package devutility.internal.security;
+package devutility.internal.security.cipher;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;

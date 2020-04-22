@@ -16,6 +16,9 @@ import devutility.internal.util.CollectionUtils;
  * @version: 2019-04-19 15:29:19
  */
 public class LdapHelper {
+	/**
+	 * Ldap configuration
+	 */
 	private LdapProperties ldapProperties;
 
 	public LdapHelper() {
@@ -23,14 +26,6 @@ public class LdapHelper {
 
 	public LdapHelper(LdapProperties ldapProperties) {
 		this.setLdapProperties(ldapProperties);
-	}
-
-	public LdapProperties getLdapProperties() {
-		return ldapProperties;
-	}
-
-	public void setLdapProperties(LdapProperties ldapProperties) {
-		this.ldapProperties = ldapProperties;
 	}
 
 	public LdapEntry findOne(String principal, String password, String filter, SearchControls searchControls) throws NamingException {
@@ -50,5 +45,13 @@ public class LdapHelper {
 
 	public LdapEntry findOne(String principal, String password, String filter) throws NamingException {
 		return findOne(principal, password, filter, LdapUtils.searchControls());
+	}
+
+	public LdapProperties getLdapProperties() {
+		return ldapProperties;
+	}
+
+	public void setLdapProperties(LdapProperties ldapProperties) {
+		this.ldapProperties = ldapProperties;
 	}
 }

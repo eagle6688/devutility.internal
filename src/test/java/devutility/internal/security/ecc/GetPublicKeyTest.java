@@ -3,7 +3,7 @@ package devutility.internal.security.ecc;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 
-import devutility.internal.security.EccUtils;
+import devutility.internal.security.cipher.EccUtils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 

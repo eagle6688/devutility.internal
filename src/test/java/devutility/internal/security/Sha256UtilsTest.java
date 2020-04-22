@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import devutility.internal.security.cipher.Sha256Utils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
