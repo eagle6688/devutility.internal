@@ -13,8 +13,6 @@ import javax.naming.directory.SearchResult;
 import javax.naming.ldap.InitialLdapContext;
 import javax.naming.ldap.LdapContext;
 
-import devutility.internal.security.DUSocketFactory;
-
 /**
  * 
  * LdapUtils
@@ -81,14 +79,6 @@ public class LdapUtils {
 	}
 
 	/**
-	 * Return a default SearchControls object.
-	 * @return SearchControls
-	 */
-	public static SearchControls searchControls() {
-		return searchControls(null);
-	}
-
-	/**
 	 * Return a SearchControls object with specified attributes.
 	 * @param attributes Attributes should contained in return data.
 	 * @return SearchControls
@@ -98,6 +88,14 @@ public class LdapUtils {
 		searchControls.setSearchScope(SearchControls.SUBTREE_SCOPE);
 		searchControls.setReturningAttributes(attributes);
 		return searchControls;
+	}
+
+	/**
+	 * Return a default SearchControls object.
+	 * @return SearchControls
+	 */
+	public static SearchControls searchControls() {
+		return searchControls(null);
 	}
 
 	/**
@@ -114,23 +112,6 @@ public class LdapUtils {
 		environment.put(Context.PROVIDER_URL, providerUrl);
 		environment.put(Context.SECURITY_PRINCIPAL, principal);
 		environment.put(Context.SECURITY_CREDENTIALS, credentials);
-		return environment;
-	}
-
-	/**
-	 * Create a Hashtable object as environment for LdapContext object.
-	 * @param ldapProperties LdapProperties object.
-	 * @param principal Principal in LDAP system, sometimes its a login name.
-	 * @param password Password for specific entry in LDAP.
-	 * @return Hashtable<String,String>
-	 */
-	public static Hashtable<String, String> ldapContextEnvironment(LdapProperties ldapProperties, String principal, String password) {
-		Hashtable<String, String> environment = ldapContextEnvironment(ldapProperties.getUrl(), principal, password);
-
-		if (ldapProperties.getUrl().startsWith("ldaps://") && !ldapProperties.isValidateCert()) {
-			environment.put("java.naming.ldap.factory.socket", DUSocketFactory.class.getName());
-		}
-
 		return environment;
 	}
 
@@ -172,22 +153,6 @@ public class LdapUtils {
 				}
 			}
 		}
-	}
-
-	/**
-	 * Search LdapEntry objects in Ldap system.
-	 * @param providerUrl Provider url for LDAP with format ldap://host:port.
-	 * @param principal Principal in LDAP system, sometimes its a login name.
-	 * @param password Password for specific entry in LDAP.
-	 * @param name The name of the context or object to search.
-	 * @param filter The filter expression to use for the search; may not be null.
-	 * @param searchControls SearchControls object.
-	 * @return {@code List<LdapEntry>}
-	 * @throws NamingException
-	 */
-	public static List<LdapEntry> search(String providerUrl, String principal, String password, String name, String filter, SearchControls searchControls) throws NamingException {
-		LdapContext context = ldapContext(providerUrl, principal, password);
-		return search(context, name, filter, searchControls);
 	}
 
 	/**
