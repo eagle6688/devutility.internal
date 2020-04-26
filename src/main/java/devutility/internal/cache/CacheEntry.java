@@ -14,9 +14,13 @@ import devutility.internal.util.CollectionUtils;
 public class CacheEntry<T> {
 	private String key;
 	private T value;
+	private long expirationMillis;
+
+	/**
+	 * CacheEntry object created time, depend on machine clock.
+	 */
 	private long creationTime;
 	private long lastUseTime;
-	private long expirationMillis;
 	private long expirationTime;
 
 	/**
@@ -129,14 +133,6 @@ public class CacheEntry<T> {
 		this.value = value;
 	}
 
-	public long getCreationTime() {
-		return creationTime;
-	}
-
-	public long getLastUseTime() {
-		return lastUseTime;
-	}
-
 	public long getExpirationMillis() {
 		return expirationMillis;
 	}
@@ -144,6 +140,14 @@ public class CacheEntry<T> {
 	public void setExpirationMillis(long expirationMillis) {
 		this.expirationMillis = expirationMillis;
 		this.setExpirationTime(expirationMillis);
+	}
+
+	public long getCreationTime() {
+		return creationTime;
+	}
+
+	public long getLastUseTime() {
+		return lastUseTime;
 	}
 
 	public long getExpirationTime() {
