@@ -104,6 +104,14 @@ public class CacheEntry<T> {
 		return this.creationTime >= timestamp;
 	}
 
+	/**
+	 * Return idle millis.
+	 * @return long
+	 */
+	public long idleMillis() {
+		return System.currentTimeMillis() - this.lastUseTime;
+	}
+
 	public String getKey() {
 		return key;
 	}
@@ -135,14 +143,19 @@ public class CacheEntry<T> {
 
 	public void setExpirationMillis(long expirationMillis) {
 		this.expirationMillis = expirationMillis;
-		this.expirationTime = 0;
-
-		if (expirationMillis > 0) {
-			this.expirationTime = this.creationTime + expirationMillis;
-		}
+		this.setExpirationTime(expirationMillis);
 	}
 
 	public long getExpirationTime() {
 		return expirationTime;
+	}
+
+	private void setExpirationTime(long expirationMillis) {
+		if (expirationMillis <= 0) {
+			this.expirationTime = 0;
+			return;
+		}
+
+		this.expirationTime = this.creationTime + expirationMillis;
 	}
 }
