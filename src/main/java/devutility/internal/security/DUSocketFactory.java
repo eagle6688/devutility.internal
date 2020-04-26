@@ -64,6 +64,10 @@ public class DUSocketFactory extends SocketFactory {
 		this("TLS");
 	}
 
+	public static SocketFactory getDefault() {
+		return new DUSocketFactory();
+	}
+
 	@Override
 	public Socket createSocket(String host, int port) throws IOException, UnknownHostException {
 		return this.socketFactory.createSocket(host, port);
