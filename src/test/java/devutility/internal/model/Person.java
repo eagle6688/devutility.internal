@@ -80,7 +80,7 @@ public class Person implements Comparable<Person> {
 
 	@Override
 	public String toString() {
-		return String.format("name: %s, age: %d, birthday: %s, local: %s, gender: %s", name, age, birthday, local, gender);
+		return String.format("[name: %s, age: %d, birthday: %s, local: %s, gender: %s]", name, age, birthday, local, gender);
 	}
 
 	public static Person get() {

@@ -446,8 +446,8 @@ public class ConverterUtils {
 
 	/**
 	 * Convert LocalDate to Date.
-	 * @param localDate: LocalDate object.
-	 * @param zoneId: ZoneId object, default is ZoneId.systemDefault().
+	 * @param localDate LocalDate object.
+	 * @param zoneId ZoneId object, default is ZoneId.systemDefault().
 	 * @return Date
 	 */
 	public static Date localDateToDate(LocalDate localDate, ZoneId zoneId) {
