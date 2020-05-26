@@ -53,16 +53,6 @@ public class Person implements Comparable<Person> {
 		this.birthday = birthday;
 	}
 
-	@Override
-	public int compareTo(Person person) {
-		return name.compareTo(person.name);
-	}
-
-	@Override
-	public String toString() {
-		return String.format("name: %s, age: %d, birthday: %s", name, age, birthday);
-	}
-
 	public static int compareByAge(Person person1, Person person2) {
 		return Integer.compare(person1.getAge(), person2.getAge());
 	}
@@ -83,6 +73,16 @@ public class Person implements Comparable<Person> {
 		this.gender = gender;
 	}
 
+	@Override
+	public int compareTo(Person person) {
+		return name.compareTo(person.name);
+	}
+
+	@Override
+	public String toString() {
+		return String.format("name: %s, age: %d, birthday: %s, local: %s, gender: %s", name, age, birthday, local, gender);
+	}
+
 	public static Person get() {
 		List<Person> persons = list(1);
 		return persons.get(0);
@@ -95,6 +95,9 @@ public class Person implements Comparable<Person> {
 
 		for (int i = 0; i < count; i++) {
 			Person person = new Person();
+			person.setName(String.format("Person %d", i));
+			person.setAge(RandomUtils.getNumber(10, 40));
+
 			int year = RandomUtils.getNumber(currentYear - count, currentYear);
 			int month = RandomUtils.getNumber(1, 12);
 			int day = RandomUtils.getNumber(1, 28);

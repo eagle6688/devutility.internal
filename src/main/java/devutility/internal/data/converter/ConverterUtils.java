@@ -1,5 +1,9 @@
 package devutility.internal.data.converter;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -17,6 +21,7 @@ import java.util.List;
 import devutility.internal.annotation.Convertor;
 import devutility.internal.com.SingletonFactory;
 import devutility.internal.lang.ArrayUtils;
+import devutility.internal.lang.BytesUtils;
 import devutility.internal.lang.StringUtils;
 import devutility.internal.lang.reflect.MethodUtils;
 import devutility.internal.util.CollectionUtils;
@@ -224,6 +229,27 @@ public class ConverterUtils {
 	}
 
 	/**
+	 * Convert byte array to Object.
+	 * @param bytes byte array.
+	 * @return Object
+	 */
+	public static Object bytesToObject(byte[] bytes) {
+		if (BytesUtils.isNullOrEmpty(bytes)) {
+			return null;
+		}
+
+		Object value = null;
+
+		try (ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes); ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream)) {
+			value = objectInputStream.readObject();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return value;
+	}
+
+	/**
 	 * Convert string value to specific type.
 	 * @param value string value.
 	 * @param clazz target class.
@@ -400,7 +426,26 @@ public class ConverterUtils {
 	}
 
 	/**
-	 * Convert LocalDate To Date
+	 * Convert Object to bytes array.
+	 * @param object Object.
+	 * @return byte[]
+	 */
+	public static byte[] objectToBytes(Object object) {
+		byte[] bytes = null;
+
+		try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(); ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream)) {
+			objectOutputStream.writeObject(object);
+			objectOutputStream.flush();
+			bytes = byteArrayOutputStream.toByteArray();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return bytes;
+	}
+
+	/**
+	 * Convert LocalDate to Date.
 	 * @param localDate: LocalDate object.
 	 * @param zoneId: ZoneId object, default is ZoneId.systemDefault().
 	 * @return Date

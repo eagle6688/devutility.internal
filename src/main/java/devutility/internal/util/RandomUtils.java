@@ -57,4 +57,13 @@ public class RandomUtils {
 		int bound = upper - lower + 1;
 		return RANDOM.nextInt(bound) + lower;
 	}
+
+	/**
+	 * Retrun a random Bool value.
+	 * @return boolean
+	 */
+	public static boolean getBoolean() {
+		int value = getNumber(1, 10);
+		return value <= 5;
+	}
 }
