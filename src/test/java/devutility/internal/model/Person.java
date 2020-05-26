@@ -102,6 +102,9 @@ public class Person implements Comparable<Person> {
 			int month = RandomUtils.getNumber(1, 12);
 			int day = RandomUtils.getNumber(1, 28);
 			person.setBirthday(ConverterUtils.localDateToDate(LocalDate.of(year, month, day), null));
+
+			person.setLocal(RandomUtils.getBoolean());
+			person.setGender(RandomUtils.getBoolean() ? Gender.MALE : Gender.FEMALE);
 			list.add(person);
 		}
 
