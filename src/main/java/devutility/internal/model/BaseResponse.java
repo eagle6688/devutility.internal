@@ -2,25 +2,28 @@ package devutility.internal.model;
 
 public class BaseResponse<T> {
 	private boolean succeeded;
-	private StringBuffer message = new StringBuffer("");
+	private String message;
 	private T data;
 	private int code;
 
+	public BaseResponse(boolean succeeded, String message, T data, int code) {
+		this.setSucceeded(succeeded);
+		this.setMessage(message);
+		this.setData(data);
+		this.setCode(code);
+	}
+
+	public BaseResponse(T data) {
+		this(true, null, data, 0);
+	}
+
 	public BaseResponse() {
-		succeeded = true;
-	}
-
-	public void appendMessage(String message) {
-		this.message.append(message);
-	}
-
-	public void appendErrorMessage(String message) {
-		setSucceeded(false);
-		appendMessage(message);
+		this.setSucceeded(true);
 	}
 
 	public void setErrorMessage(String message) {
-		appendErrorMessage(message);
+		this.setSucceeded(false);
+		this.setMessage(message);
 	}
 
 	public boolean isSucceeded() {
@@ -31,12 +34,12 @@ public class BaseResponse<T> {
 		this.succeeded = succeeded;
 	}
 
-	public StringBuffer getMessage() {
+	public String getMessage() {
 		return message;
 	}
 
 	public void setMessage(String message) {
-		appendMessage(message);
+		this.message = message;
 	}
 
 	public T getData() {
