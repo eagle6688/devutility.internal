@@ -55,6 +55,16 @@ public class GenericTypeUtils {
 	}
 
 	/**
+	 * Get generic type.
+	 * @param type Type with generic type.
+	 * @return Type Generic type.
+	 */
+	public static Type getGenericType(Type type) {
+		ParameterizedType parameterizedType = typeToParameterizedType(type);
+		return getGenericType(parameterizedType);
+	}
+
+	/**
 	 * Get actual generic type by field's parameterized type.
 	 * @param field Field object.
 	 * @return Type
