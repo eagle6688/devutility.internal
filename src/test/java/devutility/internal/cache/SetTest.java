@@ -11,6 +11,9 @@ public class SetTest extends BaseTest {
 	public void run() {
 		List<String> list = new ArrayList<String>();
 		System.out.println(MemoryCache.set("test", list));
+
+		SetTest model = new SetTest();
+		System.out.println(MemoryCache.set("test1", model));
 	}
 
 	public static void main(String[] args) {

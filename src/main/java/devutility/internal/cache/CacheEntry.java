@@ -1,9 +1,5 @@
 package devutility.internal.cache;
 
-import java.util.Collection;
-
-import devutility.internal.util.CollectionUtils;
-
 /**
  * 
  * CacheEntry
@@ -38,7 +34,6 @@ public class CacheEntry<T> {
 		this.value = value;
 		this.setExpirationMillis(expirationMillis);
 		this.creationTime = System.currentTimeMillis();
-		this.verification();
 	}
 
 	/**
@@ -71,23 +66,6 @@ public class CacheEntry<T> {
 	 * Constructor
 	 */
 	public CacheEntry() {
-	}
-
-	/**
-	 * Verification for parameters.
-	 */
-	private void verification() {
-		if (value == null) {
-			throw new IllegalArgumentException("Cache value can't be null!");
-		}
-
-		if (Collection.class.isAssignableFrom(this.value.getClass())) {
-			Collection<?> collection = Collection.class.cast(this.value);
-
-			if (CollectionUtils.isNullOrEmpty(collection)) {
-				throw new IllegalArgumentException("Cache value can't be empty!");
-			}
-		}
 	}
 
 	/**
