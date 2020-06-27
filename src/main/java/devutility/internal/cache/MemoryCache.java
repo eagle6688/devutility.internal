@@ -1,11 +1,7 @@
 package devutility.internal.cache;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
-import java.util.Vector;
 
 /**
  * 
@@ -38,7 +34,19 @@ public class MemoryCache {
 	}
 
 	/**
-	 * Set cache data in container.
+	 * Set data in cache container.
+	 * @param key Key of CacheEntry object in cache container.
+	 * @param value Cache value.
+	 * @param expirationMillis Expiration time in milliseconds, default 0 means no expiration.
+	 * @param version Version of CacheEntry object.
+	 * @return boolean
+	 */
+	public static <T> boolean set(String key, T value, long expirationMillis, long version) {
+		return set(new CacheEntry<T>(key, value, expirationMillis, version));
+	}
+
+	/**
+	 * Set data in cache container.
 	 * @param key Key of CacheEntry object in cache container.
 	 * @param value Cache value.
 	 * @param expirationMillis Expiration time in milliseconds, default 0 means no expiration.
@@ -59,20 +67,58 @@ public class MemoryCache {
 	}
 
 	/**
-	 * Get cache value from memory.
-	 * @param key Cache key for value.
-	 * @param timestamp This field is used for determine whether the version of cache is the latest version.
-	 * @return Object
+	 * Delete CacheEntry object from cache container.
+	 * @param key Key of CacheEntry object in cache container.
 	 */
-	public static Object get(String key, long timestamp) {
+	public static synchronized void del(String key) {
+		if (CONTAINER.containsKey(key)) {
+			CONTAINER.remove(key);
+		}
+	}
+
+	/**
+	 * Get CacheEntry<T> object from cache container.
+	 * @param key Key of CacheEntry object in cache container.
+	 * @param version The latest version, this field is used for determine whether the version of cache is the latest
+	 *            version.
+	 * @return {@code CacheEntry<T>}
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> CacheEntry<T> getEntry(String key, long version) {
 		CacheEntry<?> entry = CONTAINER.get(key);
 
 		if (entry == null) {
 			return null;
 		}
 
-		if (entry.isExpired() || !entry.isLatest(timestamp)) {
+		if (!entry.isAvailable(version)) {
 			del(key);
+			return null;
+		}
+
+		return (CacheEntry<T>) entry;
+	}
+
+	/**
+	 * Get CacheEntry<T> object from cache container.
+	 * @param key Key of CacheEntry object in cache container.
+	 * @return {@code CacheEntry<T>}
+	 */
+	public static <T> CacheEntry<T> getEntry(String key) {
+		return getEntry(key, 0);
+	}
+
+	/**
+	 * Get value from cache container.
+	 * @param key Key of CacheEntry object in cache container.
+	 * @param version The latest version, this field is used for determine whether the version of cache is the latest
+	 *            version.
+	 * @return {@code T}
+	 */
+	public static <T> T get(String key, long version) {
+		CacheEntry<T> entry = getEntry(key, version);
+
+		if (entry == null) {
 			return null;
 		}
 
@@ -80,103 +126,11 @@ public class MemoryCache {
 	}
 
 	/**
-	 * Get cache value from memory and convert to original type.
-	 * @param key Cache key for value.
-	 * @param timestamp This field is used for determine whether the version of cache is the latest version.
-	 * @param clazz Original Class object.
+	 * Get value from cache container.
+	 * @param key Key of CacheEntry object in cache container.
 	 * @return {@code T}
 	 */
-	public static <T> T get(String key, long timestamp, Class<T> clazz) {
-		Object value = get(key, timestamp);
-
-		if (value == null) {
-			return null;
-		}
-
-		return clazz.cast(value);
-	}
-
-	/**
-	 * Get cache value from memory.
-	 * @param key Cache key for value.
-	 * @return Object
-	 */
-	public static Object get(String key) {
+	public static <T> T get(String key) {
 		return get(key, 0);
-	}
-
-	/**
-	 * Get cache value from memory.
-	 * @param key Cache key for value.
-	 * @param clazz Original Class object.
-	 * @return {@code T}
-	 */
-	public static <T> T get(String key, Class<T> clazz) {
-		Object value = get(key);
-
-		if (value == null) {
-			return null;
-		}
-
-		return clazz.cast(value);
-	}
-
-	/**
-	 * Get cache value from memory and convert to List.
-	 * @param key Cache key for value.
-	 * @param clazz Original Class object.
-	 * @return {@code List<T>}
-	 */
-	public static <T> List<T> list(String key, Class<T> clazz) {
-		return list(key, 0, clazz);
-	}
-
-	/**
-	 * Get cache value from memory and convert to List.
-	 * @param key Cache key for value.
-	 * @param timestamp This field is used for determine whether the version of cache is the latest version.
-	 * @param clazz Original Class object.
-	 * @return {@code List<E>}
-	 */
-	@SuppressWarnings("unchecked")
-	public static <E> List<E> list(String key, long timestamp, Class<E> clazz) {
-		List<E> list = new ArrayList<>();
-		Object value = get(key, timestamp);
-
-		if (value == null) {
-			return list;
-		}
-
-		Class<?> valueClazz = value.getClass();
-
-		if (!List.class.isAssignableFrom(valueClazz)) {
-			return list;
-		}
-
-		if (ArrayList.class.isAssignableFrom(valueClazz)) {
-			return (ArrayList<E>) value;
-		}
-
-		if (LinkedList.class.isAssignableFrom(valueClazz)) {
-			return (LinkedList<E>) value;
-		}
-
-		if (Vector.class.isAssignableFrom(valueClazz)) {
-			return (Vector<E>) value;
-		}
-
-		return list;
-	}
-
-	/**
-	 * Delete CacheEntry from memory.
-	 * @param key Cache key for value.
-	 */
-	public static void del(String key) {
-		synchronized (MemoryCache.class) {
-			if (CONTAINER.containsKey(key)) {
-				CONTAINER.remove(key);
-			}
-		}
 	}
 }

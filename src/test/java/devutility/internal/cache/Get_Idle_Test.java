@@ -6,19 +6,26 @@ import devutility.internal.model.data.IntegerData;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
-public class GetTest extends BaseTest {
+public class Get_Idle_Test extends BaseTest {
+	private String key = this.getClass().getName();
+
 	@Override
 	public void run() {
-		test(2000);
+		test(2000, 2001);
+		test(2000, 2000);
+		test(2000, 1500);
 	}
 
-	void test(long sleepMillis) {
-		String key = this.getClass().getName();
-		List<Integer> list = IntegerData.list(10);
+	void test(long maxIdleMillis, long sleepMillis) {
+		CacheEntry<List<Integer>> cacheEntry = new CacheEntry<List<Integer>>(key, IntegerData.list(10));
+		cacheEntry.setMaxIdleMillis(maxIdleMillis);
 
-		if (MemoryCache.set(key, list)) {
+		if (MemoryCache.set(cacheEntry)) {
 			println("Save data successfully!");
 		}
+
+		List<Integer> list = MemoryCache.get(key);
+		System.out.println(list);
 
 		try {
 			Thread.sleep(sleepMillis);
@@ -31,6 +38,6 @@ public class GetTest extends BaseTest {
 	}
 
 	public static void main(String[] args) {
-		TestExecutor.run(GetTest.class);
+		TestExecutor.run(Get_Idle_Test.class);
 	}
 }

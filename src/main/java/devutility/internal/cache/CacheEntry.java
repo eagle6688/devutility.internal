@@ -23,14 +23,14 @@ public class CacheEntry<T> {
 	 * @param key Key of CacheEntry object in cache container.
 	 * @param value Cache value.
 	 * @param expirationMillis Expiration time in milliseconds, default 0 means no expiration.
-	 * @param version version of CacheEntry object.
+	 * @param version Version of CacheEntry object.
 	 */
 	public CacheEntry(String key, T value, long expirationMillis, long version) {
 		this.key = key;
 		this.value = value;
+		this.creationTime = System.currentTimeMillis();
 		this.setExpirationMillis(expirationMillis);
 		this.version = version;
-		this.creationTime = System.currentTimeMillis();
 
 		if (this.version == 0) {
 			this.version = this.creationTime;
@@ -58,23 +58,6 @@ public class CacheEntry<T> {
 
 	/**
 	 * Constructor
-	 * @param value Cache value.
-	 * @param expirationMillis Expiration time in milliseconds, default 0 means no expiration.
-	 */
-	public CacheEntry(T value, long expirationMillis) {
-		this(CacheConfig.getKey(value), value, expirationMillis);
-	}
-
-	/**
-	 * Constructor
-	 * @param value Cache value.
-	 */
-	public CacheEntry(T value) {
-		this(value, 0);
-	}
-
-	/**
-	 * Constructor
 	 */
 	public CacheEntry() {
 	}
@@ -88,7 +71,7 @@ public class CacheEntry<T> {
 			return this.isExceedMaxIdleTime();
 		}
 
-		return System.currentTimeMillis() >= this.expirationTime;
+		return System.currentTimeMillis() > this.expirationTime;
 	}
 
 	/**
@@ -96,7 +79,7 @@ public class CacheEntry<T> {
 	 * @return boolean
 	 */
 	public boolean isExceedMaxIdleTime() {
-		if (this.maxIdleMillis <= 0) {
+		if (this.maxIdleMillis <= 0 || this.lastUsageTime == 0) {
 			return false;
 		}
 
@@ -105,7 +88,7 @@ public class CacheEntry<T> {
 
 	/**
 	 * Check whether current cache object is latest version or not?
-	 * @param version Version for comparison.
+	 * @param version Latest version for comparison.
 	 * @return boolean
 	 */
 	public boolean isLatest(long version) {
@@ -113,7 +96,16 @@ public class CacheEntry<T> {
 	}
 
 	/**
-	 * Return idle millis.
+	 * The cache object is available means it's neither expired nor deprecated.
+	 * @param version Latest version for comparison.
+	 * @return boolean
+	 */
+	public boolean isAvailable(long version) {
+		return !isExpired() && isLatest(version);
+	}
+
+	/**
+	 * Return idle time in milliseconds.
 	 * @return long
 	 */
 	public long getIdleMillis() {
@@ -133,7 +125,7 @@ public class CacheEntry<T> {
 	}
 
 	public T getValue() {
-		this.lastUsageTime = System.currentTimeMillis();
+		this.setLastUsageTime(System.currentTimeMillis());
 		return value;
 	}
 
@@ -168,6 +160,10 @@ public class CacheEntry<T> {
 
 	public long getLastUsageTime() {
 		return lastUsageTime;
+	}
+
+	private void setLastUsageTime(long lastUsageTime) {
+		this.lastUsageTime = lastUsageTime;
 	}
 
 	public long getExpirationTime() {
