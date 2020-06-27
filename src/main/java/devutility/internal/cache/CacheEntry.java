@@ -11,17 +11,31 @@ public class CacheEntry<T> {
 	private String key;
 	private T value;
 	private long expirationMillis;
+	private long version;
 	private long maxIdleMillis;
 
-	@SuppressWarnings("rawtypes")
-	private Comparable version;
+	private long creationTime;
+	private long lastUsageTime;
+	private long expirationTime;
 
 	/**
-	 * CacheEntry object created time.
+	 * Constructor
+	 * @param key Key of CacheEntry object in cache container.
+	 * @param value Cache value.
+	 * @param expirationMillis Expiration time in milliseconds, default 0 means no expiration.
+	 * @param version version of CacheEntry object.
 	 */
-	private long creationTime;
-	private long lastUseTime;
-	private long expirationTime;
+	public CacheEntry(String key, T value, long expirationMillis, long version) {
+		this.key = key;
+		this.value = value;
+		this.setExpirationMillis(expirationMillis);
+		this.version = version;
+		this.creationTime = System.currentTimeMillis();
+
+		if (this.version == 0) {
+			this.version = this.creationTime;
+		}
+	}
 
 	/**
 	 * Constructor
@@ -30,10 +44,7 @@ public class CacheEntry<T> {
 	 * @param expirationMillis Expiration time in milliseconds, default 0 means no expiration.
 	 */
 	public CacheEntry(String key, T value, long expirationMillis) {
-		this.key = key;
-		this.value = value;
-		this.setExpirationMillis(expirationMillis);
-		this.creationTime = System.currentTimeMillis();
+		this(key, value, expirationMillis, 0);
 	}
 
 	/**
@@ -94,25 +105,11 @@ public class CacheEntry<T> {
 
 	/**
 	 * Check whether current cache object is latest version or not?
-	 * @param version Version object for comparison.
+	 * @param version Version for comparison.
 	 * @return boolean
 	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public boolean isLatest(Comparable version) {
-		if (this.version == null) {
-			return true;
-		}
-
-		return this.version.compareTo(version) >= 0;
-	}
-
-	/**
-	 * Check whether current cache object is latest version or not?
-	 * @param timestamp Timestamp for the latest cache data.
-	 * @return boolean
-	 */
-	public boolean isLatest(long timestamp) {
-		return this.creationTime >= timestamp;
+	public boolean isLatest(long version) {
+		return this.version >= version;
 	}
 
 	/**
@@ -120,7 +117,7 @@ public class CacheEntry<T> {
 	 * @return long
 	 */
 	public long getIdleMillis() {
-		return System.currentTimeMillis() - this.lastUseTime;
+		return System.currentTimeMillis() - this.lastUsageTime;
 	}
 
 	public String getKey() {
@@ -131,13 +128,13 @@ public class CacheEntry<T> {
 		this.key = key;
 	}
 
-	public Object getValue() {
-		this.lastUseTime = System.currentTimeMillis();
-		return value;
-	}
-
 	public void setValue(T value) {
 		this.value = value;
+	}
+
+	public T getValue() {
+		this.lastUsageTime = System.currentTimeMillis();
+		return value;
 	}
 
 	public long getExpirationMillis() {
@@ -157,13 +154,11 @@ public class CacheEntry<T> {
 		this.maxIdleMillis = maxIdleMillis;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Comparable getVersion() {
+	public long getVersion() {
 		return version;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public void setVersion(Comparable version) {
+	public void setVersion(long version) {
 		this.version = version;
 	}
 
@@ -171,8 +166,8 @@ public class CacheEntry<T> {
 		return creationTime;
 	}
 
-	public long getLastUseTime() {
-		return lastUseTime;
+	public long getLastUsageTime() {
+		return lastUsageTime;
 	}
 
 	public long getExpirationTime() {
