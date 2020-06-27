@@ -100,4 +100,9 @@ public class Member {
 
 		return this.compareValue().equals(member.compareValue());
 	}
+
+	@Override
+	public String toString() {
+		return String.format("[name=%s, value=%s, age=%d]", this.getName(), this.getValue(), this.getAge());
+	}
 }

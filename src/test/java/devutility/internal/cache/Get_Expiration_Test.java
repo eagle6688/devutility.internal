@@ -16,10 +16,7 @@ public class Get_Expiration_Test extends BaseTest {
 	void test(long expirationMillis, long increment) {
 		String key = this.getClass().getName();
 		List<Integer> list = IntegerData.list(10);
-
-		if (MemoryCache.set(key, list, expirationMillis)) {
-			println("Save data successfully!");
-		}
+		MemoryCache.set(key, list, expirationMillis);
 
 		try {
 			Thread.sleep(expirationMillis + increment);

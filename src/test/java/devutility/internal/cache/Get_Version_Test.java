@@ -20,10 +20,7 @@ public class Get_Version_Test extends BaseTest {
 	void test(long version, long lastVersion, long sleepMillis) {
 		String key = this.getClass().getName();
 		List<Integer> list = IntegerData.list(10);
-
-		if (MemoryCache.set(key, list, 0, version)) {
-			println("Save data successfully!");
-		}
+		MemoryCache.set(key, list, 0, version);
 
 		try {
 			Thread.sleep(sleepMillis);

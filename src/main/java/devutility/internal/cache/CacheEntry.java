@@ -142,6 +142,10 @@ public class CacheEntry<T> {
 		return maxIdleMillis;
 	}
 
+	/**
+	 * Once you set expirationMillis parameter, the maxIdleMillis will not work.
+	 * @param maxIdleMillis
+	 */
 	public void setMaxIdleMillis(long maxIdleMillis) {
 		this.maxIdleMillis = maxIdleMillis;
 	}

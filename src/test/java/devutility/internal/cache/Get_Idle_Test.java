@@ -19,10 +19,7 @@ public class Get_Idle_Test extends BaseTest {
 	void test(long maxIdleMillis, long sleepMillis) {
 		CacheEntry<List<Integer>> cacheEntry = new CacheEntry<List<Integer>>(key, IntegerData.list(10));
 		cacheEntry.setMaxIdleMillis(maxIdleMillis);
-
-		if (MemoryCache.set(cacheEntry)) {
-			println("Save data successfully!");
-		}
+		MemoryCache.set(cacheEntry);
 
 		List<Integer> list = MemoryCache.get(key);
 		System.out.println(list);

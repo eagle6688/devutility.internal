@@ -15,10 +15,7 @@ public class GetTest extends BaseTest {
 	void test(long sleepMillis) {
 		String key = this.getClass().getName();
 		List<Integer> list = IntegerData.list(10);
-
-		if (MemoryCache.set(key, list)) {
-			println("Save data successfully!");
-		}
+		MemoryCache.set(key, list);
 
 		try {
 			Thread.sleep(sleepMillis);
