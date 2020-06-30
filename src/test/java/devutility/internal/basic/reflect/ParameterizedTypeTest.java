@@ -64,6 +64,11 @@ public class ParameterizedTypeTest extends BaseTest {
 	void test_type(Type type) {
 		if (type instanceof Class) {
 			System.out.println("Type " + type.getTypeName() + " is instance of Class.");
+			Class<?> clazz = (Class<?>) type;
+
+			if (clazz.equals(BaseResponse.class)) {
+				System.out.println("Type " + type.getTypeName() + " equals BaseResponse class!");
+			}
 		} else {
 			System.out.println("Type " + type.getTypeName() + " is not instance of Class.");
 		}
