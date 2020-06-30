@@ -38,7 +38,7 @@ public class ParameterizedTypeTest extends BaseTest {
 		System.out.println("Type Name: " + returnType.getTypeName());
 
 		if (!(returnType instanceof ParameterizedType)) {
-			System.out.println("returnType is not instanceof ParameterizedType");
+			System.out.println("Type " + returnType.getTypeName() + " is not instanceof ParameterizedType");
 			System.out.println("");
 			return;
 		}
