@@ -16,14 +16,14 @@ public class ObjectUtils {
 	/**
 	 * Convert to http request parameter string. Such as {@literal asd=xxx&qwe=xxx}
 	 * @param object Object need to convert.
+	 * @param entityFields EntityField objects for provided object.
 	 * @return String Http request parameters.
-	 * @throws InvocationTargetException from invoke method.
-	 * @throws IllegalArgumentException from invoke method.
 	 * @throws IllegalAccessException from invoke method.
+	 * @throws IllegalArgumentException from invoke method.
+	 * @throws InvocationTargetException from invoke method.
 	 */
-	public static String toHttpRequestParams(Object object) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	public static String toHttpRequestParams(Object object, List<EntityField> entityFields) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		StringBuffer buffer = new StringBuffer();
-		List<EntityField> entityFields = ClassUtils.getEntityFields(object.getClass());
 
 		for (EntityField entityField : entityFields) {
 			Object value = entityField.getValue(object);
@@ -38,5 +38,18 @@ public class ObjectUtils {
 		}
 
 		return buffer.toString();
+	}
+
+	/**
+	 * Convert to http request parameter string. Such as {@literal asd=xxx&qwe=xxx}
+	 * @param object Object need to convert.
+	 * @return String Http request parameters.
+	 * @throws InvocationTargetException from invoke method.
+	 * @throws IllegalArgumentException from invoke method.
+	 * @throws IllegalAccessException from invoke method.
+	 */
+	public static String toHttpRequestParams(Object object) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		List<EntityField> entityFields = ClassUtils.getEntityFields(object.getClass());
+		return toHttpRequestParams(object, entityFields);
 	}
 }
