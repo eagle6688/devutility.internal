@@ -1,6 +1,8 @@
 package devutility.internal.lang;
 
 import java.lang.reflect.InvocationTargetException;
+import java.math.BigInteger;
+import java.util.Collection;
 import java.util.List;
 
 import devutility.internal.model.EntityField;
@@ -10,7 +12,7 @@ import devutility.internal.model.EntityField;
  * ObjectUtils
  * 
  * @author: Aldwin Su
- * @version: 2019-12-20 17:50:11
+ * @creation: 2019-12-20 17:50:11
  */
 public class ObjectUtils {
 	/**
@@ -28,13 +30,26 @@ public class ObjectUtils {
 		for (EntityField entityField : entityFields) {
 			Object value = entityField.getValue(object);
 
-			if (value != null) {
-				buffer.append(String.format("%s=%s&", entityField.getField().getName(), value.toString()));
+			if (value == null) {
+				continue;
 			}
+
+			if (Collection.class.isAssignableFrom(value.getClass())) {
+				@SuppressWarnings({ "rawtypes", "unchecked" })
+				String collectionString = String.join(",", (Collection) value);
+				buffer.append(String.format("%s=%s&", entityField.getField().getName(), collectionString));
+				continue;
+			}
+
+			if (value.getClass().isArray()) {
+				continue;
+			}
+
+			buffer.append(String.format("%s=%s&", entityField.getField().getName(), value.toString()));
 		}
 
 		if (buffer.length() > 0) {
-			buffer = buffer.deleteCharAt(buffer.length() - 1);
+			buffer.deleteCharAt(buffer.length() - 1);
 		}
 
 		return buffer.toString();
@@ -51,5 +66,53 @@ public class ObjectUtils {
 	public static String toHttpRequestParams(Object object) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		List<EntityField> entityFields = ClassUtils.getEntityFields(object.getClass());
 		return toHttpRequestParams(object, entityFields);
+	}
+
+	public static int hashCode(Object... args) {
+		BigInteger result = BigInteger.ZERO;
+
+		return result.intValue();
+	}
+
+	public static int hashCode(Object value) {
+		if (value == null) {
+			return 0;
+		}
+
+		if (value instanceof Byte) {
+			return (byte) value;
+		}
+
+		if (value instanceof Short) {
+			return (short) value;
+		}
+
+		if (value instanceof Integer) {
+			return (int) value;
+		}
+
+		if (value instanceof Long) {
+			long _value = (long) value;
+			return (int) (_value ^ (_value >>> 32));
+		}
+
+		if (value instanceof Float) {
+			return Float.floatToIntBits((float) value);
+		}
+
+		if (value instanceof Double) {
+			long _value = Double.doubleToLongBits((long) value);
+			return hashCode(_value);
+		}
+
+		if (value instanceof Boolean) {
+			return (boolean) value ? 1 : 0;
+		}
+
+		if (value instanceof Character) {
+			return (int) ((char) value);
+		}
+
+		return value.hashCode();
 	}
 }
