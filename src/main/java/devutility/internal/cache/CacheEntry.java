@@ -5,17 +5,40 @@ package devutility.internal.cache;
  * CacheEntry
  * 
  * @author: Aldwin Su
- * @version: 2017-11-22 17:40:28
+ * @creation: 2017-11-22 17:40:28
  */
 public class CacheEntry<T> {
 	private String key;
 	private T value;
+
+	/**
+	 * Optional parameter, default value 0 means never expire. This parameter with higher priority than maxIdleMillis.
+	 */
 	private long expirationMillis;
+
+	/**
+	 * Optional parameter, default value is creationTime in milliseconds. Very usefull in distributed system.
+	 */
 	private long version;
+
+	/**
+	 * Optional parameter, default value 0 allows endless idle. This parameter with lower priority than expirationMillis.
+	 */
 	private long maxIdleMillis;
 
+	/**
+	 * Internal parameter, automatical value.
+	 */
 	private long creationTime;
+
+	/**
+	 * Internal parameter, last usage time for current CacheEntry object.
+	 */
 	private long lastUsageTime;
+
+	/**
+	 * Internal parameter, equals currentTime plus expirationMillis.
+	 */
 	private long expirationTime;
 
 	/**
@@ -29,12 +52,14 @@ public class CacheEntry<T> {
 		this.key = key;
 		this.value = value;
 		this.creationTime = System.currentTimeMillis();
-		this.setExpirationMillis(expirationMillis);
+		this.expirationMillis = expirationMillis;
 		this.version = version;
 
 		if (this.version == 0) {
 			this.version = this.creationTime;
 		}
+
+		this.setExpirationTime(this.creationTime, this.expirationMillis);
 	}
 
 	/**
@@ -63,6 +88,15 @@ public class CacheEntry<T> {
 	}
 
 	/**
+	 * The cache object is available means it's neither expired nor deprecated.
+	 * @param version Latest version for comparison.
+	 * @return boolean
+	 */
+	public boolean isAvailable(long version) {
+		return !isExpired() && isLatest(version);
+	}
+
+	/**
 	 * Check whether current cache object is expired or not?
 	 * @return boolean
 	 */
@@ -88,20 +122,11 @@ public class CacheEntry<T> {
 
 	/**
 	 * Check whether current cache object is latest version or not?
-	 * @param version Latest version for comparison.
+	 * @param version Cache version for comparison.
 	 * @return boolean
 	 */
 	public boolean isLatest(long version) {
 		return this.version >= version;
-	}
-
-	/**
-	 * The cache object is available means it's neither expired nor deprecated.
-	 * @param version Latest version for comparison.
-	 * @return boolean
-	 */
-	public boolean isAvailable(long version) {
-		return !isExpired() && isLatest(version);
 	}
 
 	/**
@@ -133,53 +158,48 @@ public class CacheEntry<T> {
 		return expirationMillis;
 	}
 
-	public void setExpirationMillis(long expirationMillis) {
-		this.expirationMillis = expirationMillis;
-		this.setExpirationTime(expirationMillis);
-	}
-
-	public long getMaxIdleMillis() {
-		return maxIdleMillis;
-	}
-
-	/**
-	 * Once you set expirationMillis parameter, the maxIdleMillis will not work.
-	 * @param maxIdleMillis
-	 */
-	public void setMaxIdleMillis(long maxIdleMillis) {
-		this.maxIdleMillis = maxIdleMillis;
+	public void setVersion(long version) {
+		this.version = version;
 	}
 
 	public long getVersion() {
 		return version;
 	}
 
-	public void setVersion(long version) {
-		this.version = version;
+	/**
+	 * Once you have set expirationMillis parameter, the maxIdleMillis does not work.
+	 * @param maxIdleMillis
+	 */
+	public void setMaxIdleMillis(long maxIdleMillis) {
+		this.maxIdleMillis = maxIdleMillis;
+	}
+
+	public long getMaxIdleMillis() {
+		return maxIdleMillis;
 	}
 
 	public long getCreationTime() {
 		return creationTime;
 	}
 
-	public long getLastUsageTime() {
-		return lastUsageTime;
-	}
-
 	private void setLastUsageTime(long lastUsageTime) {
 		this.lastUsageTime = lastUsageTime;
 	}
 
-	public long getExpirationTime() {
-		return expirationTime;
+	public long getLastUsageTime() {
+		return lastUsageTime;
 	}
 
-	private void setExpirationTime(long expirationMillis) {
+	private void setExpirationTime(long creationTime, long expirationMillis) {
 		if (expirationMillis <= 0) {
 			this.expirationTime = 0;
 			return;
 		}
 
-		this.expirationTime = this.creationTime + expirationMillis;
+		this.expirationTime = creationTime + expirationMillis;
+	}
+
+	public long getExpirationTime() {
+		return expirationTime;
 	}
 }

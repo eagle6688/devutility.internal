@@ -8,7 +8,7 @@ import java.util.Map;
  * MemoryCache
  * 
  * @author: Aldwin Su
- * @version: 2017-11-22 17:40:28
+ * @creation: 2017-11-22 17:40:28
  */
 public class MemoryCache {
 	/**
@@ -78,22 +78,21 @@ public class MemoryCache {
 
 	/**
 	 * Update CacheEntry object in cache container.
-	 * @param targetVersion Version of CacheEntry object need to be updated.
 	 * @param entry {@code CacheEntry<T>} object.
+	 * @param targetVersion Version of CacheEntry object need to be updated.
 	 * @return boolean
 	 */
-	public static <T> boolean update(long targetVersion, CacheEntry<T> entry) {
+	public static <T> boolean update(CacheEntry<T> entry, long targetVersion) {
 		if (entry == null) {
 			throw new IllegalArgumentException("CacheEntry can't be null!");
 		}
 
-		if (targetVersion == entry.getVersion()) {
+		if (entry.getVersion() == targetVersion) {
 			throw new IllegalArgumentException("Invalid version, current cache version can't same as new version!");
 		}
 
 		synchronized (CONTAINER) {
-			@SuppressWarnings("unchecked")
-			CacheEntry<T> cachedEntry = (CacheEntry<T>) CONTAINER.get(entry.getKey());
+			CacheEntry<T> cachedEntry = getEntry(entry.getKey());
 
 			if (cachedEntry == null) {
 				CONTAINER.put(entry.getKey(), entry);
@@ -119,7 +118,7 @@ public class MemoryCache {
 	 * @return boolean
 	 */
 	public static <T> boolean update(String key, T value, long expirationMillis, long version, long targetVersion) {
-		return update(targetVersion, new CacheEntry<T>(key, value, expirationMillis, version));
+		return update(new CacheEntry<T>(key, value, expirationMillis, version), targetVersion);
 	}
 
 	/**

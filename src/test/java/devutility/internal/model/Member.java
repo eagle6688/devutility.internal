@@ -68,6 +68,10 @@ public class Member {
 		this.longValue = longValue;
 	}
 
+	public static Member get() {
+		return list(1).get(0);
+	}
+
 	public static List<Member> list(int count) {
 		List<Member> list = new LinkedList<>();
 

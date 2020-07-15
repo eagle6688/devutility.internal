@@ -11,7 +11,7 @@ public class Update_One_Test extends BaseTest {
 	@Override
 	public void run() {
 		String threadName = Thread.currentThread().getName();
-		Member member = MemoryCache.get(key);
+		Member member = MemoryCache.get(key, version);
 		System.out.printf("Thread: %s, member: %s\n", threadName, member);
 
 		boolean result = MemoryCache.update(key, Member.list(1).get(0), System.currentTimeMillis(), version);
@@ -19,7 +19,7 @@ public class Update_One_Test extends BaseTest {
 	}
 
 	public static void main(String[] args) {
-		MemoryCache.set(key, Member.list(1).get(0), 0, version);
+		MemoryCache.set(key, Member.get(), 0, version);
 
 		TestExecutor.concurrentRun(10, Update_One_Test.class, i -> {
 			println("Finished");

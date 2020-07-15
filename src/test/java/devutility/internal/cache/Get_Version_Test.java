@@ -12,8 +12,13 @@ public class Get_Version_Test extends BaseTest {
 		long version = System.currentTimeMillis();
 		long sleepMillis = 2000L;
 
+		println("--------Test1");
 		test(version, version + 1000, sleepMillis);
+		
+		println("--------Test2");
 		test(version, version, sleepMillis);
+		
+		println("--------Test3");
 		test(version, version - 1, sleepMillis);
 	}
 

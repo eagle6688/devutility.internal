@@ -11,8 +11,13 @@ public class Get_Idle_Test extends BaseTest {
 
 	@Override
 	public void run() {
+		println("--------Test1");
 		test(2000, 2001);
+
+		println("--------Test2");
 		test(2000, 2000);
+
+		println("--------Test3");
 		test(2000, 1500);
 	}
 
