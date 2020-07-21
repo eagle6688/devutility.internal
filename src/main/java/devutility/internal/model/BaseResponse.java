@@ -1,5 +1,12 @@
 package devutility.internal.model;
 
+/**
+ * 
+ * BaseResponse
+ * 
+ * @author: Aldwin Su
+ * @creation: 2018-11-14 19:23:05
+ */
 public class BaseResponse<T> {
 	private boolean succeeded;
 	private String message;
