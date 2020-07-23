@@ -1,7 +1,6 @@
 package devutility.internal.lang;
 
 import java.lang.reflect.InvocationTargetException;
-import java.math.BigInteger;
 import java.util.Collection;
 import java.util.List;
 
@@ -42,6 +41,7 @@ public class ObjectUtils {
 			}
 
 			if (value.getClass().isArray()) {
+				//TODO: Need implementation
 				continue;
 			}
 
@@ -69,9 +69,13 @@ public class ObjectUtils {
 	}
 
 	public static int hashCode(Object... args) {
-		BigInteger result = BigInteger.ZERO;
+		int result = 3;
 
-		return result.intValue();
+		for (Object arg : args) {
+			result = result * 31 + hashCode(arg);
+		}
+
+		return result;
 	}
 
 	public static int hashCode(Object value) {
@@ -111,6 +115,10 @@ public class ObjectUtils {
 
 		if (value instanceof Character) {
 			return (int) ((char) value);
+		}
+
+		if (value.getClass().isArray()) {
+			//TODO
 		}
 
 		return value.hashCode();
