@@ -1,5 +1,6 @@
 package devutility.internal.lang.objectutils;
 
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -94,12 +95,15 @@ public class HashCodeTest extends BaseTest {
 		println("===========Test Array==============");
 		String[] array1 = { "123", "asd", "qwe" };
 		println(array1.hashCode());
+		println(Arrays.hashCode(array1));
 
 		String[] array2 = { "123", "asd", "qwe" };
 		println(array2.hashCode());
+		println(Arrays.hashCode(array2));
 
 		String[] array3 = { "456", "asd", "qwe" };
 		println(array3.hashCode());
+		println(Arrays.hashCode(array3));
 	}
 
 	public static void main(String[] args) {
