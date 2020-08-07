@@ -14,7 +14,7 @@ import devutility.internal.lang.reflect.MethodUtils;
  * EntityField
  * 
  * @author: Aldwin Su
- * @version: 2019-06-05 15:24:00
+ * @creation: 2018-03-20 23:55:03
  */
 public class EntityField {
 	private Field field;
