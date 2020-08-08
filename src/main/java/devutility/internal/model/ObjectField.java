@@ -11,16 +11,24 @@ import devutility.internal.lang.reflect.MethodUtils;
 
 /**
  * 
- * EntityField
+ * ObjectField
  * 
  * @author: Aldwin Su
  * @creation: 2018-03-20 23:55:03
  */
-public class EntityField {
+public class ObjectField {
+	private int order;
 	private Field field;
 	private Method setter;
 	private Method getter;
-	private int order;
+
+	public int getOrder() {
+		return order;
+	}
+
+	public void setOrder(int order) {
+		this.order = order;
+	}
 
 	public Field getField() {
 		return field;
@@ -44,14 +52,6 @@ public class EntityField {
 
 	public void setGetter(Method getter) {
 		this.getter = getter;
-	}
-
-	public int getOrder() {
-		return order;
-	}
-
-	public void setOrder(int order) {
-		this.order = order;
 	}
 
 	/**

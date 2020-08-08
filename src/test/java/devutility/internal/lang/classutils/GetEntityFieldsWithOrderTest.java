@@ -3,7 +3,7 @@ package devutility.internal.lang.classutils;
 import java.util.List;
 
 import devutility.internal.lang.ClassUtils;
-import devutility.internal.model.EntityField;
+import devutility.internal.model.ObjectField;
 import devutility.internal.model.Member;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
@@ -11,7 +11,7 @@ import devutility.internal.test.TestExecutor;
 public class GetEntityFieldsWithOrderTest extends BaseTest {
 	@Override
 	public void run() {
-		List<EntityField> list = ClassUtils.getEntityFields(Member.class);
+		List<ObjectField> list = ClassUtils.getEntityFields(Member.class);
 
 		list.forEach(i -> {
 			println(i.getField().getName());

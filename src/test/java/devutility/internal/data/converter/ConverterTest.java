@@ -6,7 +6,7 @@ import java.util.List;
 
 import devutility.internal.data.BeanUtils;
 import devutility.internal.lang.ClassUtils;
-import devutility.internal.model.EntityField;
+import devutility.internal.model.ObjectField;
 import devutility.internal.model.Person;
 import devutility.internal.model.constant.Gender;
 import devutility.internal.model.converter.GenderConverter;
@@ -16,7 +16,7 @@ import devutility.internal.test.TestExecutor;
 public class ConverterTest extends BaseTest {
 	@Override
 	public void run() {
-		List<EntityField> entityFields = ClassUtils.getEntityFields(Person.class);
+		List<ObjectField> entityFields = ClassUtils.getEntityFields(Person.class);
 		Person person = Person.get();
 		person.setGender(Gender.FEMALE);
 

@@ -7,7 +7,7 @@ import java.util.List;
 import devutility.internal.data.BeanUtils;
 import devutility.internal.lang.ArraysUtils;
 import devutility.internal.lang.ClassUtils;
-import devutility.internal.model.EntityField;
+import devutility.internal.model.ObjectField;
 
 public class ListUtils {
 	/**
@@ -46,7 +46,7 @@ public class ListUtils {
 	 * @throws InvocationTargetException
 	 */
 	public static <T> String[][] toArrays(List<T> list, Class<T> clazz) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
-		List<EntityField> entityFields = ClassUtils.getEntityFields(clazz);
+		List<ObjectField> entityFields = ClassUtils.getEntityFields(clazz);
 		return toArrays(list, entityFields);
 	}
 
@@ -59,7 +59,7 @@ public class ListUtils {
 	 * @throws IllegalAccessException
 	 * @throws InvocationTargetException
 	 */
-	public static <T> String[][] toArrays(List<T> list, List<EntityField> entityFields) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	public static <T> String[][] toArrays(List<T> list, List<ObjectField> entityFields) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		if (CollectionUtils.isNullOrEmpty(list) || CollectionUtils.isNullOrEmpty(entityFields)) {
 			return new String[0][];
 		}
@@ -88,7 +88,7 @@ public class ListUtils {
 	 * @throws InvocationTargetException
 	 */
 	public static <T> List<T> toEntities(String[][] arrays, Class<T> clazz) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		List<EntityField> entityFields = ClassUtils.getEntityFields(clazz);
+		List<ObjectField> entityFields = ClassUtils.getEntityFields(clazz);
 		return toEntities(arrays, clazz, entityFields);
 	}
 
@@ -102,7 +102,7 @@ public class ListUtils {
 	 * @throws IllegalArgumentException
 	 * @throws InvocationTargetException
 	 */
-	public static <T> List<T> toEntities(String[][] arrays, Class<T> clazz, List<EntityField> entityFields) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	public static <T> List<T> toEntities(String[][] arrays, Class<T> clazz, List<ObjectField> entityFields) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		if (ArraysUtils.isNullOrEmpty(arrays) || CollectionUtils.isNullOrEmpty(entityFields)) {
 			return new ArrayList<>();
 		}

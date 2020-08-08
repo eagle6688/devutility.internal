@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
-import devutility.internal.model.EntityField;
+import devutility.internal.model.ObjectField;
 import devutility.internal.util.CollectionUtils;
 
 /**
@@ -22,7 +22,7 @@ public class EntityFieldUtils {
 	 * @param includeFields Fields need include.
 	 * @return List<EntityField>
 	 */
-	public static List<EntityField> includeEntityFields(List<EntityField> entityFields, Collection<String> includeFields) {
+	public static List<ObjectField> includeEntityFields(List<ObjectField> entityFields, Collection<String> includeFields) {
 		if (CollectionUtils.isNullOrEmpty(includeFields)) {
 			return entityFields;
 		}
@@ -36,7 +36,7 @@ public class EntityFieldUtils {
 	 * @param includeFields
 	 * @return List<EntityField>
 	 */
-	public static List<EntityField> includeEntityFields(List<EntityField> entityFields, String[] includeFields) {
+	public static List<ObjectField> includeEntityFields(List<ObjectField> entityFields, String[] includeFields) {
 		if (includeFields == null || includeFields.length == 0) {
 			return entityFields;
 		}
@@ -50,7 +50,7 @@ public class EntityFieldUtils {
 	 * @param excludeFields Fields need exclude.
 	 * @return List<EntityField>
 	 */
-	public static List<EntityField> excludeEntityFields(List<EntityField> entityFields, Collection<String> excludeFields) {
+	public static List<ObjectField> excludeEntityFields(List<ObjectField> entityFields, Collection<String> excludeFields) {
 		if (CollectionUtils.isNullOrEmpty(excludeFields)) {
 			return entityFields;
 		}
@@ -64,7 +64,7 @@ public class EntityFieldUtils {
 	 * @param excludeFields Fields need exclude.
 	 * @return List<EntityField>
 	 */
-	public static List<EntityField> excludeEntityFields(List<EntityField> entityFields, String[] excludeFields) {
+	public static List<ObjectField> excludeEntityFields(List<ObjectField> entityFields, String[] excludeFields) {
 		if (excludeFields == null || excludeFields.length == 0) {
 			return entityFields;
 		}

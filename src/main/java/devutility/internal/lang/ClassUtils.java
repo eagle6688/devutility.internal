@@ -16,7 +16,7 @@ import java.util.Set;
 
 import devutility.internal.lang.reflect.FieldUtils;
 import devutility.internal.lang.reflect.MethodUtils;
-import devutility.internal.model.EntityField;
+import devutility.internal.model.ObjectField;
 import devutility.internal.util.CollectionUtils;
 
 /**
@@ -118,14 +118,14 @@ public class ClassUtils {
 	 * @param clazz Class object.
 	 * @return {@code List<EntityField>}
 	 */
-	public static List<EntityField> getEntityFields(Class<?> clazz) {
+	public static List<ObjectField> getEntityFields(Class<?> clazz) {
 		if (clazz == null) {
 			throw new IllegalArgumentException("Illegal parameter!");
 		}
 
 		List<Field> declaredFields = getAllDeclaredFields(clazz);
 		List<Method> declaredMethods = getAllDeclaredMethods(clazz);
-		List<EntityField> list = new ArrayList<>(declaredFields.size());
+		List<ObjectField> list = new ArrayList<>(declaredFields.size());
 
 		for (Field declaredField : declaredFields) {
 			Method getter = MethodUtils.getter(declaredField, declaredMethods);
@@ -135,7 +135,7 @@ public class ClassUtils {
 				continue;
 			}
 
-			EntityField entityField = new EntityField();
+			ObjectField entityField = new ObjectField();
 			entityField.setField(declaredField);
 			entityField.setSetter(setter);
 			entityField.setGetter(getter);
@@ -152,8 +152,8 @@ public class ClassUtils {
 	 * @param clazz Class object
 	 * @return {@code List<EntityField>}
 	 */
-	public static List<EntityField> getIncludedEntityFields(Collection<String> includeFields, Class<?> clazz) {
-		List<EntityField> list = getEntityFields(clazz);
+	public static List<ObjectField> getIncludedEntityFields(Collection<String> includeFields, Class<?> clazz) {
+		List<ObjectField> list = getEntityFields(clazz);
 		return EntityFieldUtils.includeEntityFields(list, includeFields);
 	}
 
@@ -163,7 +163,7 @@ public class ClassUtils {
 	 * @param clazz Class object
 	 * @return {@code List<EntityField>}
 	 */
-	public static List<EntityField> getIncludedEntityFields(String[] includeFields, Class<?> clazz) {
+	public static List<ObjectField> getIncludedEntityFields(String[] includeFields, Class<?> clazz) {
 		Set<String> fields = new HashSet<>(Arrays.asList(includeFields));
 		return getIncludedEntityFields(fields, clazz);
 	}
@@ -174,8 +174,8 @@ public class ClassUtils {
 	 * @param excludeFields Fields need exclude.
 	 * @return {@code List<EntityField>}
 	 */
-	public static List<EntityField> getNonExcludedEntityFields(Collection<String> excludeFields, Class<?> clazz) {
-		List<EntityField> list = getEntityFields(clazz);
+	public static List<ObjectField> getNonExcludedEntityFields(Collection<String> excludeFields, Class<?> clazz) {
+		List<ObjectField> list = getEntityFields(clazz);
 		return EntityFieldUtils.excludeEntityFields(list, excludeFields);
 	}
 
@@ -185,7 +185,7 @@ public class ClassUtils {
 	 * @param excludeFields Fields need exclude.
 	 * @return {@code List<EntityField>}
 	 */
-	public static List<EntityField> getNonExcludedEntityFields(String[] excludeFields, Class<?> clazz) {
+	public static List<ObjectField> getNonExcludedEntityFields(String[] excludeFields, Class<?> clazz) {
 		Set<String> fields = new HashSet<>(Arrays.asList(excludeFields));
 		return getNonExcludedEntityFields(fields, clazz);
 	}
@@ -196,8 +196,8 @@ public class ClassUtils {
 	 * @param excludeAnnotations Annotations need exclude.
 	 * @return {@code List<EntityField>}
 	 */
-	public static List<EntityField> getNonExcludedEntityFields(Annotation[] excludeAnnotations, Class<?> clazz) {
-		List<EntityField> list = getEntityFields(clazz);
+	public static List<ObjectField> getNonExcludedEntityFields(Annotation[] excludeAnnotations, Class<?> clazz) {
+		List<ObjectField> list = getEntityFields(clazz);
 		List<Annotation> annotations = Arrays.asList(excludeAnnotations);
 		return CollectionUtils.list(list, i -> !i.containAnnotations(annotations));
 	}
@@ -208,8 +208,8 @@ public class ClassUtils {
 	 * @param clazz Class object.
 	 * @return List<EntityField>
 	 */
-	public static List<EntityField> getNonAnnotationClassesEntityFields(List<Class<? extends Annotation>> annotationClasses, Class<?> clazz) {
-		List<EntityField> list = getEntityFields(clazz);
+	public static List<ObjectField> getNonAnnotationClassesEntityFields(List<Class<? extends Annotation>> annotationClasses, Class<?> clazz) {
+		List<ObjectField> list = getEntityFields(clazz);
 		return CollectionUtils.list(list, i -> !i.containAnnotationClasses(annotationClasses));
 	}
 
@@ -219,7 +219,7 @@ public class ClassUtils {
 	 * @param clazz Class object.
 	 * @return List<EntityField>
 	 */
-	public static List<EntityField> getNonAnnotationClassesEntityFields(Class<? extends Annotation>[] annotationClasses, Class<?> clazz) {
+	public static List<ObjectField> getNonAnnotationClassesEntityFields(Class<? extends Annotation>[] annotationClasses, Class<?> clazz) {
 		return getNonAnnotationClassesEntityFields(Arrays.asList(annotationClasses), clazz);
 	}
 
@@ -228,9 +228,9 @@ public class ClassUtils {
 	 * @param clazz Class object.
 	 * @return {@code List<EntityField>}
 	 */
-	public static List<EntityField> getSortedEntityFields(Class<?> clazz) {
-		List<EntityField> list = getEntityFields(clazz);
-		list.sort(Comparator.comparingInt(EntityField::getOrder));
+	public static List<ObjectField> getSortedEntityFields(Class<?> clazz) {
+		List<ObjectField> list = getEntityFields(clazz);
+		list.sort(Comparator.comparingInt(ObjectField::getOrder));
 		return list;
 	}
 
@@ -240,10 +240,10 @@ public class ClassUtils {
 	 * @param clazz Class object.
 	 * @return {@code List<EntityField>}
 	 */
-	public static List<EntityField> getSortedAndNonExcludedEntityFields(List<String> excludeFields, Class<?> clazz) {
-		List<EntityField> list = getEntityFields(clazz);
+	public static List<ObjectField> getSortedAndNonExcludedEntityFields(List<String> excludeFields, Class<?> clazz) {
+		List<ObjectField> list = getEntityFields(clazz);
 		list = EntityFieldUtils.excludeEntityFields(list, excludeFields);
-		list.sort(Comparator.comparingInt(EntityField::getOrder));
+		list.sort(Comparator.comparingInt(ObjectField::getOrder));
 		return list;
 	}
 

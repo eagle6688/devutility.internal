@@ -19,7 +19,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import devutility.internal.annotation.Convertor;
-import devutility.internal.com.SingletonFactory;
+import devutility.internal.cache.MemoryCache;
 import devutility.internal.lang.ArrayUtils;
 import devutility.internal.lang.BytesUtils;
 import devutility.internal.lang.StringUtils;
@@ -84,7 +84,7 @@ public class ConverterUtils {
 	 */
 	public static <S, T> Method getConvertorMethod(Class<S> sClazz, Class<T> tClazz) {
 		String key = ConverterCacheUtils.getCacheKeyForConvertorMethod(sClazz.getName(), tClazz.getName());
-		Method convertorMethod = SingletonFactory.get(key, Method.class);
+		Method convertorMethod = MemoryCache.get(key);
 
 		if (convertorMethod != null) {
 			return convertorMethod;
@@ -107,7 +107,7 @@ public class ConverterUtils {
 		}
 
 		if (convertorMethod != null) {
-			SingletonFactory.save(key, convertorMethod);
+			MemoryCache.set(key, convertorMethod);
 		}
 
 		return convertorMethod;

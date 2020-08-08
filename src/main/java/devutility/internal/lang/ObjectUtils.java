@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.List;
 
-import devutility.internal.model.EntityField;
+import devutility.internal.model.ObjectField;
 
 /**
  * 
@@ -23,10 +23,10 @@ public class ObjectUtils {
 	 * @throws IllegalArgumentException from invoke method.
 	 * @throws InvocationTargetException from invoke method.
 	 */
-	public static String toHttpRequestParams(Object object, List<EntityField> entityFields) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	public static String toHttpRequestParams(Object object, List<ObjectField> entityFields) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		StringBuffer buffer = new StringBuffer();
 
-		for (EntityField entityField : entityFields) {
+		for (ObjectField entityField : entityFields) {
 			Object value = entityField.getValue(object);
 
 			if (value == null) {
@@ -64,7 +64,7 @@ public class ObjectUtils {
 	 * @throws IllegalAccessException from invoke method.
 	 */
 	public static String toHttpRequestParams(Object object) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		List<EntityField> entityFields = ClassUtils.getEntityFields(object.getClass());
+		List<ObjectField> entityFields = ClassUtils.getEntityFields(object.getClass());
 		return toHttpRequestParams(object, entityFields);
 	}
 

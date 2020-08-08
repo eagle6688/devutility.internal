@@ -16,7 +16,7 @@ import devutility.internal.data.BeanUtils;
 import devutility.internal.data.converter.ConverterUtils;
 import devutility.internal.lang.ClassUtils;
 import devutility.internal.lang.StringUtils;
-import devutility.internal.model.EntityField;
+import devutility.internal.model.ObjectField;
 
 /**
  * 
@@ -219,9 +219,9 @@ public class PropertiesUtils {
 	public static <T> T toObject(Properties properties, String prefix, Class<T> clazz) throws NumberFormatException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		T object = ClassUtils.instance(clazz);
 		boolean changed = false;
-		List<EntityField> entityFields = ClassUtils.getEntityFields(clazz);
+		List<ObjectField> entityFields = ClassUtils.getEntityFields(clazz);
 
-		for (EntityField entityField : entityFields) {
+		for (ObjectField entityField : entityFields) {
 			String value = getValue(properties, prefix, entityField.getField());
 
 			if (value != null) {

@@ -3,7 +3,7 @@ package devutility.internal.data.converter;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
-import devutility.internal.com.SingletonFactory;
+import devutility.internal.cache.MemoryCache;
 
 /**
  * 
@@ -53,7 +53,7 @@ public class ConverterCacheUtils {
 		Type[] actualTypes = parameterizedType.getActualTypeArguments();
 
 		String key = getCacheKeyForConverter(actualTypes[0].getTypeName(), actualTypes[1].getTypeName());
-		SingletonFactory.save(key, converter);
+		MemoryCache.set(key, converter);
 	}
 
 	/**
@@ -65,6 +65,6 @@ public class ConverterCacheUtils {
 	@SuppressWarnings("unchecked")
 	public static <S, T> Converter<S, T> getConverterFromCache(Class<S> sClazz, Class<T> tClazz) {
 		String key = ConverterCacheUtils.getCacheKeyForConverter(sClazz.getName(), tClazz.getName());
-		return SingletonFactory.get(key, Converter.class);
+		return (Converter<S, T>) MemoryCache.get(key);
 	}
 }

@@ -10,7 +10,7 @@ import devutility.internal.data.converter.ConverterUtils;
 import devutility.internal.lang.ClassUtils;
 import devutility.internal.lang.EnumUtils;
 import devutility.internal.lang.StringUtils;
-import devutility.internal.model.EntityField;
+import devutility.internal.model.ObjectField;
 import devutility.internal.util.CollectionUtils;
 
 /**
@@ -157,7 +157,7 @@ public class BeanUtils {
 	 * @throws IllegalArgumentException from invoke method.
 	 * @throws InvocationTargetException from invoke method.
 	 */
-	public static <T> String[] toArray(T entity, List<EntityField> entityFields) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	public static <T> String[] toArray(T entity, List<ObjectField> entityFields) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		if (entity == null || entityFields.size() == 0) {
 			return null;
 		}
@@ -165,7 +165,7 @@ public class BeanUtils {
 		String[] array = new String[entityFields.size()];
 
 		for (int i = 0; i < entityFields.size(); i++) {
-			EntityField entityField = entityFields.get(i);
+			ObjectField entityField = entityFields.get(i);
 			Method method = entityField.getGetter();
 			Object value = method.invoke(entity);
 
@@ -187,7 +187,7 @@ public class BeanUtils {
 	 * @throws IllegalArgumentException from setField method.
 	 * @throws InvocationTargetException from setField method.
 	 */
-	public static <T> T toEntity(String[] array, List<EntityField> entityFields, Class<T> clazz) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	public static <T> T toEntity(String[] array, List<ObjectField> entityFields, Class<T> clazz) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		if (array == null || array.length == 0 || entityFields == null || entityFields.size() == 0) {
 			return null;
 		}
@@ -199,7 +199,7 @@ public class BeanUtils {
 				continue;
 			}
 
-			EntityField entityField = entityFields.get(i);
+			ObjectField entityField = entityFields.get(i);
 			Field field = entityField.getField();
 			Method setter = entityField.getSetter();
 			setField(setter, entity, array[i], field);
@@ -222,11 +222,11 @@ public class BeanUtils {
 		}
 
 		T model = ClassUtils.newInstance(tClazz);
-		List<EntityField> kEntityFields = ClassUtils.getEntityFields(sClazz);
-		List<EntityField> tEntityFields = ClassUtils.getEntityFields(tClazz);
+		List<ObjectField> kEntityFields = ClassUtils.getEntityFields(sClazz);
+		List<ObjectField> tEntityFields = ClassUtils.getEntityFields(tClazz);
 
-		for (EntityField kEntityField : kEntityFields) {
-			EntityField tEntityField = CollectionUtils.find(tEntityFields, i -> kEntityField.getField().getName().equals(i.getField().getName()) && kEntityField.getField().getType().equals(i.getField().getType()));
+		for (ObjectField kEntityField : kEntityFields) {
+			ObjectField tEntityField = CollectionUtils.find(tEntityFields, i -> kEntityField.getField().getName().equals(i.getField().getName()) && kEntityField.getField().getType().equals(i.getField().getType()));
 
 			if (tEntityField != null) {
 				Object value = kEntityField.getGetter().invoke(sModel);
