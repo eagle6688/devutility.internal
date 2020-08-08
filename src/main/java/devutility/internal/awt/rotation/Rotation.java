@@ -5,7 +5,7 @@ package devutility.internal.awt.rotation;
  * Rotation
  * 
  * @author: Aldwin Su
- * @version: 2020-03-09 00:03:15
+ * @creation: 2020-03-09 00:03:15
  */
 public class Rotation {
 	private RotationType type;

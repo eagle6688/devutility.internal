@@ -2,6 +2,13 @@ package devutility.internal.awt;
 
 import java.awt.RenderingHints;
 
+/**
+ * 
+ * RenderingHintsUtils
+ * 
+ * @author: Aldwin Su
+ * @creation: 2019-03-17 16:26:05
+ */
 public class RenderingHintsUtils {
 	/**
 	 * Return a RenderingHints object with high quality settings.

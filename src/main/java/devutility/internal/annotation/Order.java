@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
  * Order for field in Java entity class.
  * 
  * @author: Aldwin Su
- * @version: 2019-06-05 15:10:55
+ * @creation: 2019-06-05 15:10:55
  */
 @Retention(RUNTIME)
 @Target(FIELD)

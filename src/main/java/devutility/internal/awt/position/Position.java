@@ -5,7 +5,7 @@ package devutility.internal.awt.position;
  * Position
  * 
  * @author: Aldwin Su
- * @version: 2019-03-18 20:05:20
+ * @creation: 2019-03-18 20:05:20
  */
 public class Position {
 	private float x;

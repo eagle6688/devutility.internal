@@ -5,7 +5,7 @@ package devutility.internal.awt.image;
  * ImageFactor
  * 
  * @author: Aldwin Su
- * @version: 2020-03-10 15:29:46
+ * @creation: 2020-03-10 15:29:46
  */
 public class ImageFactor {
 	private int width;

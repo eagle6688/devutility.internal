@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
  * PropertiesKey
  * 
  * @author: Aldwin Su
- * @version: 2018-08-01 16:04:04
+ * @creation: 2018-08-01 16:04:04
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)

@@ -19,7 +19,7 @@ import devutility.internal.awt.rotation.Rotator;
  * ImageUtils
  * 
  * @author: Aldwin Su
- * @version: 2019-03-19 15:57:33
+ * @creation: 2019-03-19 15:57:33
  */
 public class ImageUtils {
 	/**

@@ -5,6 +5,13 @@ import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.font.LineMetrics;
 
+/**
+ * 
+ * FontUtils
+ * 
+ * @author: Aldwin Su
+ * @creation: 2017-10-21 21:57:54
+ */
 public class FontUtils {
 	/**
 	 * Return text width use Font object.

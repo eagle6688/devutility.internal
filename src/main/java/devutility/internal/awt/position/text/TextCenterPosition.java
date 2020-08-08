@@ -13,7 +13,7 @@ import devutility.internal.awt.position.Positioner;
  * TextCenterPosition
  * 
  * @author: Aldwin Su
- * @version: 2020-03-06 16:49:22
+ * @creation: 2020-03-06 16:49:22
  */
 public class TextCenterPosition implements Positioner {
 	@Override

@@ -10,7 +10,7 @@ import devutility.internal.awt.rotation.Rotator;
  * TextSlopeCenterRotator
  * 
  * @author: Aldwin Su
- * @version: 2020-03-10 15:26:49
+ * @creation: 2020-03-10 15:26:49
  */
 public class TextSlopeCenterRotator implements Rotator {
 	@Override

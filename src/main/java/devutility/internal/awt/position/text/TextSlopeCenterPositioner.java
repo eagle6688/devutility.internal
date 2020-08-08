@@ -14,7 +14,7 @@ import devutility.internal.awt.position.Positioner;
  * TextSlopeCenterPositioner
  * 
  * @author: Aldwin Su
- * @version: 2020-03-08 15:06:45
+ * @creation: 2020-03-08 15:06:45
  */
 public class TextSlopeCenterPositioner implements Positioner {
 	@Override

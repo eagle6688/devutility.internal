@@ -15,7 +15,7 @@ import devutility.internal.awt.rotation.RotationUtils;
  * Graphics2DUtils
  * 
  * @author: Aldwin Su
- * @version: 2019-03-18 20:05:20
+ * @creation: 2019-03-18 20:05:20
  */
 public class Graphics2DUtils {
 	/**

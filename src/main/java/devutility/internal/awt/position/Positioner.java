@@ -9,7 +9,7 @@ import devutility.internal.awt.image.ImageFactor;
  * Positioner
  * 
  * @author: Aldwin Su
- * @version: 2019-03-19 15:57:22
+ * @creation: 2019-03-19 15:57:22
  */
 public interface Positioner {
 	/**

@@ -13,7 +13,7 @@ import devutility.internal.awt.position.Positioner;
  * TextBottomRightPosition
  * 
  * @author: Aldwin Su
- * @version: 2019-03-19 15:10:12
+ * @creation: 2019-03-19 15:10:12
  */
 public class TextBottomRightPosition implements Positioner {
 	private float xRightOffset;

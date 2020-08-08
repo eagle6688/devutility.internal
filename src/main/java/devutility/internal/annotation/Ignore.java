@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
  * Ignore, add on fields that need ignore.
  * 
  * @author: Aldwin Su
- * @version: 2019-12-05 22:21:40
+ * @creation: 2019-12-05 22:21:40
  */
 @Inherited
 @Retention(RUNTIME)
