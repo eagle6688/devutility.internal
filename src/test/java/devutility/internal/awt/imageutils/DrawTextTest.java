@@ -1,4 +1,4 @@
-package devutility.internal.awt.image.imageutils;
+package devutility.internal.awt.imageutils;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;

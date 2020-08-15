@@ -1,4 +1,4 @@
-package devutility.internal.awt.image.watermarkutils;
+package devutility.internal.awt.watermarkutils;
 
 import java.awt.Color;
 import java.awt.Font;

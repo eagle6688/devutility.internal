@@ -1,4 +1,4 @@
-package devutility.internal.awt.image.watermarkutils;
+package devutility.internal.awt.watermarkutils;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -14,7 +14,7 @@ import devutility.internal.io.FileUtils;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
-public class SlopeCenterTextTest extends BaseTest {
+public class CenterTextTest extends BaseTest {
 	@Override
 	public void run() {
 		test("E:\\Downloads\\Test\\1.jpg");
@@ -34,13 +34,13 @@ public class SlopeCenterTextTest extends BaseTest {
 		}
 
 		try {
-			WatermarkUtils.slopeCenterText(image, new Font(null, Font.BOLD, 40), Color.BLACK, 0.5f, "Hello world!", imagePath);
+			WatermarkUtils.centerText(image, new Font(null, Font.BOLD, 50), Color.BLACK, 0.5f, "Hello world!", imagePath);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
 	public static void main(String[] args) {
-		TestExecutor.run(SlopeCenterTextTest.class);
+		TestExecutor.run(CenterTextTest.class);
 	}
 }
