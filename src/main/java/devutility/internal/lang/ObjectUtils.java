@@ -118,7 +118,7 @@ public class ObjectUtils {
 		}
 
 		if (value.getClass().isArray()) {
-			//TODO
+			//return Arrays.hashCode(value)
 		}
 
 		return value.hashCode();
