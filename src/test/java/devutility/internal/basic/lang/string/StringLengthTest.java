@@ -10,13 +10,14 @@ import devutility.internal.test.TestExecutor;
 public class StringLengthTest extends BaseTest {
 	@Override
 	public void run() {
-		String str1 = "asd!";
-		println("length of string is: %s", str1.length());
-		println("length of string bytes is: %d", str1.getBytes().length);
+		test("a");
+		test("asd!");
+		test("��ã�");
+	}
 
-		String str2 = "��ã�";
-		println("length of string is: %s", str2.length());
-		println("length of string bytes is: %d", str2.getBytes().length);
+	void test(String value) {
+		println("length of string is: %s", value.length());
+		println("length of string bytes is: %d", value.getBytes().length);
 	}
 
 	public static void main(String[] args) {
