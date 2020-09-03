@@ -11,5 +11,10 @@ public class Config {
 	/**
 	 * Escape character.
 	 */
-	public final static String ESCAPECHARACTER = "\\";
+	public static final String ESCAPECHARACTER = "\\";
+
+	/**
+	 * Environment variable
+	 */
+	public static final String REGEX_ENVIRONMENT_VARIABLE = "^\\$\\{([^:\\}]*):?(.*)\\}$";
 }
