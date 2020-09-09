@@ -22,19 +22,6 @@ public class MemoryCache {
 	private static volatile Map<String, CacheEntry<?>> CONTAINER = new LinkedHashMap<>();
 
 	/**
-	 * Get key of cache with provided cache value.
-	 * @param value Cache value.
-	 * @return String
-	 */
-	public static String getKey(Object value) {
-		if (value == null) {
-			return null;
-		}
-
-		return String.format(KEY_FORMAT, value.getClass().getName().toUpperCase());
-	}
-
-	/**
 	 * Get key of cache with provided Class object.
 	 * @param clazz Class object.
 	 * @return String

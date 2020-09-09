@@ -5,11 +5,16 @@ package devutility.internal.com;
  * Config
  * 
  * @author: Aldwin Su
- * @version: 2020-02-26 23:15:43
+ * @creation: 2020-02-26 23:15:43
  */
 public class Config {
 	/**
 	 * Escape character.
 	 */
-	public final static String ESCAPECHARACTER = "\\";
+	public static final String ESCAPECHARACTER = "\\";
+
+	/**
+	 * Environment variable
+	 */
+	public static final String REGEX_ENVIRONMENT_VARIABLE = "^\\$\\{([^:\\}]*):?(.*)\\}$";
 }

@@ -4,12 +4,14 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * 
+ * SystemUtils
+ * 
+ * @author: Aldwin Su
+ * @creation: 2017-08-06 20:26:49
+ */
 public class SystemUtils {
-	/**
-	 * Env variable pattern.
-	 */
-	public final static Pattern ENVVARIABLEPATTERN = Pattern.compile("^\\$\\{([^:\\}]*):?(.*)\\}$");
-
 	/**
 	 * Get line separator.
 	 * @return String
@@ -67,16 +69,15 @@ public class SystemUtils {
 	 * @param str format "${[environment variable name]:[environment variable default value]}"
 	 * @return String
 	 */
-	public static String envVariableValue(String str) {
-		int groupCount = 2;
-		Matcher matcher = ENVVARIABLEPATTERN.matcher(str);
+	public static String environmentVariable(String str) {
+		Matcher matcher = Pattern.compile(Config.REGEX_ENVIRONMENT_VARIABLE).matcher(str);
 
-		if (!matcher.matches() || matcher.groupCount() != groupCount) {
+		if (!matcher.matches() || matcher.groupCount() != 2) {
 			return str;
 		}
 
-		String envName = matcher.group(1);
-		String envValue = System.getenv(envName);
+		String name = matcher.group(1);
+		String envValue = System.getenv(name);
 
 		if (envValue != null) {
 			return envValue;
