@@ -570,6 +570,26 @@ public class CollectionUtils {
 	}
 
 	/**
+	 * Use flatMap to convert collections to List.
+	 * @param <E> the type of the collection elements
+	 * @param collections Collection objects
+	 * @return {@code List<E>}
+	 */
+	public static <E> List<E> flatMapToList(Collection<Collection<E>> collections) {
+		return collections.stream().flatMap(Collection::stream).collect(Collectors.toList());
+	}
+
+	/**
+	 * Use flatMap to convert collections to Set.
+	 * @param <E> the type of the collection elements
+	 * @param collections Collection objects
+	 * @return {@code Set<E>}
+	 */
+	public static <E> Set<E> flatMapToSet(Collection<Collection<E>> collections) {
+		return collections.stream().flatMap(Collection::stream).collect(Collectors.toSet());
+	}
+
+	/**
 	 * Paging collection with specified page index and page size.
 	 * @param collection Elements collection.
 	 * @param pageIndex Page index.
