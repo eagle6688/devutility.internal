@@ -11,29 +11,31 @@ import devutility.internal.lang.ClassUtils;
 import devutility.internal.lang.EnumUtils;
 import devutility.internal.lang.StringUtils;
 import devutility.internal.model.ObjectField;
-import devutility.internal.util.CollectionUtils;
 
 /**
  * 
  * BeanUtils
  * 
  * @author: Aldwin Su
- * @version: 2019-11-22 14:21:39
+ * @creation: 2017-10-26 17:29:55
  */
 public class BeanUtils {
+	public static void setField(Object model, Field field, Method setter, Object value) {
+
+	}
+
 	/**
-	 * Set value for field
+	 * Set value for provided field.
 	 * @param setter Setter method for field
-	 * @param model Object that need set
+	 * @param model Object that need set.
 	 * @param value String value
 	 * @param field Field that need set
-	 * @throws NumberFormatException
 	 * @throws IllegalAccessException from invoke method.
 	 * @throws IllegalArgumentException from invoke method.
 	 * @throws InvocationTargetException from invoke method.
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public static void setField(Method setter, Object model, String value, Field field) throws NumberFormatException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	public static void setField(Method setter, Object model, String value, Field field) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		if (StringUtils.isNullOrEmpty(value)) {
 			return;
 		}
@@ -206,34 +208,5 @@ public class BeanUtils {
 		}
 
 		return entity;
-	}
-
-	/**
-	 * Shallow clone the model with K type, this method will clone the properties that both of two types have.
-	 * @param sModel Source object.
-	 * @param sClazz Class object of source object.
-	 * @param tClazz Class object of target object.
-	 * @return {@code T}
-	 * @throws ReflectiveOperationException
-	 */
-	public static <T, S> T shallowClone(S sModel, Class<S> sClazz, Class<T> tClazz) throws ReflectiveOperationException {
-		if (sModel == null) {
-			return null;
-		}
-
-		T model = ClassUtils.newInstance(tClazz);
-		List<ObjectField> kEntityFields = ClassUtils.getEntityFields(sClazz);
-		List<ObjectField> tEntityFields = ClassUtils.getEntityFields(tClazz);
-
-		for (ObjectField kEntityField : kEntityFields) {
-			ObjectField tEntityField = CollectionUtils.find(tEntityFields, i -> kEntityField.getField().getName().equals(i.getField().getName()) && kEntityField.getField().getType().equals(i.getField().getType()));
-
-			if (tEntityField != null) {
-				Object value = kEntityField.getGetter().invoke(sModel);
-				tEntityField.getSetter().invoke(model, value);
-			}
-		}
-
-		return model;
 	}
 }
