@@ -7,16 +7,16 @@ import java.lang.annotation.Target;
 
 /**
  * 
- * PropertiesKey
+ * Property annotation.
  * 
  * @author: Aldwin Su
  * @creation: 2018-08-01 16:04:04
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface PropertiesKey {
+public @interface Property {
 	/**
-	 * Properties key name.
+	 * Property name.
 	 * @return String
 	 */
 	String value();

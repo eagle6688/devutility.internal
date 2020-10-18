@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import devutility.internal.annotation.PropertiesKey;
+import devutility.internal.annotation.Property;
 import devutility.internal.data.BeanUtils;
 import devutility.internal.data.converter.ConverterUtils;
 import devutility.internal.lang.ClassUtils;
@@ -98,7 +98,7 @@ public class PropertiesUtils {
 	 * @return String
 	 */
 	public static String getKey(String prefix, Field field) {
-		PropertiesKey propertiesKey = field.getAnnotation(PropertiesKey.class);
+		Property propertiesKey = field.getAnnotation(Property.class);
 
 		if (propertiesKey != null) {
 			return propertiesKey.value();
