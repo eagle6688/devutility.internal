@@ -107,6 +107,6 @@ public class Member {
 
 	@Override
 	public String toString() {
-		return String.format("[id=%d, name=%s, value=%s, age=%d]", this.getId(), this.getName(), this.getValue(), this.getAge());
+		return String.format("Member [id=%d, name=%s, value=%s, age=%d]", this.getId(), this.getName(), this.getValue(), this.getAge());
 	}
 }
