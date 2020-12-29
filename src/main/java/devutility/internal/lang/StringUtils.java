@@ -17,6 +17,16 @@ public class StringUtils {
 		return value == null || value.length() == 0 || value.trim().length() == 0;
 	}
 
+	public static boolean isNumberic(String value) {
+		for (int i = 0; i < value.length(); i++) {
+			if (!Character.isDigit(value.charAt(i))) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
 	public static boolean isNotEmpty(String value) {
 		return !isNullOrEmpty(value);
 	}
