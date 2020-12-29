@@ -8,8 +8,8 @@ import java.util.Map;
  * 
  * @author: Aldwin Su
  * @creation: 2020-11-21 17:28:44
- * @param <K> the type of keys maintained by this map
- * @param <V> the type of mapped values
+ * @param <K> type of key in map.
+ * @param <V> type of value in map.
  */
 public class MapResponse<K, V> extends BaseResponse<Map<K, V>> {
 	public MapResponse(boolean succeeded, String message, Object code, Map<K, V> map) {
