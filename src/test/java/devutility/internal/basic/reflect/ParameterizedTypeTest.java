@@ -6,8 +6,8 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 import devutility.internal.lang.ClassUtils;
-import devutility.internal.model.BaseResponse;
 import devutility.internal.model.Member;
+import devutility.internal.response.BaseResponse;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 import devutility.internal.util.CollectionUtils;

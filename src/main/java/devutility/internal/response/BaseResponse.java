@@ -1,4 +1,4 @@
-package devutility.internal.model;
+package devutility.internal.response;
 
 import devutility.internal.com.CommonResultCode;
 
