@@ -1,6 +1,6 @@
 package devutility.internal.model;
 
-import java.util.List;
+import java.util.Collection;
 
 /**
  * 
@@ -8,18 +8,42 @@ import java.util.List;
  * 
  * @author: Aldwin Su
  * @creation: 2020-07-21 16:13:52
+ * @param <E> Type for item in collection.
  */
-public class PageResponse<E> extends ListResponse<E> {
+public class PageResponse<E> extends CollectionResponse<E> {
 	private long total;
 	private int pageIndex;
 	private int pageSize;
 
-	public PageResponse() {
-		super();
+	public PageResponse(boolean succeeded, String message, Object code, Collection<E> collection) {
+		super(succeeded, message, code, collection);
 	}
 
-	public PageResponse(List<E> list) {
-		super(list);
+	public PageResponse(int pageIndex, int pageSize, Collection<E> collection) {
+		this.setPageIndex(pageIndex);
+		this.setPageSize(pageSize);
+		super.setData(collection);
+	}
+
+	public PageResponse(int pageIndex, int pageSize) {
+		this.setPageIndex(pageIndex);
+		this.setPageSize(pageSize);
+	}
+
+	public PageResponse(Collection<E> collection) {
+		super(collection);
+	}
+
+	public PageResponse(String message) {
+		super(message);
+	}
+
+	public PageResponse(Throwable throwable) {
+		super(throwable);
+	}
+
+	public PageResponse() {
+		super();
 	}
 
 	public long getTotal() {
