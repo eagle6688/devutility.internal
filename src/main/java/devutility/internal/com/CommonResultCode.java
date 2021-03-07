@@ -29,29 +29,34 @@ public enum CommonResultCode {
 	PARAMETEREMPTY(1012, "Parameter empty."),
 
 	/**
+	 * Parameter invalid.
+	 */
+	PARAMETERINVALID(1013, "Parameter invalid."),
+
+	/**
 	 * Parameter length exceed.
 	 */
-	PARAMETERLENGTHEXCEED(1013, "Parameter length exceed."),
+	PARAMETERLENGTHEXCEED(1014, "Parameter length exceed."),
 
 	/**
 	 * Parameter duplicated.
 	 */
-	PARAMETERDUPLICATED(1014, "Parameter duplicated."),
+	PARAMETERDUPLICATED(1015, "Parameter duplicated."),
 
 	/**
 	 * Parameter with invalid char.
 	 */
-	PARAMETERWITHINVALIDCHAR(1015, "Parameter with invalid char."),
+	PARAMETERWITHINVALIDCHAR(1016, "Parameter with invalid char."),
 
 	/**
 	 * Parameter with invalid type.
 	 */
-	PARAMETERWITHINVALIDTYPE(1016, "Parameter with invalid type."),
+	PARAMETERWITHINVALIDTYPE(1017, "Parameter with invalid type."),
 
 	/**
 	 * Parameter with invalid format.
 	 */
-	PARAMETERWITHINVALIDFORMAT(1017, "Parameter with invalid format."),
+	PARAMETERWITHINVALIDFORMAT(1018, "Parameter with invalid format."),
 
 	/**
 	 * Collection parameter item exceed.

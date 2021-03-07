@@ -6,20 +6,23 @@ import devutility.internal.model.data.IntegerData;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
-public class Get_Expiration_Test extends BaseTest {
+public class ExpirationTest extends BaseTest {
 	@Override
 	public void run() {
+		println("--------Test1--------");
 		test(3000, -500);
+
+		println("--------Test2--------");
 		test(3000, 500);
 	}
 
-	void test(long expirationMillis, long increment) {
+	void test(long expiration, long increment) {
 		String key = this.getClass().getName();
 		List<Integer> list = IntegerData.list(10);
-		MemoryCache.set(key, list, expirationMillis);
+		MemoryCache.set(key, list, expiration);
 
 		try {
-			Thread.sleep(expirationMillis + increment);
+			Thread.sleep(expiration + increment);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -29,6 +32,6 @@ public class Get_Expiration_Test extends BaseTest {
 	}
 
 	public static void main(String[] args) {
-		TestExecutor.run(Get_Expiration_Test.class);
+		TestExecutor.run(ExpirationTest.class);
 	}
 }

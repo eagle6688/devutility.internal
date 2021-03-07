@@ -6,19 +6,19 @@ import devutility.internal.model.data.IntegerData;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
-public class Get_Version_Test extends BaseTest {
+public class VersionTest extends BaseTest {
 	@Override
 	public void run() {
 		long version = System.currentTimeMillis();
 		long sleepMillis = 2000L;
 
-		println("--------Test1");
+		println("--------Test1--------");
 		test(version, version + 1000, sleepMillis);
-		
-		println("--------Test2");
+
+		println("--------Test2--------");
 		test(version, version, sleepMillis);
-		
-		println("--------Test3");
+
+		println("--------Test3--------");
 		test(version, version - 1, sleepMillis);
 	}
 
@@ -33,11 +33,11 @@ public class Get_Version_Test extends BaseTest {
 			e.printStackTrace();
 		}
 
-		list = MemoryCache.get(key, lastVersion);
+		list = MemoryCache.get(key);
 		System.out.println(list);
 	}
 
 	public static void main(String[] args) {
-		TestExecutor.run(Get_Version_Test.class);
+		TestExecutor.run(VersionTest.class);
 	}
 }

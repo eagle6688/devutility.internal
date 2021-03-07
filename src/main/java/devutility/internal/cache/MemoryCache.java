@@ -3,6 +3,9 @@ package devutility.internal.cache;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import devutility.internal.com.CommonResultCode;
+import devutility.internal.response.EasyResponse;
+
 /**
  * 
  * MemoryCache
@@ -41,7 +44,7 @@ public class MemoryCache {
 	 */
 	public static <T> CacheEntry<T> set(CacheEntry<T> entry) {
 		if (entry == null) {
-			throw new IllegalArgumentException("CacheEntry can't be null!");
+			throw new IllegalArgumentException("CacheEntry can't be null.");
 		}
 
 		synchronized (CONTAINER) {
@@ -55,23 +58,23 @@ public class MemoryCache {
 	 * Set data in cache container.
 	 * @param key Key of CacheEntry object in cache container.
 	 * @param value Cache value.
-	 * @param expirationMillis Expiration time in milliseconds, default 0 means no expiration.
+	 * @param expiration Expiration time in millisecond, default 0 means no expiration.
 	 * @param version Version of CacheEntry object.
 	 * @return {@code CacheEntry<T>}
 	 */
-	public static <T> CacheEntry<T> set(String key, T value, long expirationMillis, long version) {
-		return set(new CacheEntry<T>(key, value, expirationMillis, version));
+	public static <T> CacheEntry<T> set(String key, T value, long expiration, long version) {
+		return set(new CacheEntry<T>(key, value, expiration, version));
 	}
 
 	/**
 	 * Set data in cache container.
 	 * @param key Key of CacheEntry object in cache container.
 	 * @param value Cache value.
-	 * @param expirationMillis Expiration time in milliseconds, default 0 means no expiration.
+	 * @param expiration Expiration time in millisecond, default 0 means no expiration.
 	 * @return {@code CacheEntry<T>}
 	 */
-	public static <T> CacheEntry<T> set(String key, T value, long expirationMillis) {
-		return set(new CacheEntry<T>(key, value, expirationMillis));
+	public static <T> CacheEntry<T> set(String key, T value, long expiration) {
+		return set(new CacheEntry<T>(key, value, expiration));
 	}
 
 	/**
@@ -95,78 +98,67 @@ public class MemoryCache {
 	}
 
 	/**
-	 * Update CacheEntry object in cache container.
-	 * @param entry {@code CacheEntry<T>} object.
-	 * @param targetVersion Version of CacheEntry object need to be updated.
-	 * @return boolean
+	 * Modify data in cache container.
+	 * @param key Key of CacheEntry object in cache container.
+	 * @param value New cache value.
+	 * @param version Version of saved CacheEntry object.
+	 * @param newVersion New version of CacheEntry object need to be updated.
+	 * @return EasyResponse
 	 */
-	public static <T> boolean update(CacheEntry<T> entry, long targetVersion) {
-		if (entry == null) {
-			throw new IllegalArgumentException("CacheEntry can't be null!");
+	public static <T> EasyResponse modify(String key, T value, long version, long newVersion) {
+		EasyResponse response = new EasyResponse();
+
+		if (version == newVersion) {
+			response.setError(CommonResultCode.PARAMETERINVALID.getCodeAsString(), "New cache version can't same as cached version.");
+			return response;
 		}
 
-		if (entry.getVersion() == targetVersion) {
-			throw new IllegalArgumentException("Invalid version, current cache version can't same as new version!");
+		CacheEntry<T> cacheEntry = getEntry(key);
+
+		if (cacheEntry == null) {
+			response.setError(CommonResultCode.PARAMETERINVALID.getCodeAsString(), "CacheEntry with key %s not found.", key);
+			return response;
+		}
+
+		if (cacheEntry.getVersion() != version) {
+			response.setError(CommonResultCode.PARAMETERINVALID.getCodeAsString(), "Cached version different with provided version.");
+			return response;
 		}
 
 		synchronized (CONTAINER) {
-			CacheEntry<T> cachedEntry = getEntry(entry.getKey());
-
-			if (cachedEntry == null) {
-				CONTAINER.put(entry.getKey(), entry);
-				return true;
-			}
-
-			if (cachedEntry.getVersion() == targetVersion) {
-				CONTAINER.put(entry.getKey(), entry);
-				return true;
+			if (cacheEntry.getVersion() == version) {
+				cacheEntry.setValue(value, newVersion);
 			}
 		}
 
-		return false;
+		return response;
 	}
 
 	/**
-	 * Update data in cache container.
+	 * Modify data in cache container.
 	 * @param key Key of CacheEntry object in cache container.
-	 * @param value Cache value.
-	 * @param expirationMillis Expiration time in milliseconds, default 0 means no expiration.
-	 * @param version Version of CacheEntry object.
-	 * @param targetVersion Version of CacheEntry object need to be updated.
-	 * @return boolean
+	 * @param value New cache value.
+	 * @param version Version of saved CacheEntry object.
+	 * @return EasyResponse
 	 */
-	public static <T> boolean update(String key, T value, long expirationMillis, long version, long targetVersion) {
-		return update(new CacheEntry<T>(key, value, expirationMillis, version), targetVersion);
-	}
-
-	/**
-	 * Update data in cache container.
-	 * @param key Key of CacheEntry object in cache container.
-	 * @param value Cache value.
-	 * @param version Version of CacheEntry object.
-	 * @param targetVersion Version of CacheEntry object need to be updated.
-	 * @return boolean
-	 */
-	public static <T> boolean update(String key, T value, long version, long targetVersion) {
-		return update(key, value, 0, version, targetVersion);
+	public static <T> EasyResponse modify(String key, T value, long version) {
+		return modify(key, value, version, System.currentTimeMillis());
 	}
 
 	/**
 	 * Get CacheEntry<T> object from cache container.
 	 * @param key Key of CacheEntry object in cache container.
-	 * @param version The latest version, this field is used for determine whether the version of cache is the latest
-	 *            version.
 	 * @return {@code CacheEntry<T>}
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T> CacheEntry<T> getEntry(String key, long version) {
+	public static <T> CacheEntry<T> getEntry(String key) {
 		CacheEntry<?> entry = CONTAINER.get(key);
 
 		if (entry == null) {
 			return null;
 		}
 
-		if (!entry.isAvailable(version)) {
+		if (entry.isExpired()) {
 			del(key);
 			return null;
 		}
@@ -175,37 +167,17 @@ public class MemoryCache {
 	}
 
 	/**
-	 * Get CacheEntry<T> object from cache container.
-	 * @param key Key of CacheEntry object in cache container.
-	 * @return {@code CacheEntry<T>}
-	 */
-	public static <T> CacheEntry<T> getEntry(String key) {
-		return getEntry(key, 0);
-	}
-
-	/**
 	 * Get value from cache container.
 	 * @param key Key of CacheEntry object in cache container.
-	 * @param version The latest version, this field is used for determine whether the version of cache is the latest
-	 *            version.
 	 * @return {@code T}
 	 */
-	public static <T> T get(String key, long version) {
-		CacheEntry<T> entry = getEntry(key, version);
+	public static <T> T get(String key) {
+		CacheEntry<T> entry = getEntry(key);
 
 		if (entry == null) {
 			return null;
 		}
 
 		return entry.getValue();
-	}
-
-	/**
-	 * Get value from cache container.
-	 * @param key Key of CacheEntry object in cache container.
-	 * @return {@code T}
-	 */
-	public static <T> T get(String key) {
-		return get(key, 0);
 	}
 }

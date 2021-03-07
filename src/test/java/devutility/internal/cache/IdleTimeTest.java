@@ -6,24 +6,24 @@ import devutility.internal.model.data.IntegerData;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
-public class Get_Idle_Test extends BaseTest {
+public class IdleTimeTest extends BaseTest {
 	private String key = this.getClass().getName();
 
 	@Override
 	public void run() {
-		println("--------Test1");
+		println("--------Test1--------");
 		test(2000, 2001);
 
-		println("--------Test2");
+		println("--------Test2--------");
 		test(2000, 2000);
 
-		println("--------Test3");
+		println("--------Test3--------");
 		test(2000, 1500);
 	}
 
-	void test(long maxIdleMillis, long sleepMillis) {
+	void test(long maxIdleTime, long sleepMillis) {
 		CacheEntry<List<Integer>> cacheEntry = new CacheEntry<List<Integer>>(key, IntegerData.list(10));
-		cacheEntry.setMaxIdleMillis(maxIdleMillis);
+		cacheEntry.setMaxIdle(maxIdleTime);
 		MemoryCache.set(cacheEntry);
 
 		List<Integer> list = MemoryCache.get(key);
@@ -40,6 +40,6 @@ public class Get_Idle_Test extends BaseTest {
 	}
 
 	public static void main(String[] args) {
-		TestExecutor.run(Get_Idle_Test.class);
+		TestExecutor.run(IdleTimeTest.class);
 	}
 }

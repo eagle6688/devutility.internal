@@ -155,7 +155,7 @@ public class TestExecutor {
 	 * @param clazz Class of executing object.
 	 */
 	private static void preExecute(Class<?> clazz) {
-		System.out.println(String.format("Start executing  %s:", clazz.getSimpleName()));
+		System.out.println(String.format("Start executing %s:", clazz.getSimpleName()));
 	}
 
 	/**

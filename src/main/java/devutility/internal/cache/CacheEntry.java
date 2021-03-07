@@ -8,28 +8,36 @@ package devutility.internal.cache;
  * @creation: 2017-11-22 17:40:28
  */
 public class CacheEntry<T> {
+	/**
+	 * Cache key.
+	 */
 	private String key;
+
+	/**
+	 * Cache value.
+	 */
 	private T value;
 
 	/**
-	 * Optional parameter, default value 0 means never expire. This parameter with higher priority than maxIdleMillis.
+	 * Optional parameter, cache expiration time in millisecond, default value 0 means never expire. This parameter with
+	 * higher priority than maxIdleMillis.
 	 */
-	private long expirationMillis;
+	private long expiration;
 
 	/**
-	 * Optional parameter, default value is creationTime in milliseconds. Very usefull in distributed system.
+	 * Optional parameter, default value is creation time.
 	 */
 	private long version;
 
 	/**
-	 * Optional parameter, default value 0 allows endless idle. This parameter with lower priority than expirationMillis.
+	 * Optional parameter, default value 0 allows endless idle. This parameter with lower priority than expiration.
 	 */
-	private long maxIdleMillis;
+	private long maxIdle;
 
 	/**
 	 * Internal parameter, automatical value.
 	 */
-	private long creationTime;
+	private long creation;
 
 	/**
 	 * Internal parameter, last usage time for current CacheEntry object.
@@ -37,39 +45,34 @@ public class CacheEntry<T> {
 	private long lastUsageTime;
 
 	/**
-	 * Internal parameter, equals currentTime plus expirationMillis.
-	 */
-	private long expirationTime;
-
-	/**
 	 * Constructor
 	 * @param key Key of CacheEntry object in cache container.
 	 * @param value Cache value.
-	 * @param expirationMillis Expiration time in milliseconds, default 0 means no expiration.
+	 * @param expiration Expiration time in millisecond, default 0 means no expiration.
 	 * @param version Version of CacheEntry object.
 	 */
-	public CacheEntry(String key, T value, long expirationMillis, long version) {
-		this.key = key;
-		this.value = value;
-		this.creationTime = System.currentTimeMillis();
-		this.expirationMillis = expirationMillis;
-		this.version = version;
+	public CacheEntry(String key, T value, long expiration, long version) {
+		this.setKey(key);
+		this.setValue(value);
+		this.setExpiration(expiration);
+		this.setVersion(version);
+		this.setCreation(System.currentTimeMillis());
 
-		if (this.version == 0) {
-			this.version = this.creationTime;
+		if (this.getVersion() == 0) {
+			this.setVersion(this.getCreation());
 		}
 
-		this.setExpirationTime(this.creationTime, this.expirationMillis);
+		this.setLastUsageTime(this.getCreation());
 	}
 
 	/**
 	 * Constructor
 	 * @param key Key of CacheEntry object in cache container.
 	 * @param value Cache value.
-	 * @param expirationMillis Expiration time in milliseconds, default 0 means no expiration.
+	 * @param expiration Expiration time in millisecond, default 0 means no expiration.
 	 */
-	public CacheEntry(String key, T value, long expirationMillis) {
-		this(key, value, expirationMillis, 0);
+	public CacheEntry(String key, T value, long expiration) {
+		this(key, value, expiration, 0);
 	}
 
 	/**
@@ -88,53 +91,36 @@ public class CacheEntry<T> {
 	}
 
 	/**
-	 * The cache object is available means it's neither expired nor deprecated.
-	 * @param version Latest version for comparison.
-	 * @return boolean
-	 */
-	public boolean isAvailable(long version) {
-		return !isExpired() && isLatest(version);
-	}
-
-	/**
-	 * Check whether current cache object is expired or not?
+	 * Whether current cache object is expired or not?
 	 * @return boolean
 	 */
 	public boolean isExpired() {
-		if (this.expirationMillis <= 0) {
+		if (this.getExpiration() == 0) {
 			return this.isExceedMaxIdleTime();
 		}
 
-		return System.currentTimeMillis() > this.expirationTime;
+		long expirationTime = this.getCreation() + this.getExpiration();
+		return System.currentTimeMillis() > expirationTime;
 	}
 
 	/**
-	 * Check whether current cache object exceed max idle time or not?
+	 * Whether idle time of current cache object exceed max idle time or not?
 	 * @return boolean
 	 */
 	public boolean isExceedMaxIdleTime() {
-		if (this.maxIdleMillis <= 0 || this.lastUsageTime == 0) {
+		if (this.getMaxIdle() == 0 || this.getLastUsageTime() == this.getCreation()) {
 			return false;
 		}
 
-		return this.getIdleMillis() > this.maxIdleMillis;
+		return this.getIdleTime() > this.getMaxIdle();
 	}
 
 	/**
-	 * Check whether current cache object is latest version or not?
-	 * @param version Cache version for comparison.
-	 * @return boolean
-	 */
-	public boolean isLatest(long version) {
-		return this.version >= version;
-	}
-
-	/**
-	 * Return idle time in milliseconds.
+	 * Return idle time in millisecond.
 	 * @return long
 	 */
-	public long getIdleMillis() {
-		return System.currentTimeMillis() - this.lastUsageTime;
+	public long getIdleTime() {
+		return System.currentTimeMillis() - this.getLastUsageTime();
 	}
 
 	public String getKey() {
@@ -149,13 +135,24 @@ public class CacheEntry<T> {
 		this.value = value;
 	}
 
+	public T setValue(T value, long version) {
+		T oldValue = this.getValue();
+		this.setValue(value);
+		this.setVersion(version);
+		return oldValue;
+	}
+
 	public T getValue() {
 		this.setLastUsageTime(System.currentTimeMillis());
 		return value;
 	}
 
-	public long getExpirationMillis() {
-		return expirationMillis;
+	public void setExpiration(long expiration) {
+		this.expiration = expiration;
+	}
+
+	public long getExpiration() {
+		return expiration;
 	}
 
 	public void setVersion(long version) {
@@ -166,20 +163,20 @@ public class CacheEntry<T> {
 		return version;
 	}
 
-	/**
-	 * Once you have set expirationMillis parameter, the maxIdleMillis does not work.
-	 * @param maxIdleMillis
-	 */
-	public void setMaxIdleMillis(long maxIdleMillis) {
-		this.maxIdleMillis = maxIdleMillis;
+	public void setMaxIdle(long maxIdle) {
+		this.maxIdle = maxIdle;
 	}
 
-	public long getMaxIdleMillis() {
-		return maxIdleMillis;
+	public long getMaxIdle() {
+		return maxIdle;
 	}
 
-	public long getCreationTime() {
-		return creationTime;
+	private void setCreation(long creation) {
+		this.creation = creation;
+	}
+
+	public long getCreation() {
+		return creation;
 	}
 
 	private void setLastUsageTime(long lastUsageTime) {
@@ -188,18 +185,5 @@ public class CacheEntry<T> {
 
 	public long getLastUsageTime() {
 		return lastUsageTime;
-	}
-
-	private void setExpirationTime(long creationTime, long expirationMillis) {
-		if (expirationMillis <= 0) {
-			this.expirationTime = 0;
-			return;
-		}
-
-		this.expirationTime = creationTime + expirationMillis;
-	}
-
-	public long getExpirationTime() {
-		return expirationTime;
 	}
 }
