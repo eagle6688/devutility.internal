@@ -106,7 +106,12 @@ public enum CommonResultCode {
 	/**
 	 * Data delete failed.
 	 */
-	DATADELETEFAILED(1054, "Data delete failed.");
+	DATADELETEFAILED(1054, "Data delete failed."),
+
+	/**
+	 * Concurrent error
+	 */
+	CONCURRENTERROR(1061, "Concurrent error.");
 
 	private int code;
 	private String description;

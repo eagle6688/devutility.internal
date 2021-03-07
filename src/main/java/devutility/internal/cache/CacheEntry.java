@@ -135,11 +135,9 @@ public class CacheEntry<T> {
 		this.value = value;
 	}
 
-	public T setValue(T value, long version) {
-		T oldValue = this.getValue();
-		this.setValue(value);
+	public void setValue(T value, long version) {
 		this.setVersion(version);
-		return oldValue;
+		this.setValue(value);
 	}
 
 	public T getValue() {

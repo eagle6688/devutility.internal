@@ -155,7 +155,8 @@ public class TestExecutor {
 	 * @param clazz Class of executing object.
 	 */
 	private static void preExecute(Class<?> clazz) {
-		System.out.println(String.format("Start executing %s:", clazz.getSimpleName()));
+		String format = "[%s] Start executing %s:";
+		System.out.println(String.format(format, Thread.currentThread().getName(), clazz.getSimpleName()));
 	}
 
 	/**
@@ -164,8 +165,8 @@ public class TestExecutor {
 	 * @param clazz Class of executing object.
 	 */
 	private static void postExecute(long startTime, Class<?> clazz) {
-		long endTime = System.currentTimeMillis();
-		String message = String.format("Executing %s end, cost %d millisecond.", clazz.getSimpleName(), (endTime - startTime));
-		System.out.println(message);
+		String format = "[%s] Execute %s end, cost %d millisecond.";
+		long costTime = System.currentTimeMillis() - startTime;
+		System.out.println(String.format(format, Thread.currentThread().getName(), clazz.getSimpleName(), costTime));
 	}
 }

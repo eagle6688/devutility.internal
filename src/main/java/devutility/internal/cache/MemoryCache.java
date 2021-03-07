@@ -4,7 +4,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import devutility.internal.com.CommonResultCode;
-import devutility.internal.response.EasyResponse;
 
 /**
  * 
@@ -103,13 +102,13 @@ public class MemoryCache {
 	 * @param value New cache value.
 	 * @param version Version of saved CacheEntry object.
 	 * @param newVersion New version of CacheEntry object need to be updated.
-	 * @return EasyResponse
+	 * @return {@code BaseResponse<T> with original value}.
 	 */
-	public static <T> EasyResponse modify(String key, T value, long version, long newVersion) {
-		EasyResponse response = new EasyResponse();
+	public static <T> CacheResponse<T> modify(String key, T value, long version, long newVersion) {
+		CacheResponse<T> response = new CacheResponse<>();
 
 		if (version == newVersion) {
-			response.setError(CommonResultCode.PARAMETERINVALID.getCodeAsString(), "New cache version can't same as cached version.");
+			response.setError(CommonResultCode.PARAMETERINVALID.getCodeAsString(), "New cache version %d can't same as cached version %d.", newVersion, version);
 			return response;
 		}
 
@@ -121,14 +120,18 @@ public class MemoryCache {
 		}
 
 		if (cacheEntry.getVersion() != version) {
-			response.setError(CommonResultCode.PARAMETERINVALID.getCodeAsString(), "Cached version different with provided version.");
+			response.setError(CommonResultCode.PARAMETERINVALID.getCodeAsString(), "Cached version %d different with provided version %d.", cacheEntry.getVersion(), version);
 			return response;
 		}
 
 		synchronized (CONTAINER) {
 			if (cacheEntry.getVersion() == version) {
 				cacheEntry.setValue(value, newVersion);
+			} else {
+				response.setError(CommonResultCode.CONCURRENTERROR.getCodeAsString(), "Cached version %d different with provided version %d.", cacheEntry.getVersion(), version);
 			}
+
+			response.setData(cacheEntry);
 		}
 
 		return response;
@@ -139,10 +142,10 @@ public class MemoryCache {
 	 * @param key Key of CacheEntry object in cache container.
 	 * @param value New cache value.
 	 * @param version Version of saved CacheEntry object.
-	 * @return EasyResponse
+	 * @return {@code BaseResponse<T> with original value}.
 	 */
-	public static <T> EasyResponse modify(String key, T value, long version) {
-		return modify(key, value, version, System.currentTimeMillis());
+	public static <T> CacheResponse<T> modify(String key, T value, long version) {
+		return modify(key, value, version, version + 1);
 	}
 
 	/**
