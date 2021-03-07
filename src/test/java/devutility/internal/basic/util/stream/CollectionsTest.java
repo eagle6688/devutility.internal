@@ -8,7 +8,7 @@ import java.util.List;
 import devutility.internal.model.Person;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
-import devutility.internal.text.format.DateFormatUtils;
+import devutility.internal.util.DateFormatUtils;
 
 public class CollectionsTest extends BaseTest {
 	@Override

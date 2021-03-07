@@ -1,7 +1,5 @@
 package devutility.internal.test;
 
-import java.util.Arrays;
-
 /**
  * 
  * BaseTest
@@ -9,14 +7,6 @@ import java.util.Arrays;
  * @author: Aldwin Su
  */
 public abstract class BaseTest {
-	/**
-	 * Print string in a new line.
-	 * @param value: String value.
-	 */
-	protected static void println(String value) {
-		System.out.println(value);
-	}
-
 	/**
 	 * Print int value in a new line.
 	 * @param value: Int value.
@@ -34,17 +24,11 @@ public abstract class BaseTest {
 	}
 
 	/**
-	 * Print string value with specified format in a new line.
-	 * @param format: String format.
-	 * @param args: String args.
+	 * Print string in a new line.
+	 * @param value: String value.
 	 */
-	protected static void println(String format, String... args) {
-		if (args == null || args.length == 0) {
-			return;
-		}
-
-		String value = String.format(format, Arrays.asList(args).toArray());
-		println(value);
+	protected static void println(String value) {
+		System.out.println(value);
 	}
 
 	/**
@@ -53,12 +37,7 @@ public abstract class BaseTest {
 	 * @param args: Objects.
 	 */
 	protected static void println(String format, Object... args) {
-		if (args == null || args.length == 0) {
-			return;
-		}
-
-		String value = String.format(format, args);
-		println(value);
+		println(String.format(format, args));
 	}
 
 	/**

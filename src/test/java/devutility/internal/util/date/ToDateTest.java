@@ -1,8 +1,8 @@
-package devutility.internal.text.format.dateformatutils;
+package devutility.internal.util.date;
 
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
-import devutility.internal.text.format.DateFormatUtils;
+import devutility.internal.util.DateFormatUtils;
 
 public class ToDateTest extends BaseTest {
 	@Override

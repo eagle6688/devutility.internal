@@ -1,4 +1,4 @@
-package devutility.internal.text.format;
+package devutility.internal.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

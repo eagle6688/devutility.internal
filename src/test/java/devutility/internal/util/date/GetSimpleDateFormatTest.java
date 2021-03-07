@@ -1,11 +1,11 @@
-package devutility.internal.text.format.dateformatutils;
+package devutility.internal.util.date;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
-import devutility.internal.text.format.DateFormatUtils;
+import devutility.internal.util.DateFormatUtils;
 
 public class GetSimpleDateFormatTest extends BaseTest {
 	@Override
