@@ -1,8 +1,10 @@
 package devutility.internal.annotation;
 
-import java.lang.annotation.ElementType;
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.TYPE;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
 import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
@@ -12,8 +14,8 @@ import java.lang.annotation.Target;
  * @author: Aldwin Su
  * @creation: 2018-08-01 16:04:04
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
+@Retention(RUNTIME)
+@Target({ TYPE, FIELD })
 public @interface Property {
 	/**
 	 * Property name.
