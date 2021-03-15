@@ -10,6 +10,8 @@ import devutility.internal.test.TestExecutor;
 public class FormatTest extends BaseTest {
 	@Override
 	public void run() {
+		println(String.format("asd"));
+
 		String value = String.format("%s_%s", "haha", "%s");
 		println(value);
 
