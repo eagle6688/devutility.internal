@@ -1,5 +1,7 @@
 package devutility.internal.response;
 
+import java.beans.Transient;
+
 import devutility.internal.com.CommonResultCode;
 
 /**
@@ -31,9 +33,13 @@ public class BaseResponse<T> {
 		this.setMessage(message);
 	}
 
-	public BaseResponse(Throwable throwable) {
-		this.setCode(CommonResultCode.SYSTEMERROR.getCode());
+	public BaseResponse(Throwable throwable, Object code) {
 		this.setError(throwable);
+		this.setCode(code);
+	}
+
+	public BaseResponse(Throwable throwable) {
+		this(throwable, CommonResultCode.SYSTEMEXCEPTION.getCode());
 	}
 
 	public BaseResponse() {
@@ -80,12 +86,14 @@ public class BaseResponse<T> {
 		this.setCode(null);
 	}
 
-	public boolean hasException() {
-		if (this.isSucceeded()) {
-			return false;
-		}
+	@Transient
+	public boolean isFailed() {
+		return !this.isSucceeded();
+	}
 
-		return CommonResultCode.SYSTEMERROR.isCode(this.getCodeAsString());
+	@Transient
+	public boolean hasException() {
+		return this.isFailed() && CommonResultCode.SYSTEMEXCEPTION.isCode(this.getCodeAsString());
 	}
 
 	public boolean isSucceeded() {

@@ -15,19 +15,15 @@ public class ApiResponse<T> extends BaseResponse<T> {
 	private String body;
 
 	public ApiResponse(Throwable throwable) {
-		super.setErrorMessage(throwable.getMessage());
-
-		if (super.getCode() == null) {
-			super.setCode(CommonResultCode.SYSTEMERROR.getCode());
-		}
+		super(throwable, CommonResultCode.REQUESTREMOTESERVICEFAILED.getCode());
 	}
 
 	public ApiResponse() {
 		super();
 	}
 
-	public boolean isRequestFailed() {
-		return this.getStatus() >= 400 || super.hasException();
+	public boolean isFailedRequest() {
+		return super.hasException() || (CommonResultCode.REQUESTREMOTESERVICEFAILED.isCode(super.getCode().toString()) && super.isFailed());
 	}
 
 	public int getStatus() {

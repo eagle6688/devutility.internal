@@ -14,9 +14,14 @@ public enum CommonResultCode {
 	SYSTEMERROR(1001, "System error."),
 
 	/**
+	 * System exception
+	 */
+	SYSTEMEXCEPTION(1002, "System exception."),
+
+	/**
 	 * Request remote service failed.
 	 */
-	REQUESTREMOTESERVICEFAILED(1002, "Request remote service failed."),
+	REQUESTREMOTESERVICEFAILED(1003, "Request remote service failed."),
 
 	/**
 	 * Parameter verification failed.
@@ -111,7 +116,12 @@ public enum CommonResultCode {
 	/**
 	 * Concurrent error
 	 */
-	CONCURRENTERROR(1061, "Concurrent error.");
+	CONCURRENTERROR(1061, "Concurrent error."),
+
+	/**
+	 * Serialize failed.
+	 */
+	SERIALIZEFAILED(1071, "Serialize failed.");
 
 	private int code;
 	private String description;
