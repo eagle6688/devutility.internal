@@ -5,7 +5,7 @@ package devutility.internal.jvm;
  * TenuringThresholdTest
  * <p>
  * -XX:+UseSerialGC -Xms20M -Xmx20M -Xmn10M -XX:SurvivorRatio=8 -XX:MaxTenuringThreshold=1 -XX:+PrintGCDetails
- * -XX:+PrintGCDateStamps -XX:+PrintGCApplicationStoppedTime -Xloggc:gc.log
+ * -XX:+PrintHeapAtGC -XX:+PrintGCDateStamps -XX:+PrintGCApplicationStoppedTime -Xloggc:gc.log
  * </p>
  * 
  * @author: Aldwin
