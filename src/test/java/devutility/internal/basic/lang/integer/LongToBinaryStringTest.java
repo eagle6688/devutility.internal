@@ -1,0 +1,22 @@
+package devutility.internal.basic.lang.integer;
+
+import devutility.internal.test.BaseTest;
+import devutility.internal.test.TestExecutor;
+
+public class LongToBinaryStringTest extends BaseTest {
+	@Override
+	public void run() {
+		toBinaryString(4159L);
+		toBinaryString(137472512063L);
+		toBinaryString(137438957631L);
+	}
+
+	void toBinaryString(long value) {
+		String str = Long.toBinaryString(value);
+		System.out.println(String.format("Value: %d, Binary: %s", value, str));
+	}
+
+	public static void main(String[] args) {
+		TestExecutor.run(LongToBinaryStringTest.class);
+	}
+}
