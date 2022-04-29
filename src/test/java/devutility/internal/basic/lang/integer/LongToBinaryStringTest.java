@@ -8,7 +8,7 @@ public class LongToBinaryStringTest extends BaseTest {
 	public void run() {
 		toBinaryString(4159L, false);
 		toBinaryString(137472512063L, false);
-		toBinaryString(26388303753279L, true);
+		toBinaryString(211243709239359L, true);
 	}
 
 	void toBinaryString(long value, boolean position) {
@@ -18,9 +18,9 @@ public class LongToBinaryStringTest extends BaseTest {
 		if (!position) {
 			return;
 		}
-		
-		for (int i = 0; i < str.length(); i++) {
-			System.out.println(String.format("Right index %d, value %c", i + 1, str.charAt(i)));
+
+		for (int i = str.length(); i > 0; i--) {
+			System.out.println(String.format("Right offset %d, value %c", str.length() - i, str.charAt(i - 1)));
 		}
 	}
 
