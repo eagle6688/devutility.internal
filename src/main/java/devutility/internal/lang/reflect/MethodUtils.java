@@ -155,6 +155,7 @@ public class MethodUtils {
 	 * @throws IllegalAccessException
 	 * @throws InstantiationException
 	 */
+	@SuppressWarnings("deprecation")
 	public static Object invoke(Method method, Object... args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException {
 		if (isStatic(method)) {
 			return method.invoke(null, args);
