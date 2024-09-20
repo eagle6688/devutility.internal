@@ -1,5 +1,7 @@
 package devutility.internal.basic.lang.clazz;
 
+import java.lang.reflect.Method;
+
 import devutility.internal.model.Student;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
@@ -39,6 +41,17 @@ public class ClassTest extends BaseTest {
 		Object object = str;
 		Class<?> objectClass = object.getClass();
 		println(String.format("objectClass.getCanonicalName(): %s", objectClass.getCanonicalName()));
+
+		loadNonexistedClass();
+	}
+
+	private void loadNonexistedClass() {
+		try {
+			Class<?> clazz = Class.forName("lionlean.test", false, Method.class.getClassLoader());
+			System.out.println(clazz.getName());
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static void main(String[] args) {
